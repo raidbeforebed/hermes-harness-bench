@@ -1,0 +1,42 @@
+{
+  "budget_scale": 3.0,
+  "checks": [
+    {
+      "check": "summary.json exists",
+      "pass": true
+    },
+    {
+      "check": "all 12 months present",
+      "pass": true
+    },
+    {
+      "check": "per-month revenue correct",
+      "pass": true
+    },
+    {
+      "check": "rows_used correct per month",
+      "pass": true
+    },
+    {
+      "check": "skipped_rows correct",
+      "pass": true
+    },
+    {
+      "check": "top_region correct",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T13:54:54.936216+00:00",
+  "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
+  "passed": 6,
+  "score": 1.0,
+  "started": "2026-10-21T13:53:44.155758+00:00",
+  "task": "12-long-chain",
+  "tokens_in": 5411,
+  "tokens_out": 839,
+  "tool_calls": 6,
+  "total_checks": 6,
+  "turns": 8,
+  "wall_seconds": 70.7
+}

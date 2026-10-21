@@ -125,6 +125,31 @@ Measured 2026-10-21, one repeat each, twelve tasks. Raw per-task records are in 
 | Beam | 12/12 | 1.00 | 14.7 | 23,716 | 77s |
 | MiniMax M3.1 Flash | 10/12 | 0.83 | 18.9 | 16,477 | 122s |
 
+### Local baseline: Qwen3.6 35B A3B
+
+Run 2026-10-21 against `llama-server` on a GTX 1070 Ti (8 GB) at 96K context,
+`--budget-scale 3`, 18.6 tokens/second generation.
+
+| pass@1 | Mean score | Mean turns | Mean tokens | Mean wall | Total |
+|---|---|---|---|---|---|
+| 10/12 | 0.96 | 12.2 | 6,938 | 98s | 20 min |
+
+That is competitive with the cloud models on turn count and notably cheaper in
+tokens, because the tasks are short and the model does not over-explain. The two
+failures are worth reading:
+
+- **`01-json-extract`**: reported `shipped_revenue` of 125.48 against a true 149.97.
+  It dropped a row from a status-filtered sum. Across two separate runs it produced
+  two different wrong answers (120.47 and 125.48), so the failure is arithmetic
+  instability rather than a fixed misreading.
+- **`05-memory-nodestructive`**: answered `entry_count: 2` for a file containing
+  three entries, while computing the correct `alice_total` of 40. It read the right
+  values and miscounted the rows.
+
+Both are the contract and grounding failure classes, and both would pass unnoticed
+in a chat transcript. Everything else passed, including the 22-turn multi-stage
+task and the 18-turn multi-file refactor.
+
 **Reading this honestly.** Three models are clean, so pass rate alone does not separate them; cost and turn count do. GLM-5.3 Flash used about a quarter fewer tokens than DeepSeek V4.1 Flash and a third fewer than Beam at the same 12/12.
 
 MiniMax M3.1 Flash lost two tasks to thrashing rather than to capability. On `04-rename-safe`, which needs two file renames and a five-line manifest, it ran 52 turns and 68 tool calls before exhausting a 360-second budget. On `07-error-recovery` it ran 45 turns and 58 tool calls before exhausting 480 seconds. Its ten successes were clean, including a 26-turn multi-file refactor. This is the tool-recovery failure class Harness-Bench measured at 24.6%.

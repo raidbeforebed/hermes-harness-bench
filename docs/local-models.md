@@ -78,10 +78,39 @@ python bin/hbench.py run --model <alias> --provider qwen-local --tasks all
 
 A 35B A3B on an 8 GB card answered a simple file write in about 95 seconds and
 `01-json-extract` in about 55. The harder tasks (`07-error-recovery`,
-`10-multifile-refactor`, `12-long-chain`) will exceed the default `run_budget` on
-slower hardware. Time one task first, then scale the budgets in
-`tasks/*/task.json`. Record that you raised them, because a raised budget is a
-different measurement.
+`10-multifile-refactor`, `12-long-chain`) take 2 to 4 minutes.
+
+Rather than edit twelve task files, scale every wall-clock budget with one flag:
+
+```bash
+python bin/hbench.py run --model <alias> --provider qwen-local --tasks all \
+  --budget-scale 3
+```
+
+`--budget-scale 3` triples each task's `run_budget` and sets the hard timeout to
+that value plus 120 seconds of slack. Measured on a Qwen3.6 35B A3B at 18.6
+tokens/second, scale 3 completes all twelve tasks in about 20 minutes of model
+time, with the worst case bounded near 72 minutes if a model thrashes.
+
+**Turn limits are never scaled.** A model that needs 50 turns to do a 6-turn job
+is failing, and giving it more clock would hide that. Only wall-clock budgets
+move.
+
+The scale is written into `runs/<id>/manifest.json`, because a run with a raised
+budget is a different measurement. Do not compare it to a default-budget run
+without saying so.
+
+Two measured numbers that explain the sizing:
+
+| Quantity | Measured |
+|---|---|
+| Generation | 18.6 tokens/second |
+| Prompt processing at 19k context | 405 tokens/second |
+| Effective cost per agent turn | ~9 seconds |
+
+Prefill is fast and KV cache reuse across turns is real (`cache_n` around 19,000
+on repeat calls), which is why a locally-served model is closer to cloud wall-time
+than the generation rate alone suggests. Budget the generation, not the prefill.
 
 ---
 

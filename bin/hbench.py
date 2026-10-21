@@ -88,7 +88,19 @@ class Task:
     expect: list[str] = field(default_factory=list)
 
 
-def load_tasks(keys: list[str] | None) -> list[Task]:
+def load_tasks(keys: list[str] | None, budget_scale: float = 1.0) -> list[Task]:
+    """Load tasks, optionally scaling their wall-clock budgets.
+
+    A local model on consumer hardware generates at roughly 19 tokens/second, so a
+    task that finishes in 50 seconds on a cloud model can take 8 minutes. Rather
+    than maintain a forked task set for slow models, budgets are scaled at load
+    time. The scale is recorded in the run manifest, because a raised budget is a
+    different measurement and must not be silently compared to a default run.
+
+    Turn limits are deliberately NOT scaled. A model that needs more turns to
+    finish is a finding about the model, not about the hardware.
+    """
+    TIMEOUT_SLACK = 120  # hard timeout = scaled budget + slack for tools and grading
     tasks = []
     if not TASKS_DIR.is_dir():
         sys.exit(f"no tasks directory at {TASKS_DIR}")
@@ -120,8 +132,8 @@ def load_tasks(keys: list[str] | None) -> list[Task]:
             path=d,
             prompt=prompt,
             max_turns=int(spec.get("max_turns", 40)),
-            run_budget=int(spec.get("run_budget", 420)),
-            timeout=int(spec.get("timeout", 480)),
+            run_budget=int(spec.get("run_budget", 420) * budget_scale),
+            timeout=int(spec.get("run_budget", 420) * budget_scale + TIMEOUT_SLACK),
             judge=judge if judge.exists() else None,
             expect=spec.get("expect", []),
         ))
@@ -475,7 +487,7 @@ def cmd_list(_args) -> None:
 
 
 def cmd_run(args) -> None:
-    tasks = load_tasks(args.tasks)
+    tasks = load_tasks(args.tasks, budget_scale=args.budget_scale)
     if not tasks:
         sys.exit("nothing to run")
     models = args.model or [None]
@@ -485,6 +497,7 @@ def cmd_run(args) -> None:
 
     manifest = {
         "run_id": run_id,
+        "budget_scale": args.budget_scale,
         "models": models,
         "provider": args.provider,
         "tasks": [t.key for t in tasks],
@@ -616,6 +629,9 @@ def main() -> None:
     p_run.add_argument("--provider", help="provider name (e.g. ollama-cloud)")
     p_run.add_argument("--tasks", nargs="+", default=["all"])
     p_run.add_argument("--repeat", type=int, default=1)
+    p_run.add_argument("--budget-scale", type=float, default=1.0,
+                       help="multiply every task wall-clock budget. Use for slow local models. "
+                            "Turn limits are never scaled, so a model needing more turns still fails.")
     p_run.add_argument("--run-id")
     p_run.set_defaults(func=cmd_run)
 

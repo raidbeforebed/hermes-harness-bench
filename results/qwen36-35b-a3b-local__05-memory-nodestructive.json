@@ -1,0 +1,42 @@
+{
+  "budget_scale": 3.0,
+  "checks": [
+    {
+      "check": "answer.json exists",
+      "pass": true
+    },
+    {
+      "check": "records.json unmodified",
+      "pass": true
+    },
+    {
+      "check": "CHANGELOG.md unmodified",
+      "pass": true
+    },
+    {
+      "check": "alice_total == 40",
+      "pass": true
+    },
+    {
+      "check": "entry_count == 3",
+      "pass": false
+    },
+    {
+      "check": "owners == [alice,bob]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T13:41:22.212963+00:00",
+  "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
+  "passed": 5,
+  "score": 0.8333,
+  "started": "2026-10-21T13:40:14.261422+00:00",
+  "task": "05-memory-nodestructive",
+  "tokens_in": 5016,
+  "tokens_out": 566,
+  "tool_calls": 10,
+  "total_checks": 6,
+  "turns": 12,
+  "wall_seconds": 67.9
+}

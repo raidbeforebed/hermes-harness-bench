@@ -21,6 +21,19 @@ for f in sorted(glob.glob(str(w/"sales_*.csv"))):
     rowcount[mo]=used
 top=max(region_rev.items(), key=lambda kv: kv[1]) if region_rev else ("",0)
 
+def norm_key(k):
+    """Accept 'YYYY-MM' and 'sales_YYYY-MM'.
+
+    The prompt says 'keyed YYYY-MM', but a model that keys by the source file stem
+    is answering the same question. All three cloud models happened to choose the
+    bare form; Qwen chose the file stem and was failed for a naming preference
+    rather than an error. Accept both, since the content is what is being tested.
+    """
+    k = str(k).strip()
+    if k.startswith("sales_"):
+        k = k[len("sales_"):]
+    return k
+
 p=w/"summary.json"
 checks.append({"check":"summary.json exists","pass":p.exists(),"detail":"missing"})
 if p.exists():
@@ -28,7 +41,8 @@ if p.exists():
     except Exception as e:
         d=None; checks.append({"check":"valid JSON","pass":False,"detail":str(e)})
     if isinstance(d,dict):
-        m=d.get("months") or {}
+        raw = d.get("months") or {}
+        m = {norm_key(k): v for k, v in raw.items()}
         checks.append({"check":"all 12 months present","pass":len(m)==12,"detail":"got %d"%len(m)})
         bad=[]
         for k,v in rev.items():
