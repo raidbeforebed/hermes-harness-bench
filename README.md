@@ -101,6 +101,18 @@ The runner is standard library only; no third-party packages are needed for it.
 
 Results land in `runs/<run_id>/`, one directory per model per task, each with a `result.json`.
 
+### Testing local models
+
+Local models need the Ollama context window raised first. On a card under 24 GiB
+Ollama serves 4096 tokens by default, which is smaller than an agent system prompt,
+so every task fails before the model does any work. See
+[docs/local-models.md](docs/local-models.md) for the fix and for how to read local
+results honestly.
+
+```bash
+python bin/hbench.py run --model <tag> --provider local-ollama --tasks all
+```
+
 ## Results as published
 
 Measured 2026-10-21, one repeat each, twelve tasks. Raw per-task records are in `results/`.
