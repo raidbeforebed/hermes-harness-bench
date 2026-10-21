@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "check": "summary.json exists",
+      "pass": true
+    },
+    {
+      "check": "all 12 months present",
+      "pass": true
+    },
+    {
+      "check": "per-month revenue correct",
+      "pass": true
+    },
+    {
+      "check": "rows_used correct per month",
+      "pass": true
+    },
+    {
+      "check": "skipped_rows correct",
+      "pass": true
+    },
+    {
+      "check": "top_region correct",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T18:00:20.786453+00:00",
+  "model": "deepseek-v4.1-flash:1017",
+  "passed": 6,
+  "repeat": 2,
+  "score": 1.0,
+  "started": "2026-10-21T17:59:42.976624+00:00",
+  "task": "12-long-chain",
+  "tokens_in": 28185,
+  "tokens_out": 2437,
+  "tool_calls": 12,
+  "total_checks": 6,
+  "turns": 14,
+  "wall_seconds": 37.3
+}

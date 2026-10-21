@@ -1,0 +1,46 @@
+{
+  "checks": [
+    {
+      "check": "pipeline runs green",
+      "pass": true
+    },
+    {
+      "check": "build.py untouched (and credit requires a green run)",
+      "pass": true
+    },
+    {
+      "check": "clean.csv produced (requires green run)",
+      "pass": true
+    },
+    {
+      "check": "4 active rows survive",
+      "pass": true
+    },
+    {
+      "check": "only active rows",
+      "pass": true
+    },
+    {
+      "check": "qty is a bare integer",
+      "pass": true
+    },
+    {
+      "check": "ids are exactly 1,3,4,5",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T17:52:27.953207+00:00",
+  "model": "deepseek-v4.1-flash:1017",
+  "passed": 7,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-21T17:51:12.290708+00:00",
+  "task": "07-error-recovery",
+  "tokens_in": 54542,
+  "tokens_out": 9174,
+  "tool_calls": 30,
+  "total_checks": 7,
+  "turns": 32,
+  "wall_seconds": 75.6
+}

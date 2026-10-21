@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "check": "reconcile.json exists",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "pass": true
+    },
+    {
+      "check": "only_in_a == ['A-300']",
+      "pass": true
+    },
+    {
+      "check": "only_in_b == ['C-900']",
+      "pass": true
+    },
+    {
+      "check": "one mismatch only (A-200 4 vs 6)",
+      "pass": true
+    },
+    {
+      "check": "no invented SKUs",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T17:42:49.701170+00:00",
+  "model": "deepseek-v4.1-flash:1017",
+  "passed": 6,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-21T17:42:24.682370+00:00",
+  "task": "02-inventory-reconcile",
+  "tokens_in": 11656,
+  "tokens_out": 709,
+  "tool_calls": 6,
+  "total_checks": 6,
+  "turns": 8,
+  "wall_seconds": 25.0
+}

@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "check": "summary.json exists",
+      "pass": true
+    },
+    {
+      "check": "all 12 months present",
+      "pass": true
+    },
+    {
+      "check": "per-month revenue correct",
+      "pass": true
+    },
+    {
+      "check": "rows_used correct per month",
+      "pass": true
+    },
+    {
+      "check": "skipped_rows correct",
+      "pass": true
+    },
+    {
+      "check": "top_region correct",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T17:38:35.300350+00:00",
+  "model": "glm-5.3-flash:cloud",
+  "passed": 6,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-21T17:37:51.547777+00:00",
+  "task": "12-long-chain",
+  "tokens_in": 13021,
+  "tokens_out": 2363,
+  "tool_calls": 10,
+  "total_checks": 6,
+  "turns": 12,
+  "wall_seconds": 43.7
+}

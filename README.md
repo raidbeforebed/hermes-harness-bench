@@ -119,18 +119,51 @@ python bin/hbench.py run --model <alias> --provider qwen-local --tasks all
 Every model below was run on the same twelve tasks with the same graders. Raw
 per-task records are in `results/`, one file per task per repeat.
 
-| Model | pass@1 | Repeats | Mean score | Mean turns | Mean tokens | Mean wall |
-|---|---|---|---|---|---|---|
-| MiniMax M3.1 Flash | **36/36 (100%)** | 3 | 1.00 | 16.5 | 23,413 | 82 s |
-| Beam | **34/36 (94.4%)** | 3 | 0.94 | 13.5 | 18,790 | 64 s |
-| Qwen3.6 35B A3B (local) | **31/36 (86.1%)** | 3 | 0.95 | 12.3 | 7,218 | 106 s |
-| GLM-5.3 Flash | 12/12 | 1 | 1.00 | 9.8 | 15,720 | 66 s |
-| DeepSeek V4.1 Flash | 12/12 | 1 | 1.00 | 12.5 | 20,512 | 55 s |
+| Model | pass@1 | Mean turns | Mean tokens | Mean wall | Total |
+|---|---|---|---|---|---|
+| DeepSeek V4.1 Flash | **36/36 (100%)** | 11.9 | 24,275 | **34 s** | 21 min |
+| GLM-5.3 Flash | **36/36 (100%)** | **10.6** | **16,781** | 56 s | 34 min |
+| MiniMax M3.1 Flash | **36/36 (100%)** | 16.5 | 23,413 | 82 s | 49 min |
+| Beam | **34/36 (94.4%)** | 13.5 | 18,790 | 64 s | 39 min |
+| Qwen3.6 35B A3B (local) | **31/36 (86.1%)** | 12.3 | 7,218 | 106 s | 1.07 h |
 
-Three models have the full three-repeat set. The two single-run rows are
-placeholders and will move when they get the same treatment, in either direction.
-Do not rank a three-repeat score against a one-repeat score as though they were
-the same measurement.
+Every row is three repeats per task, 36 runs, same twelve tasks, same graders. Raw
+per-task records are in `results/`, one file per task per repeat.
+
+### Three of five models are perfect, so cost is the only differentiator
+
+Three cloud models passed all 36 runs with **zero variance on every individual task
+and zero timeouts**. When three models are perfect, pass rate tells you nothing and
+the useful question becomes what each one costs to be perfect:
+
+- **DeepSeek V4.1 Flash is the fastest**, at 34 seconds mean and 21 minutes for the
+  full suite. It is also the most token-hungry at 24,275, roughly 45 percent more than
+  GLM. Fast here means it takes more, shorter turns rather than fewer efficient ones.
+- **GLM-5.3 Flash is the most efficient**, at 10.6 turns and 16,781 tokens, a third
+  fewer tokens than DeepSeek and 28 percent fewer than MiniMax. It is 65 percent
+  slower in wall time, which on a cloud model costs little and on this suite does not
+  matter.
+- **MiniMax M3.1 Flash is perfect but expensive on both axes**: most turns, nearly
+  the most tokens, and the slowest at 82 seconds mean. Its `07-error-recovery` runs
+  averaged 370 seconds against 35 to 124 for everything else.
+
+If the question is which model to make the default, GLM-5.3 Flash is the answer: it
+ties on quality, uses the fewest tokens, and takes the fewest turns. DeepSeek wins
+only if wall-clock latency matters more than token spend.
+
+### Beam is 94.4%, not 100%
+
+Eleven tasks passed three times out of three. The single failure is
+`07-error-recovery`, and it is a budget story rather than a wrong answer:
+
+| Repeat | Result | What happened |
+|---|---|---|
+| r1 | 0.00 | hit the 540 s budget after 58 turns |
+| r2 | 0.00 | hit the 540 s budget after 18 turns, slow individual calls |
+| r3 | 1.00 | finished cleanly in 167 s, 35 turns |
+
+Beam thrashes on this task and sometimes does not converge. Its earlier single run
+scored 12/12, which was luck.
 
 ### MiniMax M3.1 Flash: 36/36, and why the earlier 10/12 was wrong
 
@@ -144,21 +177,6 @@ most reliable model in the set.
 
 It is also the slowest. It spends **370 seconds on average on `07-error-recovery`**
 while every other task costs 35 to 124 seconds. Reliable, not fast.
-
-### Beam: 94.4%, not 100%
-
-Eleven tasks passed three times out of three. The single failure is
-`07-error-recovery`, and it is a budget story rather than a wrong answer:
-
-| Repeat | Result | What happened |
-|---|---|---|
-| r1 | 0.00 | hit the 540 s budget after 58 turns |
-| r2 | 0.00 | hit the 540 s budget after 18 turns, slow individual calls |
-| r3 | 1.00 | finished cleanly in 167 s, 35 turns |
-
-Beam thrashes on this task and sometimes does not converge. Its token cost is also
-the highest of the cloud models, because it works hardest precisely where it
-struggles. The earlier single run scored 12/12, which was luck.
 
 ### Qwen3.6 35B A3B: 86.1% on a 2017 GPU
 
@@ -198,8 +216,14 @@ budget it would have been killed and misreported as a failure. That is why
 - **A budget artefact was caught.** Beam's failures are timeouts, not wrong answers,
   which points at a different remedy.
 
+- **The top of the table survived, the middle did not.** GLM and DeepSeek both came
+  out at 36/36, so their single-run 12/12 was real. MiniMax and Beam both moved. The
+  models you would have ranked by a single run are the ones most likely to have been
+  ranked wrongly, and you cannot predict which from the score.
+
 The asymmetry is the argument: a flaky model scored once looks either better or
-worse than it is, and the number alone never says which.
+worse than it is, and the number alone never says which. Three repeats cost roughly
+an hour per model and settled it.
 
 ## Limits
 
@@ -207,10 +231,10 @@ worse than it is, and the number alone never says which.
   unreliable well; it does not finely rank models that are all reliable.
 - The suite discriminates on **reliability under long-horizon work**, not on
   capability ceiling. Several tasks are clean for every model tested.
-- **A timeout is a failure, not a verdict on quality.** Beam's and MiniMax's failures
-  were budget exhaustions on a task where they thrash. On slower hardware, or with a
-  different budget, those numbers move. The budget is recorded in every run manifest
-  for this reason.
+- **A timeout is a failure, not a verdict on quality.** Every Beam failure was a
+  budget exhaustion on a task where it thrashes, not a wrong answer. On slower
+  hardware, or with a different budget, that number moves. The budget is recorded in
+  every run manifest for this reason.
 - Provider-specific settings (reasoning effort, thinking defaults, temperature) are
   not normalized. Pin them per model if a comparison must be exact.
 - Concurrent runs share one Hermes install. Relocating `HERMES_HOME` per run was tried

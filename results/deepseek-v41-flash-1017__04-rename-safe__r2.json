@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "check": "config.ini -> config.bak (content preserved)",
+      "pass": true
+    },
+    {
+      "check": "config.ini removed",
+      "pass": true
+    },
+    {
+      "check": "notes.txt -> notes.bak (content preserved)",
+      "pass": true
+    },
+    {
+      "check": "notes.txt removed",
+      "pass": true
+    },
+    {
+      "check": "README.md untouched",
+      "pass": true
+    },
+    {
+      "check": "MANIFEST.txt exact",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T17:45:14.829693+00:00",
+  "model": "deepseek-v4.1-flash:1017",
+  "passed": 6,
+  "repeat": 2,
+  "score": 1.0,
+  "started": "2026-10-21T17:44:49.895173+00:00",
+  "task": "04-rename-safe",
+  "tokens_in": 11226,
+  "tokens_out": 683,
+  "tool_calls": 4,
+  "total_checks": 6,
+  "turns": 6,
+  "wall_seconds": 24.9
+}

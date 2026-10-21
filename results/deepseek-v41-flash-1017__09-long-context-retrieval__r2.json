@@ -1,0 +1,38 @@
+{
+  "checks": [
+    {
+      "check": "log intact (3 codes)",
+      "pass": true
+    },
+    {
+      "check": "codes.json exists",
+      "pass": true
+    },
+    {
+      "check": "all three codes found",
+      "pass": true
+    },
+    {
+      "check": "count consistent",
+      "pass": true
+    },
+    {
+      "check": "no invented codes",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T17:54:54.802758+00:00",
+  "model": "deepseek-v4.1-flash:1017",
+  "passed": 5,
+  "repeat": 2,
+  "score": 1.0,
+  "started": "2026-10-21T17:54:27.212250+00:00",
+  "task": "09-long-context-retrieval",
+  "tokens_in": 23762,
+  "tokens_out": 1177,
+  "tool_calls": 8,
+  "total_checks": 5,
+  "turns": 10,
+  "wall_seconds": 27.6
+}

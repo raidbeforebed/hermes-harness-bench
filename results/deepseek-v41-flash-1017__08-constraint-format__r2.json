@@ -1,0 +1,50 @@
+{
+  "checks": [
+    {
+      "check": "format_check.txt exists",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "pass": true
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "pass": true
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T17:53:24.356529+00:00",
+  "model": "deepseek-v4.1-flash:1017",
+  "passed": 8,
+  "repeat": 2,
+  "score": 1.0,
+  "started": "2026-10-21T17:52:56.171437+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 13009,
+  "tokens_out": 2242,
+  "tool_calls": 2,
+  "total_checks": 8,
+  "turns": 4,
+  "wall_seconds": 28.1
+}

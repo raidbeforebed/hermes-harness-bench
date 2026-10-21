@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "check": "config.ini -> config.bak (content preserved)",
+      "pass": true
+    },
+    {
+      "check": "config.ini removed",
+      "pass": true
+    },
+    {
+      "check": "notes.txt -> notes.bak (content preserved)",
+      "pass": true
+    },
+    {
+      "check": "notes.txt removed",
+      "pass": true
+    },
+    {
+      "check": "README.md untouched",
+      "pass": true
+    },
+    {
+      "check": "MANIFEST.txt exact",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T17:11:52.599590+00:00",
+  "model": "glm-5.3-flash:cloud",
+  "passed": 6,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-21T17:11:21.610594+00:00",
+  "task": "04-rename-safe",
+  "tokens_in": 8677,
+  "tokens_out": 690,
+  "tool_calls": 6,
+  "total_checks": 6,
+  "turns": 8,
+  "wall_seconds": 30.9
+}

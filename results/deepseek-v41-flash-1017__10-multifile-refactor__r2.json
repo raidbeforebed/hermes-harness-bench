@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "check": "pytest suite passes",
+      "pass": true
+    },
+    {
+      "check": "test file untouched (requires green suite)",
+      "pass": true
+    },
+    {
+      "check": "report.py untouched (requires green suite)",
+      "pass": true
+    },
+    {
+      "check": "CHANGES.md exists",
+      "pass": true
+    },
+    {
+      "check": "three sections in order",
+      "pass": true
+    },
+    {
+      "check": "Verification quotes a pytest pass count",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T17:56:55.246316+00:00",
+  "model": "deepseek-v4.1-flash:1017",
+  "passed": 6,
+  "repeat": 2,
+  "score": 1.0,
+  "started": "2026-10-21T17:56:14.286420+00:00",
+  "task": "10-multifile-refactor",
+  "tokens_in": 39090,
+  "tokens_out": 2489,
+  "tool_calls": 28,
+  "total_checks": 6,
+  "turns": 25,
+  "wall_seconds": 40.7
+}

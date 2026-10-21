@@ -1,0 +1,46 @@
+{
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "pass": true
+    },
+    {
+      "check": "final problem_services correct",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T17:48:15.246301+00:00",
+  "model": "deepseek-v4.1-flash:1017",
+  "passed": 7,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-21T17:47:49.414926+00:00",
+  "task": "06-multiturn-continuity",
+  "tokens_in": 12267,
+  "tokens_out": 815,
+  "tool_calls": 4,
+  "total_checks": 7,
+  "turns": 6,
+  "wall_seconds": 25.8
+}
