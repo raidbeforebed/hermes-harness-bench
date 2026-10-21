@@ -27,16 +27,17 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-21T13:41:22.212963+00:00",
+  "finished": "2026-10-21T14:23:26.023271+00:00",
   "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
   "passed": 5,
+  "repeat": 3,
   "score": 0.8333,
-  "started": "2026-10-21T13:40:14.261422+00:00",
+  "started": "2026-10-21T14:22:38.942964+00:00",
   "task": "05-memory-nodestructive",
-  "tokens_in": 5016,
-  "tokens_out": 566,
-  "tool_calls": 10,
+  "tokens_in": 4382,
+  "tokens_out": 253,
+  "tool_calls": 6,
   "total_checks": 6,
-  "turns": 12,
-  "wall_seconds": 67.9
+  "turns": 8,
+  "wall_seconds": 47.0
 }

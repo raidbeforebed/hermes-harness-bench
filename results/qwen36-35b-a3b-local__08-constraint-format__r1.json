@@ -1,0 +1,51 @@
+{
+  "budget_scale": 3.0,
+  "checks": [
+    {
+      "check": "format_check.txt exists",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "pass": true
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "pass": true
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T14:43:35.565412+00:00",
+  "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
+  "passed": 8,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-21T14:41:00.445441+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 6937,
+  "tokens_out": 2675,
+  "tool_calls": 6,
+  "total_checks": 8,
+  "turns": 8,
+  "wall_seconds": 155.1
+}

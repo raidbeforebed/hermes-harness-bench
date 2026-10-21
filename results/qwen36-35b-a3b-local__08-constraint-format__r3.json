@@ -35,16 +35,17 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-21T13:49:54.878709+00:00",
+  "finished": "2026-10-21T14:53:51.711421+00:00",
   "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
   "passed": 8,
+  "repeat": 3,
   "score": 1.0,
-  "started": "2026-10-21T13:46:32.929544+00:00",
+  "started": "2026-10-21T14:49:43.906575+00:00",
   "task": "08-constraint-format",
-  "tokens_in": 5529,
-  "tokens_out": 3835,
-  "tool_calls": 12,
+  "tokens_in": 4735,
+  "tokens_out": 5234,
+  "tool_calls": 6,
   "total_checks": 8,
-  "turns": 14,
-  "wall_seconds": 201.9
+  "turns": 8,
+  "wall_seconds": 247.8
 }

@@ -1,0 +1,31 @@
+{
+  "budget_scale": 3.0,
+  "checks": [
+    {
+      "check": "pipeline runs green",
+      "pass": false
+    },
+    {
+      "check": "build.py untouched (and credit requires a green run)",
+      "pass": false
+    },
+    {
+      "check": "clean.csv produced (requires green run)",
+      "pass": false
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T14:31:30.038139+00:00",
+  "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
+  "passed": 0,
+  "repeat": 1,
+  "score": 0.0,
+  "started": "2026-10-21T14:29:23.987104+00:00",
+  "task": "07-error-recovery",
+  "tokens_in": 5290,
+  "tokens_out": 1349,
+  "tool_calls": 12,
+  "total_checks": 3,
+  "turns": 12,
+  "wall_seconds": 126.0
+}

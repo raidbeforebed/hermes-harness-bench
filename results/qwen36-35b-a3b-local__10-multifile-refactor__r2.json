@@ -1,0 +1,43 @@
+{
+  "budget_scale": 3.0,
+  "checks": [
+    {
+      "check": "pytest suite passes",
+      "pass": true
+    },
+    {
+      "check": "test file untouched (requires green suite)",
+      "pass": true
+    },
+    {
+      "check": "report.py untouched (requires green suite)",
+      "pass": true
+    },
+    {
+      "check": "CHANGES.md exists",
+      "pass": true
+    },
+    {
+      "check": "three sections in order",
+      "pass": true
+    },
+    {
+      "check": "Verification quotes a pytest pass count",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T15:00:41.953630+00:00",
+  "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
+  "passed": 6,
+  "repeat": 2,
+  "score": 1.0,
+  "started": "2026-10-21T14:58:41.085046+00:00",
+  "task": "10-multifile-refactor",
+  "tokens_in": 7959,
+  "tokens_out": 1622,
+  "tool_calls": 24,
+  "total_checks": 6,
+  "turns": 21,
+  "wall_seconds": 120.3
+}

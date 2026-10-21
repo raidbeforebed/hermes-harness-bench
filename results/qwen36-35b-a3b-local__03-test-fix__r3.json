@@ -15,16 +15,17 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-21T13:39:21.618442+00:00",
+  "finished": "2026-10-21T14:18:25.354722+00:00",
   "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
   "passed": 3,
+  "repeat": 3,
   "score": 1.0,
-  "started": "2026-10-21T13:37:56.102212+00:00",
+  "started": "2026-10-21T14:16:23.118015+00:00",
   "task": "03-test-fix",
-  "tokens_in": 6188,
-  "tokens_out": 763,
-  "tool_calls": 12,
+  "tokens_in": 5950,
+  "tokens_out": 1784,
+  "tool_calls": 16,
   "total_checks": 3,
-  "turns": 13,
-  "wall_seconds": 85.0
+  "turns": 17,
+  "wall_seconds": 121.9
 }

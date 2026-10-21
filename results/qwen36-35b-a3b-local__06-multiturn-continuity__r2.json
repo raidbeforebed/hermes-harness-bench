@@ -31,16 +31,17 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-21T13:44:00.876865+00:00",
+  "finished": "2026-10-21T14:27:18.936420+00:00",
   "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
   "passed": 7,
+  "repeat": 2,
   "score": 1.0,
-  "started": "2026-10-21T13:41:22.214907+00:00",
+  "started": "2026-10-21T14:25:07.377353+00:00",
   "task": "06-multiturn-continuity",
-  "tokens_in": 7770,
-  "tokens_out": 2567,
-  "tool_calls": 22,
+  "tokens_in": 7471,
+  "tokens_out": 2270,
+  "tool_calls": 16,
   "total_checks": 7,
-  "turns": 22,
-  "wall_seconds": 158.5
+  "turns": 16,
+  "wall_seconds": 131.5
 }

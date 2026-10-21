@@ -27,16 +27,17 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-21T13:37:56.100204+00:00",
+  "finished": "2026-10-21T14:12:54.856934+00:00",
   "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
   "passed": 6,
+  "repeat": 3,
   "score": 1.0,
-  "started": "2026-10-21T13:36:34.484472+00:00",
+  "started": "2026-10-21T14:11:57.288945+00:00",
   "task": "02-inventory-reconcile",
-  "tokens_in": 5853,
-  "tokens_out": 809,
-  "tool_calls": 16,
+  "tokens_in": 4202,
+  "tokens_out": 369,
+  "tool_calls": 2,
   "total_checks": 6,
-  "turns": 15,
-  "wall_seconds": 81.6
+  "turns": 4,
+  "wall_seconds": 57.5
 }

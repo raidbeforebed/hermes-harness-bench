@@ -27,16 +27,17 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-21T13:52:55.904732+00:00",
+  "finished": "2026-10-21T15:02:58.529618+00:00",
   "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
   "passed": 6,
+  "repeat": 3,
   "score": 1.0,
-  "started": "2026-10-21T13:51:02.889355+00:00",
+  "started": "2026-10-21T15:00:41.958116+00:00",
   "task": "10-multifile-refactor",
-  "tokens_in": 7798,
-  "tokens_out": 1414,
-  "tool_calls": 18,
+  "tokens_in": 9227,
+  "tokens_out": 1913,
+  "tool_calls": 24,
   "total_checks": 6,
-  "turns": 18,
-  "wall_seconds": 112.7
+  "turns": 22,
+  "wall_seconds": 136.2
 }

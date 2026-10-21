@@ -27,16 +27,17 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-21T13:40:14.260027+00:00",
+  "finished": "2026-10-21T14:20:05.479342+00:00",
   "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
   "passed": 6,
+  "repeat": 2,
   "score": 1.0,
-  "started": "2026-10-21T13:39:21.623052+00:00",
+  "started": "2026-10-21T14:19:16.054607+00:00",
   "task": "04-rename-safe",
-  "tokens_in": 4385,
-  "tokens_out": 340,
+  "tokens_in": 4258,
+  "tokens_out": 325,
   "tool_calls": 4,
   "total_checks": 6,
   "turns": 6,
-  "wall_seconds": 52.6
+  "wall_seconds": 49.4
 }

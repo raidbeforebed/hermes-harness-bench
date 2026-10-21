@@ -127,28 +127,49 @@ Measured 2026-10-21, one repeat each, twelve tasks. Raw per-task records are in 
 
 ### Local baseline: Qwen3.6 35B A3B
 
-Run 2026-10-21 against `llama-server` on a GTX 1070 Ti (8 GB) at 96K context,
-`--budget-scale 3`, 18.6 tokens/second generation.
+Run 2026-10-21, **three repeats per task** (36 runs), against `llama-server` on a
+GTX 1070 Ti with 8 GB of VRAM. Full hardware, launch flags and throughput in
+[reference-hardware.md](docs/reference-hardware.md).
 
 | pass@1 | Mean score | Mean turns | Mean tokens | Mean wall | Total |
 |---|---|---|---|---|---|
-| 10/12 | 0.96 | 12.2 | 6,938 | 98s | 20 min |
+| 31/36 (86.1%) | 0.95 | 12.3 | 7,218 | 106 s | 1.07 h |
 
-That is competitive with the cloud models on turn count and notably cheaper in
-tokens, because the tasks are short and the model does not over-explain. The two
-failures are worth reading:
+**This is more interesting than the single-run result, because three repeats
+separate variance from systematic failure.**
 
-- **`01-json-extract`**: reported `shipped_revenue` of 125.48 against a true 149.97.
-  It dropped a row from a status-filtered sum. Across two separate runs it produced
-  two different wrong answers (120.47 and 125.48), so the failure is arithmetic
-  instability rather than a fixed misreading.
-- **`05-memory-nodestructive`**: answered `entry_count: 2` for a file containing
-  three entries, while computing the correct `alice_total` of 40. It read the right
-  values and miscounted the rows.
+| Task | r1 | r2 | r3 | Reading |
+|---|---|---|---|---|
+| `01-json-extract` | 0.71 | 1.00 | 1.00 | **flaky**: arithmetic instability |
+| `07-error-recovery` | 0.00 | 1.00 | 1.00 | **flaky**: sometimes does not finish the repair |
+| `05-memory-nodestructive` | 0.83 | 0.83 | 0.83 | **deterministic failure**, same error every time |
+| the other nine | 1.00 | 1.00 | 1.00 | stable |
 
-Both are the contract and grounding failure classes, and both would pass unnoticed
-in a chat transcript. Everything else passed, including the 22-turn multi-stage
-task and the 18-turn multi-file refactor.
+Nine of twelve tasks passed every single time with zero variance. That is the
+headline: on this suite the model's behaviour is mostly predictable, and where it
+fails it fails either consistently or not at all, rather than randomly across the
+board.
+
+**`05-memory-nodestructive` is a systematic counting error.** In all three runs it
+answered `entry_count: 2` for a file containing three entries, while computing
+`alice_total: 40` correctly. It reads and sums the values right and then miscounts
+the rows, every time. That is the clearest single finding here: a 3B-active-parameter
+model is reliable at reading and transforming data and unreliable at counting it,
+and no amount of context or retries changes that.
+
+**`01-json-extract` is arithmetic instability.** Three runs produced 120.47, 125.48
+and a correct 149.97. Same task, same file, three different sums. The correct answer
+appears about a third of the time, so a single run either overstates or understates
+this model on that task.
+
+**`07-error-recovery` failed once by not doing the work.** In repeat 1 it wrote a
+`clean.csv` but never fixed the input file the pipeline actually validates, so the
+build stayed red. Repeats 2 and 3 diagnosed it correctly. This is the tool-recovery
+failure class: knowing the fix and not applying it.
+
+One run took **70 turns and 464 seconds** and still passed. Under an unscaled budget
+it would have been killed and misreported as a failure. That is the case for
+`--budget-scale` on slow hardware, and the case for not raising turn limits.
 
 **Reading this honestly.** Three models are clean, so pass rate alone does not separate them; cost and turn count do. GLM-5.3 Flash used about a quarter fewer tokens than DeepSeek V4.1 Flash and a third fewer than Beam at the same 12/12.
 

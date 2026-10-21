@@ -1,0 +1,43 @@
+{
+  "budget_scale": 3.0,
+  "checks": [
+    {
+      "check": "config.ini -> config.bak (content preserved)",
+      "pass": true
+    },
+    {
+      "check": "config.ini removed",
+      "pass": true
+    },
+    {
+      "check": "notes.txt -> notes.bak (content preserved)",
+      "pass": true
+    },
+    {
+      "check": "notes.txt removed",
+      "pass": true
+    },
+    {
+      "check": "README.md untouched",
+      "pass": true
+    },
+    {
+      "check": "MANIFEST.txt exact",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T14:20:56.102759+00:00",
+  "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
+  "passed": 6,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-21T14:20:05.480892+00:00",
+  "task": "04-rename-safe",
+  "tokens_in": 4267,
+  "tokens_out": 346,
+  "tool_calls": 4,
+  "total_checks": 6,
+  "turns": 6,
+  "wall_seconds": 50.6
+}

@@ -1,0 +1,47 @@
+{
+  "budget_scale": 3.0,
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "pass": true
+    },
+    {
+      "check": "final problem_services correct",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T14:25:07.376198+00:00",
+  "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
+  "passed": 7,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-21T14:23:26.026335+00:00",
+  "task": "06-multiturn-continuity",
+  "tokens_in": 6691,
+  "tokens_out": 1480,
+  "tool_calls": 12,
+  "total_checks": 7,
+  "turns": 12,
+  "wall_seconds": 101.3
+}

@@ -1,0 +1,39 @@
+{
+  "budget_scale": 3.0,
+  "checks": [
+    {
+      "check": "LOG_LEVEL changed to debug",
+      "pass": true
+    },
+    {
+      "check": "TIMEOUT changed to 60",
+      "pass": true
+    },
+    {
+      "check": "replicas stayed 2 (correction honoured)",
+      "pass": true
+    },
+    {
+      "check": "service and image untouched",
+      "pass": true
+    },
+    {
+      "check": "no comments added",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T15:03:48.362014+00:00",
+  "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
+  "passed": 5,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-21T15:02:58.531868+00:00",
+  "task": "11-correction-handling",
+  "tokens_in": 4709,
+  "tokens_out": 239,
+  "tool_calls": 6,
+  "total_checks": 5,
+  "turns": 8,
+  "wall_seconds": 49.8
+}
