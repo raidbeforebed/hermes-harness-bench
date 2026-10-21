@@ -139,6 +139,32 @@ Two columns, because they answer different questions:
   is the stability figure. A model can show a high runs-passed number while still
   having a task it fails a third of the time; the Beam row is that case.
 
+### At a glance
+
+![Reliability by model: runs passed and tasks stable across three repeats](assets/passes.svg)
+
+The solid bar is the share of 36 runs that passed. The faded bar is the share of the
+twelve tasks that passed on **every** attempt. A gap between them is the useful
+signal: Beam passes 34 of 36 runs yet has a task it fails a third of the time, and
+Qwen's gap is wider still.
+
+![Token cost per task by model](assets/tokens.svg)
+
+![Turns per task by model](assets/turns.svg)
+
+![Quality against token cost](assets/pareto.svg)
+
+The local model sits far left on token cost and lower on reliability, which is the
+trade-off it actually offers: roughly a third of the cloud models' tokens at about
+86 per cent of their reliability.
+
+Charts are generated from `results/` by `tools/make_charts.py`, so they cannot drift
+from the data. Re-run it after a benchmark:
+
+```bash
+python3 tools/make_charts.py
+```
+
 ### Three of five models are perfect, so cost is the only differentiator
 
 Three cloud models passed all 36 runs with **zero variance on every individual task

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="#0d1117"/>
+<text x="28" y="36" fill="#e6edf3" font-size="17" font-weight="600">Quality against token cost</text>
+<text x="28" y="58" fill="#7d8590" font-size="12">Upper left is best: reliable and cheap. The local model sits far left and lower, which is the trade-off it offers.</text>
+<line x1="128" y1="386.2" x2="804" y2="386.2" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="390.2" fill="#7d8590" font-size="11" text-anchor="end">85%</text>
+<line x1="128" y1="297.0" x2="804" y2="297.0" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="301.0" fill="#7d8590" font-size="11" text-anchor="end">90%</text>
+<line x1="128" y1="207.9" x2="804" y2="207.9" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="211.9" fill="#7d8590" font-size="11" text-anchor="end">95%</text>
+<line x1="128" y1="118.7" x2="804" y2="118.7" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="122.7" fill="#7d8590" font-size="11" text-anchor="end">100%</text>
+<line x1="128.0" y1="92" x2="128.0" y2="404" stroke="#161b22" stroke-width="1"/>
+<text x="128.0" y="426" fill="#7d8590" font-size="11" text-anchor="middle">0k</text>
+<line x1="252.3" y1="92" x2="252.3" y2="404" stroke="#161b22" stroke-width="1"/>
+<text x="252.3" y="426" fill="#7d8590" font-size="11" text-anchor="middle">5k</text>
+<line x1="376.6" y1="92" x2="376.6" y2="404" stroke="#161b22" stroke-width="1"/>
+<text x="376.6" y="426" fill="#7d8590" font-size="11" text-anchor="middle">10k</text>
+<line x1="501.0" y1="92" x2="501.0" y2="404" stroke="#161b22" stroke-width="1"/>
+<text x="501.0" y="426" fill="#7d8590" font-size="11" text-anchor="middle">15k</text>
+<line x1="625.3" y1="92" x2="625.3" y2="404" stroke="#161b22" stroke-width="1"/>
+<text x="625.3" y="426" fill="#7d8590" font-size="11" text-anchor="middle">20k</text>
+<line x1="749.6" y1="92" x2="749.6" y2="404" stroke="#161b22" stroke-width="1"/>
+<text x="749.6" y="426" fill="#7d8590" font-size="11" text-anchor="middle">25k</text>
+<text x="466" y="452" fill="#7d8590" font-size="12" text-anchor="middle">mean tokens per task</text>
+<text x="30" y="248" fill="#7d8590" font-size="12" text-anchor="middle" transform="rotate(-90 30 248)">share of runs passed</text>
+<circle cx="731.6" cy="118.7" r="7" fill="#4fd1a5" opacity="0.95"/>
+<text x="731.6" y="98.7" fill="#c9d1d9" font-size="11.5" text-anchor="end">DeepSeek V4.1 Flash</text>
+<circle cx="545.2" cy="118.7" r="7" fill="#7aa2f7" opacity="0.95"/>
+<text x="531.2" y="144.7" fill="#c9d1d9" font-size="11.5" text-anchor="end">GLM-5.3 Flash</text>
+<circle cx="710.1" cy="118.7" r="7" fill="#bb9af7" opacity="0.95"/>
+<text x="724.1" y="144.7" fill="#c9d1d9" font-size="11.5" text-anchor="end">MiniMax M3.1 Flash</text>
+<circle cx="622.7" cy="217.8" r="7" fill="#e0af68" opacity="0.95"/>
+<text x="622.7" y="197.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Beam</text>
+<circle cx="307.5" cy="366.4" r="7" fill="#f7768e" opacity="0.95"/>
+<text x="307.5" y="394.4" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Qwen3.6 35B (local)</text>
+</svg>
