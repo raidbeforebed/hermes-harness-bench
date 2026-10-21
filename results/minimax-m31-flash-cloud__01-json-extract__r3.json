@@ -1,0 +1,46 @@
+{
+  "checks": [
+    {
+      "check": "report.json exists",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "pass": true
+    },
+    {
+      "check": "required keys",
+      "pass": true
+    },
+    {
+      "check": "total_orders == 7",
+      "pass": true
+    },
+    {
+      "check": "all 4 customers present",
+      "pass": true
+    },
+    {
+      "check": "per-customer orders+revenue",
+      "pass": true
+    },
+    {
+      "check": "shipped_revenue == 149.97",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T16:05:00.353629+00:00",
+  "model": "minimax-m3.1-flash:cloud",
+  "passed": 7,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-21T16:04:16.032816+00:00",
+  "task": "01-json-extract",
+  "tokens_in": 11869,
+  "tokens_out": 1575,
+  "tool_calls": 12,
+  "total_checks": 7,
+  "turns": 13,
+  "wall_seconds": 44.3
+}

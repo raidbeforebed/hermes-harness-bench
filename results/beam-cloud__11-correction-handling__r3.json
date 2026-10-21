@@ -1,0 +1,38 @@
+{
+  "checks": [
+    {
+      "check": "LOG_LEVEL changed to debug",
+      "pass": true
+    },
+    {
+      "check": "TIMEOUT changed to 60",
+      "pass": true
+    },
+    {
+      "check": "replicas stayed 2 (correction honoured)",
+      "pass": true
+    },
+    {
+      "check": "service and image untouched",
+      "pass": true
+    },
+    {
+      "check": "no comments added",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T16:00:39.562292+00:00",
+  "model": "beam:cloud",
+  "passed": 5,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-21T16:00:11.206055+00:00",
+  "task": "11-correction-handling",
+  "tokens_in": 18134,
+  "tokens_out": 353,
+  "tool_calls": 10,
+  "total_checks": 5,
+  "turns": 10,
+  "wall_seconds": 28.3
+}

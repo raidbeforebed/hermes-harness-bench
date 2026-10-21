@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "check": "pytest suite passes",
+      "pass": true
+    },
+    {
+      "check": "test file untouched (requires green suite)",
+      "pass": true
+    },
+    {
+      "check": "report.py untouched (requires green suite)",
+      "pass": true
+    },
+    {
+      "check": "CHANGES.md exists",
+      "pass": true
+    },
+    {
+      "check": "three sections in order",
+      "pass": true
+    },
+    {
+      "check": "Verification quotes a pytest pass count",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T15:58:20.677892+00:00",
+  "model": "beam:cloud",
+  "passed": 6,
+  "repeat": 2,
+  "score": 1.0,
+  "started": "2026-10-21T15:57:42.438866+00:00",
+  "task": "10-multifile-refactor",
+  "tokens_in": 13622,
+  "tokens_out": 2313,
+  "tool_calls": 22,
+  "total_checks": 6,
+  "turns": 22,
+  "wall_seconds": 37.9
+}

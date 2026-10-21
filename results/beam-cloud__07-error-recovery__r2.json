@@ -1,0 +1,32 @@
+{
+  "checks": [
+    {
+      "check": "harness exited cleanly",
+      "pass": false
+    },
+    {
+      "check": "pipeline runs green",
+      "pass": false
+    },
+    {
+      "check": "build.py untouched (and credit requires a green run)",
+      "pass": false
+    },
+    {
+      "check": "clean.csv produced (requires green run)",
+      "pass": false
+    }
+  ],
+  "exit_code": -1,
+  "finished": "2026-10-21T15:50:42.015734+00:00",
+  "model": "beam:cloud",
+  "passed": 0,
+  "repeat": 2,
+  "score": 0.0,
+  "started": "2026-10-21T15:41:41.794868+00:00",
+  "task": "07-error-recovery",
+  "tool_calls": 17,
+  "total_checks": 4,
+  "turns": 18,
+  "wall_seconds": 540.1
+}

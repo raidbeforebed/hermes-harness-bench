@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "check": "summary.json exists",
+      "pass": true
+    },
+    {
+      "check": "all 12 months present",
+      "pass": true
+    },
+    {
+      "check": "per-month revenue correct",
+      "pass": true
+    },
+    {
+      "check": "rows_used correct per month",
+      "pass": true
+    },
+    {
+      "check": "skipped_rows correct",
+      "pass": true
+    },
+    {
+      "check": "top_region correct",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T16:02:27.044750+00:00",
+  "model": "beam:cloud",
+  "passed": 6,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-21T16:01:58.457457+00:00",
+  "task": "12-long-chain",
+  "tokens_in": 21068,
+  "tokens_out": 1235,
+  "tool_calls": 6,
+  "total_checks": 6,
+  "turns": 8,
+  "wall_seconds": 28.5
+}

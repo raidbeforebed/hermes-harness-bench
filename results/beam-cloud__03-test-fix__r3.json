@@ -1,0 +1,30 @@
+{
+  "checks": [
+    {
+      "check": "test file untouched",
+      "pass": true
+    },
+    {
+      "check": "slugify.py exists",
+      "pass": true
+    },
+    {
+      "check": "pytest suite passes",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T15:28:06.098835+00:00",
+  "model": "beam:cloud",
+  "passed": 3,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-21T15:27:33.959714+00:00",
+  "task": "03-test-fix",
+  "tokens_in": 11195,
+  "tokens_out": 1213,
+  "tool_calls": 14,
+  "total_checks": 3,
+  "turns": 15,
+  "wall_seconds": 31.8
+}

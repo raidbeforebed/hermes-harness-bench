@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "check": "reconcile.json exists",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "pass": true
+    },
+    {
+      "check": "only_in_a == ['A-300']",
+      "pass": true
+    },
+    {
+      "check": "only_in_b == ['C-900']",
+      "pass": true
+    },
+    {
+      "check": "one mismatch only (A-200 4 vs 6)",
+      "pass": true
+    },
+    {
+      "check": "no invented SKUs",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T15:25:25.736211+00:00",
+  "model": "beam:cloud",
+  "passed": 6,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-21T15:25:00.808826+00:00",
+  "task": "02-inventory-reconcile",
+  "tokens_in": 17812,
+  "tokens_out": 468,
+  "tool_calls": 4,
+  "total_checks": 6,
+  "turns": 6,
+  "wall_seconds": 24.9
+}

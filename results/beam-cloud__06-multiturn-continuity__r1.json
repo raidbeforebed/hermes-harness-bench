@@ -1,0 +1,46 @@
+{
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "pass": true
+    },
+    {
+      "check": "final problem_services correct",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T15:31:40.429258+00:00",
+  "model": "beam:cloud",
+  "passed": 7,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-21T15:31:01.828546+00:00",
+  "task": "06-multiturn-continuity",
+  "tokens_in": 11708,
+  "tokens_out": 947,
+  "tool_calls": 12,
+  "total_checks": 7,
+  "turns": 14,
+  "wall_seconds": 38.5
+}

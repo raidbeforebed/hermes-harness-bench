@@ -114,77 +114,108 @@ honestly, are covered in [docs/local-models.md](docs/local-models.md).
 # llama.cpp
 python bin/hbench.py run --model <alias> --provider qwen-local --tasks all
 ```
-
 ## Results as published
 
-Measured 2026-10-21, one repeat each, twelve tasks. Raw per-task records are in `results/`.
+Every model below was run on the same twelve tasks with the same graders. Raw
+per-task records are in `results/`, one file per task per repeat.
 
-| Model | pass@1 | Mean score | Mean turns | Mean tokens | Mean wall |
-|---|---|---|---|---|---|
-| GLM-5.3 Flash | 12/12 | 1.00 | 9.8 | 15,720 | 66s |
-| DeepSeek V4.1 Flash | 12/12 | 1.00 | 12.5 | 20,512 | 55s |
-| Beam | 12/12 | 1.00 | 14.7 | 23,716 | 77s |
-| MiniMax M3.1 Flash | 10/12 | 0.83 | 18.9 | 16,477 | 122s |
+| Model | pass@1 | Repeats | Mean score | Mean turns | Mean tokens | Mean wall |
+|---|---|---|---|---|---|---|
+| MiniMax M3.1 Flash | **36/36 (100%)** | 3 | 1.00 | 16.5 | 23,413 | 82 s |
+| Beam | **34/36 (94.4%)** | 3 | 0.94 | 13.5 | 18,790 | 64 s |
+| Qwen3.6 35B A3B (local) | **31/36 (86.1%)** | 3 | 0.95 | 12.3 | 7,218 | 106 s |
+| GLM-5.3 Flash | 12/12 | 1 | 1.00 | 9.8 | 15,720 | 66 s |
+| DeepSeek V4.1 Flash | 12/12 | 1 | 1.00 | 12.5 | 20,512 | 55 s |
 
-### Local baseline: Qwen3.6 35B A3B
+Three models have the full three-repeat set. The two single-run rows are
+placeholders and will move when they get the same treatment, in either direction.
+Do not rank a three-repeat score against a one-repeat score as though they were
+the same measurement.
 
-Run 2026-10-21, **three repeats per task** (36 runs), against `llama-server` on a
-GTX 1070 Ti with 8 GB of VRAM. Full hardware, launch flags and throughput in
-[reference-hardware.md](docs/reference-hardware.md).
+### MiniMax M3.1 Flash: 36/36, and why the earlier 10/12 was wrong
 
-- Model: [Qwen/Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B), Apache 2.0
-- GGUF: [unsloth/Qwen3.6-35B-A3B-GGUF](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF), file `Qwen3.6-35B-A3B-UD-Q4_K_M.gguf`
+Zero variance on every task, zero timeouts. That overturns the first published result
+of 10/12, and the correction matters more than the number.
 
-| pass@1 | Mean score | Mean turns | Mean tokens | Mean wall | Total |
-|---|---|---|---|---|---|
-| 31/36 (86.1%) | 0.95 | 12.3 | 7,218 | 106 s | 1.07 h |
+The earlier failures were **timeouts on a run with a misconfigured harness**, not
+model limits. With three clean repeats it never missed. Published once, that model
+would have been written off as unreliable on long-horizon work. It is instead the
+most reliable model in the set.
 
-**This is more interesting than the single-run result, because three repeats
-separate variance from systematic failure.**
+It is also the slowest. It spends **370 seconds on average on `07-error-recovery`**
+while every other task costs 35 to 124 seconds. Reliable, not fast.
+
+### Beam: 94.4%, not 100%
+
+Eleven tasks passed three times out of three. The single failure is
+`07-error-recovery`, and it is a budget story rather than a wrong answer:
+
+| Repeat | Result | What happened |
+|---|---|---|
+| r1 | 0.00 | hit the 540 s budget after 58 turns |
+| r2 | 0.00 | hit the 540 s budget after 18 turns, slow individual calls |
+| r3 | 1.00 | finished cleanly in 167 s, 35 turns |
+
+Beam thrashes on this task and sometimes does not converge. Its token cost is also
+the highest of the cloud models, because it works hardest precisely where it
+struggles. The earlier single run scored 12/12, which was luck.
+
+### Qwen3.6 35B A3B: 86.1% on a 2017 GPU
+
+Full hardware, launch flags and throughput: [reference-hardware.md](docs/reference-hardware.md).
+Model: [Qwen/Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B), GGUF from
+[unsloth](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF), `UD-Q4_K_M`, served by
+`llama-server` with `--n-cpu-moe` on an 8 GB card at 18.6 tokens/second.
 
 | Task | r1 | r2 | r3 | Reading |
 |---|---|---|---|---|
-| `01-json-extract` | 0.71 | 1.00 | 1.00 | **flaky**: arithmetic instability |
-| `07-error-recovery` | 0.00 | 1.00 | 1.00 | **flaky**: sometimes does not finish the repair |
-| `05-memory-nodestructive` | 0.83 | 0.83 | 0.83 | **deterministic failure**, same error every time |
-| the other nine | 1.00 | 1.00 | 1.00 | stable |
+| `01-json-extract` | 0.71 | 1.00 | 1.00 | **flaky**: three runs gave 120.47, 125.48, and a correct 149.97 |
+| `07-error-recovery` | 0.00 | 1.00 | 1.00 | **flaky**: once wrote the output without fixing the input the pipeline validates |
+| `05-memory-nodestructive` | 0.83 | 0.83 | 0.83 | **deterministic**: `entry_count: 2` for a three-entry file, every time |
+| the other nine | 1.00 | 1.00 | 1.00 | stable, zero variance |
 
-Nine of twelve tasks passed every single time with zero variance. That is the
-headline: on this suite the model's behaviour is mostly predictable, and where it
-fails it fails either consistently or not at all, rather than randomly across the
-board.
+Nine of twelve passed every time. The two kinds of failure are worth separating:
 
-**`05-memory-nodestructive` is a systematic counting error.** In all three runs it
-answered `entry_count: 2` for a file containing three entries, while computing
-`alice_total: 40` correctly. It reads and sums the values right and then miscounts
-the rows, every time. That is the clearest single finding here: a 3B-active-parameter
-model is reliable at reading and transforming data and unreliable at counting it,
-and no amount of context or retries changes that.
+**Task 05 is a systematic counting error.** It computes `alice_total: 40` correctly
+and then miscounts the rows, in all three runs. A 3B-active-parameter model is
+dependable at reading and transforming data and unreliable at counting it, and no
+amount of context or retrying changes that.
 
-**`01-json-extract` is arithmetic instability.** Three runs produced 120.47, 125.48
-and a correct 149.97. Same task, same file, three different sums. The correct answer
-appears about a third of the time, so a single run either overstates or understates
-this model on that task.
+**Task 01 is arithmetic instability.** Same file, three different sums, correct about
+one time in three, so any single run either overstates or understates it.
 
-**`07-error-recovery` failed once by not doing the work.** In repeat 1 it wrote a
-`clean.csv` but never fixed the input file the pipeline actually validates, so the
-build stayed red. Repeats 2 and 3 diagnosed it correctly. This is the tool-recovery
-failure class: knowing the fix and not applying it.
+One local run took **70 turns and 464 seconds** and still passed. Under the default
+budget it would have been killed and misreported as a failure. That is why
+`--budget-scale` exists, and why turn limits are deliberately not scaled with it.
 
-One run took **70 turns and 464 seconds** and still passed. Under an unscaled budget
-it would have been killed and misreported as a failure. That is the case for
-`--budget-scale` on slow hardware, and the case for not raising turn limits.
+### What three repeats actually bought
 
-**Reading this honestly.** Three models are clean, so pass rate alone does not separate them; cost and turn count do. GLM-5.3 Flash used about a quarter fewer tokens than DeepSeek V4.1 Flash and a third fewer than Beam at the same 12/12.
+- **A model was nearly written off wrongly.** MiniMax's 10/12 became 36/36.
+- **A lucky run was exposed.** Beam's 12/12 became 94.4%.
+- **Two failure types were separated.** On the local model, task 05 looked like a
+  one-off and turned out deterministic; task 01 looked deterministic and turned out
+  flaky. One run cannot tell those apart.
+- **A budget artefact was caught.** Beam's failures are timeouts, not wrong answers,
+  which points at a different remedy.
 
-MiniMax M3.1 Flash lost two tasks to thrashing rather than to capability. On `04-rename-safe`, which needs two file renames and a five-line manifest, it ran 52 turns and 68 tool calls before exhausting a 360-second budget. On `07-error-recovery` it ran 45 turns and 58 tool calls before exhausting 480 seconds. Its ten successes were clean, including a 26-turn multi-file refactor. This is the tool-recovery failure class Harness-Bench measured at 24.6%.
+The asymmetry is the argument: a flaky model scored once looks either better or
+worse than it is, and the number alone never says which.
 
 ## Limits
 
-- Twelve tasks at one repeat is a **screen, not a leaderboard**. Treat a single failure as a signal and rerun with `--repeat 3` before acting on it.
-- The suite discriminates on **reliability under long-horizon work**, not on capability ceiling. Six tasks were clean for every model.
-- Provider-specific settings (reasoning effort, thinking defaults, temperature) are not normalized here. Pin them per model if a comparison must be exact.
-- Concurrent runs share one Hermes install. Relocating `HERMES_HOME` per run was tried and abandoned: a cold home triggers Hermes' dependency bootstrap, which re-execs and loses its command line under contention.
+- Twelve tasks is a **screen, not a leaderboard**. It separates reliable from
+  unreliable well; it does not finely rank models that are all reliable.
+- The suite discriminates on **reliability under long-horizon work**, not on
+  capability ceiling. Several tasks are clean for every model tested.
+- **A timeout is a failure, not a verdict on quality.** Beam's and MiniMax's failures
+  were budget exhaustions on a task where they thrash. On slower hardware, or with a
+  different budget, those numbers move. The budget is recorded in every run manifest
+  for this reason.
+- Provider-specific settings (reasoning effort, thinking defaults, temperature) are
+  not normalized. Pin them per model if a comparison must be exact.
+- Concurrent runs share one Hermes install. Relocating `HERMES_HOME` per run was tried
+  and abandoned: a cold home triggers Hermes' dependency bootstrap, which re-execs and
+  loses its command line under contention.
 
 ## Adding a task
 

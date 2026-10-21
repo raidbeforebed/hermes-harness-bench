@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "check": "config.ini -> config.bak (content preserved)",
+      "pass": true
+    },
+    {
+      "check": "config.ini removed",
+      "pass": true
+    },
+    {
+      "check": "notes.txt -> notes.bak (content preserved)",
+      "pass": true
+    },
+    {
+      "check": "notes.txt removed",
+      "pass": true
+    },
+    {
+      "check": "README.md untouched",
+      "pass": true
+    },
+    {
+      "check": "MANIFEST.txt exact",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T16:09:53.319450+00:00",
+  "model": "minimax-m3.1-flash:cloud",
+  "passed": 6,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-21T16:09:10.063647+00:00",
+  "task": "04-rename-safe",
+  "tokens_in": 12028,
+  "tokens_out": 1987,
+  "tool_calls": 12,
+  "total_checks": 6,
+  "turns": 13,
+  "wall_seconds": 43.2
+}
