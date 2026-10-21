@@ -100,9 +100,13 @@ slow.
 
 Twelve tasks, `--budget-scale 3`:
 
-| pass@1 | Mean score | Mean turns | Mean tokens | Mean wall | Total |
-|---|---|---|---|---|---|
-| 10/12 | 0.96 | 12.2 | 6,938 | 98 s | 20 min |
+| Runs passed | Tasks 3/3 | Mean score | Mean turns | Mean tokens | Mean wall | Total |
+|---|---|---|---|---|---|---|
+| 31/36 (86.1%) | 9/12 | 0.95 | 12.3 | 7,218 | 106 s | 1.07 h |
+
+Read `Runs passed` as executions, not as a first-attempt probability: the twelve
+tasks were each attempted three times, so a model can pass 31 of 36 runs while
+having one task it never gets right. `Tasks 3/3` is the stability figure.
 
 For comparison, the same twelve tasks on cloud models took 55 to 122 seconds per
 task with no budget scaling at all. A 2017 GPU running a 4-bit 35B lands in the

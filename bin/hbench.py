@@ -536,21 +536,31 @@ def summarise(results: list[dict]) -> None:
     by_model: dict[str, list[dict]] = {}
     for r in results:
         by_model.setdefault(r.get("model") or "config-default", []).append(r)
-    print("\n" + "=" * 78)
-    print(f"{'model':42} {'pass@1':>8} {'score':>7} {'turns':>7} {'tokens':>10}")
-    print("=" * 78)
+    # "pass@1" would mean the probability of success on a single first attempt. What
+    # this table shows is a ratio over every execution, which at --repeat 3 is three
+    # attempts per task. Naming it pass@1 overstated what was measured, so the columns
+    # are labelled for what they actually count.
+    print("\n" + "=" * 92)
+    print(f"{'model':38} {'runs':>7} {'tasks 3/3':>10} {'score':>7} {'turns':>7} {'tokens':>9}")
+    print("=" * 92)
     for model, rs in by_model.items():
         n = len(rs)
         full = sum(1 for r in rs if r["score"] >= 1.0)
         mean_score = statistics.mean(r["score"] for r in rs)
         turns = [r["turns"] for r in rs if isinstance(r.get("turns"), int)]
         tok = [(r.get("tokens_in") or 0) + (r.get("tokens_out") or 0) for r in rs]
+        # how many tasks were perfect on every attempt
+        per_task: dict[str, list[dict]] = {}
+        for r in rs:
+            per_task.setdefault(r["task"], []).append(r)
+        stable = sum(1 for t, ts in per_task.items() if all(x["score"] >= 1.0 for x in ts))
         print(
-            f"{model[:42]:42} {full / n:8.1%} {mean_score:7.2f} "
+            f"{model[:38]:38} {f'{full}/{n}':>7} {f'{stable}/{len(per_task)}':>10} "
+            f"{mean_score:7.2f} "
             f"{(statistics.mean(turns) if turns else float('nan')):7.1f} "
-            f"{(statistics.mean(tok) if any(tok) else 0):10.0f}"
+            f"{(statistics.mean(tok) if any(tok) else 0):9.0f}"
         )
-    print("=" * 78)
+    print("=" * 92)
 
 
 def cmd_report(args) -> None:

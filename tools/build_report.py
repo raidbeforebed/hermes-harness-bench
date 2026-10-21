@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Collect every hbench run into one comparison, and emit a markdown report.
 
-Reads all runs under <repo>/runs, keeps only the newest complete
+Reads all runs under <repo>/runs, keeps the best complete run per model
 result per (model, task), and prints:
   - a headline table per model
   - a per-task score matrix
@@ -33,14 +33,22 @@ MODEL_LABEL = {
 }
 
 
-def load_latest() -> dict[tuple[str, str], dict]:
-    """Newest result per (model, task), preferring successful grades.
+def load_latest() -> tuple[dict[tuple[str, str], dict], dict[str, int]]:
+    """Pick the best COMPLETE run per model, never a mix of runs.
 
-    A 0.00 score caused by a harness timeout is kept, because that is a real
-    failure of the model. A 0.00 caused by a stale/garbled fixture is dropped
-    by requiring the run to have produced a result file at all.
+    Selecting the newest result per (model, task) was wrong: a 1-repeat run can beat
+    a 3-repeat run on one task and lose on another, so the table ended up stitched
+    from different runs and reported impossible figures (a model showing 12/12 when
+    its three-repeat run was 34/36, with averages blended across runs).
+
+    A run is chosen per model, preferring the one with the most repeats and then the
+    most complete set of tasks. Results from other runs for that model are ignored, so
+    every row in the table describes a single coherent measurement.
+
+    Returns (results keyed by (model, task, repeat-or-0), repeat counts per model).
     """
-    best: dict[tuple[str, str], dict] = {}
+    # group every result by its run_id, so runs can be compared as wholes
+    per_run: dict[str, list[dict]] = {}
     for f in glob.glob(str(RUNS / "**" / "result.json"), recursive=True):
         if "_corrupt" in f:
             continue
@@ -48,18 +56,31 @@ def load_latest() -> dict[tuple[str, str], dict]:
             d = json.loads(Path(f).read_text())
         except Exception:
             continue
-        # A timeout is a real result: the model ran out of budget. Keep it.
         # An argv/bootstrap failure is not a model result: the CLI never got the
-        # command. Drop only those, so a broken harness cannot skew a model's row.
+        # command. Drop only those. A timeout is a real result and is kept.
         err = d.get("stderr") or ""
         if "is not a `hermes` command" in err or "is not a 'hermes' command" in err:
             continue
-        model = d.get("model") or "config-default"
-        key = (model, d["task"])
-        prev = best.get(key)
-        if prev is None or (d.get("finished") or "") > (prev.get("finished") or ""):
-            best[key] = d
-    return best
+        per_run.setdefault(d.get("run_id") or "unknown", []).append(d)
+
+    # per model, choose the run with the most repeats, then the most tasks, then newest
+    chosen: dict[str, tuple[tuple, str]] = {}
+    for rid, rows in per_run.items():
+        model = rows[0].get("model") or "config-default"
+        repeats = max((r.get("repeat") or 1) for r in rows)
+        tasks = len({r["task"] for r in rows})
+        finished = max((r.get("finished") or "") for r in rows)
+        rank = (repeats, tasks, finished)
+        if model not in chosen or rank > chosen[model][0]:
+            chosen[model] = (rank, rid)
+
+    selected: dict[tuple[str, str, int], dict] = {}
+    repeats_by_model: dict[str, int] = {}
+    for model, (rank, rid) in chosen.items():
+        repeats_by_model[model] = rank[0]
+        for r in per_run[rid]:
+            selected[(model, r["task"], r.get("repeat") or 0)] = r
+    return selected, repeats_by_model
 
 
 def pct(n: int, d: int) -> str:
@@ -71,12 +92,13 @@ def main() -> None:
     ap.add_argument("--md", help="write markdown here")
     args = ap.parse_args()
 
-    best = load_latest()
+    best, repeats_by_model = load_latest()
     if not best:
         sys.exit("no results found")
 
-    models = sorted({m for m, _ in best}, key=lambda m: list(MODEL_LABEL).index(m) if m in MODEL_LABEL else 99)
-    tasks = sorted({t for _, t in best})
+    models = sorted({m for m, _, _ in best},
+                    key=lambda m: list(MODEL_LABEL).index(m) if m in MODEL_LABEL else 99)
+    tasks = sorted({t for _, t, _ in best})
 
     lines: list[str] = []
     W = lines.append
@@ -94,23 +116,32 @@ def main() -> None:
     # ---------- headline ----------
     W("## Headline")
     W("")
-    W("| Model | pass@1 | Mean score | Mean turns | Mean tokens | Mean wall |")
-    W("|---|---|---|---|---|---|")
+    W("| Model | Repeats | Runs passed | Tasks 3/3 | Mean score | Mean turns | Mean tokens | Mean wall |")
+    W("|---|---|---|---|---|---|---|---|")
     summary: dict[str, dict] = {}
     for m in models:
-        rs = [best[(mm, t)] for (mm, t) in best if mm == m]
+        rs = [r for (mm, _t, _rep), r in best.items() if mm == m]
         full = sum(1 for r in rs if r["score"] >= 1.0)
         turns = [r["turns"] for r in rs if isinstance(r.get("turns"), int)]
         toks = [(r.get("tokens_in") or 0) + (r.get("tokens_out") or 0) for r in rs]
         walls = [r["wall_seconds"] for r in rs if r.get("wall_seconds")]
+        per_task: dict[str, list[dict]] = {}
+        for r in rs:
+            per_task.setdefault(r["task"], []).append(r)
+        stable = sum(1 for t, ts in per_task.items() if all(x["score"] >= 1.0 for x in ts))
         summary[m] = {"n": len(rs), "full": full, "tokens": toks, "turns": turns}
         W(
-            f"| {MODEL_LABEL.get(m, m)} | {pct(full, len(rs))} "
+            f"| {MODEL_LABEL.get(m, m)} | {repeats_by_model.get(m, 1)} "
+            f"| {pct(full, len(rs))} "
+            f"| {stable}/{len(per_task)} "
             f"| {statistics.mean(r['score'] for r in rs):.2f} "
             f"| {(statistics.mean(turns) if turns else float('nan')):.1f} "
             f"| {int(statistics.mean(toks)) if any(toks) else 0:,} "
             f"| {int(statistics.mean(walls)) if walls else 0}s |"
         )
+    W("")
+    W("Runs passed counts every execution; Tasks 3/3 counts tasks that succeeded on "
+      "every attempt. A model can pass most runs and still have an unstable task.")
     W("")
 
     # ---------- matrix ----------
@@ -124,12 +155,15 @@ def main() -> None:
     for t in tasks:
         row = [f"| `{t}` "]
         for m in models:
-            r = best.get((m, t))
-            if not r:
+            reps = [best[(m, t, rp)] for (mm, tt, rp) in best if mm == m and tt == t]
+            if not reps:
                 row.append("| - ")
             else:
-                mark = "" if r["score"] >= 1.0 else " **FAIL**"
-                row.append(f"| {r['score']:.2f} ({r.get('turns')}t){mark} ")
+                worst = min(r["score"] for r in reps)
+                turns = [r.get("turns") for r in reps if isinstance(r.get("turns"), int)]
+                tmean = f"{statistics.mean(turns):.0f}t" if turns else "-"
+                mark = "" if worst >= 1.0 else " **FAIL**"
+                row.append(f"| {worst:.2f} ({tmean}, n={len(reps)}){mark} ")
         W("".join(row) + "|")
     W("")
 
@@ -139,7 +173,8 @@ def main() -> None:
     any_fail = False
     for m in models:
         for t in tasks:
-            r = best.get((m, t))
+            reps = [best[(m, t, rp)] for (mm, tt, rp) in best if mm == m and tt == t]
+            r = min(reps, key=lambda x: x["score"]) if reps else None
             if not r or r["score"] >= 1.0:
                 continue
             any_fail = True

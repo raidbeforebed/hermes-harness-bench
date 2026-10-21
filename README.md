@@ -119,16 +119,25 @@ python bin/hbench.py run --model <alias> --provider qwen-local --tasks all
 Every model below was run on the same twelve tasks with the same graders. Raw
 per-task records are in `results/`, one file per task per repeat.
 
-| Model | pass@1 | Mean turns | Mean tokens | Mean wall | Total |
-|---|---|---|---|---|---|
-| DeepSeek V4.1 Flash | **36/36 (100%)** | 11.9 | 24,275 | **34 s** | 21 min |
-| GLM-5.3 Flash | **36/36 (100%)** | **10.6** | **16,781** | 56 s | 34 min |
-| MiniMax M3.1 Flash | **36/36 (100%)** | 16.5 | 23,413 | 82 s | 49 min |
-| Beam | **34/36 (94.4%)** | 13.5 | 18,790 | 64 s | 39 min |
-| Qwen3.6 35B A3B (local) | **31/36 (86.1%)** | 12.3 | 7,218 | 106 s | 1.07 h |
+| Model | Runs passed | Tasks 3/3 | Mean turns | Mean tokens | Mean wall | Total |
+|---|---|---|---|---|---|---|
+| DeepSeek V4.1 Flash | **36/36 (100%)** | 12/12 | 11.9 | 24,275 | **34 s** | 21 min |
+| GLM-5.3 Flash | **36/36 (100%)** | 12/12 | **10.6** | **16,781** | 56 s | 34 min |
+| MiniMax M3.1 Flash | **36/36 (100%)** | 12/12 | 16.5 | 23,413 | 82 s | 49 min |
+| Beam | **34/36 (94.4%)** | 11/12 | 13.5 | 18,790 | 64 s | 39 min |
+| Qwen3.6 35B A3B (local) | **31/36 (86.1%)** | 9/12 | 12.3 | 7,218 | 106 s | 1.07 h |
 
-Every row is three repeats per task, 36 runs, same twelve tasks, same graders. Raw
-per-task records are in `results/`, one file per task per repeat.
+Every row is 36 runs: twelve tasks, each attempted three times. Same tasks, same
+graders. Raw per-task records are in `results/`, one file per task per repeat.
+
+Two columns, because they answer different questions:
+
+- **Runs passed** counts all 36 executions. It is not `pass@1` in the usual sense,
+  which would be a single first-attempt probability; this repository does not report
+  that, because one attempt per task is exactly what proved unreliable here.
+- **Tasks 3/3** counts how many of the twelve tasks succeeded on every attempt. That
+  is the stability figure. A model can show a high runs-passed number while still
+  having a task it fails a third of the time; the Beam row is that case.
 
 ### Three of five models are perfect, so cost is the only differentiator
 
