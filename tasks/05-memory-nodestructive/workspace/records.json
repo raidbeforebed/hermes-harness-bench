@@ -1,0 +1,19 @@
+{
+  "entries": [
+    {
+      "id": "e1",
+      "owner": "alice",
+      "value": 10
+    },
+    {
+      "id": "e2",
+      "owner": "bob",
+      "value": 20
+    },
+    {
+      "id": "e3",
+      "owner": "alice",
+      "value": 30
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+service: billing
+replicas: 2
+image: billing:1.4.0
+env:
+  LOG_LEVEL: info
+  TIMEOUT: 30

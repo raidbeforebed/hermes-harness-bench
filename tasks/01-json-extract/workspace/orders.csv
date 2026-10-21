@@ -1,0 +1,8 @@
+order_id,customer,item,qty,unit_price,status
+1001,Acme Corp,Widget A,3,19.99,shipped
+1002,Beta LLC,Widget B,1,45.00,pending
+1003,Acme Corp,Gadget C,2,7.50,shipped
+1004,Gamma Inc,Widget A,10,19.99,cancelled
+1005,Beta LLC,Gadget C,4,7.50,shipped
+1006,Acme Corp,Widget B,1,45.00,shipped
+1007,Delta Co,Widget A,2,19.99,pending

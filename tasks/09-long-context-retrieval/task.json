@@ -1,0 +1,5 @@
+{
+  "max_turns": 30,
+  "run_budget": 420,
+  "timeout": 480
+}

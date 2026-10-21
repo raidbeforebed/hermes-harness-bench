@@ -1,0 +1,46 @@
+{
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "pass": true
+    },
+    {
+      "check": "final problem_services correct",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T11:53:04.304914+00:00",
+  "model": "glm-5.3-flash:cloud",
+  "passed": 7,
+  "score": 1.0,
+  "started": "2026-10-21T11:52:17.793251+00:00",
+  "task": "06-multiturn-continuity",
+  "tokens_in": 11126,
+  "tokens_out": 3020,
+  "tokens_total": 68930,
+  "tool_calls": 4,
+  "total_checks": 7,
+  "turns": 6,
+  "wall_seconds": 46.5
+}

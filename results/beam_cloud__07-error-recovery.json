@@ -1,0 +1,46 @@
+{
+  "checks": [
+    {
+      "check": "pipeline runs green",
+      "pass": true
+    },
+    {
+      "check": "build.py untouched (and credit requires a green run)",
+      "pass": true
+    },
+    {
+      "check": "clean.csv produced (requires green run)",
+      "pass": true
+    },
+    {
+      "check": "4 active rows survive",
+      "pass": true
+    },
+    {
+      "check": "only active rows",
+      "pass": true
+    },
+    {
+      "check": "qty is a bare integer",
+      "pass": true
+    },
+    {
+      "check": "ids are exactly 1,3,4,5",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-21T11:59:56.844071+00:00",
+  "model": "beam:cloud",
+  "passed": 7,
+  "score": 1.0,
+  "started": "2026-10-21T11:57:07.070803+00:00",
+  "task": "07-error-recovery",
+  "tokens_in": 67393,
+  "tokens_out": 4965,
+  "tokens_total": 630822,
+  "tool_calls": 42,
+  "total_checks": 7,
+  "turns": 40,
+  "wall_seconds": 169.7
+}

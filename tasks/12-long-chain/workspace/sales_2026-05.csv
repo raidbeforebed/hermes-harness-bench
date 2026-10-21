@@ -1,0 +1,10 @@
+qty,region,unit_price,sku
+8,west,18.58,SKU-102
+9,east,13.84,SKU-102
+9,east,7.71,SKU-115
+5,east,18.15,SKU-113
+7,south,28.09,SKU-109
+7,west,15.46,SKU-106
+1,south,27.68,SKU-111
+3,east,32.21,SKU-106
+,north,12.00,SKU-999
