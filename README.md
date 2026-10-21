@@ -44,6 +44,7 @@ This project stands on published work. See [CREDITS.md](CREDITS.md) for the full
 - **Harness-Bench** (Yao et al., Peking University, arXiv [2605.27922](https://arxiv.org/abs/2605.27922), code at [Qihoo360/harness-bench](https://github.com/Qihoo360/harness-bench)) supplies the failure taxonomy and every percentage quoted above. No tasks or graders were taken from it.
 - **Bent-Solutions/hermes-bench** (MIT) supplies the idea for four tasks, from the category list in its section 15 roadmap. No code or content was taken; their grading model is string matching, this one asserts over the file tree.
 - **Nous Research, Hermes Agent** (MIT) is the harness being measured. The CLI flags this runner depends on are theirs.
+- **Qwen3.6 35B A3B** (Apache 2.0, Alibaba/Qwen) is the local model in the baseline. The GGUF build is [unsloth/Qwen3.6-35B-A3B-GGUF](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF), quantised with Unsloth Dynamic 2.0.
 - **verkyyi/hermesbench** (MIT) was consulted for comparison and shaped the decision about what this project should not try to be.
 
 ## Design decisions worth knowing
@@ -130,6 +131,9 @@ Measured 2026-10-21, one repeat each, twelve tasks. Raw per-task records are in 
 Run 2026-10-21, **three repeats per task** (36 runs), against `llama-server` on a
 GTX 1070 Ti with 8 GB of VRAM. Full hardware, launch flags and throughput in
 [reference-hardware.md](docs/reference-hardware.md).
+
+- Model: [Qwen/Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B), Apache 2.0
+- GGUF: [unsloth/Qwen3.6-35B-A3B-GGUF](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF), file `Qwen3.6-35B-A3B-UD-Q4_K_M.gguf`
 
 | pass@1 | Mean score | Mean turns | Mean tokens | Mean wall | Total |
 |---|---|---|---|---|---|

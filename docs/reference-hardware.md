@@ -36,15 +36,35 @@ That last row is the important one. **Most of this model is not on the GPU.**
 
 | Setting | Value |
 |---|---|
-| Model | Qwen3.6 35B A3B, Mixture of Experts, 3B active parameters |
-| File | `Qwen3.6-35B-A3B-UD-Q4_K_M.gguf` |
-| Quantisation | Q4_K_M, reported as `Q4_K - Medium` |
+| Model | [Qwen3.6 35B A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B), Mixture of Experts, 3B active parameters |
+| GGUF file | [Qwen3.6-35B-A3B-UD-Q4_K_M.gguf](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF/blob/main/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf) |
+| GGUF repo | [unsloth/Qwen3.6-35B-A3B-GGUF](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF), Apache 2.0 |
+| Quantisation | Q4_K_M, Unsloth Dynamic 2.0, reported as `Q4_K - Medium` |
 | Server | llama.cpp `b11669` (`build-next-20261020-v0.7.0`) |
 | Launch flags | `-ngl 99 --n-cpu-moe ...` |
 | Context | 98,304 tokens |
 | Parallel slots | 1 |
 | Sampling defaults | temperature 1.0, top-p 0.95, top-k 20, min-p 0.05 |
 | Authentication | bearer token on the server |
+
+**Model facts worth knowing before you pick a quant.** The model card reports 256
+experts, 8 routed plus 1 shared active per token, and a native context of 262,144
+tokens, extensible to about 1,010,000. It is trained with multi-step MTP
+(multi-token prediction), which is why the local directory is named
+`Qwen3.6-35B-A3B-MTP`; that is a model feature, not a separate release. The base
+weights are Apache 2.0.
+
+To reproduce this baseline exactly, download that one file:
+
+```bash
+huggingface-cli download unsloth/Qwen3.6-35B-A3B-GGUF \
+  Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --local-dir ./models
+```
+
+The same repository carries every quantisation from `UD-IQ1_M` up to
+`UD-Q8_K_XL`, including `UD-Q5_K_M` and `UD-Q6_K`, so testing whether a larger
+quant of this model beats a smaller quant of a bigger one is a download away on
+your own card.
 
 ### Why `--n-cpu-moe` matters more than the GPU does
 
