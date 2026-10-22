@@ -1,0 +1,53 @@
+{
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "detail": "missing/invalid",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "detail": "missing/invalid",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "detail": "missing/invalid",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "detail": "got 10",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "detail": "missing fields",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "final problem_services correct",
+      "detail": "ok",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-22T19:51:35.852746+00:00",
+  "model": "poolside/laguna-s-2.1:free",
+  "passed": 7,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-22T19:49:58.327548+00:00",
+  "task": "06-multiturn-continuity",
+  "tokens_in": 137816,
+  "tokens_out": 3374,
+  "tool_calls": 10,
+  "total_checks": 7,
+  "turns": 12,
+  "wall_seconds": 97.5
+}

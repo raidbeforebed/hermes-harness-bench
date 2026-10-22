@@ -117,19 +117,26 @@ python bin/hbench.py run --model <alias> --provider qwen-local --tasks all
 ## Results as published
 
 Every model below was run on the same twelve tasks with the same graders. Raw
-per-task records are in `results/`, one file per task per repeat.
+per-task records are in `results/`, one file per task per repeat. This table is
+generated from `results/` by `tools/publish.py`, so it cannot drift from the data.
 
-| Model | Runs passed | Tasks 3/3 | Mean turns | Mean tokens | Mean wall | Total |
-|---|---|---|---|---|---|---|
-| DeepSeek V4.1 Flash | **36/36 (100%)** | 12/12 | 11.9 | 24,275 | 34 s | 21 min |
-| GLM-5.3 Flash | **36/36 (100%)** | 12/12 | **10.6** | **16,781** | 56 s | 34 min |
-| MiniMax M3.1 Flash | **36/36 (100%)** | 12/12 | 16.5 | 23,413 | 82 s | 49 min |
-| Beam | **34/36 (94.4%)** | 11/12 | 13.5 | 18,790 | 64 s | 39 min |
-| Gemma 4 (cloud) | **32/36 (88.9%)** | 10/12 | 12.4 | 137,579 | **18 s** | **11 min** |
-| Qwen3.6 35B A3B (local) | **31/36 (86.1%)** | 9/12 | 12.3 | 7,218 | 106 s | 1.07 h |
+<!-- RESULTS:START -->
+| Model | Repeats | Runs passed | Tasks 3/3 | Mean turns | Mean tokens | Mean wall | Total |
+|---|---|---|---|---|---|---|---|
+| DeepSeek V4.1 Flash | 3 | **36/36 (100%)** | 12/12 | 11.9 | 24,275 | 34 s | 21 min |
+| GLM-5.3 Flash | 3 | **36/36 (100%)** | 12/12 | **10.6** | 16,781 | 56 s | 34 min |
+| MiniMax M3.1 Flash | 3 | **36/36 (100%)** | 12/12 | 16.5 | 23,413 | 82 s | 49 min |
+| Laguna S 2.1 (free) | 1 | **12/12 (100%)** | 12/12 | 19.4 | 241,814 | 162 s | 32 min |
+| Beam | 3 | 34/36 (94.4%) | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
+| Gemma 4 (cloud) | 3 | 32/36 (88.9%) | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
+| Qwen3.6 35B (local) | 3 | 31/36 (86.1%) | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
+<!-- RESULTS:END -->
 
-Every row is 36 runs: twelve tasks, each attempted three times. Same tasks, same
-graders. Raw per-task records are in `results/`, one file per task per repeat.
+Read the **Repeats** column before comparing rows. A one-repeat row is a screening
+measurement, not a stable figure: the same model scored 0.80 and then 1.00 across two
+single-repeat runs of different timeout, which is why the graded baseline is three
+repeats. Charts and this table are generated from `results/` by `tools/publish.py`, so
+they cannot drift from the data.
 
 Two columns, because they answer different questions:
 
