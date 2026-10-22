@@ -1,24 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="302" viewBox="0 0 760 302" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="336" viewBox="0 0 760 336" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
 <rect width="100%" height="100%" fill="#0d1117"/>
 <text x="28" y="36" fill="#e6edf3" font-size="17" font-weight="600">Token cost per task</text>
 <text x="28" y="58" fill="#7d8590" font-size="12">Mean tokens per task, over runs that reported usage. A timed-out run is killed before usage is emitted, so it is unknown rather than zero.</text>
-<line x1="327.5" y1="80" x2="327.5" y2="252" stroke="#21262d" stroke-width="1"/>
-<line x1="445.0" y1="80" x2="445.0" y2="252" stroke="#21262d" stroke-width="1"/>
-<line x1="562.5" y1="80" x2="562.5" y2="252" stroke="#21262d" stroke-width="1"/>
-<line x1="680.0" y1="80" x2="680.0" y2="252" stroke="#21262d" stroke-width="1"/>
+<line x1="327.5" y1="80" x2="327.5" y2="286" stroke="#21262d" stroke-width="1"/>
+<line x1="445.0" y1="80" x2="445.0" y2="286" stroke="#21262d" stroke-width="1"/>
+<line x1="562.5" y1="80" x2="562.5" y2="286" stroke="#21262d" stroke-width="1"/>
+<line x1="680.0" y1="80" x2="680.0" y2="286" stroke="#21262d" stroke-width="1"/>
 <text x="196" y="103" fill="#c9d1d9" font-size="13" text-anchor="end">Qwen3.6 35B (local)</text>
-<rect x="210" y="90" width="139.8" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
-<text x="359.8" y="104" fill="#e6edf3" font-size="12.5" font-weight="600">7,218</text>
+<rect x="210" y="90" width="24.7" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
+<text x="244.7" y="104" fill="#e6edf3" font-size="12.5" font-weight="600">7,218</text>
 <text x="196" y="137" fill="#c9d1d9" font-size="13" text-anchor="end">GLM-5.3 Flash</text>
-<rect x="210" y="124" width="324.9" height="20" rx="4" fill="#7aa2f7" opacity="0.85"/>
-<text x="544.9" y="138" fill="#e6edf3" font-size="12.5" font-weight="600">16,781</text>
+<rect x="210" y="124" width="57.3" height="20" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="277.3" y="138" fill="#e6edf3" font-size="12.5" font-weight="600">16,781</text>
 <text x="196" y="171" fill="#c9d1d9" font-size="13" text-anchor="end">Beam</text>
-<rect x="210" y="158" width="385.2" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
-<text x="605.2" y="172" fill="#e6edf3" font-size="12.5" font-weight="600">19,895  (from 34 of 36 runs)</text>
+<rect x="210" y="158" width="68.0" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
+<text x="288.0" y="172" fill="#e6edf3" font-size="12.5" font-weight="600">19,895  (from 34 of 36 runs)</text>
 <text x="196" y="205" fill="#c9d1d9" font-size="13" text-anchor="end">MiniMax M3.1 Flash</text>
-<rect x="210" y="192" width="453.3" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
-<text x="673.3" y="206" fill="#e6edf3" font-size="12.5" font-weight="600">23,413</text>
+<rect x="210" y="192" width="80.0" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="300.0" y="206" fill="#e6edf3" font-size="12.5" font-weight="600">23,413</text>
 <text x="196" y="239" fill="#c9d1d9" font-size="13" text-anchor="end">DeepSeek V4.1 Flash</text>
-<rect x="210" y="226" width="470.0" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
-<text x="690.0" y="240" fill="#e6edf3" font-size="12.5" font-weight="600">24,275</text>
+<rect x="210" y="226" width="82.9" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
+<text x="302.9" y="240" fill="#e6edf3" font-size="12.5" font-weight="600">24,275</text>
+<text x="196" y="273" fill="#c9d1d9" font-size="13" text-anchor="end">Gemma 4 (cloud)</text>
+<rect x="210" y="260" width="470.0" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="690.0" y="274" fill="#e6edf3" font-size="12.5" font-weight="600">137,578</text>
 </svg>

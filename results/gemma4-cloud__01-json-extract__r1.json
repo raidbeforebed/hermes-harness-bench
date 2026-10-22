@@ -1,0 +1,53 @@
+{
+  "checks": [
+    {
+      "check": "report.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "required keys",
+      "detail": "['by_customer', 'shipped_revenue', 'total_orders']",
+      "pass": true
+    },
+    {
+      "check": "total_orders == 7",
+      "detail": "7",
+      "pass": true
+    },
+    {
+      "check": "all 4 customers present",
+      "detail": "['Acme Corp', 'Beta LLC', 'Delta Co', 'Gamma Inc']",
+      "pass": true
+    },
+    {
+      "check": "per-customer orders+revenue",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "shipped_revenue == 149.97",
+      "detail": "149.97",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-22T12:12:25.252417+00:00",
+  "model": "gemma4:cloud",
+  "passed": 7,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-22T12:12:05.977024+00:00",
+  "task": "01-json-extract",
+  "tokens_in": 134637,
+  "tokens_out": 1303,
+  "tool_calls": 10,
+  "total_checks": 7,
+  "turns": 12,
+  "wall_seconds": 19.2
+}

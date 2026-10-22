@@ -1,0 +1,48 @@
+{
+  "checks": [
+    {
+      "check": "answer.json exists",
+      "detail": "missing",
+      "pass": true
+    },
+    {
+      "check": "records.json unmodified",
+      "detail": "records.json was modified",
+      "pass": true
+    },
+    {
+      "check": "CHANGELOG.md unmodified",
+      "detail": "CHANGELOG.md was modified",
+      "pass": true
+    },
+    {
+      "check": "alice_total == 40",
+      "detail": "40",
+      "pass": true
+    },
+    {
+      "check": "entry_count == 3",
+      "detail": "2",
+      "pass": false
+    },
+    {
+      "check": "owners == [alice,bob]",
+      "detail": "['alice', 'bob']",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-22T12:15:58.300094+00:00",
+  "model": "gemma4:cloud",
+  "passed": 5,
+  "repeat": 2,
+  "score": 0.8333,
+  "started": "2026-10-22T12:15:44.348875+00:00",
+  "task": "05-memory-nodestructive",
+  "tokens_in": 87128,
+  "tokens_out": 378,
+  "tool_calls": 6,
+  "total_checks": 6,
+  "turns": 8,
+  "wall_seconds": 13.9
+}

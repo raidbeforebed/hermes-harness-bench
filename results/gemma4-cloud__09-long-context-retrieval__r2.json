@@ -1,0 +1,43 @@
+{
+  "checks": [
+    {
+      "check": "log intact (3 codes)",
+      "detail": "no codes.json written",
+      "pass": true
+    },
+    {
+      "check": "codes.json exists",
+      "detail": "missing",
+      "pass": true
+    },
+    {
+      "check": "all three codes found",
+      "detail": "got ['RIDGE-3391', 'RIDGE-7714', 'RIDGE-8826'] want ['RIDGE-3391', 'RIDGE-7714', 'RIDGE-8826']",
+      "pass": true
+    },
+    {
+      "check": "count consistent",
+      "detail": "count=3 vs 3",
+      "pass": true
+    },
+    {
+      "check": "no invented codes",
+      "detail": "[]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-22T12:19:44.767962+00:00",
+  "model": "gemma4:cloud",
+  "passed": 5,
+  "repeat": 2,
+  "score": 1.0,
+  "started": "2026-10-22T12:19:31.469427+00:00",
+  "task": "09-long-context-retrieval",
+  "tokens_in": 86601,
+  "tokens_out": 327,
+  "tool_calls": 6,
+  "total_checks": 5,
+  "turns": 8,
+  "wall_seconds": 13.3
+}

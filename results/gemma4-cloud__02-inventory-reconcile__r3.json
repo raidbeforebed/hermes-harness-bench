@@ -1,0 +1,48 @@
+{
+  "checks": [
+    {
+      "check": "reconcile.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "only_in_a == ['A-300']",
+      "detail": "['A-300']",
+      "pass": true
+    },
+    {
+      "check": "only_in_b == ['C-900']",
+      "detail": "['C-900']",
+      "pass": true
+    },
+    {
+      "check": "one mismatch only (A-200 4 vs 6)",
+      "detail": "[{'sku': 'A-200', 'a': 4, 'b': 6}]",
+      "pass": true
+    },
+    {
+      "check": "no invented SKUs",
+      "detail": "[]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-22T12:13:58.881688+00:00",
+  "model": "gemma4:cloud",
+  "passed": 6,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-22T12:13:43.980835+00:00",
+  "task": "02-inventory-reconcile",
+  "tokens_in": 110752,
+  "tokens_out": 915,
+  "tool_calls": 10,
+  "total_checks": 6,
+  "turns": 11,
+  "wall_seconds": 14.9
+}

@@ -1,0 +1,48 @@
+{
+  "checks": [
+    {
+      "check": "config.ini -> config.bak (content preserved)",
+      "detail": "config.bak missing or content changed",
+      "pass": true
+    },
+    {
+      "check": "config.ini removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "notes.txt -> notes.bak (content preserved)",
+      "detail": "notes.bak missing or content changed",
+      "pass": true
+    },
+    {
+      "check": "notes.txt removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "README.md untouched",
+      "detail": "README.md missing or modified",
+      "pass": true
+    },
+    {
+      "check": "MANIFEST.txt exact",
+      "detail": "renamed: config.ini -> config.bak\nrenamed: notes.txt -> notes.bak\nunchanged: README.md\ntotal_before: 3\ntotal_after: 3",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-22T12:15:31.451880+00:00",
+  "model": "gemma4:cloud",
+  "passed": 6,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-22T12:15:19.544953+00:00",
+  "task": "04-rename-safe",
+  "tokens_in": 64900,
+  "tokens_out": 295,
+  "tool_calls": 6,
+  "total_checks": 6,
+  "turns": 7,
+  "wall_seconds": 11.9
+}

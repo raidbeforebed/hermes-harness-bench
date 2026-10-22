@@ -1,0 +1,58 @@
+{
+  "checks": [
+    {
+      "check": "format_check.txt exists",
+      "detail": "missing",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "detail": "5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "detail": "[]",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "detail": "5 of 5",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "detail": "['sort', 'cut', 'xargs', 'uniq', 'tr']",
+      "pass": true
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "detail": "38 chars",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "detail": "[6, 5, 17, 6, 4]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-22T12:19:17.987385+00:00",
+  "model": "gemma4:cloud",
+  "passed": 8,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-22T12:19:08.073305+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 43013,
+  "tokens_out": 58,
+  "tool_calls": 2,
+  "total_checks": 8,
+  "turns": 4,
+  "wall_seconds": 9.9
+}

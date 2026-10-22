@@ -24,7 +24,12 @@ import sys
 from pathlib import Path
 
 ROOT = Path(os.environ.get("HBENCH_ROOT") or Path(__file__).resolve().parent.parent)
-RUNS = ROOT / "runs"
+# The publish repo does not contain runs/ (it is gitignored), so fall back to the
+# working tree's runs/ when this repo has none. Without this the documented
+# command fails from the publish checkout, which is the only place it is run.
+RUNS = Path(os.environ["HBENCH_RUNS"]) if os.environ.get("HBENCH_RUNS") else ROOT / "runs"
+if not RUNS.is_dir():
+    RUNS = Path("/root/hermes-bench/runs")
 RESULTS = ROOT / "results"
 
 # Keys the published schema carries. `passed` and `total_checks` are derived from

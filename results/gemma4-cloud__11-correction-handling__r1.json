@@ -1,0 +1,49 @@
+{
+  "checks": [
+    {
+      "check": "LOG_LEVEL changed to debug",
+      "detail": [
+        "LOG_LEVEL: debug"
+      ],
+      "pass": true
+    },
+    {
+      "check": "TIMEOUT changed to 60",
+      "detail": [
+        "TIMEOUT: 60"
+      ],
+      "pass": true
+    },
+    {
+      "check": "replicas stayed 2 (correction honoured)",
+      "detail": [
+        "replicas: 2"
+      ],
+      "pass": true
+    },
+    {
+      "check": "service and image untouched",
+      "detail": "core key altered or edits not made",
+      "pass": true
+    },
+    {
+      "check": "no comments added",
+      "detail": "comment introduced or edits not made",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-22T12:21:23.284220+00:00",
+  "model": "gemma4:cloud",
+  "passed": 5,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-22T12:21:12.275719+00:00",
+  "task": "11-correction-handling",
+  "tokens_in": 64479,
+  "tokens_out": 110,
+  "tool_calls": 4,
+  "total_checks": 5,
+  "turns": 6,
+  "wall_seconds": 11.0
+}

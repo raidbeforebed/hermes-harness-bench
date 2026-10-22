@@ -1,0 +1,53 @@
+{
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "detail": "missing/invalid",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "detail": "missing/invalid",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "detail": "missing/invalid",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "detail": "got 10",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "detail": "missing fields",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "final problem_services correct",
+      "detail": "ok",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-22T12:17:52.070358+00:00",
+  "model": "gemma4:cloud",
+  "passed": 7,
+  "repeat": 3,
+  "score": 1.0,
+  "started": "2026-10-22T12:17:05.242866+00:00",
+  "task": "06-multiturn-continuity",
+  "tokens_in": 420937,
+  "tokens_out": 3672,
+  "tool_calls": 32,
+  "total_checks": 7,
+  "turns": 34,
+  "wall_seconds": 46.8
+}

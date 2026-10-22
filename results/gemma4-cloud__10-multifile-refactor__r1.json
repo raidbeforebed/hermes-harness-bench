@@ -1,0 +1,48 @@
+{
+  "checks": [
+    {
+      "check": "pytest suite passes",
+      "detail": ".....                                                                    [100%]\n5 passed in 0.01s\n",
+      "pass": true
+    },
+    {
+      "check": "test file untouched (requires green suite)",
+      "detail": "suite not green",
+      "pass": true
+    },
+    {
+      "check": "report.py untouched (requires green suite)",
+      "detail": "report.py modified",
+      "pass": true
+    },
+    {
+      "check": "CHANGES.md exists",
+      "detail": "missing",
+      "pass": true
+    },
+    {
+      "check": "three sections in order",
+      "detail": "section order wrong",
+      "pass": true
+    },
+    {
+      "check": "Verification quotes a pytest pass count",
+      "detail": "## Verification\n============================== 5 passed in 0.01s ===============================\n",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-22T12:20:20.712880+00:00",
+  "model": "gemma4:cloud",
+  "passed": 6,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-22T12:19:57.680614+00:00",
+  "task": "10-multifile-refactor",
+  "tokens_in": 203394,
+  "tokens_out": 716,
+  "tool_calls": 16,
+  "total_checks": 6,
+  "turns": 18,
+  "wall_seconds": 22.6
+}

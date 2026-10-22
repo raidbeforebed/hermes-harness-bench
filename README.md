@@ -121,10 +121,11 @@ per-task records are in `results/`, one file per task per repeat.
 
 | Model | Runs passed | Tasks 3/3 | Mean turns | Mean tokens | Mean wall | Total |
 |---|---|---|---|---|---|---|
-| DeepSeek V4.1 Flash | **36/36 (100%)** | 12/12 | 11.9 | 24,275 | **34 s** | 21 min |
+| DeepSeek V4.1 Flash | **36/36 (100%)** | 12/12 | 11.9 | 24,275 | 34 s | 21 min |
 | GLM-5.3 Flash | **36/36 (100%)** | 12/12 | **10.6** | **16,781** | 56 s | 34 min |
 | MiniMax M3.1 Flash | **36/36 (100%)** | 12/12 | 16.5 | 23,413 | 82 s | 49 min |
 | Beam | **34/36 (94.4%)** | 11/12 | 13.5 | 18,790 | 64 s | 39 min |
+| Gemma 4 (cloud) | **32/36 (88.9%)** | 10/12 | 12.4 | 137,579 | **18 s** | **11 min** |
 | Qwen3.6 35B A3B (local) | **31/36 (86.1%)** | 9/12 | 12.3 | 7,218 | 106 s | 1.07 h |
 
 Every row is 36 runs: twelve tasks, each attempted three times. Same tasks, same
@@ -165,15 +166,16 @@ from the data. Re-run it after a benchmark:
 python3 tools/make_charts.py
 ```
 
-### Three of five models are perfect, so cost is the only differentiator
+### Three of six models are perfect, so cost is the only differentiator
 
 Three cloud models passed all 36 runs with **zero variance on every individual task
 and zero timeouts**. When three models are perfect, pass rate tells you nothing and
 the useful question becomes what each one costs to be perfect:
 
-- **DeepSeek V4.1 Flash is the fastest**, at 34 seconds mean and 21 minutes for the
-  full suite. It is also the most token-hungry at 24,275, roughly 45 percent more than
-  GLM. Fast here means it takes more, shorter turns rather than fewer efficient ones.
+- **DeepSeek V4.1 Flash is the fastest of the three perfect models**, at 34 seconds mean
+  and 21 minutes for the full suite. It is also the most token-hungry of them at 24,275,
+  roughly 45 percent more than GLM. Fast here means it takes more, shorter turns rather
+  than fewer efficient ones.
 - **GLM-5.3 Flash is the most efficient**, at 10.6 turns and 16,781 tokens, a third
   fewer tokens than DeepSeek and 28 percent fewer than MiniMax. It is 65 percent
   slower in wall time, which on a cloud model costs little and on this suite does not
@@ -212,6 +214,46 @@ most reliable model in the set.
 
 It is also the slowest. It spends **370 seconds on average on `07-error-recovery`**
 while every other task costs 35 to 124 seconds. Reliable, not fast.
+
+### Gemma 4: the fastest model, and one ambiguous field it reads the same way every time
+
+32 of 36 runs, ten of twelve tasks stable, 0.982 mean score. It is the fastest model
+measured on this suite: **18 seconds mean and 11 minutes for the whole thing**, half of
+DeepSeek and a sixth of the local Qwen. Turns are unremarkable at 12.4, so the speed is
+per-call latency, not fewer steps.
+
+The token column is the outlier and needs reading carefully. It reports **137,579 mean,
+5.7 times DeepSeek**, which looks like a cost disaster and is not necessarily one: the
+figure is the harness's reported usage and it includes context re-sent on every turn. The
+session ledger shows a mean of 118,835 cached-input tokens per session against 12,659 fresh,
+so the number measures **context processed, not billed cost**. Whether that is expensive
+depends on the provider's cache pricing, which this suite does not model. Do not read the
+token column as a price column for this row.
+
+Both imperfect tasks are shown below, and only one of them is variance:
+
+| Task | Result | What happened |
+|---|---|---|
+| `05-memory-nodestructive` | 0.83 in all three repeats | answered `entry_count: 2` instead of 3, in every repeat |
+| `06-multiturn-continuity` | 0.86 in r1 only | one averaged duration off by 2 ms (97.4 vs 99.4), r2 and r3 clean |
+
+`05` is the interesting one: identical answer three times, so it is comprehension rather
+than luck. The task asks for `alice_total`, `entry_count` and `owners` from a three-entry
+file. Gemma returned the correct `alice_total` of 40 and the correct `owners` of
+`["alice","bob"]`, which proves it read all three entries, then reported `entry_count` as
+**2**, the count for the queried owner rather than the count of entries in the file. The
+field name is genuinely ambiguous; the grader is not, and the four leading models read it
+as 3.
+
+Qwen fails the same check and fails it differently: it omits `entry_count` altogether,
+where Gemma answers it wrongly. Both are 0.83 on all three repeats, and the two failure
+modes are only distinguishable by reading the check detail, which is why the field is worth
+naming rather than counting.
+
+That is the reason to prefer the two-column reporting over a single pass rate. A bare
+88.9% would not tell you the model is fast, correct on everything else, and reliably wrong
+in the same way on one specific ambiguity, which is a prompt-design problem it would hit
+every time rather than a reliability problem that averaging hides.
 
 ### Qwen3.6 35B A3B: 86.1% on a 2017 GPU
 
