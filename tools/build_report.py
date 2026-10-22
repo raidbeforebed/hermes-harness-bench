@@ -30,6 +30,7 @@ MODEL_LABEL = {
     "glm-5.3-flash:cloud": "GLM-5.3 Flash",
     "minimax-m3.1-flash:cloud": "MiniMax M3.1 Flash",
     "beam:cloud": "Beam",
+    "gemma4:cloud": "Gemma 4 (cloud)",
 }
 
 

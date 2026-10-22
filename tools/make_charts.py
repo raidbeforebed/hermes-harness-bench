@@ -40,6 +40,7 @@ LABEL = {
     "minimax-m3.1-flash:cloud": "MiniMax M3.1 Flash",
     "beam:cloud": "Beam",
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "Qwen3.6 35B (local)",
+    "gemma4:cloud": "Gemma 4 (cloud)",
 }
 COLOUR = {
     "deepseek-v4.1-flash:1017": "#4fd1a5",
@@ -47,6 +48,7 @@ COLOUR = {
     "minimax-m3.1-flash:cloud": "#bb9af7",
     "beam:cloud": "#e0af68",
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "#f7768e",
+    "gemma4:cloud": "#9ece6a",
 }
 ORDER = list(LABEL)
 
