@@ -41,6 +41,10 @@ LABEL = {
     "beam:cloud": "Beam",
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "Qwen3.6 35B (local)",
     "gemma4:cloud": "Gemma 4 (cloud)",
+    "poolside/laguna-s-2.1:free": "Laguna S 2.1 (free)",
+    "poolside/laguna-xs-2.1:free": "Laguna XS 2.1 (free)",
+    "poolside/laguna-s-2.1": "Laguna S 2.1",
+    "poolside/laguna-xs-2.1": "Laguna XS 2.1",
 }
 COLOUR = {
     "deepseek-v4.1-flash:1017": "#4fd1a5",
@@ -49,6 +53,10 @@ COLOUR = {
     "beam:cloud": "#e0af68",
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "#f7768e",
     "gemma4:cloud": "#9ece6a",
+    "poolside/laguna-s-2.1:free": "#2ac3de",
+    "poolside/laguna-xs-2.1:free": "#c0caf5",
+    "poolside/laguna-s-2.1": "#2ac3de",
+    "poolside/laguna-xs-2.1": "#c0caf5",
 }
 ORDER = list(LABEL)
 
