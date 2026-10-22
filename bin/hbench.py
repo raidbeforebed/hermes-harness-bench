@@ -150,6 +150,79 @@ def load_tasks(keys: list[str] | None, budget_scale: float = 1.0) -> list[Task]:
 # Isolation layer 1: HERMES_HOME
 # --------------------------------------------------------------------------
 
+# Benchmark session ids awaiting cleanup, flushed once at the end of a run.
+_PENDING_CLEANUP: list[str] = []
+
+
+def cleanup_benchmark_sessions(home: Path, ids: list[str]) -> int:
+    """Archive this run's benchmark sessions. Returns the rows touched.
+
+    Archiving, not deleting: ``sessions_runtime_ledger_delete_guard`` refuses to
+    delete a session with runtime history in ``session_admissions``, which every
+    gateway-routed child has. Deleting therefore removed nothing and swallowed the
+    error. ``source='tool'`` already hides these rows; ``archived=1`` is the
+    operation that works and costs one UPDATE instead of a delete cascade.
+
+    A short busy_timeout is deliberate: if the gateway is mid-write, leave the rows
+    for the next run rather than block the user's own writes.
+    """
+    if not ids:
+        return 0
+    db = home / "state.db"
+    if not db.exists():
+        return 0
+    touched = 0
+    try:
+        con = sqlite3.connect(str(db), timeout=2.0)
+        try:
+            con.execute("pragma busy_timeout=2000")
+            for sid in ids:
+                cur = con.execute(
+                    "update sessions set archived = 1 where id = ? and source = ?",
+                    (sid, EnvSandbox.SOURCE_TAG),
+                )
+                touched += cur.rowcount or 0
+            con.commit()
+        finally:
+            con.close()
+    except sqlite3.Error as exc:
+        print(f"  cleanup deferred, {len(ids)} benchmark session(s) left unarchived: {exc}",
+              file=sys.stderr)
+    return touched
+
+
+def install_fence() -> str | None:
+    """Why new ``hermes chat`` children would be refused, or None when clear.
+
+    While an update marker is held the gateway answers ``draining: update_paused``
+    and every child exits in about a second. Without this check a fenced install is
+    recorded as a full column of zeroes, which reads as a model result. Same failure
+    class as the ``--run-budget`` bug.
+    """
+    try:
+        agent_root = str(REAL_HOME / "hermes-agent")
+        if agent_root not in sys.path:
+            sys.path.insert(0, agent_root)
+        from hermes_cli import update_lock  # type: ignore
+    except Exception:
+        return None
+    try:
+        marker = REAL_HOME / update_lock.MARKER_NAME
+        if marker.exists():
+            raw = marker.read_bytes()
+            age = time.time() - marker.stat().st_mtime
+            verdict, pid, _ = update_lock.judge_marker(raw)
+            if raw and verdict in {"live", "ours"}:
+                return f"update marker held (pid {pid}, verdict {verdict})"
+            if not raw and age < update_lock.EMPTY_MARKER_GRACE_SECONDS:
+                return "an update is publishing its marker right now"
+        if update_lock.checkout_lock_held():
+            return "the checkout lock is held by another process"
+    except Exception:
+        return None
+    return None
+
+
 class EnvSandbox:
     """Isolation without relocating HERMES_HOME.
 
@@ -215,24 +288,17 @@ class EnvSandbox:
         return e
 
     def destroy(self) -> None:
-        """Delete this run's benchmark sessions from the live state.db."""
-        if not self.session_ids:
-            return
-        db = self.home / "state.db"
-        if not db.exists():
-            return
-        try:
-            con = sqlite3.connect(str(db), timeout=10)
-            for sid in self.session_ids:
-                con.execute(
-                    "delete from sessions where id = ? and source = ?",
-                    (sid, self.SOURCE_TAG),
-                )
-                con.execute("delete from messages where session_id = ?", (sid,))
-            con.commit()
-            con.close()
-        except sqlite3.Error:
-            pass
+        """Queue this run's benchmark sessions for end-of-run cleanup.
+
+        Deliberately does no database work. ``self.home`` is the LIVE home (see the
+        class docstring), so every cleanup is a write transaction against the
+        gateway's own state.db. Per-task cleanup meant one failing write transaction
+        after every task, competing with a live gateway for the lock: observed 20s
+        and then 60s of lock unavailability, a failed append_message and turn-lease
+        refresh, and a user's live session paused mid-turn with unknown_execution.
+        """
+        _PENDING_CLEANUP.extend(self.session_ids)
+        self.session_ids = []
 
 
 # --------------------------------------------------------------------------
@@ -328,7 +394,10 @@ def run_one(task: Task, model: str | None, provider: str | None,
         "--ignore-rules",            # no AGENTS.md / SOUL.md / memory injection
         "--ignore-user-config",      # ignore ~/.hermes/config.yaml defaults
         "--max-turns", str(task.max_turns),
-        "--run-budget", str(task.run_budget),
+        # --run-budget was removed from `hermes chat`: the classic/one-shot path is a
+        # gateway client now, and the flag landed in _UNSUPPORTED. Leaving it in made
+        # every task die in about 1.4s with exit=2 and a score of 0.00, which reads
+        # like a model result. The wall clock is this runner's own subprocess timeout.
         "--pass-session-id",
         "-q", task.prompt + "\n\n" + network_policy_note(),
     ]
@@ -487,6 +556,16 @@ def cmd_list(_args) -> None:
 
 
 def cmd_run(args) -> None:
+    fence = install_fence()
+    if fence:
+        sys.exit(
+            "refusing to run: the install is fenced, so every child would exit in about a\n"
+            f"second with 'Gateway draining: update_paused' ({fence}).\n"
+            "That produces a full column of zeroes that reads like a model result. Wait for\n"
+            "the update to finish, confirm with\n"
+            f"  ls -la {REAL_HOME / '.hermes-update-in-progress'}\n"
+            "and re-run."
+        )
     tasks = load_tasks(args.tasks, budget_scale=args.budget_scale)
     if not tasks:
         sys.exit("nothing to run")
@@ -527,6 +606,12 @@ def cmd_run(args) -> None:
                 )
 
     (run_dir / "results.json").write_text(json.dumps(results, indent=2))
+
+    # One bounded cleanup for the whole run, never per task (see EnvSandbox.destroy).
+    if _PENDING_CLEANUP:
+        touched = cleanup_benchmark_sessions(REAL_HOME, _PENDING_CLEANUP)
+        print(f"archived {touched} benchmark session(s) in state.db")
+        _PENDING_CLEANUP.clear()
     print(f"\nrun_id: {run_id}")
     print(f"results: {run_dir / 'results.json'}")
     summarise(results)
