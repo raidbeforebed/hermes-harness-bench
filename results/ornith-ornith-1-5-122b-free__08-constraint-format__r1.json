@@ -1,0 +1,58 @@
+{
+  "checks": [
+    {
+      "check": "format_check.txt exists",
+      "detail": "missing",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "detail": "5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "detail": "[]",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "detail": "5 of 5",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "detail": "['awk', 'cut', 'sort', 'tail', 'tr']",
+      "pass": true
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "detail": "111 chars",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "detail": "[21, 18, 36, 18, 18]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-23T02:41:32.475060+00:00",
+  "model": "ornith/ornith-1.5-122b:free",
+  "passed": 8,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-23T02:39:03.313157+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 171165,
+  "tokens_out": 4514,
+  "tool_calls": 12,
+  "total_checks": 8,
+  "turns": 14,
+  "wall_seconds": 149.1
+}

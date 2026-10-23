@@ -1,0 +1,53 @@
+{
+  "checks": [
+    {
+      "check": "pipeline runs green",
+      "detail": "build ok\n",
+      "pass": true
+    },
+    {
+      "check": "build.py untouched (and credit requires a green run)",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "clean.csv produced (requires green run)",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "4 active rows survive",
+      "detail": "4 rows",
+      "pass": true
+    },
+    {
+      "check": "only active rows",
+      "detail": "['active', 'active', 'active', 'active']",
+      "pass": true
+    },
+    {
+      "check": "qty is a bare integer",
+      "detail": "['12', '8', '3', '7']",
+      "pass": true
+    },
+    {
+      "check": "ids are exactly 1,3,4,5",
+      "detail": "['1', '3', '4', '5']",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-23T02:26:37.626270+00:00",
+  "model": "ornith/ornith-1.5-122b:free",
+  "passed": 7,
+  "repeat": 1,
+  "score": 1.0,
+  "started": "2026-10-23T02:18:20.412755+00:00",
+  "task": "07-error-recovery",
+  "tokens_in": 485610,
+  "tokens_out": 12275,
+  "tool_calls": 24,
+  "total_checks": 7,
+  "turns": 26,
+  "wall_seconds": 497.1
+}
