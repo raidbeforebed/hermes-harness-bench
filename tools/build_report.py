@@ -25,13 +25,12 @@ from pathlib import Path
 ROOT = Path(os.environ.get("HBENCH_ROOT") or Path(__file__).resolve().parent.parent)
 RUNS = ROOT / "runs"
 
-MODEL_LABEL = {
-    "deepseek-v4.1-flash:1017": "DeepSeek V4.1 Flash",
-    "glm-5.3-flash:cloud": "GLM-5.3 Flash",
-    "minimax-m3.1-flash:cloud": "MiniMax M3.1 Flash",
-    "beam:cloud": "Beam",
-    "gemma4:cloud": "Gemma 4 (cloud)",
-}
+# Display names are shared with the publisher and the charts. Three copies of this map
+# is how a model ends up with a name in one artifact and a raw provider id in another.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import model_registry as registry  # noqa: E402
+
+MODEL_LABEL = registry.LABEL
 
 
 def load_latest() -> tuple[dict[tuple[str, str], dict], dict[str, int]]:
@@ -48,8 +47,13 @@ def load_latest() -> tuple[dict[tuple[str, str], dict], dict[str, int]]:
 
     Returns (results keyed by (model, task, repeat-or-0), repeat counts per model).
     """
-    # group every result by its run_id, so runs can be compared as wholes
+    # group every result by its run DIRECTORY, so runs can be compared as wholes.
+    # Not by the record's own run_id: when a task is re-run on a clean machine and its
+    # records replace the originals, the replacements carry the new run's id, and
+    # grouping on that field splits one coherent 36-run measurement into a 27-row group
+    # and a 9-row group. The directory is the unit a person actually re-ran.
     per_run: dict[str, list[dict]] = {}
+    casualties: dict[str, int] = {}
     for f in glob.glob(str(RUNS / "**" / "result.json"), recursive=True):
         if "_corrupt" in f:
             continue
@@ -62,7 +66,21 @@ def load_latest() -> tuple[dict[tuple[str, str], dict], dict[str, int]]:
         err = d.get("stderr") or ""
         if "is not a `hermes` command" in err or "is not a 'hermes' command" in err:
             continue
-        per_run.setdefault(d.get("run_id") or "unknown", []).append(d)
+        try:
+            group = Path(f).relative_to(RUNS).parts[0]
+        except ValueError:
+            group = d.get("run_id") or "unknown"
+        per_run.setdefault(group, []).append(d)
+        # A gateway restart is not a model failure. Rows carrying it are casualties of the
+        # machine and are counted so the run can be excluded rather than misreported.
+        if ("runtime_draining" in err
+                or "runtime_draining" in (d.get("stream_error") or "")):
+            casualties[group] = casualties.get(group, 0) + 1
+
+    for group, n in sorted(casualties.items()):
+        print(f"skipping {group}: {n} rows are runtime_draining, not model results",
+              file=sys.stderr)
+        per_run.pop(group, None)
 
     # per model, choose the run with the most repeats, then the most tasks, then newest
     chosen: dict[str, tuple[tuple, str]] = {}
