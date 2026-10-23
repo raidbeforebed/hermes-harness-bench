@@ -59,9 +59,15 @@ This project stands on published work. See [CREDITS.md](CREDITS.md) for the full
 
 **Memory and user config injection are disabled** (`--ignore-rules --ignore-user-config`), so runs are comparable and personal memory does not leak into results.
 
-**Sessions are tagged and removed.** Runs use `--source tool`, which keeps them out of the user's session lists, and each session row is deleted after grading.
+**Sessions are tagged and archived.** Runs use `--source tool`, which keeps them out of
+the user's session lists, and the run's session rows are archived (`archived=1`) after
+grading. Deletion is refused by the session store's runtime ledger, so archiving is the
+operation that actually runs.
 
-**A hard ceiling per task.** `--max-turns` and `--run-budget` bound every run; exceeding them records a failure with exit code `-1`.
+**A hard ceiling per task.** `--max-turns` bounds the turns, and the runner's own
+subprocess timeout bounds the wall clock; exceeding either records a failure with exit
+code `-1`. The `--run-budget` flag was removed from the child command when `hermes chat`
+became a gateway client, so every record now carries `budget_mode: runner_timeout`.
 
 **No live network.** Task prompts state that all needed data is in the working directory, so a page changing cannot move a score.
 
@@ -152,7 +158,7 @@ Two columns, because they answer different questions:
   attempt per task is exactly what proved unreliable here.
 - **Tasks all-pass** counts how many of the twelve tasks succeeded on every attempt. That
   is the stability figure. A model can show a high runs-passed number while still
-  having a task it fails a third of the time; the Beam row is that case.
+  having a task it fails two-thirds of the time; the Beam row is that case.
 
 ### At a glance
 
@@ -162,7 +168,7 @@ The solid bar is the share of the runs each model attempted. The faded bar is th
 of the twelve tasks that passed on **every** attempt. Both are drawn as a proportion of
 their own denominator and both carry their counts, so a one-repeat screening row cannot
 be read as a graded one. A gap between the two bars is the useful signal: Beam passes 34
-of 36 runs yet has a task it fails a third of the time, and Qwen's gap is wider still.
+of 36 runs yet has a task it fails two-thirds of the time, and Qwen's gap is wider still.
 
 ![Token cost per task by model](assets/tokens.svg)
 
@@ -171,8 +177,8 @@ of 36 runs yet has a task it fails a third of the time, and Qwen's gap is wider 
 ![Quality against token cost](assets/pareto.svg)
 
 The local model sits far left on token cost and lower on reliability, which is the
-trade-off it actually offers: roughly a third of the cloud models' tokens at about
-86 per cent of their reliability.
+trade-off it actually offers: 7,218 tokens a task, under a third of DeepSeek's and well
+under half of GLM's, at about 86 per cent of their reliability.
 
 Ornith sits well to the right of the three paid models it ties with. It reaches 36/36 on
 146,497 tokens a task, six times DeepSeek's, and at 115 seconds mean it is the second
@@ -186,13 +192,14 @@ from the data. Re-run it after a benchmark:
 python3 tools/make_charts.py
 ```
 
-### Four of eight models are perfect, so cost is the only differentiator
+### Five of eight rows are perfect, so cost is the only differentiator
 
-Four models passed all 36 runs with **zero variance on every individual task and zero
-timeouts**. When four models are perfect, pass rate tells you nothing and the useful
-question becomes what each one costs to be perfect:
+Four models passed all **36 of 36** runs with zero variance on every individual task and
+zero timeouts, and a fifth, Laguna S 2.1, passed all 12 runs of its single-repeat
+screening pass. When five of the eight rows are perfect, pass rate tells you almost
+nothing and the useful question becomes what each one costs to be perfect:
 
-- **DeepSeek V4.1 Flash is the fastest of the four perfect models**, at 34 seconds mean
+- **DeepSeek V4.1 Flash is the fastest of the five perfect rows**, at 34 seconds mean
   and 21 minutes for the full suite. It is also the most token-hungry of the three paid
   ones at 24,275, roughly 45 percent more than GLM. Fast here means it takes more,
   shorter turns rather than fewer efficient ones.
@@ -262,11 +269,12 @@ of 10/12, and the correction matters more than the number.
 
 The earlier failures were **timeouts on a run with a misconfigured harness**, not
 model limits. With three clean repeats it never missed. Published once, that model
-would have been written off as unreliable on long-horizon work. It is instead the
-most reliable model in the set.
+would have been written off as unreliable on long-horizon work. It is instead one of
+the five perfect rows.
 
-It is also the slowest. It spends **370 seconds on average on `07-error-recovery`**
-while every other task costs 35 to 124 seconds. Reliable, not fast.
+It is also the slowest paid row, and the most expensive in turns. It spends **370
+seconds on average on `07-error-recovery`** while every other task costs 35 to 124
+seconds. Reliable, not fast.
 
 ### Gemma 4: the fastest model, and one ambiguous field it reads the same way every time
 
@@ -275,7 +283,7 @@ measured on this suite: **18 seconds mean and 11 minutes for the whole thing**, 
 DeepSeek and a sixth of the local Qwen. Turns are unremarkable at 12.4, so the speed is
 per-call latency, not fewer steps.
 
-The token column is the outlier and needs reading carefully. It reports **137,579 mean,
+The token column is the outlier and needs reading carefully. It reports **137,578 mean,
 5.7 times DeepSeek**, which looks like a cost disaster and is not necessarily one: the
 figure is the harness's reported usage and it includes context re-sent on every turn. The
 session ledger shows a mean of 118,835 cached-input tokens per session against 12,659 fresh,
@@ -298,10 +306,11 @@ file. Gemma returned the correct `alice_total` of 40 and the correct `owners` of
 field name is genuinely ambiguous; the grader is not, and the six models that pass this
 check all read it as 3.
 
-Qwen fails the same check and fails it differently: it omits `entry_count` altogether,
-where Gemma answers it wrongly. Both are 0.83 on all three repeats, and the two failure
-modes are only distinguishable by reading the check detail, which is why the field is worth
-naming rather than counting.
+Qwen fails the same check with the same answer: `entry_count: 2`, in all three of its
+repeats. Two different architectures, the same reading of an ambiguous field, which says
+more about the prompt than about either model. The two rows are only distinguishable at
+all by reading the check detail, which is why the field is worth naming rather than
+counting.
 
 That is the reason to prefer the two-column reporting over a single pass rate. A bare
 88.9% would not tell you the model is fast, correct on everything else, and reliably wrong

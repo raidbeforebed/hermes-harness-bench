@@ -135,6 +135,63 @@ def main() -> int:
     failures += 0 if ok else 1
     print(f"  {'ok  ' if ok else 'FAIL'} unregistered model is flagged: {unknown}")
 
+    # 5. PROSE: hand-written counts in the README must agree with results/
+    print("\nPROSE  count claims in the README must match the data they describe")
+    per: dict[str, list[dict]] = {}
+    for f in glob.glob(str(RESULTS / "*.json")):
+        d = json.loads(Path(f).read_text())
+        per.setdefault(d["model"], []).append(d)
+    perfect = sorted(m for m, rs in per.items() if all((r.get("score") or 0) == 1.0 for r in rs))
+    max_repeat = max((r.get("repeat") or 1) for rs in per.values() for r in rs)
+    graded = {m for m, rs in per.items() if max((r.get("repeat") or 1) for r in rs) >= max_repeat}
+    perfect_graded = [m for m in perfect if m in graded]
+    words = {w: i for i, w in enumerate(
+        "zero one two three four five six seven eight nine ten eleven twelve".split())}
+    words.update({str(i): i for i in range(0, 21)})
+    text = README.read_text()
+
+    patterns = [
+        (rf"\b(\w+) of (?:the )?(?:{'|'.join(w for w in words if not w.isdigit())}|\d+) "
+         rf"(?:models|rows) are perfect", len(perfect), "rows at 100%"),
+        (r"\b(\w+) models passed all \*{0,2}(\d+) of (\d+)\*{0,2} runs", len(perfect_graded),
+         f"models perfect over {max_repeat} runs"),
+        (r"\b(\w+) models passed all (\d+) runs", len(perfect_graded),
+         f"models perfect over {max_repeat} runs"),
+        (r"fastest of the (\w+) perfect", len(perfect), "perfect rows"),
+    ]
+    claim_reported = False
+    for pattern, want, desc in patterns:
+        for hit in re.finditer(pattern, text):
+            claim_reported = True
+            got = words.get(hit.group(1).lower())
+            ok = got == want
+            failures += 0 if ok else 1
+            print(f"  {'ok  ' if ok else 'FAIL'} \"{hit.group(0)}\" claims "
+                  f"{hit.group(1)} = {got}; data says {want} {desc}")
+    if not claim_reported:
+        failures += 1
+        print("  FAIL no count claim found in the README; the prose check cannot run")
+
+    # denominator: "N of the M rows are perfect" must also match the model count
+    for hit in re.finditer(r"(\w+) of (?:the )?(\w+) (?:models|rows) are perfect", text):
+        got = words.get(hit.group(2).lower())
+        ok = got == len(per)
+        failures += 0 if ok else 1
+        print(f"  {'ok  ' if ok else 'FAIL'} \"{hit.group(0)}\" denominator = {got}; "
+              f"data says {len(per)} models")
+
+    # a named per-model count in prose must match that model's record
+    beam = [m for m in per if "beam" in m.lower()]
+    if beam:
+        rs = per[beam[0]]
+        passed = sum(1 for r in rs if (r.get("score") or 0) == 1.0)
+        for hit in re.finditer(r"Beam passes (\d+)\s+of\s+(\d+)\s+runs", text):
+            n, d = int(hit.group(1)), int(hit.group(2))
+            ok = n == passed and d == len(rs)
+            failures += 0 if ok else 1
+            print(f"  {'ok  ' if ok else 'FAIL'} \"{hit.group(0)}\" vs data "
+                  f"{passed}/{len(rs)} for {registry.label(beam[0])}")
+
     print(f"\n{'PUBLISH SURFACES CONSISTENT' if failures == 0 else str(failures) + ' PUBLISH PROBLEMS'}")
     print("note: asserted both ways: every result reaches every surface, and a surface "
           "that drops one is caught.")
