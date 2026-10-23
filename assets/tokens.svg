@@ -1,30 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="370" viewBox="0 0 760 370" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="412" viewBox="0 0 760 412" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
 <rect width="100%" height="100%" fill="#0d1117"/>
 <text x="28" y="36" fill="#e6edf3" font-size="17" font-weight="600">Token cost per task</text>
-<text x="28" y="58" fill="#7d8590" font-size="12">Mean tokens per task, over runs that reported usage. A timed-out run is killed before usage is emitted, so it is unknown rather than zero.</text>
-<line x1="327.5" y1="80" x2="327.5" y2="320" stroke="#21262d" stroke-width="1"/>
-<line x1="445.0" y1="80" x2="445.0" y2="320" stroke="#21262d" stroke-width="1"/>
-<line x1="562.5" y1="80" x2="562.5" y2="320" stroke="#21262d" stroke-width="1"/>
-<line x1="680.0" y1="80" x2="680.0" y2="320" stroke="#21262d" stroke-width="1"/>
-<text x="196" y="103" fill="#c9d1d9" font-size="13" text-anchor="end">Qwen3.6 35B (local)</text>
-<rect x="210" y="90" width="14.0" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
-<text x="234.0" y="104" fill="#e6edf3" font-size="12.5" font-weight="600">7,218</text>
-<text x="196" y="137" fill="#c9d1d9" font-size="13" text-anchor="end">GLM-5.3 Flash</text>
-<rect x="210" y="124" width="32.6" height="20" rx="4" fill="#7aa2f7" opacity="0.85"/>
-<text x="252.6" y="138" fill="#e6edf3" font-size="12.5" font-weight="600">16,781</text>
-<text x="196" y="171" fill="#c9d1d9" font-size="13" text-anchor="end">Beam</text>
-<rect x="210" y="158" width="38.7" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
-<text x="258.7" y="172" fill="#e6edf3" font-size="12.5" font-weight="600">19,895  (from 34 of 36 runs)</text>
-<text x="196" y="205" fill="#c9d1d9" font-size="13" text-anchor="end">MiniMax M3.1 Flash</text>
-<rect x="210" y="192" width="45.5" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
-<text x="265.5" y="206" fill="#e6edf3" font-size="12.5" font-weight="600">23,413</text>
-<text x="196" y="239" fill="#c9d1d9" font-size="13" text-anchor="end">DeepSeek V4.1 Flash</text>
-<rect x="210" y="226" width="47.2" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
-<text x="267.2" y="240" fill="#e6edf3" font-size="12.5" font-weight="600">24,275</text>
-<text x="196" y="273" fill="#c9d1d9" font-size="13" text-anchor="end">Gemma 4 (cloud)</text>
-<rect x="210" y="260" width="267.4" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
-<text x="487.4" y="274" fill="#e6edf3" font-size="12.5" font-weight="600">137,578</text>
-<text x="196" y="307" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free)</text>
-<rect x="210" y="294" width="470.0" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
-<text x="690.0" y="308" fill="#e6edf3" font-size="12.5" font-weight="600">241,814</text>
+<text x="28" y="58" fill="#7d8590" font-size="12">Mean tokens per task, over runs that reported usage. A timed-out run is killed before usage is emitted, so it is</text>
+<text x="28" y="74" fill="#7d8590" font-size="12">unknown rather than zero.</text>
+<line x1="327.5" y1="88" x2="327.5" y2="362" stroke="#21262d" stroke-width="1"/>
+<line x1="445.0" y1="88" x2="445.0" y2="362" stroke="#21262d" stroke-width="1"/>
+<line x1="562.5" y1="88" x2="562.5" y2="362" stroke="#21262d" stroke-width="1"/>
+<line x1="680.0" y1="88" x2="680.0" y2="362" stroke="#21262d" stroke-width="1"/>
+<text x="196" y="111" fill="#c9d1d9" font-size="13" text-anchor="end">Qwen3.6 35B (local)</text>
+<rect x="210" y="98" width="14.0" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
+<text x="234.0" y="112" fill="#e6edf3" font-size="12.5" font-weight="600">7,218</text>
+<text x="196" y="145" fill="#c9d1d9" font-size="13" text-anchor="end">GLM-5.3 Flash</text>
+<rect x="210" y="132" width="32.6" height="20" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="252.6" y="146" fill="#e6edf3" font-size="12.5" font-weight="600">16,781</text>
+<text x="196" y="179" fill="#c9d1d9" font-size="13" text-anchor="end">Beam</text>
+<rect x="210" y="166" width="38.7" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
+<text x="258.7" y="180" fill="#e6edf3" font-size="12.5" font-weight="600">19,895  (from 34 of 36 runs)</text>
+<text x="196" y="213" fill="#c9d1d9" font-size="13" text-anchor="end">MiniMax M3.1 Flash</text>
+<rect x="210" y="200" width="45.5" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="265.5" y="214" fill="#e6edf3" font-size="12.5" font-weight="600">23,413</text>
+<text x="196" y="247" fill="#c9d1d9" font-size="13" text-anchor="end">DeepSeek V4.1 Flash</text>
+<rect x="210" y="234" width="47.2" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
+<text x="267.2" y="248" fill="#e6edf3" font-size="12.5" font-weight="600">24,275</text>
+<text x="196" y="281" fill="#c9d1d9" font-size="13" text-anchor="end">Gemma 4 (cloud)</text>
+<rect x="210" y="268" width="267.4" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="487.4" y="282" fill="#e6edf3" font-size="12.5" font-weight="600">137,578</text>
+<text x="196" y="315" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 122B (free)</text>
+<rect x="210" y="302" width="284.7" height="20" rx="4" fill="#7dcfff" opacity="0.85"/>
+<text x="504.7" y="316" fill="#e6edf3" font-size="12.5" font-weight="600">146,497</text>
+<text x="196" y="349" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free)</text>
+<rect x="210" y="336" width="470.0" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
+<text x="690.0" y="350" fill="#e6edf3" font-size="12.5" font-weight="600">241,814</text>
 </svg>

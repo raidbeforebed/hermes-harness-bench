@@ -55,6 +55,8 @@ This project stands on published work. See [CREDITS.md](CREDITS.md) for the full
 
 **Tasks are verified in both directions.** `tests/test_graders.py` asserts every grader scores 0 on an empty workspace and 1.00 on a reference solution. It has caught four real defects: checks that passed on a wiped directory, an arithmetic error in an expected value, a test suite that passed before any fix, and a hash comparison against a stale literal.
 
+**The published surfaces are checked against each other.** `tests/test_publish.py` asserts that every model in `results/` is named in every chart and in the results table, and it fails if a chart drops one. It exists because Ornith 1.5 122B published at 36/36 and appeared in none of the four charts: the table builder fell back to the raw model id while the chart builder filtered against its own hardcoded list. Nothing errored. A model that is published in one place and missing from another is worse than one that is missing from both.
+
 **Memory and user config injection are disabled** (`--ignore-rules --ignore-user-config`), so runs are comparable and personal memory does not leak into results.
 
 **Sessions are tagged and removed.** Runs use `--source tool`, which keeps them out of the user's session lists, and each session row is deleted after grading.
@@ -85,6 +87,9 @@ The runner is standard library only; no third-party packages are needed for it.
 
 # verify the graders before trusting any result
 .venv/bin/python tests/test_graders.py
+
+# verify that every published result reached every chart and the README table
+python3 tests/test_publish.py
 
 # run one model over the full suite
 .venv/bin/python bin/hbench.py run \
@@ -121,16 +126,16 @@ per-task records are in `results/`, one file per task per repeat. This table is
 generated from `results/` by `tools/publish.py`, so it cannot drift from the data.
 
 <!-- RESULTS:START -->
-| Model | Repeats | Runs passed | Tasks 3/3 | Mean turns | Mean tokens | Mean wall | Total |
+| Model | Repeats | Runs passed | Tasks all-pass | Mean turns | Mean tokens | Mean wall | Total |
 |---|---|---|---|---|---|---|---|
 | DeepSeek V4.1 Flash | 3 | **36/36 (100%)** | 12/12 | 11.9 | 24,275 | 34 s | 21 min |
 | GLM-5.3 Flash | 3 | **36/36 (100%)** | 12/12 | **10.6** | 16,781 | 56 s | 34 min |
 | MiniMax M3.1 Flash | 3 | **36/36 (100%)** | 12/12 | 16.5 | 23,413 | 82 s | 49 min |
+| Ornith 1.5 122B (free) | 3 | **36/36 (100%)** | 12/12 | 12.1 | 146,497 | 115 s | 69 min |
 | Laguna S 2.1 (free) | 1 | **12/12 (100%)** | 12/12 | 19.4 | 241,814 | 162 s | 32 min |
 | Beam | 3 | 34/36 (94.4%) | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
 | Gemma 4 (cloud) | 3 | 32/36 (88.9%) | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
 | Qwen3.6 35B (local) | 3 | 31/36 (86.1%) | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
-| ornith/ornith-1.5-122b:free | 3 | **36/36 (100%)** | 12/12 | 12.1 | 146,497 | 115 s | 69 min |
 <!-- RESULTS:END -->
 
 Read the **Repeats** column before comparing rows. A one-repeat row is a screening
@@ -141,21 +146,23 @@ they cannot drift from the data.
 
 Two columns, because they answer different questions:
 
-- **Runs passed** counts all 36 executions. It is not `pass@1` in the usual sense,
-  which would be a single first-attempt probability; this repository does not report
-  that, because one attempt per task is exactly what proved unreliable here.
-- **Tasks 3/3** counts how many of the twelve tasks succeeded on every attempt. That
+- **Runs passed** counts every execution the model attempted, 36 for a three-repeat row
+  and 12 for a screening row. It is not `pass@1` in the usual sense, which would be a
+  single first-attempt probability; this repository does not report that, because one
+  attempt per task is exactly what proved unreliable here.
+- **Tasks all-pass** counts how many of the twelve tasks succeeded on every attempt. That
   is the stability figure. A model can show a high runs-passed number while still
   having a task it fails a third of the time; the Beam row is that case.
 
 ### At a glance
 
-![Reliability by model: runs passed and tasks stable across three repeats](assets/passes.svg)
+![Reliability by model: runs passed and tasks stable for every model](assets/passes.svg)
 
-The solid bar is the share of 36 runs that passed. The faded bar is the share of the
-twelve tasks that passed on **every** attempt. A gap between them is the useful
-signal: Beam passes 34 of 36 runs yet has a task it fails a third of the time, and
-Qwen's gap is wider still.
+The solid bar is the share of the runs each model attempted. The faded bar is the share
+of the twelve tasks that passed on **every** attempt. Both are drawn as a proportion of
+their own denominator and both carry their counts, so a one-repeat screening row cannot
+be read as a graded one. A gap between the two bars is the useful signal: Beam passes 34
+of 36 runs yet has a task it fails a third of the time, and Qwen's gap is wider still.
 
 ![Token cost per task by model](assets/tokens.svg)
 
@@ -167,6 +174,11 @@ The local model sits far left on token cost and lower on reliability, which is t
 trade-off it actually offers: roughly a third of the cloud models' tokens at about
 86 per cent of their reliability.
 
+Ornith sits well to the right of the three paid models it ties with. It reaches 36/36 on
+146,497 tokens a task, six times DeepSeek's, and at 115 seconds mean it is the second
+slowest row in the table after Laguna S. What the chart cannot show is price: Ornith was
+free on the Nous Portal on the day it ran, so the tokens buy no dollars, only latency.
+
 Charts are generated from `results/` by `tools/make_charts.py`, so they cannot drift
 from the data. Re-run it after a benchmark:
 
@@ -174,27 +186,60 @@ from the data. Re-run it after a benchmark:
 python3 tools/make_charts.py
 ```
 
-### Three of six models are perfect, so cost is the only differentiator
+### Four of eight models are perfect, so cost is the only differentiator
 
-Three cloud models passed all 36 runs with **zero variance on every individual task
-and zero timeouts**. When three models are perfect, pass rate tells you nothing and
-the useful question becomes what each one costs to be perfect:
+Four models passed all 36 runs with **zero variance on every individual task and zero
+timeouts**. When four models are perfect, pass rate tells you nothing and the useful
+question becomes what each one costs to be perfect:
 
-- **DeepSeek V4.1 Flash is the fastest of the three perfect models**, at 34 seconds mean
-  and 21 minutes for the full suite. It is also the most token-hungry of them at 24,275,
-  roughly 45 percent more than GLM. Fast here means it takes more, shorter turns rather
-  than fewer efficient ones.
+- **DeepSeek V4.1 Flash is the fastest of the four perfect models**, at 34 seconds mean
+  and 21 minutes for the full suite. It is also the most token-hungry of the three paid
+  ones at 24,275, roughly 45 percent more than GLM. Fast here means it takes more,
+  shorter turns rather than fewer efficient ones.
 - **GLM-5.3 Flash is the most efficient**, at 10.6 turns and 16,781 tokens, a third
   fewer tokens than DeepSeek and 28 percent fewer than MiniMax. It is 65 percent
   slower in wall time, which on a cloud model costs little and on this suite does not
   matter.
 - **MiniMax M3.1 Flash is perfect but expensive on both axes**: most turns, nearly
-  the most tokens, and the slowest at 82 seconds mean. Its `07-error-recovery` runs
-  averaged 370 seconds against 35 to 124 for everything else.
+  the most tokens, and the slowest paid model at 82 seconds mean. Its
+  `07-error-recovery` runs averaged 370 seconds against 35 to 124 for everything else.
+- **Ornith 1.5 122B costs no money and the most tokens**: free on the Nous Portal,
+  perfect on all 36 runs, and 146,497 tokens a task, six times DeepSeek's and more than
+  any other model graded three times. Its 115 second mean is the price of that spend, not
+  of the model being weak.
 
-If the question is which model to make the default, GLM-5.3 Flash is the answer: it
-ties on quality, uses the fewest tokens, and takes the fewest turns. DeepSeek wins
-only if wall-clock latency matters more than token spend.
+If the question is which model to make the default, GLM-5.3 Flash is the answer on a
+paid account: it ties on quality, uses the fewest tokens, and takes the fewest turns.
+DeepSeek wins only if wall-clock latency matters more than token spend, and Ornith wins
+only while it stays free and the queue does not.
+
+### Ornith 1.5 122B: free, perfect, and the most token-hungry row that does it
+
+36 of 36 runs, twelve of twelve tasks stable, zero failed checks out of 216, at 12.1 turns
+and 115 seconds mean. On this suite a 122B model served free through the Nous Portal
+matched the three paid models exactly. Laguna S was free and perfect too, but on a single
+pass, so Ornith is the first free row here to hold up across three repeats.
+
+It is also the least efficient way to be perfect. 146,497 tokens a task is six times
+DeepSeek and 8.7 times GLM, and most of it goes on one task: `07-error-recovery` averages
+**414 seconds and 408,608 tokens** across its three runs. Every model finds that task the
+expensive one, and Ornith pays it in the currency it has, which is tokens rather than
+dollars. Its `06-multiturn-continuity` and `01-json-extract` runs also sit above 140,000
+tokens, against 64,000 for `11-correction-handling`, so the spread is task-driven rather
+than a fixed per-call overhead.
+
+**One correction is recorded in the history.** Nine of the 36 runs overlapped a runaway
+local MusicGen process holding the machine at load 8.2, and recorded inflated wall, turn
+and token figures. Those three tasks were re-run on a clean machine and the nine records
+replaced: mean wall 130.7 to 115.3 seconds, turns 13.3 to 12.1, tokens 5.95M to 5.27M.
+Scores did not move, and every judge was re-executed against the saved work directories
+to confirm the pass logic had not. The result files in `results/` are the corrected ones,
+which is why this row differs from any figure quoted before that re-run.
+
+What that buys: if a free tier is acceptable, Ornith ties the paid models on reliability
+and costs nothing but latency. It is not a default for interactive work at 115 seconds a
+task, and a free pool can be withdrawn or rate-limited without notice, which the score
+cannot warn you about.
 
 ### Beam is 94.4%, not 100%
 
@@ -250,8 +295,8 @@ than luck. The task asks for `alice_total`, `entry_count` and `owners` from a th
 file. Gemma returned the correct `alice_total` of 40 and the correct `owners` of
 `["alice","bob"]`, which proves it read all three entries, then reported `entry_count` as
 **2**, the count for the queried owner rather than the count of entries in the file. The
-field name is genuinely ambiguous; the grader is not, and the four leading models read it
-as 3.
+field name is genuinely ambiguous; the grader is not, and the six models that pass this
+check all read it as 3.
 
 Qwen fails the same check and fails it differently: it omits `entry_count` altogether,
 where Gemma answers it wrongly. Both are 0.83 on all three repeats, and the two failure
@@ -300,6 +345,10 @@ budget it would have been killed and misreported as a failure. That is why
   flaky. One run cannot tell those apart.
 - **A budget artefact was caught.** Beam's failures are timeouts, not wrong answers,
   which points at a different remedy.
+- **A machine fault was caught, not published as a model result.** Nine Ornith runs
+  overlapped a runaway local process. Re-running them on a clean machine moved the wall,
+  turn and token figures and left the scores at 1.00, which is what tells you a slow box
+  apart from a weak model. That correction is in the history, not quietly absorbed.
 
 - **The top of the table survived, the middle did not.** GLM and DeepSeek both came
   out at 36/36, so their single-run 12/12 was real. MiniMax and Beam both moved. The
@@ -314,6 +363,10 @@ an hour per model and settled it.
 
 - Twelve tasks is a **screen, not a leaderboard**. It separates reliable from
   unreliable well; it does not finely rank models that are all reliable.
+- **Free tiers move.** Laguna S 2.1 and Ornith 1.5 122B were free on the Nous Portal on
+  the dates recorded in their result files. A free row can be withdrawn, rate-limited or
+  re-priced without any of its numbers changing, so read the price from the provider, not
+  from this table.
 - The suite discriminates on **reliability under long-horizon work**, not on
   capability ceiling. Several tasks are clean for every model tested.
 - **A timeout is a failure, not a verdict on quality.** Every Beam failure was a

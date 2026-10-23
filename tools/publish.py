@@ -36,36 +36,20 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import model_registry as registry  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 RESULTS = ROOT / "results"
 README = ROOT / "README.md"
 START = "<!-- RESULTS:START -->"
 END = "<!-- RESULTS:END -->"
 
-# Display names, kept in step with tools/make_charts.py. A model missing here still
-# publishes, under its own name in grey, rather than silently vanishing.
-LABEL = {
-    "deepseek-v4.1-flash:1017": "DeepSeek V4.1 Flash",
-    "glm-5.3-flash:cloud": "GLM-5.3 Flash",
-    "minimax-m3.1-flash:cloud": "MiniMax M3.1 Flash",
-    "beam:cloud": "Beam",
-    "Qwen3.6-35B-A3B-UD-Q4_K_M": "Qwen3.6 35B (local)",
-    "gemma4:cloud": "Gemma 4 (cloud)",
-    "poolside/laguna-s-2.1:free": "Laguna S 2.1 (free)",
-    "poolside/laguna-xs-2.1:free": "Laguna XS 2.1 (free)",
-    "poolside/laguna-s-2.1": "Laguna S 2.1",
-    "poolside/laguna-xs-2.1": "Laguna XS 2.1",
-}
-ORDER = [
-    "deepseek-v4.1-flash:1017",
-    "glm-5.3-flash:cloud",
-    "minimax-m3.1-flash:cloud",
-    "poolside/laguna-s-2.1:free",
-    "poolside/laguna-xs-2.1:free",
-    "beam:cloud",
-    "gemma4:cloud",
-    "Qwen3.6-35B-A3B-UD-Q4_K_M",
-]
+# Display names come from tools/model_registry.py, the single source shared with
+# tools/make_charts.py. They used to be duplicated here and there, and the two copies
+# disagreed: the table printed a new model under its raw provider id while the chart
+# builder dropped it entirely. A model missing from the registry still publishes, under
+# its own name in grey, rather than silently vanishing.
 
 
 def run(cmd: list[str], **kw) -> subprocess.CompletedProcess:
@@ -112,7 +96,7 @@ def table_from_results() -> str:
         walls = [r["wall_seconds"] for r in rs if r.get("wall_seconds")]
         rows.append({
             "model": model,
-            "label": LABEL.get(model, model),
+            "label": registry.label(model),
             "repeats": max((r.get("repeat") or 1) for r in rs),
             "passed": passed, "n": len(rs),
             "stable": stable, "tasks": len(per_task),
@@ -122,8 +106,7 @@ def table_from_results() -> str:
             "total": sum(walls) if walls else None,
         })
 
-    rows.sort(key=lambda r: (ORDER.index(r["model"]) if r["model"] in ORDER else 99,
-                             r["label"]))
+    rows.sort(key=lambda r: registry.sort_key(r["model"]))
     best = {
         "turns": min((r["turns"] for r in rows if r["turns"]), default=None),
         "tokens": min((r["tokens"] for r in rows if r["tokens"]), default=None),
@@ -135,7 +118,7 @@ def table_from_results() -> str:
 
     out = [
         START,
-        "| Model | Repeats | Runs passed | Tasks 3/3 | Mean turns | Mean tokens | Mean wall | Total |",
+        "| Model | Repeats | Runs passed | Tasks all-pass | Mean turns | Mean tokens | Mean wall | Total |",
         "|---|---|---|---|---|---|---|---|",
     ]
     for r in rows:
@@ -191,13 +174,16 @@ def main() -> int:
               file=sys.stderr)
         return 1
 
-    # 2. charts
+    # 2. charts -- every model in results/ must appear in every chart, or this aborts
     c = run([sys.executable, "tools/make_charts.py"])
     if c.returncode != 0:
         print(c.stdout, c.stderr, file=sys.stderr)
         print("\nPUBLISH ABORTED: chart generation failed.", file=sys.stderr)
         return 1
-    print("charts regenerated")
+    if c.stdout.strip():
+        print(c.stdout.rstrip())
+    if c.stderr.strip():
+        print(c.stderr.rstrip(), file=sys.stderr)
 
     # 3. README table
     if rewrite_readme():
