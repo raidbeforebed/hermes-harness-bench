@@ -130,7 +130,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Beam | 3 | 34/36 (94.4%) | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
 | Gemma 4 (cloud) | 3 | 32/36 (88.9%) | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
 | Qwen3.6 35B (local) | 3 | 31/36 (86.1%) | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
-| ornith/ornith-1.5-122b:free | 3 | **36/36 (100%)** | 12/12 | 13.3 | 165,290 | 131 s | 78 min |
+| ornith/ornith-1.5-122b:free | 3 | **36/36 (100%)** | 12/12 | 12.1 | 146,497 | 115 s | 69 min |
 <!-- RESULTS:END -->
 
 Read the **Repeats** column before comparing rows. A one-repeat row is a screening

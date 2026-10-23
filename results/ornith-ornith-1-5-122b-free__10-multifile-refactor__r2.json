@@ -32,17 +32,17 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-23T02:57:26.639778+00:00",
+  "finished": "2026-10-23T03:16:49.576421+00:00",
   "model": "ornith/ornith-1.5-122b:free",
   "passed": 6,
   "repeat": 2,
   "score": 1.0,
-  "started": "2026-10-23T02:53:10.345363+00:00",
+  "started": "2026-10-23T03:14:12.340034+00:00",
   "task": "10-multifile-refactor",
-  "tokens_in": 365093,
-  "tokens_out": 5581,
+  "tokens_in": 302357,
+  "tokens_out": 3687,
   "tool_calls": 32,
   "total_checks": 6,
-  "turns": 31,
-  "wall_seconds": 256.0
+  "turns": 29,
+  "wall_seconds": 157.0
 }

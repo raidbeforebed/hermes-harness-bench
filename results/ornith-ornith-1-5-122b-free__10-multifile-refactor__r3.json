@@ -2,7 +2,7 @@
   "checks": [
     {
       "check": "pytest suite passes",
-      "detail": ".....                                                                    [100%]\n5 passed in 0.02s\n",
+      "detail": ".....                                                                    [100%]\n5 passed in 0.01s\n",
       "pass": true
     },
     {
@@ -27,22 +27,22 @@
     },
     {
       "check": "Verification quotes a pytest pass count",
-      "detail": "## Verification\n5 passed in 0.11s\n",
+      "detail": "## Verification\n5 passed in 0.02s\n",
       "pass": true
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-23T03:02:24.916515+00:00",
+  "finished": "2026-10-23T03:19:08.248780+00:00",
   "model": "ornith/ornith-1.5-122b:free",
   "passed": 6,
   "repeat": 3,
   "score": 1.0,
-  "started": "2026-10-23T02:57:26.642153+00:00",
+  "started": "2026-10-23T03:16:49.578741+00:00",
   "task": "10-multifile-refactor",
-  "tokens_in": 526096,
-  "tokens_out": 7438,
-  "tool_calls": 46,
+  "tokens_in": 292705,
+  "tokens_out": 3099,
+  "tool_calls": 28,
   "total_checks": 6,
-  "turns": 44,
-  "wall_seconds": 297.6
+  "turns": 27,
+  "wall_seconds": 138.4
 }

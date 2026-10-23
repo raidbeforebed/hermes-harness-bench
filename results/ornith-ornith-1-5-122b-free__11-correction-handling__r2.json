@@ -33,17 +33,17 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-23T03:03:24.742252+00:00",
+  "finished": "2026-10-23T03:19:53.443495+00:00",
   "model": "ornith/ornith-1.5-122b:free",
   "passed": 5,
   "repeat": 2,
   "score": 1.0,
-  "started": "2026-10-23T03:02:56.646173+00:00",
+  "started": "2026-10-23T03:19:29.079085+00:00",
   "task": "11-correction-handling",
-  "tokens_in": 63642,
-  "tokens_out": 333,
+  "tokens_in": 63535,
+  "tokens_out": 422,
   "tool_calls": 4,
   "total_checks": 5,
   "turns": 6,
-  "wall_seconds": 28.0
+  "wall_seconds": 24.3
 }
