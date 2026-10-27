@@ -1,0 +1,52 @@
+{
+  "artifact_score": 0.8333,
+  "checks": [
+    {
+      "check": "answer.json exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "records.json unmodified",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "CHANGELOG.md unmodified",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "alice_total == 40",
+      "detail": "40",
+      "pass": true
+    },
+    {
+      "check": "entry_count == 3",
+      "detail": "2",
+      "pass": false
+    },
+    {
+      "check": "owners == [alice,bob]",
+      "detail": "['alice', 'bob']",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T02:47:53.728350+00:00",
+  "model": "nemotron-3.5-lightning-30b-a3b",
+  "passed": 5,
+  "repeat": 1,
+  "score": 0.8333,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "nemotron-full",
+  "started": "2026-10-27T02:46:55.617651+00:00",
+  "task": "05-memory-nodestructive",
+  "tokens_in": 67190,
+  "tokens_out": 174,
+  "tool_calls": 4,
+  "total_checks": 6,
+  "turns": 6,
+  "wall_seconds": 58.1
+}

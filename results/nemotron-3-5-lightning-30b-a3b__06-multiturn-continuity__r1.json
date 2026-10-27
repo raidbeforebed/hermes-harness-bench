@@ -1,0 +1,57 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "detail": "got 10",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "final problem_services correct",
+      "detail": "ok",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T02:51:18.036219+00:00",
+  "model": "nemotron-3.5-lightning-30b-a3b",
+  "passed": 7,
+  "repeat": 1,
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "nemotron-full",
+  "started": "2026-10-27T02:47:53.729701+00:00",
+  "task": "06-multiturn-continuity",
+  "tokens_in": 517191,
+  "tokens_out": 3188,
+  "tool_calls": 38,
+  "total_checks": 7,
+  "turns": 40,
+  "wall_seconds": 204.3
+}

@@ -94,10 +94,26 @@ def table_from_results() -> str:
         toks = [(r.get("tokens_in") or 0) + (r.get("tokens_out") or 0)
                 for r in rs if r.get("tokens_in")]
         walls = [r["wall_seconds"] for r in rs if r.get("wall_seconds")]
+        # Attempts per task, not the set of repeat labels: a three-repeat row has labels 1,2,3
+        # and reads as "3"; the local row has one attempt on nine tasks and four on three, so
+        # it reads as "1-4" and cannot be mistaken for four of everything.
+        per_task_attempts = defaultdict(int)
+        for r in rs:
+            per_task_attempts[r["task"]] = max(per_task_attempts[r["task"]],
+                                               r.get("repeat") or 1)
+        reps = sorted(set(per_task_attempts.values()))
+        faults: dict[str, int] = defaultdict(int)
+        for r in rs:
+            if r.get("harness_failed"):
+                faults[(r.get("fault") or {}).get("class") or "unclassified"] += 1
         rows.append({
             "model": model,
             "label": registry.label(model),
-            "repeats": max((r.get("repeat") or 1) for r in rs),
+            # A row whose tasks were attempted a different number of times must say so: "4"
+            # over a set where nine tasks had one attempt reads as four of everything.
+            "repeats": (str(reps[0]) if len(reps) == 1
+                        else f"{reps[0]}-{reps[-1]}"),
+            "faults": dict(faults),
             "passed": passed, "n": len(rs),
             "stable": stable, "tasks": len(per_task),
             "turns": statistics.mean(turns) if turns else None,
@@ -118,8 +134,8 @@ def table_from_results() -> str:
 
     out = [
         START,
-        "| Model | Repeats | Runs passed | Tasks all-pass | Mean turns | Mean tokens | Mean wall | Total |",
-        "|---|---|---|---|---|---|---|---|",
+        "| Model | Repeats | Runs passed | Faults | Tasks all-pass | Mean turns | Mean tokens | Mean wall | Total |",
+        "|---|---|---|---|---|---|---|---|---|",
     ]
     for r in rows:
         share = 100 * r["passed"] / r["n"]
@@ -131,7 +147,10 @@ def table_from_results() -> str:
         toks = bold(r["tokens"], best["tokens"], f"{int(r['tokens']):,}") if r["tokens"] else "-"
         wall = bold(r["wall"], best["wall"], fmt_duration(r["wall"])) if r["wall"] else "-"
         total = fmt_duration(r["total"]) if r["total"] else "-"
-        out.append(f"| {r['label']} | {r['repeats']} | {pct} | {r['stable']}/{r['tasks']} "
+        fault_txt = (", ".join(f"{k} {v}" for k, v in sorted(r["faults"].items()))
+                     if r["faults"] else "-")
+        out.append(f"| {r['label']} | {r['repeats']} | {pct} | {fault_txt} "
+                   f"| {r['stable']}/{r['tasks']} "
                    f"| {turns} | {toks} | {wall} | {total} |")
     out.append(END)
     return "\n".join(out)
@@ -170,7 +189,7 @@ def main() -> int:
     print(r.stdout.rstrip())
     if r.returncode != 0:
         print(r.stderr.rstrip(), file=sys.stderr)
-        print("\nPUBLISH ABORTED: the run has harness failures. Nothing was committed.",
+        print("\nPUBLISH ABORTED: the run has stall-class exclusions. Nothing was committed.",
               file=sys.stderr)
         return 1
 

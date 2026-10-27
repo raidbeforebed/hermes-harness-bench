@@ -1,0 +1,14 @@
+{
+  "artifact_score": 0.75,
+  "attempt": 1,
+  "detail": "ran 'gemma4:31b-cloud' instead of the requested 'nemotron-3.5-lightning-30b-a3b': provider fallback, so this is not a result for the requested model",
+  "exit_code": -1,
+  "fault_class": "substitution",
+  "model": "nemotron-3.5-lightning-30b-a3b",
+  "repeat": null,
+  "run_id": "nemotron-recorded",
+  "source_repeat": 1,
+  "source_run": "nemotron-full",
+  "task": "08-constraint-format",
+  "workdir": "/root/hermes-bench/runs/nemotron-full/tasks/nemotron-3.5-lightning-30b-a3b/08-constraint-format/r1/work"
+}

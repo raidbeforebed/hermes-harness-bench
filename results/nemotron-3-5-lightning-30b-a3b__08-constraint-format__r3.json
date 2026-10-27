@@ -1,0 +1,62 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "format_check.txt exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "detail": "5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "detail": "[]",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "detail": "5 of 5",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "detail": "['awk', 'cut', 'sort', 'uniq', 'tail']",
+      "pass": true
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "detail": "85 chars",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "detail": "[14, 16, 21, 17, 17]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T11:19:25.356639+00:00",
+  "model": "nemotron-3.5-lightning-30b-a3b",
+  "passed": 8,
+  "repeat": 3,
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "nemotron-08-retry",
+  "started": "2026-10-27T11:11:53.485970+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 358708,
+  "tokens_out": 9867,
+  "tool_calls": 24,
+  "total_checks": 8,
+  "turns": 26,
+  "wall_seconds": 451.8
+}

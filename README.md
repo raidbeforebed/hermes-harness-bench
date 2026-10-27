@@ -51,7 +51,7 @@ This project stands on published work. See [CREDITS.md](CREDITS.md) for the full
 
 **Grading inspects state, never prose.** Each `judge.py` receives the working directory after the agent exits and returns pass/fail per check. Nothing is scored by reading the model's answer.
 
-**A non-zero exit scores zero.** A run whose CLI errored is not a result, even if the workspace happens to look correct. Without this guard an argv bug produced a fake 100%.
+**A fault is recorded beside the score, not instead of it.** The workspace is graded first. A run that ended non-zero after producing its artifact keeps that artifact score, with the exit code and the fault class shown next to it in the **Faults** column: a model that hits the agent's own turn ceiling after writing a correct file is a finding about the model, and scoring it 0.00 reports the harness ceiling as the model's capability. A run with no artifact of its own is not scored at all (a provider substitution, a refused argv, an untouched workspace): it is filed under `results/excluded/` with its reason, and the publisher refuses the whole run when the cause is a stall rather than a ceiling. The earlier rule (any non-zero exit scores zero) hid four graded task-08 attempts as 0.00, two of which had run the requested model and two of which had been answered by a fallback model.
 
 **Tasks are verified in both directions.** `tests/test_graders.py` asserts every grader scores 0 on an empty workspace and 1.00 on a reference solution. It has caught four real defects: checks that passed on a wiped directory, an arithmetic error in an expected value, a test suite that passed before any fix, and a hash comparison against a stale literal.
 
@@ -132,16 +132,17 @@ per-task records are in `results/`, one file per task per repeat. This table is
 generated from `results/` by `tools/publish.py`, so it cannot drift from the data.
 
 <!-- RESULTS:START -->
-| Model | Repeats | Runs passed | Tasks all-pass | Mean turns | Mean tokens | Mean wall | Total |
-|---|---|---|---|---|---|---|---|
-| DeepSeek V4.1 Flash | 3 | **36/36 (100%)** | 12/12 | 11.9 | 24,275 | 34 s | 21 min |
-| GLM-5.3 Flash | 3 | **36/36 (100%)** | 12/12 | **10.6** | 16,781 | 56 s | 34 min |
-| MiniMax M3.1 Flash | 3 | **36/36 (100%)** | 12/12 | 16.5 | 23,413 | 82 s | 49 min |
-| Ornith 1.5 122B (free) | 3 | **36/36 (100%)** | 12/12 | 12.1 | 146,497 | 115 s | 69 min |
-| Laguna S 2.1 (free) | 1 | **12/12 (100%)** | 12/12 | 19.4 | 241,814 | 162 s | 32 min |
-| Beam | 3 | 34/36 (94.4%) | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
-| Gemma 4 (cloud) | 3 | 32/36 (88.9%) | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
-| Qwen3.6 35B (local) | 3 | 31/36 (86.1%) | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
+| Model | Repeats | Runs passed | Faults | Tasks all-pass | Mean turns | Mean tokens | Mean wall | Total |
+|---|---|---|---|---|---|---|---|---|
+| DeepSeek V4.1 Flash | 3 | **36/36 (100%)** | - | 12/12 | 11.9 | 24,275 | 34 s | 21 min |
+| GLM-5.3 Flash | 3 | **36/36 (100%)** | - | 12/12 | **10.6** | 16,781 | 56 s | 34 min |
+| MiniMax M3.1 Flash | 3 | **36/36 (100%)** | - | 12/12 | 16.5 | 23,413 | 82 s | 49 min |
+| Ornith 1.5 122B (free) | 3 | **36/36 (100%)** | - | 12/12 | 12.1 | 146,497 | 115 s | 69 min |
+| Laguna S 2.1 (free) | 1 | **12/12 (100%)** | - | 12/12 | 19.4 | 241,814 | 162 s | 32 min |
+| Beam | 3 | 34/36 (94.4%) | - | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
+| Gemma 4 (cloud) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
+| Qwen3.6 35B (local) | 3 | 31/36 (86.1%) | - | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
+| Nemotron 3.5 Lightning 30B (local) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
 <!-- RESULTS:END -->
 
 Read the **Repeats** column before comparing rows. A one-repeat row is a screening
@@ -159,6 +160,14 @@ Two columns, because they answer different questions:
 - **Tasks all-pass** counts how many of the twelve tasks succeeded on every attempt. That
   is the stability figure. A model can show a high runs-passed number while still
   having a task it fails two-thirds of the time; the Beam row is that case.
+- **Faults** counts rows that ended non-zero, or on a different model than the one asked
+  for. A row that did the work and then hit the agent's own turn or wall ceiling keeps its
+  artifact score, and the exit code travels with the row rather than replacing it. A row
+  answered by a fallback model is not scored at all: it is filed under
+  [`results/excluded/`](results/excluded/) with its class, its exit code and the run it
+  came from. Two of Nemotron's 23 attempts were answered by a fallback model and are
+  excluded that way, which is why its Repeats column reads 1-4 over 21 scored rows rather
+  than 23.
 
 ### At a glance
 
@@ -168,7 +177,8 @@ The solid bar is the share of the runs each model attempted. The faded bar is th
 of the twelve tasks that passed on **every** attempt. Both are drawn as a proportion of
 their own denominator and both carry their counts, so a one-repeat screening row cannot
 be read as a graded one. A gap between the two bars is the useful signal: Beam passes 34
-of 36 runs yet has a task it fails two-thirds of the time, and Qwen's gap is wider still.
+of 36 runs yet has a task it fails two-thirds of the time, Qwen's gap is wider, and
+Nemotron's is wider again at 13 of 21 runs with nine of twelve tasks stable.
 
 ![Token cost per task by model](assets/tokens.svg)
 
@@ -192,11 +202,11 @@ from the data. Re-run it after a benchmark:
 python3 tools/make_charts.py
 ```
 
-### Five of eight rows are perfect, so cost is the only differentiator
+### Five of nine rows are perfect, so cost is the only differentiator
 
 Four models passed all **36 of 36** runs with zero variance on every individual task and
 zero timeouts, and a fifth, Laguna S 2.1, passed all 12 runs of its single-repeat
-screening pass. When five of the eight rows are perfect, pass rate tells you almost
+screening pass. When five of the nine rows are perfect, pass rate tells you almost
 nothing and the useful question becomes what each one costs to be perfect:
 
 - **DeepSeek V4.1 Flash is the fastest of the five perfect rows**, at 34 seconds mean
@@ -344,6 +354,38 @@ one time in three, so any single run either overstates or understates it.
 One local run took **70 turns and 464 seconds** and still passed. Under the default
 budget it would have been killed and misreported as a failure. That is why
 `--budget-scale` exists, and why turn limits are deliberately not scaled with it.
+
+### Nemotron 3.5 Lightning 30B: two defects a single pass would have missed
+
+Full hardware and launch flags: [reference-hardware.md](docs/reference-hardware.md).
+Model: `NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Q4_0`, served by `llama-server` build
+`b11669` (v0.7.0) with the experts on the host and the card holding attention, on the
+same 8 GB GPU.
+
+| Task | attempts | Reading |
+|---|---|---|
+| `01-json-extract` | 0.57, 1.00, 0.57, 0.71 | **systematic**: counts all eight order rows instead of the seven shipped ones, so `total_orders` is 8 and revenue lands between 154.95 and 192.46 against 149.97 |
+| `05-memory-nodestructive` | 0.83, 1.00, 0.67, 1.00 | **both kinds**: one run read `entry_count` as 2, another spent 63 messages and never wrote the answer file |
+| `08-constraint-format` | 0.75, 0.88, 1.00, 0.75 | **does not stop**: it produced a file that satisfied all eight constraints once, and kept iterating in the others until the turn ceiling or the wall clock ended the run |
+| the other nine | 1.00 each | stable on one attempt, zero variance |
+
+Nine of twelve tasks are stable, 13 of 21 scored rows are perfect, mean 0.892. The two
+findings are the point:
+
+**It does not filter.** Every task-01 failure is the same mistake, not noise: it
+aggregates the whole CSV, so the shipped-revenue figure it computes is wrong in three of
+four attempts and right once. That is the shape of error that damages real work, and it
+is only visible because the task has four attempts.
+
+**It does not know when to stop.** One task-08 attempt met all eight constraints and was
+still iterating when the runner killed it at 840 seconds; across four attempts it exited
+cleanly once. Two attempts ended with an explicit iteration-limit message, two more with
+exit code 1 and no message, and those four rows keep the artifact score they had earned.
+
+Two of its 23 attempts were answered by a fallback model after the local endpoint
+substituted (`gemma4:31b-cloud` and `deepseek-v4.1-flash:1017`), which the harness caught
+by reading each child's own session row. Those attempts are excluded, not published as
+zero, and the task they hit was re-run to four attempts on the requested model.
 
 ### What three repeats actually bought
 

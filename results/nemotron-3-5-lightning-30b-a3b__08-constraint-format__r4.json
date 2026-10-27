@@ -1,0 +1,79 @@
+{
+  "artifact_score": 0.75,
+  "checks": [
+    {
+      "check": "harness ran the requested model",
+      "detail": "exit 1: Let me verify the file manually from what I can see:",
+      "pass": false
+    },
+    {
+      "check": "harness ran the requested model",
+      "detail": "exit 1: Let me verify the file manually from what I can see:",
+      "pass": false
+    },
+    {
+      "check": "format_check.txt exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "detail": "5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "detail": "[]",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "detail": "5 of 5",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "detail": "['grep', 'sed', 'awk', 'cut', 'sort']",
+      "pass": true
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "detail": "62 chars",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "detail": "- grep pattern; - sed replace; - awk search; - cut field; - sort lines",
+      "pass": false
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "detail": "[14, 13, 12, 11, 12]",
+      "pass": false
+    }
+  ],
+  "exit_code": 1,
+  "fault": {
+    "class": "turn_limit",
+    "detail": "exit 1: Let me verify the file manually from what I can see:",
+    "exit_code": 1,
+    "turns": 43
+  },
+  "finished": "2026-10-27T11:23:21.913451+00:00",
+  "harness_failed": true,
+  "model": "nemotron-3.5-lightning-30b-a3b",
+  "passed": 6,
+  "repeat": 4,
+  "score": 0.75,
+  "score_source": "artifact",
+  "source_repeat": 2,
+  "source_run": "nemotron-08-retry",
+  "started": "2026-10-27T11:19:25.361109+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 500740,
+  "tokens_out": 4224,
+  "tool_calls": 40,
+  "total_checks": 10,
+  "turns": 43,
+  "wall_seconds": 236.5
+}

@@ -9,10 +9,19 @@ not exported is not published.
     python3 tools/export_results.py --latest        # newest run per model
     python3 tools/export_results.py --all           # every run under runs/
 
-A record whose child exited non-zero is NOT a model result: the CLI never got the
-command (an argv bug, a fenced install, a bootstrap failure). Those are counted and
-reported loudly, never written, because publishing them as 0.00 is the exact error
-that made a broken harness report a fake 100% in the other direction.
+Two classes of non-zero exit exist and they are filed differently.
+
+A record that carries the model's own artifact score (``score_source: artifact``) is
+published, with its exit code and fault class beside the score. A run that hit the
+agent's own turn ceiling after doing the work is a finding about the model, and
+zeroing it reported a harness ceiling as a capability.
+
+A record with no scorable artifact (``score_source: none``: a provider substitution, an
+argv refusal, an untouched workspace) is written to ``results/excluded/`` with the
+reason, never to ``results/``, and the export exits non-zero when the class is a stall
+so the publisher refuses the run. Excluded is not dropped: the marker names the task,
+the repeat, the fault class, the exit code and the run it came from, so a reader of the
+published tree can see the hole and why it is there.
 """
 from __future__ import annotations
 
@@ -35,7 +44,13 @@ RESULTS = ROOT / "results"
 # Keys the published schema carries. `passed` and `total_checks` are derived from
 # the checks list so a reader does not have to count booleans.
 FIELDS = ("checks", "exit_code", "finished", "model", "repeat", "score", "started",
-          "task", "tokens_in", "tokens_out", "tool_calls", "turns", "wall_seconds")
+          "task", "tokens_in", "tokens_out", "tool_calls", "turns", "wall_seconds",
+          # The fault travels with the score, not instead of it: a reader must be able to see
+          # that a row ended at a ceiling and which one.
+          "artifact_score", "fault", "harness_failed", "score_source",
+          "source_run", "source_repeat")
+EXCLUDED = RESULTS / "excluded"
+STALL_CLASSES = {"no_work", "cli_error", ""}
 
 
 def slug(model: str) -> str:
@@ -54,10 +69,22 @@ def record_files(run_dir: Path) -> list[Path]:
     return []
 
 
-def export_run(run_dir: Path) -> tuple[int, int, list[str]]:
-    """Write one run's records. Returns (written, skipped_harness, skipped_names)."""
+def scorable(record: dict) -> bool:
+    """Is this record's score the model's own artifact score?
+
+    ``score_source`` is written by the harness since 2026-10-27. Records from before it have
+    no such field, and the only shape they excluded was a harness fault.
+    """
+    src = record.get("score_source")
+    if src:
+        return src == "artifact"
+    return not record.get("harness_failed") and record.get("exit_code") == 0
+
+
+def export_run(run_dir: Path) -> tuple[int, int, list[dict]]:
+    """Write one run's records. Returns (written, excluded_count, excluded_markers)."""
     written = skipped = 0
-    names: list[str] = []
+    names: list[dict] = []
     for path in record_files(run_dir):
         try:
             data = json.loads(path.read_text())
@@ -69,10 +96,28 @@ def export_run(run_dir: Path) -> tuple[int, int, list[str]]:
             task, model = r.get("task"), r.get("model")
             if not task or not model:
                 continue
-            # A harness failure is not a model result.
-            if r.get("exit_code") != 0 or r.get("harness_failed"):
+            if not scorable(r):
+                # No artifact of this model's work to score: filed as an exclusion with its
+                # reason instead of published as a zero.
                 skipped += 1
-                names.append(f"{slug(model)}__{task}__r{r.get('repeat', 1)}")
+                fault = r.get("fault") or {}
+                marker = {
+                    "model": model, "task": task, "repeat": r.get("repeat"),
+                    "attempt": r.get("source_repeat"),
+                    "fault_class": fault.get("class") or "unclassified",
+                    "exit_code": r.get("exit_code"),
+                    "detail": (fault.get("detail") or "")[:400],
+                    "artifact_score": r.get("artifact_score"),
+                    "run_id": r.get("run_id"), "source_run": r.get("source_run"),
+                    "source_repeat": r.get("source_repeat"),
+                    "workdir": r.get("workdir"),
+                }
+                EXCLUDED.mkdir(parents=True, exist_ok=True)
+                stem = (f"{slug(model)}__{task}__{r.get('source_run')}__r{marker['attempt']}"
+                        if r.get("source_run") else f"{slug(model)}__{task}__r{marker['repeat']}")
+                path_out = EXCLUDED / f"{stem}.json"
+                path_out.write_text(json.dumps(marker, indent=2, sort_keys=True) + "\n")
+                names.append(marker)
                 continue
             checks = r.get("checks") or []
             pub = {k: r.get(k) for k in FIELDS if k in r}
@@ -125,21 +170,27 @@ def main() -> None:
         targets = [d for _m, d in newest.values()]
 
     total_written = total_skipped = 0
-    all_skipped: list[str] = []
+    all_skipped: list[dict] = []
     for run_dir in targets:
         w, s, names = export_run(run_dir)
         total_written += w
         total_skipped += s
         all_skipped.extend(names)
-        print(f"  {run_dir.name}: {w} written, {s} harness failure(s) skipped")
+        print(f"  {run_dir.name}: {w} written, {s} excluded")
 
     print(f"\n{total_written} record(s) in {RESULTS}")
     if total_skipped:
-        print(f"\nEXCLUDED {total_skipped} record(s): the child exited non-zero, so the")
-        print("harness never ran the task. Re-run those before publishing this model:")
-        for n in all_skipped:
-            print(f"  {n}")
-        sys.exit(1)
+        print(f"\nEXCLUDED {total_skipped} record(s), filed under {EXCLUDED}:")
+        for m in all_skipped:
+            print(f"  {m['model']} {m['task']} attempt {m['attempt']} [{m['fault_class']} "
+                  f"exit {m['exit_code']}]: {str(m['detail'])[:110]}")
+        stalls = [m for m in all_skipped if m["fault_class"] in STALL_CLASSES]
+        if stalls:
+            print("\nThese are stalls: the harness never ran the task. Re-run them before "
+                  "publishing this model.")
+            sys.exit(1)
+        print("\nNo stall classes among them: these are routing/ceiling faults, recorded as "
+              "exclusions. Publishing continues.")
 
 
 if __name__ == "__main__":

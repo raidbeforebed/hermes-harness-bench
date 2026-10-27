@@ -1,0 +1,14 @@
+{
+  "artifact_score": 1.0,
+  "attempt": 2,
+  "detail": "ran 'deepseek-v4.1-flash:1017' instead of the requested 'nemotron-3.5-lightning-30b-a3b': provider fallback, so this is not a result for the requested model",
+  "exit_code": -1,
+  "fault_class": "substitution",
+  "model": "nemotron-3.5-lightning-30b-a3b",
+  "repeat": null,
+  "run_id": "nemotron-recorded",
+  "source_repeat": 2,
+  "source_run": "nemotron-partials",
+  "task": "08-constraint-format",
+  "workdir": "/root/hermes-bench/runs/nemotron-partials/tasks/nemotron-3.5-lightning-30b-a3b/08-constraint-format/r2/work"
+}

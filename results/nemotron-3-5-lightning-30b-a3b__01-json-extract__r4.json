@@ -1,0 +1,57 @@
+{
+  "artifact_score": 0.7143,
+  "checks": [
+    {
+      "check": "report.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "required keys",
+      "detail": "['by_customer', 'shipped_revenue', 'total_orders']",
+      "pass": true
+    },
+    {
+      "check": "total_orders == 7",
+      "detail": "7",
+      "pass": true
+    },
+    {
+      "check": "all 4 customers present",
+      "detail": "['Acme Corp', 'Beta LLC', 'Delta Co', 'Gamma Inc']",
+      "pass": true
+    },
+    {
+      "check": "per-customer orders+revenue",
+      "detail": "Acme Corp: got {'orders': 4, 'revenue': 154.95} want {'orders': 3, 'revenue': 119.97}; Beta LLC: got {'orders': 2, 'revenue': 57.0} want {'orders': 2, 'revenue': 30.0}",
+      "pass": false
+    },
+    {
+      "check": "shipped_revenue == 149.97",
+      "detail": "154.95",
+      "pass": false
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T03:23:42.267080+00:00",
+  "model": "nemotron-3.5-lightning-30b-a3b",
+  "passed": 5,
+  "repeat": 4,
+  "score": 0.7143,
+  "score_source": "artifact",
+  "source_repeat": 3,
+  "source_run": "nemotron-partials",
+  "started": "2026-10-27T03:21:32.835872+00:00",
+  "task": "01-json-extract",
+  "tokens_in": 186594,
+  "tokens_out": 2100,
+  "tool_calls": 14,
+  "total_checks": 7,
+  "turns": 16,
+  "wall_seconds": 129.4
+}

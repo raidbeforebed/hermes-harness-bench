@@ -1,0 +1,47 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "log intact (3 codes)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "codes.json exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "all three codes found",
+      "detail": "got ['RIDGE-3391', 'RIDGE-7714', 'RIDGE-8826'] want ['RIDGE-3391', 'RIDGE-7714', 'RIDGE-8826']",
+      "pass": true
+    },
+    {
+      "check": "count consistent",
+      "detail": "count=3 vs 3",
+      "pass": true
+    },
+    {
+      "check": "no invented codes",
+      "detail": "[]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T03:04:29.157638+00:00",
+  "model": "nemotron-3.5-lightning-30b-a3b",
+  "passed": 5,
+  "repeat": 1,
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "nemotron-full",
+  "started": "2026-10-27T03:02:23.358319+00:00",
+  "task": "09-long-context-retrieval",
+  "tokens_in": 158843,
+  "tokens_out": 608,
+  "tool_calls": 12,
+  "total_checks": 5,
+  "turns": 14,
+  "wall_seconds": 125.8
+}

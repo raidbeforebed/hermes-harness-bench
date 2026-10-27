@@ -402,7 +402,7 @@ def main() -> None:
                                          -(r["stable"] / r["tasks"]), -r["passed"]))
     (outdir / "passes.svg").write_text(grouped_chart(
         rows_p,
-        "Reliability: one to three repeats per task",
+        f"Reliability: one to {max(r['repeats'] for r in rows)} repeats per task",
         f"Twelve tasks across {len(rows)} models. Runs per model are labelled; "
         "a one-repeat row is a screen, not a graded result."))
 

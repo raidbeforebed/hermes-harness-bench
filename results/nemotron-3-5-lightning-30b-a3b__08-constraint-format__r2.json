@@ -1,0 +1,79 @@
+{
+  "artifact_score": 0.875,
+  "checks": [
+    {
+      "check": "harness ran the requested model",
+      "detail": "exit 1: I reached the iteration limit and couldn't generate a summary.",
+      "pass": false
+    },
+    {
+      "check": "harness ran the requested model",
+      "detail": "exit 1: I reached the iteration limit and couldn't generate a summary.",
+      "pass": false
+    },
+    {
+      "check": "format_check.txt exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "detail": "5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "detail": "[]",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "detail": "5 of 5",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "detail": "['sed', 'cut', 'sort', 'head', 'tail']",
+      "pass": true
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "detail": "61 chars",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "detail": "[18, 13, 18, 6, 6]",
+      "pass": false
+    }
+  ],
+  "exit_code": 1,
+  "fault": {
+    "class": "turn_limit",
+    "detail": "exit 1: I reached the iteration limit and couldn't generate a summary.",
+    "exit_code": 1,
+    "turns": 43
+  },
+  "finished": "2026-10-27T04:01:29.752157+00:00",
+  "harness_failed": true,
+  "model": "nemotron-3.5-lightning-30b-a3b",
+  "passed": 7,
+  "repeat": 2,
+  "score": 0.875,
+  "score_source": "artifact",
+  "source_repeat": 3,
+  "source_run": "nemotron-partials",
+  "started": "2026-10-27T03:57:51.242938+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 485558,
+  "tokens_out": 2495,
+  "tool_calls": 40,
+  "total_checks": 10,
+  "turns": 43,
+  "wall_seconds": 218.5
+}

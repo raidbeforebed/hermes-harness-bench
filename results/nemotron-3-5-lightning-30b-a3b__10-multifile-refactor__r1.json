@@ -1,0 +1,52 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "pytest suite passes",
+      "detail": ".....                                                                    [100%]\n5 passed in 0.01s\n",
+      "pass": true
+    },
+    {
+      "check": "test file untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "report.py untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "CHANGES.md exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "three sections in order",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "Verification quotes a pytest pass count",
+      "detail": "## Verification\n=========================== 5 passed in 0.01s =========================",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T03:11:11.683707+00:00",
+  "model": "nemotron-3.5-lightning-30b-a3b",
+  "passed": 6,
+  "repeat": 1,
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "nemotron-full",
+  "started": "2026-10-27T03:04:29.161722+00:00",
+  "task": "10-multifile-refactor",
+  "tokens_in": 663458,
+  "tokens_out": 3276,
+  "tool_calls": 52,
+  "total_checks": 6,
+  "turns": 52,
+  "wall_seconds": 402.2
+}

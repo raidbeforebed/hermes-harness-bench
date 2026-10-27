@@ -1,0 +1,52 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "reconcile.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "only_in_a == ['A-300']",
+      "detail": "['A-300']",
+      "pass": true
+    },
+    {
+      "check": "only_in_b == ['C-900']",
+      "detail": "['C-900']",
+      "pass": true
+    },
+    {
+      "check": "one mismatch only (A-200 4 vs 6)",
+      "detail": "[{'sku': 'A-200', 'a': 4, 'b': 6}]",
+      "pass": true
+    },
+    {
+      "check": "no invented SKUs",
+      "detail": "[]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T02:42:14.961411+00:00",
+  "model": "nemotron-3.5-lightning-30b-a3b",
+  "passed": 6,
+  "repeat": 1,
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "nemotron-full",
+  "started": "2026-10-27T02:40:30.974901+00:00",
+  "task": "02-inventory-reconcile",
+  "tokens_in": 138814,
+  "tokens_out": 1314,
+  "tool_calls": 12,
+  "total_checks": 6,
+  "turns": 13,
+  "wall_seconds": 103.9
+}
