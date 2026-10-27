@@ -142,9 +142,17 @@ def main() -> int:
         d = json.loads(Path(f).read_text())
         per.setdefault(d["model"], []).append(d)
     perfect = sorted(m for m, rs in per.items() if all((r.get("score") or 0) == 1.0 for r in rs))
-    max_repeat = max((r.get("repeat") or 1) for rs in per.values() for r in rs)
-    graded = {m for m, rs in per.items() if max((r.get("repeat") or 1) for r in rs) >= max_repeat}
-    perfect_graded = [m for m in perfect if m in graded]
+
+    def perfect_with_runs(runs_n: int) -> list[str]:
+        """Models that are perfect and hold exactly `runs_n` graded attempts.
+
+        Keyed on the denominator the sentence states, not on the largest repeat count in the
+        tree: "passed all 36 of 36 runs" means 12 tasks x 3 repeats for that model, and a row
+        carrying four attempts on three tasks must not move what the sentence is checked
+        against.
+        """
+        return [m for m, rs in per.items()
+                if len(rs) == runs_n and all((r.get("score") or 0) == 1.0 for r in rs)]
     words = {w: i for i, w in enumerate(
         "zero one two three four five six seven eight nine ten eleven twelve".split())}
     words.update({str(i): i for i in range(0, 21)})
@@ -153,10 +161,6 @@ def main() -> int:
     patterns = [
         (rf"\b(\w+) of (?:the )?(?:{'|'.join(w for w in words if not w.isdigit())}|\d+) "
          rf"(?:models|rows) are perfect", len(perfect), "rows at 100%"),
-        (r"\b(\w+) models passed all \*{0,2}(\d+) of (\d+)\*{0,2} runs", len(perfect_graded),
-         f"models perfect over {max_repeat} runs"),
-        (r"\b(\w+) models passed all (\d+) runs", len(perfect_graded),
-         f"models perfect over {max_repeat} runs"),
         (r"fastest of the (\w+) perfect", len(perfect), "perfect rows"),
     ]
     claim_reported = False
@@ -171,6 +175,16 @@ def main() -> int:
     if not claim_reported:
         failures += 1
         print("  FAIL no count claim found in the README; the prose check cannot run")
+
+    # "N models passed all R of R runs": both halves recomputed against the stated denominator
+    for hit in re.finditer(r"\b(\w+) models passed all \*{0,2}(\d+) of (\d+)\*{0,2} runs", text):
+        n, d = int(hit.group(2)), int(hit.group(3))
+        want = len(perfect_with_runs(d))
+        got = words.get(hit.group(1).lower())
+        ok = got == want and n == d
+        failures += 0 if ok else 1
+        print(f"  {'ok  ' if ok else 'FAIL'} \"{hit.group(0)}\" claims {hit.group(1)} = {got}; "
+              f"data says {want} models perfect with {d} graded runs")
 
     # denominator: "N of the M rows are perfect" must also match the model count
     for hit in re.finditer(r"(\w+) of (?:the )?(\w+) (?:models|rows) are perfect", text):
