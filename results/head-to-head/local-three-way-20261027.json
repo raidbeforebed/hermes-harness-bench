@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-27T12:27:45+00:00",
+  "generated": "2026-10-27T12:32:38+00:00",
   "title": "Three local models on three tasks, same instrument: Groot, Qwen, Nemotron",
   "runs": {
-    "Groot-19B-A3B-261023": "groot-weak3-20261027",
+    "Groot-19B-A3B-261023": "groot-weak3-reasoning-on-20261027",
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "qwen-weak3-20261027",
     "nemotron-3.5-lightning-30b-a3b": "nemotron-recorded"
   },
@@ -163,7 +163,14 @@
   ],
   "overall": {
     "Groot-19B-A3B-261023": {
-      "run": "groot-weak3-20261027",
+      "run": "groot-weak3-reasoning-on-20261027",
+      "notes": {
+        "reasoning": "on",
+        "reasoning_source": "model default; llama-server was started without --reasoning off",
+        "llama_build": "b11669-620d2225c",
+        "server_flags": "--n-cpu-moe 41 --ctx-size 98304 --flash-attn on --load-mode none -ctk q4_0 -ctv q4_0 --spec-type draft-mtp --spec-draft-n-max 2",
+        "model_file": "/home/chris/Agent_Fast/models/Groot-19B-A3B-261023/Groot-19B-A3B-261023-Q4_K_M.gguf"
+      },
       "mean_over_tasks": 0.9815,
       "attempts": 9,
       "perfect": 8,
@@ -173,6 +180,7 @@
     },
     "Qwen3.6-35B-A3B-UD-Q4_K_M": {
       "run": "qwen-weak3-20261027",
+      "notes": {},
       "mean_over_tasks": 0.9312,
       "attempts": 9,
       "perfect": 6,
@@ -182,6 +190,7 @@
     },
     "nemotron-3.5-lightning-30b-a3b": {
       "run": "nemotron-recorded",
+      "notes": {},
       "mean_over_tasks": 0.811,
       "attempts": 12,
       "perfect": 4,

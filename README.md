@@ -416,13 +416,16 @@ rather than a footnote.
   constraints three times out of three; Nemotron did it once in four, spending the rest at the turn
   ceiling with a partial file.
 
-**One configuration difference, stated rather than smoothed.** Groot runs in its default thinking
-mode; the other two had thinking disabled by their launch flags. Its 6.1 mean turns against 14.0
-and 29.5 say the thinking did not turn into long deliberation on these tasks, but a strict
-like-for-like would re-run Groot with `--reasoning off`, and that has not been done.
+**One configuration difference, stated in the artifact rather than in prose.** Groot ran in its
+default thinking mode; the other two had thinking disabled by their launch flags. The run carries
+that as `notes: {reasoning: on, reasoning_source: ..., llama_build: b11669-620d2225c, server_flags:
+...}` in its manifest and on every record, so the figure cannot be lifted out of context later. Its
+6.1 mean turns against 14.0 and 29.5 say the thinking did not become long deliberation here, and a
+`--reasoning off` run on the same nine attempts is the like-for-like check.
 
 This comparison is kept as its own artifact,
-[`results/head-to-head/local-three-way-20261027.json`](results/head-to-head/local-three-way-20261027.json),
+[`results/head-to-head/local-three-way-20261027.json`](results/head-to-head/local-three-way-20261027.json)
+(run ids: `groot-weak3-reasoning-on-20261027`, `qwen-weak3-20261027`, `nemotron-recorded`),
 rather than merged into the tables above. A published row is a balanced design, every task attempted
 the same number of times; these nine extra attempts deliberately target the three tasks each model
 failed, so folding them into a published row would move a twelve-task headline into describing a

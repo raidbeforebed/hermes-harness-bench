@@ -37,7 +37,7 @@ def scorable(rec: dict) -> bool:
     return not rec.get("harness_failed") and rec.get("exit_code") == 0
 
 
-def load(run_id: str) -> tuple[str, list[dict]]:
+def load(run_id: str) -> tuple[str, list[dict], dict]:
     run_dir = RUNS / run_id
     manifest_path = run_dir / "manifest.json"
     if not manifest_path.exists():
@@ -49,7 +49,7 @@ def load(run_id: str) -> tuple[str, list[dict]]:
         agg = run_dir / "results.json"
         if agg.exists():
             recs = json.loads(agg.read_text())
-    return model, recs
+    return model, recs, (manifest.get("notes") or {})
 
 
 def summarise(recs: list[dict]) -> dict:
@@ -96,10 +96,10 @@ def main() -> int:
 
     loaded = {}
     for run_id in a.runs:
-        model, recs = load(run_id)
+        model, recs, notes = load(run_id)
         if model in loaded:
             sys.exit(f"two runs report the same model ({model}); compare different models")
-        loaded[model] = {"run": run_id, **summarise(recs)}
+        loaded[model] = {"run": run_id, "notes": notes, **summarise(recs)}
 
     models = list(loaded)
     if a.tasks:
@@ -130,6 +130,7 @@ def main() -> int:
         turns = [c["mean_turns"] for c in cells if c["mean_turns"]]
         overall[m] = {
             "run": loaded[m]["run"],
+            "notes": loaded[m]["notes"],
             "mean_over_tasks": round(statistics.mean(vals), 4) if vals else None,
             "attempts": sum(c["attempts"] for c in cells),
             "perfect": sum(c["perfect"] for c in cells),
@@ -165,6 +166,10 @@ def main() -> int:
     print(f"{'perfect':{width}}" + "".join(f"{overall[m]['perfect']:>22}" for m in models))
     print(f"{'mean wall per attempt (s)':{width}}" + "".join(f"{str(overall[m]['mean_wall_s']):>22}" for m in models))
     print(f"{'mean turns':{width}}" + "".join(f"{str(overall[m]['mean_turns']):>22}" for m in models))
+    for m in models:
+        note_txt = ", ".join(f"{k}={v}" for k, v in loaded[m]["notes"].items() if k == "reasoning")
+        if note_txt:
+            print(f"{m}: {note_txt} ({loaded[m]['run']})")
     for m in models:
         if loaded[m]["excluded"]:
             print(f"excluded from {m}: " + ", ".join(f"{e['task']} {e['class']}" for e in loaded[m]["excluded"]))
