@@ -12,6 +12,11 @@
       "pass": false
     },
     {
+      "check": "harness ran the requested model",
+      "detail": "exit 1: I reached the iteration limit and couldn't generate a summary.",
+      "pass": false
+    },
+    {
       "check": "format_check.txt exists",
       "detail": "",
       "pass": true
@@ -73,7 +78,7 @@
   "tokens_in": 485558,
   "tokens_out": 2495,
   "tool_calls": 40,
-  "total_checks": 10,
+  "total_checks": 11,
   "turns": 43,
   "wall_seconds": 218.5
 }

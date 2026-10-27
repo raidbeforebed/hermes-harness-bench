@@ -12,6 +12,11 @@
       "pass": false
     },
     {
+      "check": "harness ran the requested model",
+      "detail": "exit 1: Let me verify the file manually from what I can see:",
+      "pass": false
+    },
+    {
       "check": "format_check.txt exists",
       "detail": "",
       "pass": true
@@ -73,7 +78,7 @@
   "tokens_in": 500740,
   "tokens_out": 4224,
   "tool_calls": 40,
-  "total_checks": 10,
+  "total_checks": 11,
   "turns": 43,
   "wall_seconds": 236.5
 }
