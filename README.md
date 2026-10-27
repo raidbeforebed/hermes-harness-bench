@@ -463,8 +463,9 @@ missed the `entry_count` check once, non-thinking mode mis-summed the shipped re
 failures the other local models also make. Three tasks and nine attempts per arm cannot separate
 0.982 from 0.968, and the honest reading is that they are the same.
 
-**The two costs move in opposite directions, and that is the finding.** Thinking mode took 45 percent
-longer in wall clock yet needed 38 percent fewer turns and a third fewer tokens. Non-thinking mode is
+**The two costs move in opposite directions, and that is the finding.** Thinking mode took 44.7 percent
+longer in wall clock (136 s against 94 s) yet needed 35.8 percent fewer turns (6.1 against 9.5) and
+32.7 percent fewer tokens (69,533 against 103,255). Non-thinking mode is
 faster per attempt because every turn is cheap, but it needs more turns to finish, and each extra turn
 re-sends the conversation, which is where its larger token count comes from.
 
