@@ -431,6 +431,42 @@ the same number of times; these nine extra attempts deliberately target the thre
 failed, so folding them into a published row would move a twelve-task headline into describing a
 different design. `tools/head_to_head.py` produces it from the run directories.
 
+### Reasoning on against reasoning off, same nine attempts
+
+Groot runs in thinking mode by default. The same nine attempts were run again with
+`--reasoning off`, on the same build and the same model file, so the mode is the only variable.
+
+| | reasoning on | reasoning off |
+|---|---|---|
+| `01-json-extract` | **1.000** over 3 | 0.905 over 3 |
+| `05-memory-nodestructive` | 0.944 over 3 | **1.000** over 3 |
+| `08-constraint-format` | **1.000** over 3 | **1.000** over 3 |
+| mean of task means | **0.982** | 0.968 |
+| attempts perfect | 8 of 9 | 8 of 9 |
+| mean wall per attempt | 136 s | **94 s** |
+| mean turns | **6.1** | 9.5 |
+| mean tokens per attempt | **69,533** | 103,255 |
+
+**Quality is a wash on this sample.** Each arm lost one attempt, on different tasks: thinking mode
+missed the `entry_count` check once, non-thinking mode mis-summed the shipped revenue once. Both are
+failures the other local models also make. Three tasks and nine attempts per arm cannot separate
+0.982 from 0.968, and the honest reading is that they are the same.
+
+**The two costs move in opposite directions, and that is the finding.** Thinking mode took 45 percent
+longer in wall clock yet needed 38 percent fewer turns and a third fewer tokens. Non-thinking mode is
+faster per attempt because every turn is cheap, but it needs more turns to finish, and each extra turn
+re-sends the conversation, which is where its larger token count comes from.
+
+On this hardware a thinking token is expensive: with every expert on the host, decode is bound by
+system RAM and runs at tens of tokens per second, so deliberation is paid in seconds. What it buys
+here is not a better answer but a more decisive one, fewer tool calls per task. Which trade is worth
+taking depends on whether wall clock or the token bill matters more, and on this box the wall clock is
+the scarcer resource.
+
+Both runs carry their mode as a note on every record, so the artifact behind this table cannot be read
+without it: [`results/head-to-head/groot-reasoning-pair-20261027.json`](results/head-to-head/groot-reasoning-pair-20261027.json),
+from runs `groot-weak3-reasoning-on-20261027` and `groot-weak3-reasoning-off-20261027`.
+
 ### What three repeats actually bought
 
 - **A model was nearly written off wrongly.** MiniMax's 10/12 became 36/36.
