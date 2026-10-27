@@ -97,9 +97,15 @@ def main() -> int:
     loaded = {}
     for run_id in a.runs:
         model, recs, notes = load(run_id)
-        if model in loaded:
-            sys.exit(f"two runs report the same model ({model}); compare different models")
-        loaded[model] = {"run": run_id, "notes": notes, **summarise(recs)}
+        # The same model may appear twice on purpose: an A/B of one configuration against another.
+        # Disambiguate on the note that says what changed, then on the run id.
+        label = model
+        if label in loaded:
+            tag = notes.get("reasoning") or run_id
+            label = f"{model} [{tag}]"
+            if label in loaded:
+                label = f"{model} [{run_id}]"
+        loaded[label] = {"run": run_id, "notes": notes, "model": model, **summarise(recs)}
 
     models = list(loaded)
     if a.tasks:
@@ -155,11 +161,11 @@ def main() -> int:
         return "-" if not c else f"{c['mean']:.3f} ({c['attempts']})"
 
     width = max(len(t) for t in tasks) + 2
-    print(f"{'task':{width}}" + "".join(f"{m[:20]:>22}" for m in models))
+    print(f"{'task':{width}}" + "".join(f"{m[-30:]:>32}" for m in models))
     for r in rows:
         line = f"{r['task']:{width}}"
         for m in models:
-            line += f"{cell_text(r['cells'][m]):>22}"
+            line += f"{cell_text(r['cells'][m]):>32}"
         print(line)
     print(f"{'MEAN OF TASK MEANS':{width}}" + "".join(f"{overall[m]['mean_over_tasks']:>22}" for m in models))
     print(f"{'attempts':{width}}" + "".join(f"{overall[m]['attempts']:>22}" for m in models))

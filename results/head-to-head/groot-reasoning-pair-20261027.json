@@ -1,0 +1,142 @@
+{
+  "generated": "2026-10-27T12:49:23+00:00",
+  "title": "Groot 19B: reasoning on against reasoning off, same nine attempts",
+  "runs": {
+    "Groot-19B-A3B-261023": "groot-weak3-reasoning-on-20261027",
+    "Groot-19B-A3B-261023 [off]": "groot-weak3-reasoning-off-20261027"
+  },
+  "tasks": [
+    {
+      "task": "01-json-extract",
+      "cells": {
+        "Groot-19B-A3B-261023": {
+          "attempts": 3,
+          "scores": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean": 1.0,
+          "perfect": 3,
+          "mean_wall_s": 122,
+          "mean_turns": 7.3,
+          "faults": []
+        },
+        "Groot-19B-A3B-261023 [off]": {
+          "attempts": 3,
+          "scores": [
+            0.7143,
+            1.0,
+            1.0
+          ],
+          "mean": 0.9048,
+          "perfect": 2,
+          "mean_wall_s": 67,
+          "mean_turns": 8.7,
+          "faults": []
+        }
+      }
+    },
+    {
+      "task": "05-memory-nodestructive",
+      "cells": {
+        "Groot-19B-A3B-261023": {
+          "attempts": 3,
+          "scores": [
+            0.8333,
+            1.0,
+            1.0
+          ],
+          "mean": 0.9444,
+          "perfect": 2,
+          "mean_wall_s": 53,
+          "mean_turns": 7,
+          "faults": []
+        },
+        "Groot-19B-A3B-261023 [off]": {
+          "attempts": 3,
+          "scores": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean": 1.0,
+          "perfect": 3,
+          "mean_wall_s": 35,
+          "mean_turns": 7,
+          "faults": []
+        }
+      }
+    },
+    {
+      "task": "08-constraint-format",
+      "cells": {
+        "Groot-19B-A3B-261023": {
+          "attempts": 3,
+          "scores": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean": 1.0,
+          "perfect": 3,
+          "mean_wall_s": 232,
+          "mean_turns": 4,
+          "faults": []
+        },
+        "Groot-19B-A3B-261023 [off]": {
+          "attempts": 3,
+          "scores": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "mean": 1.0,
+          "perfect": 3,
+          "mean_wall_s": 179,
+          "mean_turns": 12.7,
+          "faults": []
+        }
+      }
+    }
+  ],
+  "overall": {
+    "Groot-19B-A3B-261023": {
+      "run": "groot-weak3-reasoning-on-20261027",
+      "notes": {
+        "reasoning": "on",
+        "reasoning_source": "model default; llama-server was started without --reasoning off",
+        "llama_build": "b11669-620d2225c",
+        "server_flags": "--n-cpu-moe 41 --ctx-size 98304 --flash-attn on --load-mode none -ctk q4_0 -ctv q4_0 --spec-type draft-mtp --spec-draft-n-max 2",
+        "model_file": "/home/chris/Agent_Fast/models/Groot-19B-A3B-261023/Groot-19B-A3B-261023-Q4_K_M.gguf"
+      },
+      "mean_over_tasks": 0.9815,
+      "attempts": 9,
+      "perfect": 8,
+      "mean_wall_s": 136,
+      "mean_turns": 6.1,
+      "excluded": 0
+    },
+    "Groot-19B-A3B-261023 [off]": {
+      "run": "groot-weak3-reasoning-off-20261027",
+      "notes": {
+        "reasoning": "off",
+        "reasoning_source": "llama-server started with --reasoning off",
+        "llama_build": "b11669-620d2225c",
+        "server_flags": "--n-cpu-moe 41 --ctx-size 98304 --flash-attn on --jinja --reasoning off --load-mode none -b 4096 -ub 4096 -t 8 -ctk q4_0 -ctv q4_0 --spec-type draft-mtp --spec-draft-n-max 2",
+        "model_file": "/home/chris/Agent_Fast/models/Groot-19B-A3B-261023/Groot-19B-A3B-261023-Q4_K_M.gguf"
+      },
+      "mean_over_tasks": 0.9683,
+      "attempts": 9,
+      "perfect": 8,
+      "mean_wall_s": 94,
+      "mean_turns": 9.5,
+      "excluded": 0
+    }
+  },
+  "excluded": {
+    "Groot-19B-A3B-261023": [],
+    "Groot-19B-A3B-261023 [off]": []
+  },
+  "note": "Means are over attempts, per task, on the tasks every run attempted. This is not a published row: a head-to-head is deliberately unbalanced, because the extra attempts target the tasks each model failed."
+}
