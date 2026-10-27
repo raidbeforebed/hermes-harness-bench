@@ -241,6 +241,14 @@ nothing and the useful question becomes what each one costs to be perfect:
   any other model graded three times. Its 115 second mean is the price of that spend, not
   of the model being weak.
 
+**For the local default the answer stays Qwen3.6-35B-A3B.** Groot is faster and ties on
+pass count within one attempt, and it is the better model on `05` and `07`; but it fails
+`01-json-extract` on all three attempts where Qwen fails it once, and `01` is the plainest
+task in the set, a schema-valid JSON with arithmetic over a CSV. A model that cannot be
+trusted with that is not the one to leave installed as the fallback. Groot's weights were
+removed from the workstation after the comparison; its measurements stay here, because a
+result that disappears when a model loses is not a measurement.
+
 If the question is which model to make the default, GLM-5.3 Flash is the answer on a
 paid account: it ties on quality, uses the fewest tokens, and takes the fewest turns.
 DeepSeek wins only if wall-clock latency matters more than token spend, and Ornith wins
