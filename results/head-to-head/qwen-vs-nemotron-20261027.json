@@ -1,0 +1,147 @@
+{
+  "generated": "2026-10-27T12:03:33+00:00",
+  "title": "nemotron-3.5-lightning-30b-a3b vs Qwen3.6-35B-A3B-UD-Q4_K_M on 3 shared tasks",
+  "runs": {
+    "nemotron-3.5-lightning-30b-a3b": "nemotron-recorded",
+    "Qwen3.6-35B-A3B-UD-Q4_K_M": "qwen-weak3-20261027"
+  },
+  "tasks": [
+    {
+      "task": "01-json-extract",
+      "a": {
+        "attempts": 4,
+        "scores": [
+          0.5714,
+          0.5714,
+          0.7143,
+          1.0
+        ],
+        "mean": 0.7143,
+        "perfect": 1,
+        "mean_wall_s": 106,
+        "faults": []
+      },
+      "b": {
+        "attempts": 3,
+        "scores": [
+          0.7143,
+          1.0,
+          1.0
+        ],
+        "mean": 0.9048,
+        "perfect": 2,
+        "mean_wall_s": 89,
+        "faults": []
+      },
+      "delta": 0.1905
+    },
+    {
+      "task": "05-memory-nodestructive",
+      "a": {
+        "attempts": 4,
+        "scores": [
+          0.6667,
+          0.8333,
+          1.0,
+          1.0
+        ],
+        "mean": 0.875,
+        "perfect": 2,
+        "mean_wall_s": 164,
+        "faults": [
+          {
+            "repeat": 3,
+            "class": "agent_exit"
+          }
+        ]
+      },
+      "b": {
+        "attempts": 3,
+        "scores": [
+          0.8333,
+          0.8333,
+          1.0
+        ],
+        "mean": 0.8889,
+        "perfect": 1,
+        "mean_wall_s": 54,
+        "faults": []
+      },
+      "delta": 0.0139
+    },
+    {
+      "task": "08-constraint-format",
+      "a": {
+        "attempts": 4,
+        "scores": [
+          0.75,
+          0.75,
+          0.875,
+          1.0
+        ],
+        "mean": 0.8438,
+        "perfect": 1,
+        "mean_wall_s": 379,
+        "faults": [
+          {
+            "repeat": 1,
+            "class": "agent_exit"
+          },
+          {
+            "repeat": 2,
+            "class": "turn_limit"
+          },
+          {
+            "repeat": 4,
+            "class": "turn_limit"
+          }
+        ]
+      },
+      "b": {
+        "attempts": 3,
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "perfect": 3,
+        "mean_wall_s": 413,
+        "faults": []
+      },
+      "delta": 0.1562
+    }
+  ],
+  "overall": {
+    "nemotron-3.5-lightning-30b-a3b": {
+      "mean_over_tasks": 0.811,
+      "attempts": 12,
+      "perfect": 4,
+      "mean_wall_s": 216
+    },
+    "Qwen3.6-35B-A3B-UD-Q4_K_M": {
+      "mean_over_tasks": 0.9312,
+      "attempts": 9,
+      "perfect": 6,
+      "mean_wall_s": 185
+    }
+  },
+  "excluded": {
+    "nemotron-3.5-lightning-30b-a3b": [
+      {
+        "task": "08-constraint-format",
+        "repeat": null,
+        "class": "substitution",
+        "detail": "ran 'gemma4:31b-cloud' instead of the requested 'nemotron-3.5-lightning-30b-a3b': provider fallback, so this is not a result for the requested model"
+      },
+      {
+        "task": "08-constraint-format",
+        "repeat": null,
+        "class": "substitution",
+        "detail": "ran 'deepseek-v4.1-flash:1017' instead of the requested 'nemotron-3.5-lightning-30b-a3b': provider fallback, so this is not a result for the requested model"
+      }
+    ],
+    "Qwen3.6-35B-A3B-UD-Q4_K_M": []
+  },
+  "note": "Means are over attempts, per task, on the tasks both runs attempted. This is not a published row: a head-to-head is deliberately unbalanced, because the extra attempts target the tasks each model failed."
+}

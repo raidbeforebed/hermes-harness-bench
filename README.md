@@ -387,6 +387,41 @@ substituted (`gemma4:31b-cloud` and `deepseek-v4.1-flash:1017`), which the harne
 by reading each child's own session row. Those attempts are excluded, not published as
 zero, and the task they hit was re-run to four attempts on the requested model.
 
+### The three-task head-to-head: Qwen against Nemotron
+
+Both local models were run on the same three tasks, at three attempts each, on the same
+`llama-server` build (`b11669`), with the same budget scale. Nemotron's figure includes the two
+re-run attempts that replaced substituted ones; its two fallback-answered attempts are excluded.
+
+| Task | Nemotron 3.5 Lightning 30B | Qwen3.6 35B | Delta |
+|---|---|---|---|
+| `01-json-extract` | 0.714 over 4 | **0.905** over 3 | +0.191 |
+| `05-memory-nodestructive` | 0.875 over 4 | **0.889** over 3 | +0.014 |
+| `08-constraint-format` | 0.844 over 4 | **1.000** over 3 | +0.156 |
+| mean of the three task means | 0.811 | **0.931** | +0.120 |
+| attempts perfect | 4 of 12 | **6 of 9** | |
+| mean wall per attempt | 216 s | **185 s** | |
+
+The Qwen model is the better of the two here, on both quality and time, and the shape of the
+difference is worth naming rather than just the mean:
+
+- **`08` is the whole argument.** Qwen satisfied all eight constraints in three attempts out of
+  three. Nemotron did it once in four; the other three ended at the turn ceiling or at the wall
+  clock with a partial file. A model that cannot stop is not usable for agent work no matter how
+  well it reads.
+- **`01` favours Qwen more than its mean suggests.** Nemotron's four attempts include three with
+  the same filtering error, so its 0.714 is a stable defect rather than noise. Qwen missed once
+  in three, which is the arithmetic instability its own published row already records.
+- **`05` is a draw.** Both read `entry_count` as 2 for a three-entry file in some attempts, and
+  Nemotron additionally spent one attempt without writing the answer file at all.
+
+This comparison is kept as its own artifact, [`results/head-to-head/qwen-vs-nemotron-20261027.json`](results/head-to-head/qwen-vs-nemotron-20261027.json),
+rather than merged into the tables above. A published row is a balanced design, every task
+attempted the same number of times; these nine extra attempts deliberately target the three tasks
+each model failed, and folding them into Qwen's row would move its headline from 86.1% to a number
+that no longer describes the twelve-task suite. The tool that produces it is
+`tools/head_to_head.py`.
+
 ### What three repeats actually bought
 
 - **A model was nearly written off wrongly.** MiniMax's 10/12 became 36/36.
