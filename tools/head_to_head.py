@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
-"""Compare two runs on the tasks they share, one row per task and per attempt.
+"""Compare two or more runs on the tasks they share, one row per task.
 
-Why this exists rather than a comparison of two published rows: a published row is a balanced
-design (every task attempted the same number of times), and adding targeted repeats on a
-model's weak tasks breaks that balance. So a head-to-head is kept as its own artifact under
+Why this exists rather than a comparison of published rows: a published row is a balanced design
+(every task attempted the same number of times), and adding targeted repeats on a model's weak
+tasks breaks that balance. So a head-to-head is kept as its own artifact under
 ``results/head-to-head/``, which the publisher and the charts deliberately do not glob, and the
 balanced table in the README stays balanced.
 
-    python3 tools/head_to_head.py RUN_A RUN_B --out results/head-to-head/<name>.json
-    python3 tools/head_to_head.py a b --tasks 01-json-extract 05-memory-nodestructive
+    python3 tools/head_to_head.py RUN_A RUN_B [RUN_C ...] --out results/head-to-head/<name>.json
 
 Each run is read from the bench tree (``HBENCH_RUNS`` or ``/root/hermes-bench/runs``), and only
 rows whose score is the model's own artifact score are counted: a substitution and a stall are
@@ -53,7 +52,7 @@ def load(run_id: str) -> tuple[str, list[dict]]:
     return model, recs
 
 
-def summarise(recs: list[dict]) -> dict[str, dict]:
+def summarise(recs: list[dict]) -> dict:
     per: dict[str, list[dict]] = defaultdict(list)
     excluded: list[dict] = []
     for r in recs:
@@ -63,20 +62,22 @@ def summarise(recs: list[dict]) -> dict[str, dict]:
             per[str(r["task"])].append(r)
         else:
             excluded.append(r)
-    out = {}
+    tasks = {}
     for task, rows in per.items():
         scores = [r["score"] for r in rows]
         walls = [r["wall_seconds"] for r in rows if isinstance(r.get("wall_seconds"), (int, float))]
-        out[task] = {
+        turns = [r["turns"] for r in rows if isinstance(r.get("turns"), int)]
+        tasks[task] = {
             "attempts": len(rows),
             "scores": [round(s, 4) for s in sorted(scores)],
             "mean": round(statistics.mean(scores), 4),
             "perfect": sum(1 for s in scores if s >= 1.0),
             "mean_wall_s": round(statistics.mean(walls)) if walls else None,
+            "mean_turns": round(statistics.mean(turns), 1) if turns else None,
             "faults": [{"repeat": r.get("repeat"), "class": (r.get("fault") or {}).get("class")}
                        for r in rows if r.get("harness_failed")],
         }
-    return {"tasks": out, "excluded": [
+    return {"tasks": tasks, "excluded": [
         {"task": r.get("task"), "repeat": r.get("repeat"),
          "class": (r.get("fault") or {}).get("class"),
          "detail": ((r.get("fault") or {}).get("detail") or "")[:160]}
@@ -85,68 +86,88 @@ def summarise(recs: list[dict]) -> dict[str, dict]:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("run_a")
-    ap.add_argument("run_b")
+    ap.add_argument("runs", nargs="+", help="run ids, two or more")
     ap.add_argument("--tasks", nargs="+", help="restrict to these task keys (default: the overlap)")
     ap.add_argument("--out", help="write the comparison JSON here")
     ap.add_argument("--title", help="human title for the comparison")
     a = ap.parse_args()
+    if len(a.runs) < 2:
+        sys.exit("give at least two run ids")
 
-    model_a, recs_a = load(a.run_a)
-    model_b, recs_b = load(a.run_b)
-    sum_a, sum_b = summarise(recs_a), summarise(recs_b)
-    shared = a.tasks or sorted(set(sum_a["tasks"]) & set(sum_b["tasks"]))
-    if not shared:
-        sys.exit("the two runs share no task with a scorable attempt")
+    loaded = {}
+    for run_id in a.runs:
+        model, recs = load(run_id)
+        if model in loaded:
+            sys.exit(f"two runs report the same model ({model}); compare different models")
+        loaded[model] = {"run": run_id, **summarise(recs)}
+
+    models = list(loaded)
+    if a.tasks:
+        tasks = list(a.tasks)
+    else:
+        shared = set(loaded[models[0]]["tasks"])
+        for m in models[1:]:
+            shared &= set(loaded[m]["tasks"])
+        tasks = sorted(shared)
+    if not tasks:
+        sys.exit("the runs share no task with a scorable attempt")
+    # a task must appear in every run, or the columns are not comparable rows
+    missing = [(m, t) for m in models for t in tasks if t not in loaded[m]["tasks"]]
+    if missing:
+        print(f"warning: {len(missing)} model-task pair(s) have no scorable attempt and show as '-': "
+              + ", ".join(f"{m}/{t}" for m, t in missing[:4]), file=sys.stderr)
 
     rows = []
-    for t in shared:
-        ra, rb = sum_a["tasks"].get(t), sum_b["tasks"].get(t)
-        rows.append({
-            "task": t,
-            "a": ra, "b": rb,
-            "delta": (round(rb["mean"] - ra["mean"], 4) if ra and rb else None),
-        })
+    for t in tasks:
+        cells = {m: loaded[m]["tasks"].get(t) for m in models}
+        rows.append({"task": t, "cells": cells})
 
-    def overall(side: str) -> dict:
-        vals = [r[side]["mean"] for r in rows if r[side]]
-        walls = [r[side]["mean_wall_s"] for r in rows if r[side] and r[side]["mean_wall_s"]]
-        attempts = sum(r[side]["attempts"] for r in rows if r[side])
-        perfect = sum(r[side]["perfect"] for r in rows if r[side])
-        return {
+    overall = {}
+    for m in models:
+        cells = [r["cells"][m] for r in rows if r["cells"].get(m)]
+        vals = [c["mean"] for c in cells]
+        walls = [c["mean_wall_s"] for c in cells if c["mean_wall_s"]]
+        turns = [c["mean_turns"] for c in cells if c["mean_turns"]]
+        overall[m] = {
+            "run": loaded[m]["run"],
             "mean_over_tasks": round(statistics.mean(vals), 4) if vals else None,
-            "attempts": attempts,
-            "perfect": perfect,
+            "attempts": sum(c["attempts"] for c in cells),
+            "perfect": sum(c["perfect"] for c in cells),
             "mean_wall_s": round(statistics.mean(walls)) if walls else None,
+            "mean_turns": round(statistics.mean(turns), 1) if turns else None,
+            "excluded": len(loaded[m]["excluded"]),
         }
 
     doc = {
         "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "title": a.title or f"{model_a} vs {model_b} on {len(shared)} shared tasks",
-        "runs": {model_a: a.run_a, model_b: a.run_b},
+        "title": a.title or f"{len(models)} local models on {len(tasks)} shared tasks",
+        "runs": {m: loaded[m]["run"] for m in models},
         "tasks": rows,
-        "overall": {model_a: overall("a"), model_b: overall("b")},
-        "excluded": {model_a: sum_a["excluded"], model_b: sum_b["excluded"]},
-        "note": ("Means are over attempts, per task, on the tasks both runs attempted. This is not "
-                 "a published row: a head-to-head is deliberately unbalanced, because the extra "
-                 "attempts target the tasks each model failed."),
+        "overall": overall,
+        "excluded": {m: loaded[m]["excluded"] for m in models},
+        "note": ("Means are over attempts, per task, on the tasks every run attempted. This is not a "
+                 "published row: a head-to-head is deliberately unbalanced, because the extra attempts "
+                 "target the tasks each model failed."),
     }
 
-    print(f"{'task':30} {model_a[:18]:>19} {model_b[:18]:>19}  delta")
+    def cell_text(c: dict | None) -> str:
+        return "-" if not c else f"{c['mean']:.3f} ({c['attempts']})"
+
+    width = max(len(t) for t in tasks) + 2
+    print(f"{'task':{width}}" + "".join(f"{m[:20]:>22}" for m in models))
     for r in rows:
-        fa = f"{r['a']['mean']:.3f} ({r['a']['attempts']})" if r["a"] else "-"
-        fb = f"{r['b']['mean']:.3f} ({r['b']['attempts']})" if r["b"] else "-"
-        d = f"{r['delta']:+.3f}" if r["delta"] is not None else "-"
-        print(f"{r['task']:30} {fa:>19} {fb:>19}  {d}")
-    oa, ob = doc["overall"][model_a], doc["overall"][model_b]
-    print(f"{'MEAN OF TASK MEANS':30} {oa['mean_over_tasks']:>19} {ob['mean_over_tasks']:>19}")
-    print(f"{'attempts':30} {oa['attempts']:>19} {ob['attempts']:>19}")
-    print(f"{'perfect':30} {oa['perfect']:>19} {ob['perfect']:>19}")
-    print(f"{'mean wall per attempt (s)':30} {oa['mean_wall_s']:>19} {ob['mean_wall_s']:>19}")
-    for m, ex in doc["excluded"].items():
-        if ex:
-            print(f"excluded from {m}: {len(ex)} row(s) — " +
-                  ", ".join(f"{e['task']} {e['class']}" for e in ex))
+        line = f"{r['task']:{width}}"
+        for m in models:
+            line += f"{cell_text(r['cells'][m]):>22}"
+        print(line)
+    print(f"{'MEAN OF TASK MEANS':{width}}" + "".join(f"{overall[m]['mean_over_tasks']:>22}" for m in models))
+    print(f"{'attempts':{width}}" + "".join(f"{overall[m]['attempts']:>22}" for m in models))
+    print(f"{'perfect':{width}}" + "".join(f"{overall[m]['perfect']:>22}" for m in models))
+    print(f"{'mean wall per attempt (s)':{width}}" + "".join(f"{str(overall[m]['mean_wall_s']):>22}" for m in models))
+    print(f"{'mean turns':{width}}" + "".join(f"{str(overall[m]['mean_turns']):>22}" for m in models))
+    for m in models:
+        if loaded[m]["excluded"]:
+            print(f"excluded from {m}: " + ", ".join(f"{e['task']} {e['class']}" for e in loaded[m]["excluded"]))
 
     if a.out:
         out = Path(a.out) if Path(a.out).is_absolute() else ROOT / a.out

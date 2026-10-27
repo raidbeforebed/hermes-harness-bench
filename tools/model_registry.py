@@ -30,6 +30,7 @@ LABEL = {
     "gemma4:cloud": "Gemma 4 (cloud)",
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "Qwen3.6 35B (local)",
     "nemotron-3.5-lightning-30b-a3b": "Nemotron 3.5 Lightning 30B (local)",
+    "Groot-19B-A3B-261023": "Groot 19B (local)",
     "poolside/laguna-s-2.1": "Laguna S 2.1",
     "poolside/laguna-xs-2.1": "Laguna XS 2.1",
 }
@@ -47,6 +48,7 @@ COLOUR = {
     "gemma4:cloud": "#9ece6a",
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "#f7768e",
     "nemotron-3.5-lightning-30b-a3b": "#ff9e64",
+    "Groot-19B-A3B-261023": "#bb9af7",
     "poolside/laguna-s-2.1": "#2ac3de",
     "poolside/laguna-xs-2.1": "#c0caf5",
 }

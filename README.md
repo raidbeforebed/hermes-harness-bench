@@ -387,40 +387,46 @@ substituted (`gemma4:31b-cloud` and `deepseek-v4.1-flash:1017`), which the harne
 by reading each child's own session row. Those attempts are excluded, not published as
 zero, and the task they hit was re-run to four attempts on the requested model.
 
-### The three-task head-to-head: Qwen against Nemotron
+### Three local models on one instrument: Groot, Qwen, Nemotron
 
-Both local models were run on the same three tasks, at three attempts each, on the same
-`llama-server` build (`b11669`), with the same budget scale. Nemotron's figure includes the two
-re-run attempts that replaced substituted ones; its two fallback-answered attempts are excluded.
+All three were run on the same three tasks, three attempts each, on the same `llama-server` build
+(`b11669`) and the same budget scale. Nemotron's figures include the two attempts re-run after the
+endpoint substituted a fallback model; those two substitutions are excluded rather than scored.
 
-| Task | Nemotron 3.5 Lightning 30B | Qwen3.6 35B | Delta |
+| Task | Groot 19B | Qwen3.6 35B | Nemotron 3.5 Lightning 30B |
 |---|---|---|---|
-| `01-json-extract` | 0.714 over 4 | **0.905** over 3 | +0.191 |
-| `05-memory-nodestructive` | 0.875 over 4 | **0.889** over 3 | +0.014 |
-| `08-constraint-format` | 0.844 over 4 | **1.000** over 3 | +0.156 |
-| mean of the three task means | 0.811 | **0.931** | +0.120 |
-| attempts perfect | 4 of 12 | **6 of 9** | |
-| mean wall per attempt | 216 s | **185 s** | |
+| `01-json-extract` | **1.000** over 3 | 0.905 over 3 | 0.714 over 4 |
+| `05-memory-nodestructive` | **0.944** over 3 | 0.889 over 3 | 0.875 over 4 |
+| `08-constraint-format` | **1.000** over 3 | **1.000** over 3 | 0.844 over 4 |
+| mean of task means | **0.982** | 0.931 | 0.811 |
+| attempts perfect | **8 of 9** | 6 of 9 | 4 of 12 |
+| mean wall per attempt | **136 s** | 185 s | 216 s |
+| mean turns | **6.1** | 14.0 | 29.5 |
 
-The Qwen model is the better of the two here, on both quality and time, and the shape of the
-difference is worth naming rather than just the mean:
+Groot leads on every axis measured here: score, wall clock, turns, and electricity. It is also the
+smallest of the three at 19B total against 30B and 35B, which is the interesting part of the result
+rather than a footnote.
 
-- **`08` is the whole argument.** Qwen satisfied all eight constraints in three attempts out of
-  three. Nemotron did it once in four; the other three ended at the turn ceiling or at the wall
-  clock with a partial file. A model that cannot stop is not usable for agent work no matter how
-  well it reads.
-- **`01` favours Qwen more than its mean suggests.** Nemotron's four attempts include three with
-  the same filtering error, so its 0.714 is a stable defect rather than noise. Qwen missed once
-  in three, which is the arithmetic instability its own published row already records.
-- **`05` is a draw.** Both read `entry_count` as 2 for a three-entry file in some attempts, and
-  Nemotron additionally spent one attempt without writing the answer file at all.
+- **`01` separates them cleanly.** Groot aggregated the shipped orders correctly in three attempts
+  out of three. Qwen missed once in three, the arithmetic instability its own published row records.
+  Nemotron made the same filtering error three times in four, so its 0.714 is a stable defect.
+- **`05` is nearly a draw and is a prompt problem.** All three read `entry_count` as 2 for a
+  three-entry file at least once. Groot's single missed attempt is exactly that check.
+- **`08` is where Nemotron falls out of the running.** Groot and Qwen both satisfied all eight
+  constraints three times out of three; Nemotron did it once in four, spending the rest at the turn
+  ceiling with a partial file.
 
-This comparison is kept as its own artifact, [`results/head-to-head/qwen-vs-nemotron-20261027.json`](results/head-to-head/qwen-vs-nemotron-20261027.json),
-rather than merged into the tables above. A published row is a balanced design, every task
-attempted the same number of times; these nine extra attempts deliberately target the three tasks
-each model failed, and folding them into Qwen's row would move its headline from 86.1% to a number
-that no longer describes the twelve-task suite. The tool that produces it is
-`tools/head_to_head.py`.
+**One configuration difference, stated rather than smoothed.** Groot runs in its default thinking
+mode; the other two had thinking disabled by their launch flags. Its 6.1 mean turns against 14.0
+and 29.5 say the thinking did not turn into long deliberation on these tasks, but a strict
+like-for-like would re-run Groot with `--reasoning off`, and that has not been done.
+
+This comparison is kept as its own artifact,
+[`results/head-to-head/local-three-way-20261027.json`](results/head-to-head/local-three-way-20261027.json),
+rather than merged into the tables above. A published row is a balanced design, every task attempted
+the same number of times; these nine extra attempts deliberately target the three tasks each model
+failed, so folding them into a published row would move a twelve-task headline into describing a
+different design. `tools/head_to_head.py` produces it from the run directories.
 
 ### What three repeats actually bought
 
