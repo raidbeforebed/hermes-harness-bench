@@ -186,14 +186,23 @@ Nemotron's is wider again at 13 of 21 runs with nine of twelve tasks stable.
 
 ![Quality against token cost](assets/pareto.svg)
 
-The local model sits far left on token cost and lower on reliability, which is the
-trade-off it actually offers: 7,218 tokens a task, under a third of DeepSeek's and well
-under half of GLM's, at about 86 per cent of their reliability.
+The Qwen row sits far left on token cost and lower on reliability, which is the trade-off
+it actually offers: 7,218 tokens a task, under a third of DeepSeek's and well under half of
+GLM's, at about 86 per cent of their reliability. The two other local models are not on this
+chart at all, because they have no suite run: Groot is measured only on the targeted three
+tasks, and its own chart is further down.
 
 Ornith sits well to the right of the three paid models it ties with. It reaches 36/36 on
 146,497 tokens a task, six times DeepSeek's, and at 115 seconds mean it is the second
 slowest row in the table after Laguna S. What the chart cannot show is price: Ornith was
 free on the Nous Portal on the day it ran, so the tokens buy no dollars, only latency.
+
+These four charts cover `results/`, the balanced twelve-task suite. The local models were also
+measured on the three tasks they fail, which is a different design and gets its own chart further
+down: [local-three-task.svg](assets/local-three-task.svg), from `tools/make_local_chart.py`. Nothing
+from that targeted run appears in the four above, on purpose: nine attempts on three hard tasks drawn
+beside thirty-six attempts on twelve would look like a comparison of models when it is a comparison of
+task mixes.
 
 Charts are generated from `results/` by `tools/make_charts.py`, so they cannot drift
 from the data. Re-run it after a benchmark:
@@ -389,6 +398,8 @@ zero, and the task they hit was re-run to four attempts on the requested model.
 
 ### Three local models on one instrument: Groot, Qwen, Nemotron
 
+![Local models on three tasks: Groot in both reasoning modes, Qwen, Nemotron](assets/local-three-task.svg)
+
 All three were run on the same three tasks, three attempts each, on the same `llama-server` build
 (`b11669`) and the same budget scale. Nemotron's figures include the two attempts re-run after the
 endpoint substituted a fallback model; those two substitutions are excluded rather than scored.
@@ -500,6 +511,11 @@ an hour per model and settled it.
   from this table.
 - The suite discriminates on **reliability under long-horizon work**, not on
   capability ceiling. Several tasks are clean for every model tested.
+- **The local comparison is a targeted sample, not a suite score.** Three tasks, nine attempts per
+  model, chosen because they are where local models fail. That is enough to separate Groot from
+  Nemotron and to compare two configurations of one model, and not enough to place any of them on the
+  twelve-task table. Local models therefore appear in `results/` only where a full suite was actually
+  run, and their targeted work lives in [`results/head-to-head/`](results/head-to-head/).
 - **A timeout is a failure, not a verdict on quality.** Every Beam failure was a
   budget exhaustion on a task where it thrashes, not a wrong answer. On slower
   hardware, or with a different budget, that number moves. The budget is recorded in

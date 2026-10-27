@@ -204,6 +204,16 @@ def main() -> int:
     if c.stderr.strip():
         print(c.stderr.rstrip(), file=sys.stderr)
 
+    # 2b. the local comparison chart, from the head-to-head artifacts rather than results/
+    if (ROOT / "results" / "head-to-head").is_dir():
+        lc = run([sys.executable, "tools/make_local_chart.py"])
+        if lc.returncode != 0:
+            print(lc.stdout, lc.stderr, file=sys.stderr)
+            print("\nPUBLISH ABORTED: the local comparison chart failed.", file=sys.stderr)
+            return 1
+        if lc.stdout.strip():
+            print(lc.stdout.rstrip())
+
     # 3. README table
     if rewrite_readme():
         print("README results table regenerated")

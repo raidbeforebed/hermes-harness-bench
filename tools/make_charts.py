@@ -357,16 +357,24 @@ def pareto(rows: list[dict], title: str, sub: str) -> str:
 
 
 def audit(outdir: Path, rows: list[dict]) -> list[str]:
-    """Every drawn chart must name every model in results/.
+    """Every suite chart must name every model in results/.
 
     This is the guard for the defect that let Ornith 1.5 122B publish at 36/36 and
     appear on no chart at all. A chart that quietly omits a row is worse than a chart
     that fails to build, so the check returns hard errors and main() exits non-zero,
     which is what stops publish.py from committing an incomplete figure.
+
+    A chart may declare itself out of scope by carrying ``scope: targeted`` in its
+    description, which is how assets/local-three-task.svg says it draws the targeted
+    comparison rather than results/. Without that escape hatch the audit must see every
+    model, so a new suite chart cannot quietly drop a row, and the negative test that
+    feeds it a deliberately incomplete chart still has to fire.
     """
     problems: list[str] = []
     for svg in sorted(outdir.glob("*.svg")):
         body = svg.read_text()
+        if "scope: targeted" in body:
+            continue
         for r in rows:
             if esc(r["label"]) not in body:
                 problems.append(f"{svg.name}: {r['label']} is missing")
