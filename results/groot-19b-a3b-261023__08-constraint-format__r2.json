@@ -1,0 +1,61 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "format_check.txt exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "detail": "5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "detail": "[]",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "detail": "5 of 5",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "detail": "['grep', 'sed', 'awk', 'cut', 'tr']",
+      "pass": true
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "detail": "48 chars",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "detail": "[10, 9, 12, 9, 8]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T13:30:28.831861+00:00",
+  "harness_failed": false,
+  "model": "Groot-19B-A3B-261023",
+  "passed": 8,
+  "repeat": 2,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-27T13:28:53.097886+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 154990,
+  "tokens_out": 1696,
+  "tool_calls": 12,
+  "total_checks": 8,
+  "turns": 14,
+  "wall_seconds": 95.7
+}

@@ -1,0 +1,36 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "test file untouched",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "slugify.py exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "pytest suite passes",
+      "detail": "......                                                                   [100%]\n6 passed in 0.01s\n",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T13:10:36.487266+00:00",
+  "harness_failed": false,
+  "model": "Groot-19B-A3B-261023",
+  "passed": 3,
+  "repeat": 1,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-27T13:09:34.904187+00:00",
+  "task": "03-test-fix",
+  "tokens_in": 133458,
+  "tokens_out": 761,
+  "tool_calls": 12,
+  "total_checks": 3,
+  "turns": 13,
+  "wall_seconds": 61.3
+}

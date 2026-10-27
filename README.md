@@ -143,6 +143,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Gemma 4 (cloud) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
 | Qwen3.6 35B (local) | 3 | 31/36 (86.1%) | - | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
 | Nemotron 3.5 Lightning 30B (local) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
+| Groot 19B (local) | 3 | 30/36 (83.3%) | - | 8/12 | 11.9 | 127,891 | 71 s | 42 min |
 <!-- RESULTS:END -->
 
 Read the **Repeats** column before comparing rows. A one-repeat row is a screening
@@ -186,11 +187,17 @@ Nemotron's is wider again at 13 of 21 runs with nine of twelve tasks stable.
 
 ![Quality against token cost](assets/pareto.svg)
 
-The Qwen row sits far left on token cost and lower on reliability, which is the trade-off
-it actually offers: 7,218 tokens a task, under a third of DeepSeek's and well under half of
-GLM's, at about 86 per cent of their reliability. The two other local models are not on this
-chart at all, because they have no suite run: Groot is measured only on the targeted three
-tasks, and its own chart is further down.
+The Qwen row sits far left on token cost, but that axis needs a warning before anyone reads a
+ranking off it. The figure is whatever each endpoint reported, and two `llama-server` models on
+the same build disagree by more than an order of magnitude per turn: Qwen reports 711 prompt
+tokens a turn, Groot 10,710, on the same tasks and the same harness. That is an accounting
+difference, not a model difference, so **compare tokens within one endpoint, never across
+providers**, and treat the cost chart as a description of what was counted rather than of what was
+spent.
+
+On reliability Qwen is at 86.1 per cent of the twelve-task suite against the paid models' 100.
+Groot now has a suite row of its own, and both local models also appear on the targeted chart
+further down, which is where their comparison is actually fair.
 
 Ornith sits well to the right of the three paid models it ties with. It reaches 36/36 on
 146,497 tokens a task, six times DeepSeek's, and at 115 seconds mean it is the second
@@ -211,11 +218,11 @@ from the data. Re-run it after a benchmark:
 python3 tools/make_charts.py
 ```
 
-### Five of nine rows are perfect, so cost is the only differentiator
+### Five of ten rows are perfect, so cost is the only differentiator
 
 Four models passed all **36 of 36** runs with zero variance on every individual task and
 zero timeouts, and a fifth, Laguna S 2.1, passed all 12 runs of its single-repeat
-screening pass. When five of the nine rows are perfect, pass rate tells you almost
+screening pass. When five of the ten rows are perfect, pass rate tells you almost
 nothing and the useful question becomes what each one costs to be perfect:
 
 - **DeepSeek V4.1 Flash is the fastest of the five perfect rows**, at 34 seconds mean
@@ -396,12 +403,43 @@ substituted (`gemma4:31b-cloud` and `deepseek-v4.1-flash:1017`), which the harne
 by reading each child's own session row. Those attempts are excluded, not published as
 zero, and the task they hit was re-run to four attempts on the requested model.
 
+### Groot 19B: best on the hard three, behind Qwen on all twelve
+
+Groot-19B-A3B-261023, released 2026-10-23 and post-trained from Qwen3.6-35B-A3B, was run on the full
+suite at three repeats with reasoning off: **30 of 36 runs passed, eight of twelve tasks stable, mean
+0.9595, 71 s mean wall, 11.9 turns, no faults, no timeouts.** It is the fastest and cheapest local
+model here, and it is behind Qwen on reliability.
+
+| | Groot 19B | Qwen3.6 35B |
+|---|---|---|
+| runs passed | 30/36 (83.3%) | **31/36 (86.1%)** |
+| tasks stable | 8/12 | **9/12** |
+| mean wall | **71 s** | 107 s |
+| mean turns | **11.9** | 12.2 |
+
+Where it loses:
+
+- **`01-json-extract`, three times out of three, at 0.714.** The same filtering error Nemotron makes:
+  the aggregate is taken over all eight CSV rows instead of the seven shipped ones. This is now a
+  stable defect rather than an occasional one.
+- **`12-long-chain` once at 0.667**, the only long-horizon stumble, recovered on the next two attempts.
+- **`06-multiturn-continuity` and `08-constraint-format`** each lost one attempt to a partial file,
+  0.857 and 0.875, both recovered.
+
+**The honest part is the disagreement with the targeted run.** On the three hard tasks Groot scored
+0.982 and looked like the strongest local model here; on the twelve-task suite it is below Qwen. The
+cause is `01`: it passed two of three attempts in the targeted run and none of three in the suite,
+same model, same build, same flags, same prompt. Three attempts is a small sample and the same task
+can invert between runs, which is the whole argument for the twelve-task, three-repeat design and the
+reason a targeted sample is never quoted as a suite score.
+
 ### Three local models on one instrument: Groot, Qwen, Nemotron
 
 ![Local models on three tasks: Groot in both reasoning modes, Qwen, Nemotron](assets/local-three-task.svg)
 
-All three were run on the same three tasks, three attempts each, on the same `llama-server` build
-(`b11669`) and the same budget scale. Nemotron's figures include the two attempts re-run after the
+The numbers below are a three-task sample and not suite scores: Groot's twelve-task row is 83.3 per
+cent, above in the table. All three were run on the same three tasks, three attempts each, on the same
+`llama-server` build (`b11669`) and the same budget scale. Nemotron's figures include the two attempts re-run after the
 endpoint substituted a fallback model; those two substitutions are excluded rather than scored.
 
 | Task | Groot 19B | Qwen3.6 35B | Nemotron 3.5 Lightning 30B |

@@ -1,0 +1,56 @@
+{
+  "artifact_score": 0.7143,
+  "checks": [
+    {
+      "check": "report.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "required keys",
+      "detail": "['by_customer', 'shipped_revenue', 'total_orders']",
+      "pass": true
+    },
+    {
+      "check": "total_orders == 7",
+      "detail": "7",
+      "pass": true
+    },
+    {
+      "check": "all 4 customers present",
+      "detail": "['Acme Corp', 'Beta LLC', 'Delta Co', 'Gamma Inc']",
+      "pass": true
+    },
+    {
+      "check": "per-customer orders+revenue",
+      "detail": "Acme Corp: got {'orders': 3, 'revenue': 115.47} want {'orders': 3, 'revenue': 119.97}",
+      "pass": false
+    },
+    {
+      "check": "shipped_revenue == 149.97",
+      "detail": "145.47",
+      "pass": false
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T13:07:26.131713+00:00",
+  "harness_failed": false,
+  "model": "Groot-19B-A3B-261023",
+  "passed": 5,
+  "repeat": 3,
+  "score": 0.7143,
+  "score_source": "artifact",
+  "started": "2026-10-27T13:06:17.994136+00:00",
+  "task": "01-json-extract",
+  "tokens_in": 109948,
+  "tokens_out": 1250,
+  "tool_calls": 8,
+  "total_checks": 7,
+  "turns": 10,
+  "wall_seconds": 68.1
+}

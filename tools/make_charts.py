@@ -420,7 +420,9 @@ def main() -> None:
         rows_t, "tokens", "tokens",
         "Token cost per task",
         "Mean tokens per task, over runs that reported usage. A timed-out run is killed "
-        "before usage is emitted, so it is unknown rather than zero.",
+        "before usage is emitted, so it is unknown rather than zero. These are each "
+        "endpoint's own accounting: two llama-server models on the same build report 711 "
+        "and 10,710 prompt tokens a turn, so compare within an endpoint, not across providers.",
         lambda r: f"{r['tokens']:,}" + ("" if r["tokens_known"] == r["runs"]
                                        else f"  (from {r['tokens_known']} of {r['runs']} runs)")))
 
@@ -437,8 +439,9 @@ def main() -> None:
     (outdir / "pareto.svg").write_text(pareto(
         rows,
         "Quality against token cost",
-        "Upper left is best: reliable and cheap. The local model sits far left and "
-        "lower, which is the trade-off it offers."))
+        "Upper left is best: reliable and cheap. The horizontal axis is each endpoint's own "
+        "token accounting, not a common meter: Qwen and Groot are both llama-server on the same "
+        "build and differ by fifteen times per turn, so read this as cost within a provider."))
 
     problems = audit(outdir, rows)
     if problems:

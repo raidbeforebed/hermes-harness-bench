@@ -1,0 +1,51 @@
+{
+  "artifact_score": 0.6667,
+  "checks": [
+    {
+      "check": "summary.json exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "all 12 months present",
+      "detail": "got 12",
+      "pass": true
+    },
+    {
+      "check": "per-month revenue correct",
+      "detail": "2026-01 got None want 1355.62; 2026-02 got None want 851.01; 2026-03 got None want 811.85; 2026-04 got None want 730.68; 2026-05 got None want 862.5; 2026-06 got None want 1012.07; 2026-07 got None want 1074.18; 2026-08 got None want 472.03; 2026-09 got None want 635.25; 2026-10 got None want 1195.2",
+      "pass": false
+    },
+    {
+      "check": "rows_used correct per month",
+      "detail": "[('2026-01', None, 8), ('2026-02', None, 8), ('2026-03', None, 8)]",
+      "pass": false
+    },
+    {
+      "check": "skipped_rows correct",
+      "detail": "got 1 want 1",
+      "pass": true
+    },
+    {
+      "check": "top_region correct",
+      "detail": "got {'region': 'west', 'revenue': 2919.16} want ('west', 2919.16)",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T13:43:45.689816+00:00",
+  "harness_failed": false,
+  "model": "Groot-19B-A3B-261023",
+  "passed": 4,
+  "repeat": 1,
+  "score": 0.6667,
+  "score_source": "artifact",
+  "started": "2026-10-27T13:41:38.397193+00:00",
+  "task": "12-long-chain",
+  "tokens_in": 189478,
+  "tokens_out": 2491,
+  "tool_calls": 14,
+  "total_checks": 6,
+  "turns": 16,
+  "wall_seconds": 127.3
+}

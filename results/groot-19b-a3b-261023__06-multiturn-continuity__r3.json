@@ -1,0 +1,56 @@
+{
+  "artifact_score": 0.8571,
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "detail": "got 10",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "detail": "api: got {'count': 5, 'avg_ms': 121.4} want {'count': 5, 'avg_ms': 99.4}",
+      "pass": false
+    },
+    {
+      "check": "final problem_services correct",
+      "detail": "ok",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-27T13:22:30.576021+00:00",
+  "harness_failed": false,
+  "model": "Groot-19B-A3B-261023",
+  "passed": 6,
+  "repeat": 3,
+  "score": 0.8571,
+  "score_source": "artifact",
+  "started": "2026-10-27T13:21:03.945397+00:00",
+  "task": "06-multiturn-continuity",
+  "tokens_in": 158011,
+  "tokens_out": 1630,
+  "tool_calls": 12,
+  "total_checks": 7,
+  "turns": 14,
+  "wall_seconds": 86.6
+}
