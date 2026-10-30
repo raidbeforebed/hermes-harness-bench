@@ -1,12 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="480" viewBox="0 0 760 480" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="514" viewBox="0 0 760 514" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
 <rect width="100%" height="100%" fill="#0d1117"/>
 <text x="28" y="36" fill="#e6edf3" font-size="17" font-weight="600">Turns per task</text>
 <text x="28" y="58" fill="#7d8590" font-size="12">Mean tool-calling turns. The Hermes harness averages 22.6 turns on Harness-Bench, so fewer turns per task is</text>
 <text x="28" y="74" fill="#7d8590" font-size="12">less context pressure.</text>
-<line x1="327.5" y1="88" x2="327.5" y2="430" stroke="#21262d" stroke-width="1"/>
-<line x1="445.0" y1="88" x2="445.0" y2="430" stroke="#21262d" stroke-width="1"/>
-<line x1="562.5" y1="88" x2="562.5" y2="430" stroke="#21262d" stroke-width="1"/>
-<line x1="680.0" y1="88" x2="680.0" y2="430" stroke="#21262d" stroke-width="1"/>
+<line x1="327.5" y1="88" x2="327.5" y2="464" stroke="#21262d" stroke-width="1"/>
+<line x1="445.0" y1="88" x2="445.0" y2="464" stroke="#21262d" stroke-width="1"/>
+<line x1="562.5" y1="88" x2="562.5" y2="464" stroke="#21262d" stroke-width="1"/>
+<line x1="680.0" y1="88" x2="680.0" y2="464" stroke="#21262d" stroke-width="1"/>
 <text x="196" y="111" fill="#c9d1d9" font-size="13" text-anchor="end">GLM-5.3 Flash</text>
 <rect x="210" y="98" width="176.5" height="20" rx="4" fill="#7aa2f7" opacity="0.85"/>
 <text x="396.5" y="112" fill="#e6edf3" font-size="12.5" font-weight="600">10.6</text>
@@ -31,10 +31,13 @@
 <text x="196" y="349" fill="#c9d1d9" font-size="13" text-anchor="end">MiniMax M3.1 Flash</text>
 <rect x="210" y="336" width="273.7" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
 <text x="493.7" y="350" fill="#e6edf3" font-size="12.5" font-weight="600">16.5</text>
-<text x="196" y="383" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free)</text>
-<rect x="210" y="370" width="322.1" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
-<text x="542.1" y="384" fill="#e6edf3" font-size="12.5" font-weight="600">19.4</text>
-<text x="196" y="417" fill="#c9d1d9" font-size="13" text-anchor="end">Nemotron 3.5 Lightning 30B (local)</text>
-<rect x="210" y="404" width="470.0" height="20" rx="4" fill="#ff9e64" opacity="0.85"/>
-<text x="690.0" y="418" fill="#e6edf3" font-size="12.5" font-weight="600">28.3</text>
+<text x="196" y="383" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (local, reason on)</text>
+<rect x="210" y="370" width="316.6" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
+<text x="536.6" y="384" fill="#e6edf3" font-size="12.5" font-weight="600">19.1</text>
+<text x="196" y="417" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free)</text>
+<rect x="210" y="404" width="322.1" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
+<text x="542.1" y="418" fill="#e6edf3" font-size="12.5" font-weight="600">19.4</text>
+<text x="196" y="451" fill="#c9d1d9" font-size="13" text-anchor="end">Nemotron 3.5 Lightning 30B (local)</text>
+<rect x="210" y="438" width="470.0" height="20" rx="4" fill="#ff9e64" opacity="0.85"/>
+<text x="690.0" y="452" fill="#e6edf3" font-size="12.5" font-weight="600">28.3</text>
 </svg>

@@ -139,6 +139,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | MiniMax M3.1 Flash | 3 | **36/36 (100%)** | - | 12/12 | 16.5 | 23,413 | 82 s | 49 min |
 | Ornith 1.5 122B (free) | 3 | **36/36 (100%)** | - | 12/12 | 12.1 | 146,497 | 115 s | 69 min |
 | Laguna S 2.1 (free) | 1 | **12/12 (100%)** | - | 12/12 | 19.4 | 241,814 | 162 s | 32 min |
+| LFM3 1.7B (local, reason on) | 1 | 11/12 (91.7%) | - | 11/12 | 19.1 | 240,249 | 187 s | 37 min |
 | Beam | 3 | 34/36 (94.4%) | - | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
 | Gemma 4 (cloud) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
 | Qwen3.6 35B (local) | 3 | 31/36 (86.1%) | - | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
@@ -218,11 +219,11 @@ from the data. Re-run it after a benchmark:
 python3 tools/make_charts.py
 ```
 
-### Five of ten rows are perfect, so cost is the only differentiator
+### Five of eleven rows are perfect, so cost is the only differentiator
 
 Four models passed all **36 of 36** runs with zero variance on every individual task and
 zero timeouts, and a fifth, Laguna S 2.1, passed all 12 runs of its single-repeat
-screening pass. When five of the ten rows are perfect, pass rate tells you almost
+screening pass. When five of the eleven rows are perfect, pass rate tells you almost
 nothing and the useful question becomes what each one costs to be perfect:
 
 - **DeepSeek V4.1 Flash is the fastest of the five perfect rows**, at 34 seconds mean

@@ -31,6 +31,9 @@ LABEL = {
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "Qwen3.6 35B (local)",
     "nemotron-3.5-lightning-30b-a3b": "Nemotron 3.5 Lightning 30B (local)",
     "Groot-19B-A3B-261023": "Groot 19B (local)",
+    "LFM2.5-24B-A2B": "LFM2.5 24B (local)",
+    "lfm3-64k": "LFM3 1.7B (local, reason on)",
+    "ornith9b-64k": "Ornith 1.5 9B (local)",
     "poolside/laguna-s-2.1": "Laguna S 2.1",
     "poolside/laguna-xs-2.1": "Laguna XS 2.1",
 }
@@ -49,6 +52,9 @@ COLOUR = {
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "#f7768e",
     "nemotron-3.5-lightning-30b-a3b": "#ff9e64",
     "Groot-19B-A3B-261023": "#bb9af7",
+    "LFM2.5-24B-A2B": "#73daca",
+    "lfm3-64k": "#4fd1a5",
+    "ornith9b-64k": "#7dcfff",
     "poolside/laguna-s-2.1": "#2ac3de",
     "poolside/laguna-xs-2.1": "#c0caf5",
 }
@@ -66,6 +72,8 @@ ORDER = [
     "gemma4:cloud",
     "Qwen3.6-35B-A3B-UD-Q4_K_M",
     "nemotron-3.5-lightning-30b-a3b",
+    "lfm3-64k",
+    "ornith9b-64k",
 ]
 
 # Pareto label placement: (dx, dy, text-anchor) per model id. Hand-tuned because the
