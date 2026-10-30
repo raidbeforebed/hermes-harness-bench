@@ -1,0 +1,26 @@
+{
+  "artifact_score": 0.0,
+  "checks": [
+    {
+      "check": "summary.json exists",
+      "detail": "missing",
+      "pass": false
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T15:33:50.346863+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf",
+  "passed": 0,
+  "repeat": 1,
+  "score": 0.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T15:31:52.065795+00:00",
+  "task": "12-long-chain",
+  "tokens_in": 375257,
+  "tokens_out": 3418,
+  "tool_calls": 28,
+  "total_checks": 1,
+  "turns": 30,
+  "wall_seconds": 118.2
+}

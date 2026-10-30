@@ -1,0 +1,51 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "config.ini -> config.bak (content preserved)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "config.ini removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "notes.txt -> notes.bak (content preserved)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "notes.txt removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "README.md untouched",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "MANIFEST.txt exact",
+      "detail": "renamed: config.ini -> config.bak\nrenamed: notes.txt -> notes.bak\nunchanged: README.md\ntotal_before: 3\ntotal_after: 3\n",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T15:19:25.495949+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf",
+  "passed": 6,
+  "repeat": 1,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T15:19:01.293946+00:00",
+  "task": "04-rename-safe",
+  "tokens_in": 64861,
+  "tokens_out": 321,
+  "tool_calls": 6,
+  "total_checks": 6,
+  "turns": 7,
+  "wall_seconds": 24.2
+}

@@ -1,0 +1,51 @@
+{
+  "artifact_score": 0.8333,
+  "checks": [
+    {
+      "check": "answer.json exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "records.json unmodified",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "CHANGELOG.md unmodified",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "alice_total == 40",
+      "detail": "40",
+      "pass": true
+    },
+    {
+      "check": "entry_count == 3",
+      "detail": "2",
+      "pass": false
+    },
+    {
+      "check": "owners == [alice,bob]",
+      "detail": "['alice', 'bob']",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T15:19:50.285196+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf",
+  "passed": 5,
+  "repeat": 1,
+  "score": 0.8333,
+  "score_source": "artifact",
+  "started": "2026-10-30T15:19:25.497863+00:00",
+  "task": "05-memory-nodestructive",
+  "tokens_in": 64932,
+  "tokens_out": 365,
+  "tool_calls": 6,
+  "total_checks": 6,
+  "turns": 7,
+  "wall_seconds": 24.7
+}

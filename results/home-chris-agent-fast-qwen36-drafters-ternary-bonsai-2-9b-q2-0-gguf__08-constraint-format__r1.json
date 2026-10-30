@@ -1,0 +1,61 @@
+{
+  "artifact_score": 0.875,
+  "checks": [
+    {
+      "check": "format_check.txt exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "detail": "5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "detail": "[]",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "detail": "5 of 5",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "detail": "['awk', 'cut', 'tail', 'cut', 'uniq']",
+      "pass": false
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "detail": "143 chars",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "detail": "[24, 27, 38, 29, 25]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T15:28:49.121737+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf",
+  "passed": 7,
+  "repeat": 1,
+  "score": 0.875,
+  "score_source": "artifact",
+  "started": "2026-10-30T15:24:56.775443+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 176660,
+  "tokens_out": 7948,
+  "tool_calls": 12,
+  "total_checks": 8,
+  "turns": 14,
+  "wall_seconds": 232.3
+}

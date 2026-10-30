@@ -1,0 +1,56 @@
+{
+  "artifact_score": 0.7143,
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "detail": "got 10",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "detail": "api: got {'count': 3, 'avg_ms': 49.0} want {'count': 5, 'avg_ms': 99.4}",
+      "pass": false
+    },
+    {
+      "check": "final problem_services correct",
+      "detail": "api: got {'count': 2, 'statuses': [429]} want {'count': 2, 'statuses': [429, 429]}",
+      "pass": false
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T15:23:58.065671+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf",
+  "passed": 5,
+  "repeat": 1,
+  "score": 0.7143,
+  "score_source": "artifact",
+  "started": "2026-10-30T15:19:50.286504+00:00",
+  "task": "06-multiturn-continuity",
+  "tokens_in": 375065,
+  "tokens_out": 7894,
+  "tool_calls": 30,
+  "total_checks": 7,
+  "turns": 30,
+  "wall_seconds": 247.7
+}

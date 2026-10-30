@@ -1,0 +1,51 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "reconcile.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "only_in_a == ['A-300']",
+      "detail": "['A-300']",
+      "pass": true
+    },
+    {
+      "check": "only_in_b == ['C-900']",
+      "detail": "['C-900']",
+      "pass": true
+    },
+    {
+      "check": "one mismatch only (A-200 4 vs 6)",
+      "detail": "[{'sku': 'A-200', 'a': 4, 'b': 6}]",
+      "pass": true
+    },
+    {
+      "check": "no invented SKUs",
+      "detail": "[]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T15:18:06.846214+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf",
+  "passed": 6,
+  "repeat": 1,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T15:17:30.456731+00:00",
+  "task": "02-inventory-reconcile",
+  "tokens_in": 87551,
+  "tokens_out": 758,
+  "tool_calls": 8,
+  "total_checks": 6,
+  "turns": 9,
+  "wall_seconds": 36.3
+}

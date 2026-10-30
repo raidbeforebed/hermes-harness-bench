@@ -1,0 +1,52 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "LOG_LEVEL changed to debug",
+      "detail": [
+        "LOG_LEVEL: debug"
+      ],
+      "pass": true
+    },
+    {
+      "check": "TIMEOUT changed to 60",
+      "detail": [
+        "TIMEOUT: 60"
+      ],
+      "pass": true
+    },
+    {
+      "check": "replicas stayed 2 (correction honoured)",
+      "detail": [
+        "replicas: 2"
+      ],
+      "pass": true
+    },
+    {
+      "check": "service and image untouched",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "no comments added",
+      "detail": "",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T15:31:52.061499+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf",
+  "passed": 5,
+  "repeat": 1,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T15:30:58.551728+00:00",
+  "task": "11-correction-handling",
+  "tokens_in": 157179,
+  "tokens_out": 1294,
+  "tool_calls": 12,
+  "total_checks": 5,
+  "turns": 14,
+  "wall_seconds": 53.5
+}

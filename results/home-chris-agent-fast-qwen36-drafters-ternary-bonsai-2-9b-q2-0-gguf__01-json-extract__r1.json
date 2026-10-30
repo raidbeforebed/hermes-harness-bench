@@ -1,0 +1,56 @@
+{
+  "artifact_score": 0.8571,
+  "checks": [
+    {
+      "check": "report.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "required keys",
+      "detail": "['by_customer', 'shipped_revenue', 'total_orders']",
+      "pass": true
+    },
+    {
+      "check": "total_orders == 7",
+      "detail": "7",
+      "pass": true
+    },
+    {
+      "check": "all 4 customers present",
+      "detail": "['Acme Corp', 'Beta LLC', 'Delta Co', 'Gamma Inc']",
+      "pass": true
+    },
+    {
+      "check": "per-customer orders+revenue",
+      "detail": "Beta LLC: got {'orders': 1, 'revenue': 30.0} want {'orders': 2, 'revenue': 30.0}",
+      "pass": false
+    },
+    {
+      "check": "shipped_revenue == 149.97",
+      "detail": "149.97",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T15:17:30.454721+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf",
+  "passed": 6,
+  "repeat": 1,
+  "score": 0.8571,
+  "score_source": "artifact",
+  "started": "2026-10-30T15:15:50.788943+00:00",
+  "task": "01-json-extract",
+  "tokens_in": 89547,
+  "tokens_out": 1531,
+  "tool_calls": 6,
+  "total_checks": 7,
+  "turns": 8,
+  "wall_seconds": 99.6
+}

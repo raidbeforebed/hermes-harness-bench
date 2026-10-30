@@ -34,6 +34,7 @@
 <circle cx="791.8" cy="805.9" r="7" fill="#ff9e64" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="711.5" cy="275.3" r="7" fill="#4fd1a5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="683.7" cy="423.9" r="7" fill="#c0caf5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="649.1" cy="869.6" r="7" fill="#e0af68" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="611.2" cy="423.9" r="7" fill="#bb9af7" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <line x1="346.8" y1="117.7" x2="346.8" y2="109.6" stroke="#6e7681" stroke-width="1"/>
 <text x="346.8" y="106.7" fill="#c9d1d9" font-size="11.5" text-anchor="end">DeepSeek V4.1 Flash</text>
@@ -59,4 +60,6 @@
 <text x="683.7" y="385.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Ornith 1.5 9B (llama.cpp)</text>
 <line x1="791.8" y1="814.9" x2="791.8" y2="824.7" stroke="#6e7681" stroke-width="1"/>
 <text x="791.8" y="833.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Nemotron 3.5 Lightning 30B (local)</text>
+<line x1="649.1" y1="860.6" x2="649.1" y2="854.5" stroke="#6e7681" stroke-width="1"/>
+<text x="649.1" y="851.6" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Bonsai 2 9B (ternary Q2_0)</text>
 </svg>
