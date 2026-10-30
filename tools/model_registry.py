@@ -33,6 +33,7 @@ LABEL = {
     "Groot-19B-A3B-261023": "Groot 19B (local)",
     "LFM2.5-24B-A2B": "LFM2.5 24B (local)",
     "lfm3-64k": "LFM3 1.7B (local, reason on)",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf": "Ornith 1.5 9B (llama.cpp)",
     "ornith9b-64k": "Ornith 1.5 9B (local)",
     "poolside/laguna-s-2.1": "Laguna S 2.1",
     "poolside/laguna-xs-2.1": "Laguna XS 2.1",
@@ -54,6 +55,7 @@ COLOUR = {
     "Groot-19B-A3B-261023": "#bb9af7",
     "LFM2.5-24B-A2B": "#73daca",
     "lfm3-64k": "#4fd1a5",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf": "#c0caf5",
     "ornith9b-64k": "#7dcfff",
     "poolside/laguna-s-2.1": "#2ac3de",
     "poolside/laguna-xs-2.1": "#c0caf5",
@@ -73,7 +75,7 @@ ORDER = [
     "Qwen3.6-35B-A3B-UD-Q4_K_M",
     "nemotron-3.5-lightning-30b-a3b",
     "lfm3-64k",
-    "ornith9b-64k",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
 ]
 
 # Pareto label placement: (dx, dy, text-anchor) per model id. Hand-tuned because the

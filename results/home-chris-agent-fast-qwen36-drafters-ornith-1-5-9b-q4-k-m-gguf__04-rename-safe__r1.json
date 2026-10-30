@@ -1,0 +1,51 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "config.ini -> config.bak (content preserved)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "config.ini removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "notes.txt -> notes.bak (content preserved)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "notes.txt removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "README.md untouched",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "MANIFEST.txt exact",
+      "detail": "renamed: config.ini -> config.bak\nrenamed: notes.txt -> notes.bak\nunchanged: README.md\ntotal_before: 3\ntotal_after: 3",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T13:41:06.783171+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 6,
+  "repeat": 1,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T13:40:30.780198+00:00",
+  "task": "04-rename-safe",
+  "tokens_in": 86611,
+  "tokens_out": 518,
+  "tool_calls": 6,
+  "total_checks": 6,
+  "turns": 8,
+  "wall_seconds": 36.0
+}

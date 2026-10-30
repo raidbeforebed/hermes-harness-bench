@@ -1,0 +1,56 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "pipeline runs green",
+      "detail": "build ok\n",
+      "pass": true
+    },
+    {
+      "check": "build.py untouched (and credit requires a green run)",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "clean.csv produced (requires green run)",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "4 active rows survive",
+      "detail": "4 rows",
+      "pass": true
+    },
+    {
+      "check": "only active rows",
+      "detail": "['active', 'active', 'active', 'active']",
+      "pass": true
+    },
+    {
+      "check": "qty is a bare integer",
+      "detail": "['12', '8', '3', '7']",
+      "pass": true
+    },
+    {
+      "check": "ids are exactly 1,3,4,5",
+      "detail": "['1', '3', '4', '5']",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T13:55:13.467034+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 7,
+  "repeat": 1,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T13:44:48.628815+00:00",
+  "task": "07-error-recovery",
+  "tokens_in": 474053,
+  "tokens_out": 14577,
+  "tool_calls": 28,
+  "total_checks": 7,
+  "turns": 30,
+  "wall_seconds": 624.6
+}

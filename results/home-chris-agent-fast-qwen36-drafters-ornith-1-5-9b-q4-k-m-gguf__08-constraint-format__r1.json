@@ -1,0 +1,61 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "format_check.txt exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "detail": "5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "detail": "[]",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "detail": "5 of 5",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "detail": "['tr', 'cut', 'sort', 'head', 'tail']",
+      "pass": true
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "detail": "72 chars",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "detail": "[12, 13, 25, 11, 11]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T14:06:32.031604+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 8,
+  "repeat": 1,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T13:55:13.469043+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 164947,
+  "tokens_out": 15238,
+  "tool_calls": 8,
+  "total_checks": 8,
+  "turns": 10,
+  "wall_seconds": 678.5
+}

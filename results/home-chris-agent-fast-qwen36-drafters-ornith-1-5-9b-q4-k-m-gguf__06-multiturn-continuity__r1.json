@@ -1,0 +1,56 @@
+{
+  "artifact_score": 0.8571,
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "detail": "got 10",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "detail": "api: got {'count': 5, 'avg_ms': 101.4} want {'count': 5, 'avg_ms': 99.4}",
+      "pass": false
+    },
+    {
+      "check": "final problem_services correct",
+      "detail": "ok",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T13:44:48.623763+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 6,
+  "repeat": 1,
+  "score": 0.8571,
+  "score_source": "artifact",
+  "started": "2026-10-30T13:42:07.566162+00:00",
+  "task": "06-multiturn-continuity",
+  "tokens_in": 167993,
+  "tokens_out": 3421,
+  "tool_calls": 16,
+  "total_checks": 7,
+  "turns": 16,
+  "wall_seconds": 161.0
+}

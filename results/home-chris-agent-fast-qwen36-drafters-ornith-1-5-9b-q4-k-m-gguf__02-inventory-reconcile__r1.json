@@ -1,0 +1,51 @@
+{
+  "artifact_score": 0.8333,
+  "checks": [
+    {
+      "check": "reconcile.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "only_in_a == ['A-300']",
+      "detail": "['A-200', 'A-300']",
+      "pass": false
+    },
+    {
+      "check": "only_in_b == ['C-900']",
+      "detail": "['C-900']",
+      "pass": true
+    },
+    {
+      "check": "one mismatch only (A-200 4 vs 6)",
+      "detail": "[{'sku': 'A-200', 'a': 4, 'b': 6}]",
+      "pass": true
+    },
+    {
+      "check": "no invented SKUs",
+      "detail": "[]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T13:37:53.073719+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 5,
+  "repeat": 1,
+  "score": 0.8333,
+  "score_source": "artifact",
+  "started": "2026-10-30T13:36:45.322233+00:00",
+  "task": "02-inventory-reconcile",
+  "tokens_in": 110504,
+  "tokens_out": 1275,
+  "tool_calls": 8,
+  "total_checks": 6,
+  "turns": 10,
+  "wall_seconds": 67.7
+}
