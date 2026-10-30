@@ -1,0 +1,61 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "format_check.txt exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "detail": "5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "detail": "[]",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "detail": "5 of 5",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "detail": "['grep', 'sed', 'awk', 'cut', 'uniq']",
+      "pass": true
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "detail": "143 chars",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "detail": "[19, 26, 43, 30, 25]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T18:25:24.856881+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+  "passed": 8,
+  "repeat": 2,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T18:23:27.544254+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 105299,
+  "tokens_out": 7772,
+  "tool_calls": 6,
+  "total_checks": 8,
+  "turns": 8,
+  "wall_seconds": 117.3
+}

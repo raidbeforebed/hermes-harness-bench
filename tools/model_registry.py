@@ -33,6 +33,7 @@ LABEL = {
     "Groot-19B-A3B-261023": "Groot 19B (local)",
     "LFM2.5-24B-A2B": "LFM2.5 24B (local)",
     "lfm3-64k": "LFM3 1.7B (local, reason on)",
+    "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf": "LFM3 1.7B (llama.cpp)",
     "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf":    "Ornith 1.5 9B (llama.cpp)",
     "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf": "Bonsai 2 9B (ternary Q2_0)",
     "ornith9b-64k": "Ornith 1.5 9B (local)",
@@ -56,6 +57,7 @@ COLOUR = {
     "Groot-19B-A3B-261023": "#bb9af7",
     "LFM2.5-24B-A2B": "#73daca",
     "lfm3-64k": "#4fd1a5",
+    "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf": "#9ece6a",
     "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf": "#c0caf5",
     "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf": "#e0af68",
     "ornith9b-64k": "#7dcfff",
@@ -77,6 +79,7 @@ ORDER = [
     "Qwen3.6-35B-A3B-UD-Q4_K_M",
     "nemotron-3.5-lightning-30b-a3b",
     "lfm3-64k",
+    "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
     "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
     "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf",
 ]

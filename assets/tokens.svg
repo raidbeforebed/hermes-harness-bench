@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="598" viewBox="0 0 760 598" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="632" viewBox="0 0 760 632" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
 <rect width="100%" height="100%" fill="#0d1117"/>
 <text x="28" y="36" fill="#e6edf3" font-size="17" font-weight="600">Token cost per task</text>
 <text x="28" y="58" fill="#7d8590" font-size="12">Mean tokens per task, over runs that reported usage. A timed-out run is killed before usage is emitted, so it is</text>
 <text x="28" y="74" fill="#7d8590" font-size="12">unknown rather than zero. These are each endpoint's own accounting: two llama-server models on the same build</text>
 <text x="28" y="90" fill="#7d8590" font-size="12">report 711 and 10,710 prompt tokens a turn, so compare within an endpoint, not across providers.</text>
-<line x1="327.5" y1="104" x2="327.5" y2="548" stroke="#21262d" stroke-width="1"/>
-<line x1="445.0" y1="104" x2="445.0" y2="548" stroke="#21262d" stroke-width="1"/>
-<line x1="562.5" y1="104" x2="562.5" y2="548" stroke="#21262d" stroke-width="1"/>
-<line x1="680.0" y1="104" x2="680.0" y2="548" stroke="#21262d" stroke-width="1"/>
+<line x1="327.5" y1="104" x2="327.5" y2="582" stroke="#21262d" stroke-width="1"/>
+<line x1="445.0" y1="104" x2="445.0" y2="582" stroke="#21262d" stroke-width="1"/>
+<line x1="562.5" y1="104" x2="562.5" y2="582" stroke="#21262d" stroke-width="1"/>
+<line x1="680.0" y1="104" x2="680.0" y2="582" stroke="#21262d" stroke-width="1"/>
 <text x="196" y="127" fill="#c9d1d9" font-size="13" text-anchor="end">Qwen3.6 35B (local)</text>
 <rect x="210" y="114" width="8.5" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
 <text x="228.5" y="128" fill="#e6edf3" font-size="12.5" font-weight="600">7,218</text>
@@ -44,7 +44,10 @@
 <text x="196" y="501" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free)</text>
 <rect x="210" y="488" width="285.7" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
 <text x="505.7" y="502" fill="#e6edf3" font-size="12.5" font-weight="600">241,814</text>
-<text x="196" y="535" fill="#c9d1d9" font-size="13" text-anchor="end">Nemotron 3.5 Lightning 30B (local)</text>
-<rect x="210" y="522" width="470.0" height="20" rx="4" fill="#ff9e64" opacity="0.85"/>
-<text x="690.0" y="536" fill="#e6edf3" font-size="12.5" font-weight="600">397,830</text>
+<text x="196" y="535" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp)</text>
+<rect x="210" y="522" width="386.8" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="606.8" y="536" fill="#e6edf3" font-size="12.5" font-weight="600">327,400</text>
+<text x="196" y="569" fill="#c9d1d9" font-size="13" text-anchor="end">Nemotron 3.5 Lightning 30B (local)</text>
+<rect x="210" y="556" width="470.0" height="20" rx="4" fill="#ff9e64" opacity="0.85"/>
+<text x="690.0" y="570" fill="#e6edf3" font-size="12.5" font-weight="600">397,830</text>
 </svg>

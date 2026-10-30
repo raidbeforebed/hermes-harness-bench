@@ -1,0 +1,51 @@
+{
+  "artifact_score": 0.8333,
+  "checks": [
+    {
+      "check": "answer.json exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "records.json unmodified",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "CHANGELOG.md unmodified",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "alice_total == 40",
+      "detail": "40",
+      "pass": true
+    },
+    {
+      "check": "entry_count == 3",
+      "detail": "2",
+      "pass": false
+    },
+    {
+      "check": "owners == [alice,bob]",
+      "detail": "['alice', 'bob']",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T17:54:27.719691+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+  "passed": 5,
+  "repeat": 2,
+  "score": 0.8333,
+  "score_source": "artifact",
+  "started": "2026-10-30T17:53:52.054692+00:00",
+  "task": "05-memory-nodestructive",
+  "tokens_in": 109545,
+  "tokens_out": 1059,
+  "tool_calls": 10,
+  "total_checks": 6,
+  "turns": 11,
+  "wall_seconds": 35.6
+}

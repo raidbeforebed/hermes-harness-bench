@@ -1,0 +1,51 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "pytest suite passes",
+      "detail": ".....                                                                    [100%]\n5 passed in 0.01s\n",
+      "pass": true
+    },
+    {
+      "check": "test file untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "report.py untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "CHANGES.md exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "three sections in order",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "Verification quotes a pytest pass count",
+      "detail": "## Verification\n5 passed in 0.02s\n",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T18:40:02.350048+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+  "passed": 6,
+  "repeat": 3,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T18:35:48.758022+00:00",
+  "task": "10-multifile-refactor",
+  "tokens_in": 869156,
+  "tokens_out": 15418,
+  "tool_calls": 56,
+  "total_checks": 6,
+  "turns": 56,
+  "wall_seconds": 253.2
+}

@@ -33,6 +33,7 @@
 <circle cx="153.9" cy="374.4" r="7" fill="#f7768e" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="791.8" cy="805.9" r="7" fill="#ff9e64" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="711.5" cy="275.3" r="7" fill="#4fd1a5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="760.8" cy="225.8" r="7" fill="#9ece6a" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="683.7" cy="423.9" r="7" fill="#c0caf5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="649.1" cy="869.6" r="7" fill="#e0af68" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="611.2" cy="423.9" r="7" fill="#bb9af7" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
@@ -48,6 +49,8 @@
 <text x="355.1" y="172.7" fill="#c9d1d9" font-size="11.5" text-anchor="end">MiniMax M3.1 Flash</text>
 <line x1="315.2" y1="216.8" x2="315.2" y2="208.7" stroke="#6e7681" stroke-width="1"/>
 <text x="315.2" y="205.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Beam</text>
+<line x1="760.8" y1="216.8" x2="760.8" y2="210.7" stroke="#6e7681" stroke-width="1"/>
+<text x="760.8" y="207.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">LFM3 1.7B (llama.cpp)</text>
 <line x1="711.5" y1="266.3" x2="711.5" y2="260.2" stroke="#6e7681" stroke-width="1"/>
 <text x="711.5" y="257.3" fill="#c9d1d9" font-size="11.5" text-anchor="middle">LFM3 1.7B (local, reason on)</text>
 <line x1="622.8" y1="315.8" x2="622.8" y2="309.7" stroke="#6e7681" stroke-width="1"/>

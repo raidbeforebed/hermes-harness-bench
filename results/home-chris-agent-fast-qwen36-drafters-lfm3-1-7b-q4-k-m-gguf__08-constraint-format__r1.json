@@ -1,0 +1,26 @@
+{
+  "artifact_score": 0.0,
+  "checks": [
+    {
+      "check": "format_check.txt exists",
+      "detail": "missing",
+      "pass": false
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T18:23:27.543007+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+  "passed": 0,
+  "repeat": 1,
+  "score": 0.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T18:20:40.829632+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 339245,
+  "tokens_out": 11335,
+  "tool_calls": 22,
+  "total_checks": 1,
+  "turns": 24,
+  "wall_seconds": 166.7
+}

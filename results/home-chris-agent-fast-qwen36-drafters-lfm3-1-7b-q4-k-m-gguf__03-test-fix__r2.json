@@ -1,0 +1,36 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "test file untouched",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "slugify.py exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "pytest suite passes",
+      "detail": "......                                                                   [100%]\n6 passed in 0.01s\n",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T17:46:21.269718+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+  "passed": 3,
+  "repeat": 2,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T17:43:28.271285+00:00",
+  "task": "03-test-fix",
+  "tokens_in": 301531,
+  "tokens_out": 11738,
+  "tool_calls": 22,
+  "total_checks": 3,
+  "turns": 23,
+  "wall_seconds": 172.7
+}

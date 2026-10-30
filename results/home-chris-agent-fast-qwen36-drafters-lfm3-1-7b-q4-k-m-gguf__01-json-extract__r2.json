@@ -1,0 +1,56 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "report.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "required keys",
+      "detail": "['by_customer', 'shipped_revenue', 'total_orders']",
+      "pass": true
+    },
+    {
+      "check": "total_orders == 7",
+      "detail": "7",
+      "pass": true
+    },
+    {
+      "check": "all 4 customers present",
+      "detail": "['Acme Corp', 'Beta LLC', 'Delta Co', 'Gamma Inc']",
+      "pass": true
+    },
+    {
+      "check": "per-customer orders+revenue",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "shipped_revenue == 149.97",
+      "detail": "149.97",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T17:36:31.761719+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+  "passed": 7,
+  "repeat": 2,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T17:35:07.512856+00:00",
+  "task": "01-json-extract",
+  "tokens_in": 90615,
+  "tokens_out": 4902,
+  "tool_calls": 6,
+  "total_checks": 7,
+  "turns": 8,
+  "wall_seconds": 84.2
+}
