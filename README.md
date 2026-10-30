@@ -143,7 +143,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Gemma 4 (cloud) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
 | Qwen3.6 35B (local) | 3 | 31/36 (86.1%) | - | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
 | Nemotron 3.5 Lightning 30B (local) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
-| LFM3 1.7B (local, reason on) | 1 | 11/12 (91.7%) | - | 11/12 | 19.1 | 240,248 | 203 s | 41 min |
+| LFM3 1.7B (local, reason on) | 3 | 32/36 (88.9%) | agent_exit 1, turn_limit 1 | 9/12 | 24.4 | 333,947 | 245 s | 2.45 h |
 | LFM3 1.7B (llama.cpp) | 3 | 34/36 (94.4%) | - | 10/12 | 23.0 | 327,400 | 140 s | 84 min |
 | Ornith 1.5 9B (llama.cpp) | 1 | 10/12 (83.3%) | - | 10/12 | 16.1 | 201,698 | 210 s | 42 min |
 | Bonsai 2 9B (ternary Q2_0) | 1 | 7/12 (58.3%) | - | 7/12 | 14.2 | 162,254 | 90 s | 18 min |

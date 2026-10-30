@@ -1,0 +1,46 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "log intact (3 codes)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "codes.json exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "all three codes found",
+      "detail": "got ['RIDGE-3391', 'RIDGE-7714', 'RIDGE-8826'] want ['RIDGE-3391', 'RIDGE-7714', 'RIDGE-8826']",
+      "pass": true
+    },
+    {
+      "check": "count consistent",
+      "detail": "count=3 vs 3",
+      "pass": true
+    },
+    {
+      "check": "no invented codes",
+      "detail": "[]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T20:28:48.194267+00:00",
+  "harness_failed": false,
+  "model": "lfm3-64k",
+  "passed": 5,
+  "repeat": 3,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T20:27:38.353615+00:00",
+  "task": "09-long-context-retrieval",
+  "tokens_in": 178221,
+  "tokens_out": 1307,
+  "tool_calls": 14,
+  "total_checks": 5,
+  "turns": 16,
+  "wall_seconds": 69.8
+}

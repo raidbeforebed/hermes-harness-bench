@@ -18,19 +18,19 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-30T11:54:00.694999+00:00",
+  "finished": "2026-10-30T19:14:04.852506+00:00",
   "harness_failed": false,
   "model": "lfm3-64k",
   "passed": 3,
   "repeat": 1,
   "score": 1.0,
   "score_source": "artifact",
-  "started": "2026-10-30T11:49:19.501132+00:00",
+  "started": "2026-10-30T19:10:42.032000+00:00",
   "task": "03-test-fix",
-  "tokens_in": 165277,
-  "tokens_out": 10130,
-  "tool_calls": 16,
+  "tokens_in": 147281,
+  "tokens_out": 10637,
+  "tool_calls": 12,
   "total_checks": 3,
-  "turns": 16,
-  "wall_seconds": 280.8
+  "turns": 13,
+  "wall_seconds": 202.4
 }

@@ -1,0 +1,47 @@
+{
+  "artifact_score": 0.6667,
+  "checks": [
+    {
+      "check": "harness ran the requested model",
+      "detail": "exit 1: I reached the iteration limit and couldn't generate a summary.",
+      "pass": false
+    },
+    {
+      "check": "answer.json exists",
+      "detail": "missing",
+      "pass": false
+    },
+    {
+      "check": "records.json unmodified",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "CHANGELOG.md unmodified",
+      "detail": "",
+      "pass": true
+    }
+  ],
+  "exit_code": 1,
+  "fault": {
+    "class": "turn_limit",
+    "detail": "exit 1: I reached the iteration limit and couldn't generate a summary.",
+    "exit_code": 1,
+    "turns": 63
+  },
+  "finished": "2026-10-30T19:33:05.021927+00:00",
+  "harness_failed": true,
+  "model": "lfm3-64k",
+  "passed": 2,
+  "repeat": 2,
+  "score": 0.6667,
+  "score_source": "artifact",
+  "started": "2026-10-30T19:25:30.567135+00:00",
+  "task": "05-memory-nodestructive",
+  "tokens_in": 933431,
+  "tokens_out": 12377,
+  "tool_calls": 60,
+  "total_checks": 4,
+  "turns": 63,
+  "wall_seconds": 454.4
+}

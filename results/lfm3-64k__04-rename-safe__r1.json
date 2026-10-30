@@ -33,19 +33,19 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-30T11:54:52.284348+00:00",
+  "finished": "2026-10-30T19:22:32.782789+00:00",
   "harness_failed": false,
   "model": "lfm3-64k",
   "passed": 6,
   "repeat": 1,
   "score": 1.0,
   "score_source": "artifact",
-  "started": "2026-10-30T11:54:00.697210+00:00",
+  "started": "2026-10-30T19:21:40.672851+00:00",
   "task": "04-rename-safe",
-  "tokens_in": 166402,
-  "tokens_out": 1443,
-  "tool_calls": 14,
+  "tokens_in": 123425,
+  "tokens_out": 912,
+  "tool_calls": 10,
   "total_checks": 6,
-  "turns": 16,
-  "wall_seconds": 51.6
+  "turns": 12,
+  "wall_seconds": 52.1
 }

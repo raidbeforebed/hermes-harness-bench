@@ -1,5 +1,5 @@
 {
-  "artifact_score": 1.0,
+  "artifact_score": 0.8571,
   "checks": [
     {
       "check": "stage1.json exists+valid",
@@ -28,8 +28,8 @@
     },
     {
       "check": "stage2 by_service correct",
-      "detail": "ok",
-      "pass": true
+      "detail": "db: got {'count': 3, 'avg_ms': 3500.0} want {'count': 3, 'avg_ms': 3566.67}",
+      "pass": false
     },
     {
       "check": "final problem_services correct",
@@ -38,19 +38,19 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-30T11:59:17.823780+00:00",
+  "finished": "2026-10-30T19:38:18.984585+00:00",
   "harness_failed": false,
   "model": "lfm3-64k",
-  "passed": 7,
+  "passed": 6,
   "repeat": 1,
-  "score": 1.0,
+  "score": 0.8571,
   "score_source": "artifact",
-  "started": "2026-10-30T11:55:51.624838+00:00",
+  "started": "2026-10-30T19:35:12.770932+00:00",
   "task": "06-multiturn-continuity",
-  "tokens_in": 150765,
-  "tokens_out": 10599,
-  "tool_calls": 18,
+  "tokens_in": 170590,
+  "tokens_out": 8851,
+  "tool_calls": 16,
   "total_checks": 7,
   "turns": 16,
-  "wall_seconds": 206.2
+  "wall_seconds": 186.1
 }

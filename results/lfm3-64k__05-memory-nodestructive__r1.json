@@ -1,5 +1,5 @@
 {
-  "artifact_score": 0.8333,
+  "artifact_score": 1.0,
   "checks": [
     {
       "check": "answer.json exists",
@@ -23,8 +23,8 @@
     },
     {
       "check": "entry_count == 3",
-      "detail": "2",
-      "pass": false
+      "detail": "3",
+      "pass": true
     },
     {
       "check": "owners == [alice,bob]",
@@ -33,19 +33,19 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-30T11:55:51.623594+00:00",
+  "finished": "2026-10-30T19:25:30.566017+00:00",
   "harness_failed": false,
   "model": "lfm3-64k",
-  "passed": 5,
+  "passed": 6,
   "repeat": 1,
-  "score": 0.8333,
+  "score": 1.0,
   "score_source": "artifact",
-  "started": "2026-10-30T11:54:52.285948+00:00",
+  "started": "2026-10-30T19:24:25.715912+00:00",
   "task": "05-memory-nodestructive",
-  "tokens_in": 82227,
-  "tokens_out": 1654,
-  "tool_calls": 10,
+  "tokens_in": 125582,
+  "tokens_out": 1557,
+  "tool_calls": 14,
   "total_checks": 6,
-  "turns": 10,
-  "wall_seconds": 59.3
+  "turns": 14,
+  "wall_seconds": 64.8
 }

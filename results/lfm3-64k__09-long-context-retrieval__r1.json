@@ -28,19 +28,19 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-30T12:09:58.683871+00:00",
+  "finished": "2026-10-30T20:26:50.542428+00:00",
   "harness_failed": false,
   "model": "lfm3-64k",
   "passed": 5,
   "repeat": 1,
   "score": 1.0,
   "score_source": "artifact",
-  "started": "2026-10-30T12:09:14.284901+00:00",
+  "started": "2026-10-30T20:25:55.642699+00:00",
   "task": "09-long-context-retrieval",
-  "tokens_in": 123326,
-  "tokens_out": 1306,
-  "tool_calls": 10,
+  "tokens_in": 144693,
+  "tokens_out": 1063,
+  "tool_calls": 12,
   "total_checks": 5,
-  "turns": 12,
-  "wall_seconds": 44.4
+  "turns": 14,
+  "wall_seconds": 54.9
 }

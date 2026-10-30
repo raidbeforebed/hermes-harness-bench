@@ -1,51 +1,26 @@
 {
-  "artifact_score": 1.0,
+  "artifact_score": 0.0,
   "checks": [
     {
       "check": "summary.json exists",
-      "detail": "",
-      "pass": true
-    },
-    {
-      "check": "all 12 months present",
-      "detail": "got 12",
-      "pass": true
-    },
-    {
-      "check": "per-month revenue correct",
-      "detail": "ok",
-      "pass": true
-    },
-    {
-      "check": "rows_used correct per month",
-      "detail": "[('2026-01', 8, 8), ('2026-02', 8, 8), ('2026-03', 8, 8)]",
-      "pass": true
-    },
-    {
-      "check": "skipped_rows correct",
-      "detail": "got 1 want 1",
-      "pass": true
-    },
-    {
-      "check": "top_region correct",
-      "detail": "got {'region': 'west', 'revenue': 2919.16} want ('west', 2919.16)",
-      "pass": true
+      "detail": "missing",
+      "pass": false
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-30T12:25:36.856820+00:00",
+  "finished": "2026-10-30T21:05:20.757794+00:00",
   "harness_failed": false,
   "model": "lfm3-64k",
-  "passed": 6,
+  "passed": 0,
   "repeat": 1,
-  "score": 1.0,
+  "score": 0.0,
   "score_source": "artifact",
-  "started": "2026-10-30T12:13:45.839411+00:00",
+  "started": "2026-10-30T20:47:04.704311+00:00",
   "task": "12-long-chain",
-  "tokens_in": 857118,
-  "tokens_out": 26584,
-  "tool_calls": 50,
-  "total_checks": 6,
-  "turns": 53,
-  "wall_seconds": 711.0
+  "tokens_in": 578567,
+  "tokens_out": 38483,
+  "tool_calls": 32,
+  "total_checks": 1,
+  "turns": 28,
+  "wall_seconds": 1096.0
 }

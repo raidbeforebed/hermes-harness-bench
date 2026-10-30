@@ -33,19 +33,19 @@
     }
   ],
   "exit_code": 0,
-  "finished": "2026-10-30T11:49:19.493364+00:00",
+  "finished": "2026-10-30T19:07:36.297897+00:00",
   "harness_failed": false,
   "model": "lfm3-64k",
   "passed": 6,
   "repeat": 1,
   "score": 1.0,
   "score_source": "artifact",
-  "started": "2026-10-30T11:46:56.617179+00:00",
+  "started": "2026-10-30T19:06:14.395730+00:00",
   "task": "02-inventory-reconcile",
-  "tokens_in": 84846,
-  "tokens_out": 2454,
-  "tool_calls": 8,
+  "tokens_in": 127914,
+  "tokens_out": 2908,
+  "tool_calls": 12,
   "total_checks": 6,
-  "turns": 9,
-  "wall_seconds": 142.8
+  "turns": 13,
+  "wall_seconds": 81.9
 }

@@ -1,0 +1,36 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "test file untouched",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "slugify.py exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "pytest suite passes",
+      "detail": "......                                                                   [100%]\n6 passed in 0.01s\n",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-10-30T19:19:01.515479+00:00",
+  "harness_failed": false,
+  "model": "lfm3-64k",
+  "passed": 3,
+  "repeat": 2,
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-10-30T19:14:04.856005+00:00",
+  "task": "03-test-fix",
+  "tokens_in": 390875,
+  "tokens_out": 14501,
+  "tool_calls": 30,
+  "total_checks": 3,
+  "turns": 29,
+  "wall_seconds": 296.3
+}

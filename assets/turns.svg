@@ -37,15 +37,15 @@
 <text x="196" y="417" fill="#c9d1d9" font-size="13" text-anchor="end">MiniMax M3.1 Flash</text>
 <rect x="210" y="404" width="273.7" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
 <text x="493.7" y="418" fill="#e6edf3" font-size="12.5" font-weight="600">16.5</text>
-<text x="196" y="451" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (local, reason on)</text>
-<rect x="210" y="438" width="316.6" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
-<text x="536.6" y="452" fill="#e6edf3" font-size="12.5" font-weight="600">19.1</text>
-<text x="196" y="485" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free)</text>
-<rect x="210" y="472" width="322.1" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
-<text x="542.1" y="486" fill="#e6edf3" font-size="12.5" font-weight="600">19.4</text>
-<text x="196" y="519" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp)</text>
-<rect x="210" y="506" width="381.5" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
-<text x="601.5" y="520" fill="#e6edf3" font-size="12.5" font-weight="600">23.0</text>
+<text x="196" y="451" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free)</text>
+<rect x="210" y="438" width="322.1" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
+<text x="542.1" y="452" fill="#e6edf3" font-size="12.5" font-weight="600">19.4</text>
+<text x="196" y="485" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp)</text>
+<rect x="210" y="472" width="381.5" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="601.5" y="486" fill="#e6edf3" font-size="12.5" font-weight="600">23.0</text>
+<text x="196" y="519" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (local, reason on)</text>
+<rect x="210" y="506" width="404.6" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
+<text x="624.6" y="520" fill="#e6edf3" font-size="12.5" font-weight="600">24.4</text>
 <text x="196" y="553" fill="#c9d1d9" font-size="13" text-anchor="end">Nemotron 3.5 Lightning 30B (local)</text>
 <rect x="210" y="540" width="470.0" height="20" rx="4" fill="#ff9e64" opacity="0.85"/>
 <text x="690.0" y="554" fill="#e6edf3" font-size="12.5" font-weight="600">28.3</text>
