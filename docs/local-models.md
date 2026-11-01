@@ -184,6 +184,22 @@ filtered sum, producing 120.47 where the file says 149.97. That is a real
 arithmetic and table-reading failure, correctly caught, and it is the kind of
 error that never shows up in a chat transcript.
 
+## Which row is a measurement
+
+The per-model table in [README.md](../README.md#results-as-published) is the
+leaderboard, and its **Repeats** column is the sample size. A row reading three
+was run three times across all twelve tasks, and its figures are means over 36
+scored attempts; a row reading one is a screening draw. Three repeats are the
+graded baseline for a reason: the same model moves between draws. Ornith 1.5 9B
+scored 0.9742, then 0.9881, then 0.9167, a spread of 0.0714, and LFM3 1.7B Q4
+moved 0.0833 over its own three. A single draw of either model could have been
+quoted as a tie with the other; neither was one.
+
+Read that column before comparing two rows, and read the model's own section in
+the README for the settings it was measured under. A row taken at a different
+context, KV cache type or budget scale is a different instrument, which is why
+those settings travel with the row rather than in a footnote.
+
 ## If `turns` is null
 
 `result.json` reads turn and tool counts from the session row in the Hermes
