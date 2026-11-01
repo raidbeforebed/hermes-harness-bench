@@ -26,6 +26,7 @@ published tree can see the hole and why it is there.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -48,9 +49,38 @@ FIELDS = ("checks", "exit_code", "finished", "model", "repeat", "score", "starte
           # The fault travels with the score, not instead of it: a reader must be able to see
           # that a row ended at a ceiling and which one.
           "artifact_score", "fault", "harness_failed", "score_source",
-          "source_run", "source_repeat")
+          "source_run", "source_repeat",
+          # Comparability, not decoration. A published record that cannot name its run and
+          # the task bundle it measured cannot be paired with another model's row: the reader
+          # has no way to tell a same-instrument comparison from a cross-suite accident.
+          "run_id", "decision", "instrument_fingerprint", "manifest_sha256")
 EXCLUDED = RESULTS / "excluded"
 STALL_CLASSES = {"no_work", "cli_error", ""}
+
+
+def canonical_json(obj) -> str:
+    return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+
+
+def run_bundle(run_dir: Path) -> dict:
+    """The task-bundle hash this run measured, taken from its own manifest.
+
+    ``reproducibility.task_bundle`` maps task -> file -> sha256. Hashing that block into one
+    string gives the row a single value a reader can compare across models. Two runs that
+    hash the same bundle measured the same prompts and the same graders; two that do not
+    cannot be presented as a pair, whatever their scores say.
+    """
+    try:
+        manifest = json.loads((run_dir / "manifest.json").read_text())
+    except (OSError, ValueError):
+        return {}
+    bundle = ((manifest.get("reproducibility") or {}).get("task_bundle") or {})
+    if not bundle:
+        return {}
+    return {
+        "task_bundle_sha256": hashlib.sha256(canonical_json(bundle).encode()).hexdigest(),
+        "task_bundle_tasks": len(bundle),
+    }
 
 
 def slug(model: str) -> str:
@@ -85,6 +115,7 @@ def export_run(run_dir: Path) -> tuple[int, int, list[dict]]:
     """Write one run's records. Returns (written, excluded_count, excluded_markers)."""
     written = skipped = 0
     names: list[dict] = []
+    bundle = run_bundle(run_dir)
     for path in record_files(run_dir):
         try:
             data = json.loads(path.read_text())
@@ -127,6 +158,8 @@ def export_run(run_dir: Path) -> tuple[int, int, list[dict]]:
             pub["checks"] = checks
             pub["passed"] = sum(1 for c in checks if c.get("pass"))
             pub["total_checks"] = len(checks)
+            for k, v in bundle.items():
+                pub.setdefault(k, v)
             out = RESULTS / f"{slug(model)}__{task}__r{pub['repeat']}.json"
             out.write_text(json.dumps(pub, indent=2, sort_keys=True) + "\n")
             written += 1

@@ -143,7 +143,6 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Gemma 4 (cloud) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
 | Qwen3.6 35B (local) | 3 | 31/36 (86.1%) | - | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
 | Nemotron 3.5 Lightning 30B (local) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
-| LFM3 1.7B (local, reason on) | 3 | 32/36 (88.9%) | agent_exit 1, turn_limit 1 | 9/12 | 24.4 | 333,947 | 245 s | 2.45 h |
 | LFM3 1.7B (llama.cpp) | 3 | 34/36 (94.4%) | - | 10/12 | 23.0 | 327,400 | 140 s | 84 min |
 | Ornith 1.5 9B (llama.cpp) | 3 | 45/54 (83.3%) | agent_exit 2 | 12/18 | 20.5 | 289,928 | 131 s | 1.97 h |
 | Bonsai 2 9B (ternary Q2_0) | 1 | 7/12 (58.3%) | - | 7/12 | 14.2 | 162,254 | 90 s | 18 min |
@@ -155,6 +154,39 @@ measurement, not a stable figure: the same model scored 0.80 and then 1.00 acros
 single-repeat runs of different timeout, which is why the graded baseline is three
 repeats. Charts and this table are generated from `results/` by `tools/publish.py`, so
 they cannot drift from the data.
+
+### Decision metrics: what separates models at the same accuracy
+
+The table above answers how often a model passes. Between 0.85 and 0.95 that stops being what
+separates two rows, so this one answers at what cost and how reliably: throughput, wall clock,
+turns to the same answer, how many of its tool calls were valid, how much context it left
+unused, and the VRAM it occupied. Every column is recomputed from `results/` by
+`tools/publish.py`. The interval is a two-sided 95% Student-t over the per-repeat means, which
+at three repeats is deliberately wide: three numbers do not support a tight claim. A dash means
+the record predates the metric.
+
+**Task bundle** is the comparability gate. Two rows carrying the same hash were measured on the
+same prompts, the same task files and the same grader fixtures; their scores may be compared.
+A row with no hash cannot be paired with one that has it, and a row reading MIXED spans two
+bundles and is not a series at all.
+
+<!-- DECISION:START -->
+| Model | Repeats | Mean score (95% CI) | Throughput | Wall p50 | Turns to success | Tool calls valid | Context headroom | Peak VRAM | Task bundle |
+|---|---|---|---|---|---|---|---|---|---|
+| DeepSeek V4.1 Flash | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
+| GLM-5.3 Flash | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
+| MiniMax M3.1 Flash | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
+| Ornith 1.5 122B (free) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
+| Laguna S 2.1 (free) | 1 | 1.0000 | - | - | - | - | - | - | - |
+| Beam | 3 | 0.9444 ± 0.1195 | - | - | - | - | - | - | - |
+| Gemma 4 (cloud) | 3 | 0.9821 ± 0.0171 | - | - | - | - | - | - | - |
+| Qwen3.6 35B (local) | 3 | 0.9504 ± 0.1537 | - | - | - | - | - | - | - |
+| Nemotron 3.5 Lightning 30B (local) | 4 | 0.8638 ± 0.1562 | - | - | - | - | - | - | - |
+| LFM3 1.7B (llama.cpp) | 3 | 0.9676 ± 0.1109 | - | - | - | - | - | - | - |
+| Ornith 1.5 9B (llama.cpp) | 3 | 0.9244 ± 0.0663 | **61 tok/s** | **61 s** | **17.7** | **90%** | **14%** | **6,682 MiB** | 18 tasks, `d41a23888d49` |
+| Bonsai 2 9B (ternary Q2_0) | 1 | 0.8566 | - | - | - | - | - | - | - |
+| Groot 19B (local) | 3 | 0.9595 ± 0.0366 | - | - | - | - | - | - | - |
+<!-- DECISION:END -->
 
 Two columns, because they answer different questions:
 
@@ -222,12 +254,18 @@ from the data. Re-run it after a benchmark:
 python3 tools/make_charts.py
 ```
 
-### Five of 14 rows are perfect, so cost is the only differentiator
+### Five of 13 rows are perfect, so cost is the only differentiator
 
 Four models passed all **36 of 36** runs with zero variance on every individual task and
 zero timeouts, and a fifth, Laguna S 2.1, passed all 12 runs of its single-repeat
-screening pass. When five of the 14 rows are perfect, pass rate tells you almost
+screening pass. When five of the 13 rows are perfect, pass rate tells you almost
 nothing and the useful question becomes what each one costs to be perfect:
+
+The denominator is thirteen, not fourteen, because the twelve-task LFM3 row that used to sit
+here was retired on 2026-11-01: the suite grew to eighteen tasks and four originals were
+rewritten, so that row measured an instrument that no longer exists. It is preserved under
+`results/retired/` and its run carries a `RETIRED.md` stating why, rather than being left in
+the table for a reader to compare with eighteen-task numbers.
 
 - **DeepSeek V4.1 Flash is the fastest of the five perfect rows**, at 34 seconds mean
   and 21 minutes for the full suite. It is also the most token-hungry of the three paid

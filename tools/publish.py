@@ -44,6 +44,8 @@ RESULTS = ROOT / "results"
 README = ROOT / "README.md"
 START = "<!-- RESULTS:START -->"
 END = "<!-- RESULTS:END -->"
+DECISION_START = "<!-- DECISION:START -->"
+DECISION_END = "<!-- DECISION:END -->"
 
 # Display names come from tools/model_registry.py, the single source shared with
 # tools/make_charts.py. They used to be duplicated here and there, and the two copies
@@ -171,6 +173,164 @@ def rewrite_readme() -> bool:
     return True
 
 
+# Two-sided 95% Student-t, keyed by the number of repeat means going into the interval.
+# Three repeats is the house standard, so the table has to admit what three numbers say:
+# t=4.303, not the 1.96 a normal approximation would pretend.
+T95 = {2: 12.706, 3: 4.303, 4: 3.182, 5: 2.776, 6: 2.571, 7: 2.447, 8: 2.365,
+       9: 2.306, 10: 2.262, 15: 2.131, 20: 2.086}
+
+
+def _t95(k: int) -> float:
+    return T95.get(k, 1.96)
+
+
+def _get(obj, path: str, default=None):
+    cur = obj
+    for key in path.split("."):
+        if not isinstance(cur, dict):
+            return default
+        cur = cur.get(key)
+        if cur is None:
+            return default
+    return cur
+
+
+def decision_table_from_results() -> str:
+    """Per-model decision metrics, recomputed from ``results/*.json``.
+
+    Accuracy is not what separates models at 0.85 to 0.95. Two rows can share a mean and
+    differ by three times in wall time, by half in tool-call validity, or by two turns to
+    reach the same answer, and the results table above cannot show any of it. Every number
+    here is derived from the published records, so it cannot drift from the table it sits
+    beside.
+
+    ``Task bundle`` is the comparability column: the hash of every prompt, task file and
+    grader fixture the run measured. Two rows carrying the same hash were measured on the
+    same instrument and may be compared. A row with no hash predates the field, and a row
+    reading MIXED spans two bundles and is not a series.
+    """
+    by_model: dict[str, list[dict]] = defaultdict(list)
+    for f in glob.glob(str(RESULTS / "*.json")):
+        try:
+            d = json.loads(Path(f).read_text())
+        except (OSError, ValueError):
+            continue
+        if d.get("model") and d.get("task"):
+            by_model[d["model"]].append(d)
+    if not by_model:
+        raise SystemExit("no results to build a decision table from")
+
+    rows: list[dict] = []
+    for model, rs in by_model.items():
+        per_repeat: dict[int, list[float]] = defaultdict(list)
+        for r in rs:
+            per_repeat[r.get("repeat") or 1].append(float(r.get("score") or 0.0))
+        means = [statistics.mean(v) for _k, v in sorted(per_repeat.items())]
+        mean = statistics.mean(means) if means else 0.0
+        half = (_t95(len(means)) * statistics.stdev(means) / (len(means) ** 0.5)
+                if len(means) > 1 else None)
+
+        dec = [r.get("decision") or {} for r in rs]
+
+        def nums(path: str) -> list[float]:
+            vals: list[float] = []
+            for x in dec:
+                v = _get(x, path)
+                if isinstance(v, (int, float)) and not isinstance(v, bool):
+                    vals.append(float(v))
+            return vals
+
+        tps = nums("throughput.tokens_per_second")
+        walls = sorted(nums("wall_seconds"))
+        t2s = nums("turns_to_success")
+        tv = nums("tool_validity_pct")
+        head = nums("context.headroom_pct")
+        vram = nums("vram.peak_server_mib")
+        bundles = sorted({r["task_bundle_sha256"] for r in rs if r.get("task_bundle_sha256")})
+        bundle_tasks = sorted({r["task_bundle_tasks"] for r in rs if r.get("task_bundle_tasks")})
+
+        rows.append({
+            "model": model,
+            "label": registry.label(model),
+            "repeats": len(per_repeat),
+            "attempts": len(rs),
+            "mean": mean,
+            "half": half,
+            "tps": statistics.mean(tps) if tps else None,
+            "wall_p50": walls[len(walls) // 2] if walls else None,
+            "t2s": statistics.mean(t2s) if t2s else None,
+            "tv": statistics.mean(tv) if tv else None,
+            "head": min(head) if head else None,
+            "vram": max(vram) if vram else None,
+            "bundles": bundles,
+            "bundle_tasks": bundle_tasks[0] if len(bundle_tasks) == 1 else None,
+            "tasks_seen": len({r["task"] for r in rs}),
+        })
+
+    rows.sort(key=lambda r: registry.sort_key(r["model"]))
+
+    def best(key: str, mode: str = "max"):
+        vals = [r[key] for r in rows if r[key] is not None]
+        if not vals:
+            return None
+        return (max if mode == "max" else min)(vals)
+
+    top = {
+        "tps": best("tps", "max"), "wall_p50": best("wall_p50", "min"),
+        "t2s": best("t2s", "min"), "tv": best("tv", "max"),
+        "head": best("head", "max"), "vram": best("vram", "min"),
+    }
+
+    def cell(val, key: str, text: str):
+        if val is None:
+            return "-"
+        return f"**{text}**" if top[key] is not None and abs(val - top[key]) < 1e-9 else text
+
+    out = [
+        DECISION_START,
+        "| Model | Repeats | Mean score (95% CI) | Throughput | Wall p50 "
+        "| Turns to success | Tool calls valid | Context headroom | Peak VRAM | Task bundle |",
+        "|---|---|---|---|---|---|---|---|---|---|",
+    ]
+    for r in rows:
+        score = f"{r['mean']:.4f}" + (f" ± {r['half']:.4f}" if r["half"] is not None else "")
+        if len(r["bundles"]) > 1:
+            bundle = f"**MIXED ({len(r['bundles'])} bundles)**"
+        elif r["bundles"]:
+            n = r["bundle_tasks"] or r["tasks_seen"]
+            bundle = f"{n} tasks, `{r['bundles'][0][:12]}`"
+        else:
+            bundle = "-"
+        tps = cell(r["tps"], "tps", f"{r['tps']:.0f} tok/s") if r["tps"] else "-"
+        wall = (cell(r["wall_p50"], "wall_p50", fmt_duration(r["wall_p50"]))
+                if r["wall_p50"] else "-")
+        t2s = cell(r["t2s"], "t2s", f"{r['t2s']:.1f}") if r["t2s"] else "-"
+        tv = cell(r["tv"], "tv", f"{r['tv']:.0f}%") if r["tv"] else "-"
+        head = cell(r["head"], "head", f"{r['head']:.0f}%") if r["head"] else "-"
+        vram = cell(r["vram"], "vram", f"{r['vram']:,.0f} MiB") if r["vram"] else "-"
+        out.append(f"| {r['label']} | {r['repeats']} | {score} | {tps} | {wall} "
+                   f"| {t2s} | {tv} | {head} | {vram} | {bundle} |")
+    out.append(DECISION_END)
+    return "\n".join(out)
+
+
+def rewrite_decision_table() -> bool:
+    """Rewrite only the decision block; prose outside the markers is a person's."""
+    text = README.read_text()
+    if DECISION_START not in text or DECISION_END not in text:
+        raise SystemExit(
+            f"README is missing the {DECISION_START} / {DECISION_END} markers.\n"
+            "Add them around the decision-metrics table before publishing."
+        )
+    block = decision_table_from_results()
+    new = re.sub(re.escape(DECISION_START) + r".*?" + re.escape(DECISION_END), block,
+                 text, count=1, flags=re.S)
+    if new == text:
+        return False
+    README.write_text(new)
+    return True
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("run_ids", nargs="*", help="run directories under runs/ to publish")
@@ -219,6 +379,12 @@ def main() -> int:
         print("README results table regenerated")
     else:
         print("README results table already current")
+
+    # 3b. README decision metrics -- the columns that separate models at equal accuracy
+    if rewrite_decision_table():
+        print("README decision table regenerated")
+    else:
+        print("README decision table already current")
 
     if a.dry_run:
         print("\nDRY RUN: not committing. Files above are written in the working tree.")

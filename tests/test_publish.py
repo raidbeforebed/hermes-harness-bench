@@ -22,6 +22,7 @@ from __future__ import annotations
 import glob
 import importlib.util
 import json
+import os
 import re
 import subprocess
 import sys
@@ -34,6 +35,14 @@ TOOLS = ROOT / "tools"
 README = ROOT / "README.md"
 START = "<!-- RESULTS:START -->"
 END = "<!-- RESULTS:END -->"
+DECISION_START = "<!-- DECISION:START -->"
+DECISION_END = "<!-- DECISION:END -->"
+
+# Rows that were published on the twelve-task suite and retired on 2026-11-01, when six tasks
+# were added and four originals rewritten. An eighteen-task number cannot be substituted for a
+# twelve-task one, so the old row must not sit in results/ waiting to be compared with it.
+# Removing it from the data is the only way that cannot be undone by a later --all or --latest.
+RETIRED_MODELS = {"lfm3-64k"}
 
 
 def load_tool(name: str):
@@ -205,6 +214,99 @@ def main() -> int:
             failures += 0 if ok else 1
             print(f"  {'ok  ' if ok else 'FAIL'} \"{hit.group(0)}\" vs data "
                   f"{passed}/{len(rs)} for {registry.label(beam[0])}")
+
+    # 6. DECISION table: one row per model, numbers recomputed, bundles must agree
+    print("\nDECISION  metrics table must cover every model, match the data, and name one bundle")
+    text = README.read_text()
+    if DECISION_START not in text or DECISION_END not in text:
+        failures += 1
+        print(f"  FAIL no {DECISION_START} / {DECISION_END} block in the README")
+        decision_rows = []
+    else:
+        block = text.split(DECISION_START, 1)[1].split(DECISION_END, 1)[0]
+        lines = [ln for ln in block.splitlines() if ln.startswith("|")]
+        lines = [ln for ln in lines if not set(ln) <= set("|- ")]
+        decision_rows = lines[1:] if lines else []
+        ok = len(decision_rows) == len(models)
+        failures += 0 if ok else 1
+        print(f"  {'ok  ' if ok else 'FAIL'} decision table has {len(decision_rows)} rows "
+              f"for {len(models)} models")
+
+    per_model_rows: dict[str, list[str]] = {}
+    for row in decision_rows:
+        cells = [c.strip() for c in row.strip().strip("|").split("|")]
+        if len(cells) >= 10:
+            per_model_rows[cells[0]] = cells
+
+    for m in models:
+        label = registry.label(m)
+        cells = per_model_rows.get(label)
+        if cells is None:
+            failures += 1
+            print(f"  FAIL {label} has no decision row")
+            continue
+        rs = per[m]
+        per_repeat: dict[int, list[float]] = {}
+        for r in rs:
+            per_repeat.setdefault(r.get("repeat") or 1, []).append(float(r.get("score") or 0.0))
+        want_mean = sum(sum(v) / len(v) for v in per_repeat.values()) / len(per_repeat)
+        printed = re.match(r"\*{0,2}([0-9.]+)", cells[2])
+        got_mean = float(printed.group(1)) if printed else None
+        ok_mean = got_mean is not None and abs(got_mean - want_mean) < 5e-5
+        ok_reps = cells[1] == str(len(per_repeat))
+        # A 3-column row is incomplete; anything else is a build error in the table itself.
+        ok = ok_mean and ok_reps
+        failures += 0 if ok else 1
+        print(f"  {'ok  ' if ok else 'FAIL'} {label:48} mean {cells[2]!r} vs data "
+              f"{want_mean:.4f}; repeats {cells[1]} vs {len(per_repeat)}")
+
+    # The comparability rule: every row that carries a bundle hash must carry the *same* one,
+    # because there is one frozen suite. Two different hashes mean two instruments presented
+    # as one table; a row whose bundle covers fewer tasks than it has records is mismatched.
+    bundles: dict[str, tuple[int, str]] = {}
+    for row, cells in per_model_rows.items():
+        hit = re.search(r"(\d+) tasks, `([0-9a-f]{12})`", cells[-1])
+        if hit:
+            bundles[row] = (int(hit.group(1)), hit.group(2))
+        elif "MIXED" in cells[-1]:
+            failures += 1
+            print(f"  FAIL {row} spans more than one task bundle")
+    hashes = {h for _n, h in bundles.values()}
+    ok = len(hashes) <= 1
+    failures += 0 if ok else 1
+    print(f"  {'ok  ' if ok else 'FAIL'} {len(bundles)} row(s) carry a bundle hash, "
+          f"{len(hashes)} distinct: {sorted(hashes)}")
+    for row, (n, h) in sorted(bundles.items()):
+        model = next((m for m in models if registry.label(m) == row), None)
+        rs = per.get(model, []) if model else []
+        own = {r["task_bundle_sha256"] for r in rs
+               if isinstance(r.get("task_bundle_sha256"), str)}
+        seen = len({r["task"] for r in rs})
+        ok = n == seen and any(x.startswith(h) for x in own)
+        failures += 0 if ok else 1
+        print(f"  {'ok  ' if ok else 'FAIL'} {row:48} {n} tasks over {seen} in results, "
+              f"hash `{h}` matches its records")
+    if not bundles:
+        print("  note: no row carries a bundle hash; the comparability claim cannot be checked")
+
+    # 7. RETIRED: a retired run and a retired twelve-task row must not be restorable
+    print("\nRETIRED  twelve-task rows stay retired, not silently comparable")
+    leaked_models = sorted(m for m in models if m in RETIRED_MODELS)
+    failures += 0 if not leaked_models else 1
+    print(f"  {'ok  ' if not leaked_models else 'FAIL'} no retired model id in results/"
+          + (f": {leaked_models}" if leaked_models else f" ({', '.join(sorted(RETIRED_MODELS))} absent)"))
+    runs_root = Path(os.environ.get("HBENCH_RUNS") or "/root/hermes-bench/runs")
+    if runs_root.is_dir():
+        marked = {d.name for d in runs_root.iterdir() if (d / "RETIRED.md").exists()}
+        run_ids = {r.get("run_id") for rs in per.values() for r in rs if r.get("run_id")}
+        leaked = sorted(marked & run_ids)
+        ok = not leaked
+        failures += 0 if ok else 1
+        print(f"  {'ok  ' if ok else 'FAIL'} {len(marked)} run(s) carry RETIRED.md; "
+              f"{len(leaked)} of them reach results/"
+              + (f": {leaked}" if leaked else ""))
+    else:
+        print(f"  skip no runs/ tree at {runs_root} (published-only checkout)")
 
     print(f"\n{'PUBLISH SURFACES CONSISTENT' if failures == 0 else str(failures) + ' PUBLISH PROBLEMS'}")
     print("note: asserted both ways: every result reaches every surface, and a surface "
