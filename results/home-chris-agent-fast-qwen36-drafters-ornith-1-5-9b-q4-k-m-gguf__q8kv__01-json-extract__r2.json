@@ -1,0 +1,122 @@
+{
+  "artifact_score": 0.8571,
+  "checks": [
+    {
+      "check": "report.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "required keys",
+      "detail": "['by_customer', 'shipped_revenue', 'total_orders']",
+      "pass": true
+    },
+    {
+      "check": "total_orders == 7",
+      "detail": "7",
+      "pass": true
+    },
+    {
+      "check": "all 4 customers present",
+      "detail": "['Acme Corp', 'Beta LLC', 'Delta Co', 'Gamma Inc']",
+      "pass": true
+    },
+    {
+      "check": "per-customer orders+revenue",
+      "detail": "Beta LLC: got {'orders': 1, 'revenue': 30.0} want {'orders': 2, 'revenue': 30.0}; Gamma Inc: got {'orders': 0, 'revenue': 0.0} want {'orders': 1, 'revenue': 0.0}; Delta Co: got {'orders': 0, 'revenue': 0.0} want {'orders': 1, 'revenue': 0.0}",
+      "pass": false
+    },
+    {
+      "check": "shipped_revenue == 149.97",
+      "detail": "149.97",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q8_0",
+    "kv_cache_v": "q8_0",
+    "thinking": "unknown",
+    "variant": "q8kv"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 62.0,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 24926,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 112.78,
+    "schema_version": 1,
+    "stream_seconds": 113.26,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 4096,
+      "tokens_per_second": 36.32
+    },
+    "tokens": {
+      "cache_read": 112160,
+      "in": 113794,
+      "out": 2462,
+      "prefill": 1634
+    },
+    "tool_calls": 4,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.48,
+    "tool_validity_pct": 100.0,
+    "turns": 10,
+    "turns_on_failure": 10,
+    "turns_to_success": null,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 7276,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 7286,
+      "peak_server_mib": 6478,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 115.4
+  },
+  "exit_code": 0,
+  "finished": "2026-11-01T15:45:18.583131+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 6,
+  "repeat": 2,
+  "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
+  "score": 0.8571,
+  "score_source": "artifact",
+  "started": "2026-11-01T15:43:23.103072+00:00",
+  "task": "01-json-extract",
+  "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
+  "task_bundle_tasks": 18,
+  "tokens_in": 113794,
+  "tokens_out": 2462,
+  "tool_calls": 4,
+  "total_checks": 7,
+  "turns": 10,
+  "wall_seconds": 115.4
+}

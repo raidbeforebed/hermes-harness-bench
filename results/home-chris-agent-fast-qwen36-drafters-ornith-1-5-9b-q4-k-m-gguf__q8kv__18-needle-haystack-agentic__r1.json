@@ -1,0 +1,102 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "needle.txt exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "needle.txt is exactly the embedded error code",
+      "detail": "reported='ERR-7F3A' truth='ERR-7F3A'",
+      "pass": true
+    },
+    {
+      "check": "no invented code (reported code actually appears in the log)",
+      "detail": "reported='ERR-7F3A' known=['ERR-7F3A']",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q8_0",
+    "kv_cache_v": "q8_0",
+    "thinking": "unknown",
+    "variant": "q8kv"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 63.4,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 24000,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 32.05,
+    "schema_version": 1,
+    "stream_seconds": 32.55,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 1058,
+      "tokens_per_second": 33.01
+    },
+    "tokens": {
+      "cache_read": 85880,
+      "in": 86500,
+      "out": 438,
+      "prefill": 620
+    },
+    "tool_calls": 3,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.5,
+    "tool_validity_pct": 100.0,
+    "turns": 8,
+    "turns_on_failure": null,
+    "turns_to_success": 8,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 7188,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 7402,
+      "peak_server_mib": 6684,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 35.8
+  },
+  "exit_code": 0,
+  "finished": "2026-11-01T18:34:17.289438+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 3,
+  "repeat": 1,
+  "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-01T18:33:41.396552+00:00",
+  "task": "18-needle-haystack-agentic",
+  "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
+  "task_bundle_tasks": 18,
+  "tokens_in": 86500,
+  "tokens_out": 438,
+  "tool_calls": 3,
+  "total_checks": 3,
+  "turns": 8,
+  "wall_seconds": 35.8
+}

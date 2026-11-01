@@ -215,8 +215,12 @@ def main() -> None:
             if not files:
                 continue
             try:
-                model = json.loads(files[0].read_text())["model"]
-            except (OSError, ValueError, KeyError):
+                data = json.loads(files[0].read_text())
+                # A run's first record file is either one per-task record (a dict) or the
+                # aggregate results.json (a list). --latest crashed on the list shape with a
+                # TypeError that the except clause below did not cover.
+                model = (data[0] if isinstance(data, list) else data)["model"]
+            except (OSError, ValueError, KeyError, IndexError, TypeError):
                 model = json.loads((d / "results.json").read_text())[0]["model"]
             mtime = max(f.stat().st_mtime for f in files)
             if model not in newest or mtime > newest[model][0]:

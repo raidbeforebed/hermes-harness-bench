@@ -144,7 +144,9 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Qwen3.6 35B (local, configuration unrecorded) | 3 | 31/36 (86.1%) | - | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
 | Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
 | LFM3 1.7B (llama.cpp, configuration unrecorded) | 3 | 34/36 (94.4%) | - | 10/12 | 23.0 | 327,400 | 140 s | 84 min |
+| LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 46/54 (85.2%) | turn_limit 1 | 13/18 | 18.8 | 246,054 | 118 s | 1.77 h |
 | Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 45/54 (83.3%) | agent_exit 2 | 12/18 | 20.5 | 289,928 | 131 s | 1.97 h |
+| Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 50/54 (92.6%) | agent_exit 2, turn_limit 1 | 15/18 | 13.1 | 141,752 | 193 s | 2.90 h |
 | Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 7/12 (58.3%) | - | 7/12 | 14.2 | 162,254 | 90 s | 18 min |
 | Groot 19B (local, configuration unrecorded) | 3 | 30/36 (83.3%) | - | 8/12 | 11.9 | 127,891 | 71 s | 42 min |
 <!-- RESULTS:END -->
@@ -193,7 +195,9 @@ bundles and is not a series at all.
 | Qwen3.6 35B (local, configuration unrecorded) | 3 | 0.9504 ± 0.1537 | - | - | - | - | - | - | - |
 | Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 4 | 0.8638 ± 0.1562 | - | - | - | - | - | - | - |
 | LFM3 1.7B (llama.cpp, configuration unrecorded) | 3 | 0.9676 ± 0.1109 | - | - | - | - | - | - | - |
-| Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 0.9244 ± 0.0663 | **61 tok/s** | **61 s** | **17.7** | **90%** | **14%** | **6,682 MiB** | 18 tasks, `d41a23888d49` |
+| LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9583 ± 0.0345 | **443 tok/s** | 84 s | 19.4 | **96%** | 14% | **2,260 MiB** | 18 tasks, `d41a23888d49` |
+| Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 0.9244 ± 0.0663 | 61 tok/s | **61 s** | 17.7 | 90% | 14% | 6,682 MiB | 18 tasks, `d41a23888d49` |
+| Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9765 ± 0.0369 | 48 tok/s | 77 s | **13.5** | 91% | **17%** | 6,718 MiB | 18 tasks, `d41a23888d49` |
 | Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 0.8566 | - | - | - | - | - | - | - |
 | Groot 19B (local, configuration unrecorded) | 3 | 0.9595 ± 0.0366 | - | - | - | - | - | - | - |
 <!-- DECISION:END -->

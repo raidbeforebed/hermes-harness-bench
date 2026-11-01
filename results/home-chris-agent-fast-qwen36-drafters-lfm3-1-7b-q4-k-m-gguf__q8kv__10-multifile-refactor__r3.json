@@ -1,0 +1,128 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "pytest suite passes",
+      "detail": ".....                                                                    [100%]\n5 passed in 0.01s\n",
+      "pass": true
+    },
+    {
+      "check": "test file untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "report.py untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "CHANGES.md exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "three sections in order",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "Verification quotes a pytest pass count",
+      "detail": "## Verification\n5 passed in 0.02s\n",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q8_0",
+    "kv_cache_v": "q8_0",
+    "thinking": "unknown",
+    "variant": "q8kv"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 35.1,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 42535,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [
+      "search_files",
+      "read_file",
+      "read_file",
+      "read_file",
+      "terminal",
+      "terminal",
+      "terminal",
+      "terminal",
+      "terminal",
+      "write_file"
+    ],
+    "model_seconds": 225.92,
+    "schema_version": 1,
+    "stream_seconds": 235.44,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 59159,
+      "tokens_per_second": 261.86
+    },
+    "tokens": {
+      "cache_read": 728457,
+      "in": 773498,
+      "out": 14118,
+      "prefill": 45041
+    },
+    "tool_calls": 37,
+    "tool_calls_invalid": 10,
+    "tool_seconds": 9.52,
+    "tool_validity_pct": 73.0,
+    "turns": 63,
+    "turns_on_failure": null,
+    "turns_to_success": 63,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 2479,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 2485,
+      "peak_server_mib": 1800,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 238.2
+  },
+  "exit_code": 0,
+  "finished": "2026-11-01T15:08:07.464839+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "9e3decfa8402419b1b7ef173fa5f40c068b627792aef432c4988995a04baddda",
+  "manifest_sha256": "4d74e47b7f6fe56d8dc7fe563a6080af2c0693d3d3f2123b2fe90806bb9bf672",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+  "passed": 6,
+  "repeat": 3,
+  "run_id": "agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-01T15:04:08.783946+00:00",
+  "task": "10-multifile-refactor",
+  "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
+  "task_bundle_tasks": 18,
+  "tokens_in": 773498,
+  "tokens_out": 14118,
+  "tool_calls": 37,
+  "total_checks": 6,
+  "turns": 63,
+  "wall_seconds": 238.2
+}

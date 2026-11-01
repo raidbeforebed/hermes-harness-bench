@@ -1,0 +1,121 @@
+{
+  "artifact_score": 0.5,
+  "checks": [
+    {
+      "check": "summary.json exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "all 12 months present",
+      "detail": "got 12",
+      "pass": true
+    },
+    {
+      "check": "per-month revenue correct",
+      "detail": "2026-01 got 1254.9 want 1355.62; 2026-02 got 832.28 want 851.01; 2026-03 got 744.74 want 811.85; 2026-04 got 646.38 want 730.68; 2026-05 got 713.86 want 862.5; 2026-06 got 939.63 want 1012.07; 2026-07 got 994.78 want 1074.18; 2026-08 got 277.27 want 472.03; 2026-09 got 587.83 want 635.25; 2026-10 go",
+      "pass": false
+    },
+    {
+      "check": "rows_used correct per month",
+      "detail": "[('2026-01', 7, 8), ('2026-02', 7, 8), ('2026-03', 7, 8)]",
+      "pass": false
+    },
+    {
+      "check": "skipped_rows correct",
+      "detail": "got 1 want 1",
+      "pass": true
+    },
+    {
+      "check": "top_region correct",
+      "detail": "got {'region': 'south', 'revenue': 2752.9} want ('west', 2919.16)",
+      "pass": false
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q8_0",
+    "kv_cache_v": "q8_0",
+    "thinking": "unknown",
+    "variant": "q8kv"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 31.4,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 44953,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [
+      "execute_code",
+      "execute_code",
+      "execute_code"
+    ],
+    "model_seconds": 249.1,
+    "schema_version": 1,
+    "stream_seconds": 250.19,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 61435,
+      "tokens_per_second": 246.63
+    },
+    "tokens": {
+      "cache_read": 477272,
+      "in": 522817,
+      "out": 15890,
+      "prefill": 45545
+    },
+    "tool_calls": 16,
+    "tool_calls_invalid": 3,
+    "tool_seconds": 1.09,
+    "tool_validity_pct": 81.2,
+    "turns": 34,
+    "turns_on_failure": 34,
+    "turns_to_success": null,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 2467,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 2479,
+      "peak_server_mib": 1800,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 252.8
+  },
+  "exit_code": 0,
+  "finished": "2026-11-01T15:17:37.602622+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "9e3decfa8402419b1b7ef173fa5f40c068b627792aef432c4988995a04baddda",
+  "manifest_sha256": "4d74e47b7f6fe56d8dc7fe563a6080af2c0693d3d3f2123b2fe90806bb9bf672",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+  "passed": 3,
+  "repeat": 2,
+  "run_id": "agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101",
+  "score": 0.5,
+  "score_source": "artifact",
+  "started": "2026-11-01T15:13:24.776320+00:00",
+  "task": "12-long-chain",
+  "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
+  "task_bundle_tasks": 18,
+  "tokens_in": 522817,
+  "tokens_out": 15890,
+  "tool_calls": 16,
+  "total_checks": 6,
+  "turns": 34,
+  "wall_seconds": 252.8
+}
