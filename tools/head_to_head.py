@@ -170,13 +170,16 @@ def main() -> int:
         return "-" if not c else f"{c['mean']:.3f} ({c['attempts']})"
 
     width = max(len(t) for t in tasks) + 2
-    # Column headers are configuration-qualified labels, which are longer than a model id, so
-    # the truncation and the column width grow with them rather than cutting the qualifier off.
-    print(f"{'task':{width}}" + "".join(f"{m[-38:]:>40}" for m in models))
+    # Column headers are configuration-qualified labels, which are longer than a model id, so the
+    # width follows the longest label instead of truncating it: cutting the front of
+    # "LFM3 1.7B (llama.cpp, not thinking)" hides the model name, which is the part a reader
+    # scans for.
+    col = max(34, max(len(m) for m in models) + 2)
+    print(f"{'task':{width}}" + "".join(f"{m:>{col}}" for m in models))
     for r in rows:
         line = f"{r['task']:{width}}"
         for m in models:
-            line += f"{cell_text(r['cells'][m]):>40}"
+            line += f"{cell_text(r['cells'][m]):>{col}}"
         print(line)
     print(f"{'MEAN OF TASK MEANS':{width}}" + "".join(f"{overall[m]['mean_over_tasks']:>22}" for m in models))
     print(f"{'attempts':{width}}" + "".join(f"{overall[m]['attempts']:>22}" for m in models))
