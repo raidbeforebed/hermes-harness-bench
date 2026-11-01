@@ -1,5 +1,10 @@
 {
+  "api_calls": 4,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 85795,
   "checks": [
     {
       "check": "log intact (3 codes)",
@@ -27,6 +32,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "30",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -35,6 +66,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 1054,
+  "db_output_tokens": 456,
+  "db_tool_calls": 3,
   "decision": {
     "context": {
       "headroom_pct": 66.1,
@@ -89,24 +123,55 @@
     "wall_seconds": 34.8
   },
   "exit_code": 0,
+  "final_text": "Done. `codes.json` written with the three codes found in `service.log`, sorted ascending:\n\n- RIDGE-3391\n- RIDGE-7714\n- RIDGE-8826\n\nEach appears exactly once (1400 lines, 3 distinct codes), and there were no malformed or partial matches.",
   "finished": "2026-11-01T17:28:51.637519+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
-  "passed": 5,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": false,
+    "evaluated": 0,
+    "gates": [],
+    "passed": 0,
+    "stopped_at": null,
+    "total": 0
+  },
+  "quality_score": null,
+  "reasoning": null,
   "repeat": 3,
+  "run_budget_seconds": 1260,
   "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-2576af5c9f210848cdbf8335ca33eaf48e6b49de53ea05ac0a69318c9893affe",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
   "started": "2026-11-01T17:28:16.820307+00:00",
+  "stderr": "Session: local-2576af5c9f210848cdbf8335ca33eaf48e6b49de53ea05ac0a69318c9893affe\n\nsession_id: local-2576af5c9f210848cdbf8335ca33eaf48e6b49de53ea05ac0a69318c9893affe\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793554099019}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"6jdEl1MZ3MWEHTwF4CotIG24SFfUnewK\", \"input\": {\"command\": \"ls -la; echo \\\"---\\\"; wc -l service.log; echo \\\"---\\\"; grep -oE 'code=RIDGE-[0-9]+' service.log | sort -u\"}, \"timestamp\": 1793554110109}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"6jdEl1MZ3MWEHTwF4CotIG24SFfUnewK\", \"output\": \"{\\\"output\\\": \\\"total 92\\\\ndrwxr-xr-x 2 root root  4096 Oct 21 03:06 .\\\\ndrwxr-xr-x 4 root root  4096 Nov  1 17:28 ..\\\\n-rw-r--r-- 1 root root 82525 Oct 21 03:06 service.log\\\\n---\\\\n1400 service.log\\\\n---\\\\ncode=RIDGE-3391\\\\ncode=RIDGE-7714\\\\ncode=RIDGE-8826\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 190, \"is_error\": false, \"timestamp\": 1793554110299}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"BVpVqRKBTfmWfF5zsQnvIqh3zhw9BxhQ\", \"input\": {\"command\": \"echo \\\"distinct:\\\"; grep -oE 'code=RIDGE-[0-9]+' service.log | sort -u | wc -l; echo \\\"counts:\\\"; grep -oE 'code=RIDGE-[0-9]+' service.log | sort | uniq -c; echo \\\"any non-matching RIDGE lines:\\\"; grep -iE 'RIDGE' service.log | grep -vE 'code=RIDGE-[0-9]+' | head\"}, \"timestamp\": 1793554116412}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"BVpVqRKBTfmWfF5zsQnvIqh3zhw9BxhQ\", \"output\": \"{\\\"output\\\": \\\"distinct:\\\\n3\\\\ncounts:\\\\n      1 code=RIDGE-3391\\\\n      1 code=RIDGE-7714\\\\n      1 code=RIDGE-8826\\\\nany non-matching RIDGE lines:\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 117, \"is_error\": false, \"timestamp\": 1793554116530}\n{\"type\": \"text\", \"text\": \"\\n\\nAll\", \"timestamp\": 1793554118951}\n{\"type\": \"text\", \"text\": \" three\", \"timestamp\": 1793554118992}\n{\"type\": \"text\", \"text\": \" codes\", \"timestamp\": 1793554119031}\n{\"type\": \"text\", \"text\": \" confirmed\", \"timestamp\": 1793554119070}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793554119110}\n{\"type\": \"text\", \"text\": \" each\", \"timestamp\": 1793554119150}\n{\"type\": \"text\", \"text\": \" appearing\", \"timestamp\": 1793554119195}\n{\"type\": \"text\", \"text\": \" exactly\", \"timestamp\": 1793554119228}\n{\"type\": \"text\", \"text\": \" once\", \"timestamp\": 1793554119267}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793554119307}\n{\"type\": \"text\", \"text\": \" no\", \"timestamp\": 1793554119349}\n{\"type\": \"text\", \"text\": \" malformed\", \"timestamp\": 1793554119386}\n{\"type\": \"text\", \"text\": \" matches\", \"timestamp\": 1793554119424}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793554119464}\n{\"type\": \"text\", \"text\": \" Writing\", \"timestamp\": 1793554119503}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793554119543}\n{\"type\": \"text\", \"text\": \" file\", \"timestamp\": 1793554119582}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793554119621}\n{\"type\": \"tool_use\", \"name\": \"write_file\", \"tool_call_id\": \"5HC12bKZCW2hDGBjNYNDbd7lZ2VmU5iF\", \"input\": {\"path\": \"codes.json\", \"content\": \"{\\n  \\\"codes\\\": [\\\"RIDGE-3391\\\", \\\"RIDGE-7714\\\", \\\"RIDGE-8826\\\"],\\n  \\\"count\\\": 3\\n}\\n\"}, \"timestamp\": 1793554122864}\n{\"type\": \"tool_result\", \"name\": \"write_file\", \"tool_call_id\": \"5HC12bKZCW2hDGBjNYNDbd7lZ2VmU5iF\", \"output\": \"{\\\"bytes_written\\\": 72, \\\"dirs_created\\\": true, \\\"verified\\\": true, \\\"lint\\\": {\\\"status\\\": \\\"ok\\\", \\\"output\\\": \\\"\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/09-long-context-retrieval/r3/work/codes.json\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/09-long-context-retrieval/r3/work/codes.json\\\"]}\", \"duration_ms\": 27, \"is_error\": false, \"timestamp\": 1793554122891}\n{\"type\": \"text\", \"text\": \"\\n\\nDone\", \"timestamp\": 1793554125108}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793554125138}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793554125181}\n{\"type\": \"text\", \"text\": \"codes\", \"timestamp\": 1793554125221}\n{\"type\": \"text\", \"text\": \".json\", \"timestamp\": 1793554125258}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793554125299}\n{\"type\": \"text\", \"text\": \" written\", \"timestamp\": 1793554125338}\n{\"type\": \"text\", \"text\": \" with\", \"timestamp\": 1793554125376}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793554125414}\n{\"type\": \"text\", \"text\": \" three\", \"timestamp\": 1793554125453}\n{\"type\": \"text\", \"text\": \" codes\", \"timestamp\": 1793554125493}\n{\"type\": \"text\", \"text\": \" found\", \"timestamp\": 1793554125532}\n{\"type\": \"text\", \"text\": \" in\", \"timestamp\": 1793554125571}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793554125611}\n{\"type\": \"text\", \"text\": \"service\", \"timestamp\": 1793554125649}\n{\"type\": \"text\", \"text\": \".log\", \"timestamp\": 1793554125688}\n{\"type\": \"text\", \"text\": \"`,\", \"timestamp\": 1793554125727}\n{\"type\": \"text\", \"text\": \" sorted\", \"timestamp\": 1793554125766}\n{\"type\": \"text\", \"text\": \" ascending\", \"timestamp\": 1793554125804}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793554125921}\n{\"type\": \"text\", \"text\": \"\\n\\n-\", \"timestamp\": 1793554125921}\n{\"type\": \"text\", \"text\": \" RID\", \"timestamp\": 1793554125960}\n{\"type\": \"text\", \"text\": \"GE\", \"timestamp\": 1793554126003}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793554126038}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793554126077}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793554126130}\n{\"type\": \"text\", \"text\": \"9\", \"timestamp\": 1793554126155}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793554126195}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793554126271}\n{\"type\": \"text\", \"text\": \" RID\", \"timestamp\": 1793554126311}\n{\"type\": \"text\", \"text\": \"GE\", \"timestamp\": 1793554126350}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793554126388}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793554126433}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793554126467}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793554126505}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793554126545}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793554126622}\n{\"type\": \"text\", \"text\": \" RID\", \"timestamp\": 1793554126662}\n{\"type\": \"text\", \"text\": \"GE\", \"timestamp\": 1793554126700}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793554126738}\n{\"type\": \"text\", \"text\": \"8\", \"timestamp\": 1793554126777}\n{\"type\": \"text\", \"text\": \"8\", \"timestamp\": 1793554126815}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793554126854}\n{\"type\": \"text\", \"text\": \"6\", \"timestamp\": 1793554126893}\n{\"type\": \"text\", \"text\": \"\\n\\nEach\", \"timestamp\": 1793554126972}\n{\"type\": \"text\", \"text\": \" appears\", \"timestamp\": 1793554127012}\n{\"type\": \"text\", \"text\": \" exactly\", \"timestamp\": 1793554127051}\n{\"type\": \"text\", \"text\": \" once\", \"timestamp\": 1793554127090}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793554127128}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793554127167}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793554127206}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793554127244}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793554127283}\n{\"type\": \"text\", \"text\": \" lines\", \"timestamp\": 1793554127321}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793554127361}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793554127399}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793554127438}\n{\"type\": \"text\", \"text\": \" distinct\", \"timestamp\": 1793554127477}\n{\"type\": \"text\", \"text\": \" codes\", \"timestamp\": 1793554127515}\n{\"type\": \"text\", \"text\": \"),\", \"timestamp\": 1793554127554}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793554127593}\n{\"type\": \"text\", \"text\": \" there\", \"timestamp\": 1793554127631}\n{\"type\": \"text\", \"text\": \" were\", \"timestamp\": 1793554127670}\n{\"type\": \"text\", \"text\": \" no\", \"timestamp\": 1793554127711}\n{\"type\": \"text\", \"text\": \" malformed\", \"timestamp\": 1793554127748}\n{\"type\": \"text\", \"text\": \" or\", \"timestamp\": 1793554127786}\n{\"type\": \"text\", \"text\": \" partial\", \"timestamp\": 1793554127825}\n{\"type\": \"text\", \"text\": \" matches\", \"timestamp\": 1793554127864}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793554127904}\n{\"type\": \"result\", \"session_id\": \"local-2576af5c9f210848cdbf8335ca33eaf48e6b49de53ea05ac0a69318c9893affe\", \"exit_code\": 0, \"text\": \"Done. `codes.json` written with the three codes found in `service.log`, sorted ascending:\\n\\n- RIDGE-3391\\n- RIDGE-7714\\n- RIDGE-8826\\n\\nEach appears exactly once (1400 lines, 3 distinct codes), and there were no malformed or partial matches.\", \"tokens\": {\"input\": 86849, \"output\": 456, \"total\": 87305, \"cache_read\": 85795, \"cache_write\": 0}, \"duration_ms\": 32387, \"timestamp\": 1793554131407}\n",
+  "stream_error": null,
   "task": "09-long-context-retrieval",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 1380,
   "tokens_in": 86849,
   "tokens_out": 456,
+  "tokens_total": 87305,
   "tool_calls": 3,
-  "total_checks": 5,
+  "tool_names": [
+    "terminal",
+    "terminal",
+    "write_file"
+  ],
   "turns": 8,
-  "wall_seconds": 34.8
+  "wall_seconds": 34.8,
+  "workdir": "/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/09-long-context-retrieval/r3/work",
+  "workspace_changed": true
 }

@@ -1,5 +1,10 @@
 {
+  "api_calls": 5,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 85891,
   "checks": [
     {
       "check": "needle.txt exists",
@@ -17,6 +22,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "25",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -25,6 +56,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 23165,
+  "db_output_tokens": 1038,
+  "db_tool_calls": 4,
   "decision": {
     "context": {
       "headroom_pct": 65.5,
@@ -79,24 +113,62 @@
     "wall_seconds": 37.6
   },
   "exit_code": 0,
+  "final_text": "Found it. In `haystack.log` line 1253:\n\n```\n[2026-10-30T09:04:16Z] ERROR req-986108 svc=token fatal module code ERR-7F3A halted pipeline\n```\n\nThe single occurrence of the form `ERR-XXXX` is **ERR-7F3A**. Written to `/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/18-needle-haystack-agentic/r3/work/needle.txt` (just `ERR-7F3A` with a trailing newline, 9 bytes).",
   "finished": "2026-11-01T15:41:15.130833+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "9e3decfa8402419b1b7ef173fa5f40c068b627792aef432c4988995a04baddda",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "4d74e47b7f6fe56d8dc7fe563a6080af2c0693d3d3f2123b2fe90806bb9bf672",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
-  "passed": 3,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": false,
+    "evaluated": 1,
+    "gates": [
+      {
+        "detail": "stdout contains a markdown code fence",
+        "gate": "no_markdown_fences",
+        "pass": false
+      }
+    ],
+    "passed": 0,
+    "stopped_at": 0,
+    "total": 1
+  },
+  "quality_score": 0.0,
+  "reasoning": null,
   "repeat": 3,
+  "run_budget_seconds": 1800,
   "run_id": "agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-681b90038b382114d54a6ef17a8895d80db7ba90eb933f5b40ff00cec3d3df25",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
   "started": "2026-11-01T15:40:37.462579+00:00",
+  "stderr": "Session: local-681b90038b382114d54a6ef17a8895d80db7ba90eb933f5b40ff00cec3d3df25\n\nsession_id: local-681b90038b382114d54a6ef17a8895d80db7ba90eb933f5b40ff00cec3d3df25\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793547639451}\n{\"type\": \"tool_use\", \"name\": \"search_files\", \"tool_call_id\": \"jW1xp6CDbhsGNveYyaZ9ouuy2i7Ol07i\", \"input\": {\"pattern\": \"haystack.log\", \"target\": \"files\"}, \"timestamp\": 1793547660354}\n{\"type\": \"tool_result\", \"name\": \"search_files\", \"tool_call_id\": \"jW1xp6CDbhsGNveYyaZ9ouuy2i7Ol07i\", \"output\": \"{\\\"total_count\\\": 1, \\\"files\\\": [\\\"./haystack.log\\\"]}\", \"duration_ms\": 568, \"is_error\": false, \"timestamp\": 1793547660923}\n{\"type\": \"tool_use\", \"name\": \"search_files\", \"tool_call_id\": \"4KZYf6wk8PQFKxqZgehjBy6c6iEkNhKN\", \"input\": {\"pattern\": \"ERR-[0-9A-Fa-f]{4}\", \"target\": \"content\", \"path\": \"./haystack.log\"}, \"timestamp\": 1793547663119}\n{\"type\": \"tool_result\", \"name\": \"search_files\", \"tool_call_id\": \"4KZYf6wk8PQFKxqZgehjBy6c6iEkNhKN\", \"output\": \"{\\\"total_count\\\": 1, \\\"matches\\\": [{\\\"path\\\": \\\"./haystack.log\\\", \\\"line\\\": 1253, \\\"content\\\": \\\"[2026-10-30T09:04:16Z] ERROR req-986108 svc=token fatal module code ERR-7F3A halted pipeline\\\"}]}\", \"duration_ms\": 288, \"is_error\": false, \"timestamp\": 1793547663408}\n{\"type\": \"tool_use\", \"name\": \"write_file\", \"tool_call_id\": \"Iw8hHFIdk1vmZwC9wXO443AcSHH7I9As\", \"input\": {\"content\": \"ERR-7F3A\\n\", \"path\": \"./needle.txt\"}, \"timestamp\": 1793547667160}\n{\"type\": \"tool_result\", \"name\": \"write_file\", \"tool_call_id\": \"Iw8hHFIdk1vmZwC9wXO443AcSHH7I9As\", \"output\": \"{\\\"bytes_written\\\": 9, \\\"dirs_created\\\": true, \\\"verified\\\": true, \\\"lint\\\": {\\\"status\\\": \\\"skipped\\\", \\\"message\\\": \\\"No linter for .txt files\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/18-needle-haystack-agentic/r3/work/needle.txt\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/18-needle-haystack-agentic/r3/work/needle.txt\\\"]}\", \"duration_ms\": 135, \"is_error\": false, \"timestamp\": 1793547667296}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"TGa01YE8W1S5OdAXq6nJ2io22cvuAus7\", \"input\": {\"path\": \"./needle.txt\"}, \"timestamp\": 1793547669094}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"TGa01YE8W1S5OdAXq6nJ2io22cvuAus7\", \"output\": \"{\\\"content\\\": \\\"1|ERR-7F3A\\\", \\\"total_lines\\\": 1, \\\"file_size\\\": 9, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 38, \"is_error\": false, \"timestamp\": 1793547669133}\n{\"type\": \"text\", \"text\": \"\\n\\nFound\", \"timestamp\": 1793547670896}\n{\"type\": \"text\", \"text\": \" it\", \"timestamp\": 1793547670907}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547670918}\n{\"type\": \"text\", \"text\": \" In\", \"timestamp\": 1793547670930}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793547670941}\n{\"type\": \"text\", \"text\": \"h\", \"timestamp\": 1793547670953}\n{\"type\": \"text\", \"text\": \"ay\", \"timestamp\": 1793547670964}\n{\"type\": \"text\", \"text\": \"stack\", \"timestamp\": 1793547670975}\n{\"type\": \"text\", \"text\": \".log\", \"timestamp\": 1793547670988}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793547670999}\n{\"type\": \"text\", \"text\": \" line\", \"timestamp\": 1793547671010}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793547671022}\n{\"type\": \"text\", \"text\": \"125\", \"timestamp\": 1793547671039}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547671048}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793547671069}\n{\"type\": \"text\", \"text\": \"\\n\\n```\", \"timestamp\": 1793547671070}\n{\"type\": \"text\", \"text\": \"\\n[\", \"timestamp\": 1793547671080}\n{\"type\": \"text\", \"text\": \"202\", \"timestamp\": 1793547671090}\n{\"type\": \"text\", \"text\": \"6\", \"timestamp\": 1793547671102}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793547671113}\n{\"type\": \"text\", \"text\": \"10\", \"timestamp\": 1793547671125}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793547671139}\n{\"type\": \"text\", \"text\": \"30\", \"timestamp\": 1793547671148}\n{\"type\": \"text\", \"text\": \"T\", \"timestamp\": 1793547671162}\n{\"type\": \"text\", \"text\": \"09\", \"timestamp\": 1793547671171}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793547671504}\n{\"type\": \"text\", \"text\": \"04\", \"timestamp\": 1793547671505}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793547671506}\n{\"type\": \"text\", \"text\": \"16\", \"timestamp\": 1793547671506}\n{\"type\": \"text\", \"text\": \"Z\", \"timestamp\": 1793547671507}\n{\"type\": \"text\", \"text\": \"]\", \"timestamp\": 1793547671508}\n{\"type\": \"text\", \"text\": \" ERROR\", \"timestamp\": 1793547671508}\n{\"type\": \"text\", \"text\": \" req\", \"timestamp\": 1793547671509}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793547671510}\n{\"type\": \"text\", \"text\": \"986\", \"timestamp\": 1793547671511}\n{\"type\": \"text\", \"text\": \"108\", \"timestamp\": 1793547671511}\n{\"type\": \"text\", \"text\": \" sv\", \"timestamp\": 1793547671511}\n{\"type\": \"text\", \"text\": \"c\", \"timestamp\": 1793547671511}\n{\"type\": \"text\", \"text\": \"=\", \"timestamp\": 1793547671512}\n{\"type\": \"text\", \"text\": \"token\", \"timestamp\": 1793547671512}\n{\"type\": \"text\", \"text\": \" fatal\", \"timestamp\": 1793547671513}\n{\"type\": \"text\", \"text\": \" module\", \"timestamp\": 1793547671513}\n{\"type\": \"text\", \"text\": \" code\", \"timestamp\": 1793547671513}\n{\"type\": \"text\", \"text\": \" ERR\", \"timestamp\": 1793547671514}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793547671514}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793547671515}\n{\"type\": \"text\", \"text\": \"F\", \"timestamp\": 1793547671515}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547671516}\n{\"type\": \"text\", \"text\": \"A\", \"timestamp\": 1793547671516}\n{\"type\": \"text\", \"text\": \" halt\", \"timestamp\": 1793547671517}\n{\"type\": \"text\", \"text\": \"ed\", \"timestamp\": 1793547671517}\n{\"type\": \"text\", \"text\": \" pipeline\", \"timestamp\": 1793547671518}\n{\"type\": \"text\", \"text\": \"\\n```\", \"timestamp\": 1793547671518}\n{\"type\": \"text\", \"text\": \"\\n\\nThe\", \"timestamp\": 1793547671518}\n{\"type\": \"text\", \"text\": \" single\", \"timestamp\": 1793547671527}\n{\"type\": \"text\", \"text\": \" occurrence\", \"timestamp\": 1793547671539}\n{\"type\": \"text\", \"text\": \" of\", \"timestamp\": 1793547671551}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793547671562}\n{\"type\": \"text\", \"text\": \" form\", \"timestamp\": 1793547671574}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793547671585}\n{\"type\": \"text\", \"text\": \"ERR\", \"timestamp\": 1793547671597}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793547671608}\n{\"type\": \"text\", \"text\": \"XXXX\", \"timestamp\": 1793547671619}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793547671631}\n{\"type\": \"text\", \"text\": \" is\", \"timestamp\": 1793547671642}\n{\"type\": \"text\", \"text\": \" **\", \"timestamp\": 1793547671654}\n{\"type\": \"text\", \"text\": \"ERR\", \"timestamp\": 1793547671665}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793547671677}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793547671688}\n{\"type\": \"text\", \"text\": \"F\", \"timestamp\": 1793547671700}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547671711}\n{\"type\": \"text\", \"text\": \"A\", \"timestamp\": 1793547671722}\n{\"type\": \"text\", \"text\": \"**.\", \"timestamp\": 1793547671734}\n{\"type\": \"text\", \"text\": \" Written\", \"timestamp\": 1793547671745}\n{\"type\": \"text\", \"text\": \" to\", \"timestamp\": 1793547671756}\n{\"type\": \"text\", \"text\": \" `/\", \"timestamp\": 1793547671768}\n{\"type\": \"text\", \"text\": \"root\", \"timestamp\": 1793547671780}\n{\"type\": \"text\", \"text\": \"/h\", \"timestamp\": 1793547671791}\n{\"type\": \"text\", \"text\": \"erm\", \"timestamp\": 1793547671803}\n{\"type\": \"text\", \"text\": \"es\", \"timestamp\": 1793547671814}\n{\"type\": \"text\", \"text\": \"-ben\", \"timestamp\": 1793547671825}\n{\"type\": \"text\", \"text\": \"ch\", \"timestamp\": 1793547671837}\n{\"type\": \"text\", \"text\": \"/r\", \"timestamp\": 1793547671848}\n{\"type\": \"text\", \"text\": \"uns\", \"timestamp\": 1793547671859}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793547671871}\n{\"type\": \"text\", \"text\": \"agent\", \"timestamp\": 1793547671883}\n{\"type\": \"text\", \"text\": \"-L\", \"timestamp\": 1793547671894}\n{\"type\": \"text\", \"text\": \"FM\", \"timestamp\": 1793547671906}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547671917}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793547671929}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793547671940}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547671952}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793547671963}\n{\"type\": \"text\", \"text\": \"B\", \"timestamp\": 1793547671974}\n{\"type\": \"text\", \"text\": \"-Q\", \"timestamp\": 1793547671986}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793547671997}\n{\"type\": \"text\", \"text\": \"_K\", \"timestamp\": 1793547672009}\n{\"type\": \"text\", \"text\": \"_M\", \"timestamp\": 1793547672020}\n{\"type\": \"text\", \"text\": \"-q\", \"timestamp\": 1793547672032}\n{\"type\": \"text\", \"text\": \"8\", \"timestamp\": 1793547672043}\n{\"type\": \"text\", \"text\": \"kv\", \"timestamp\": 1793547672055}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793547672067}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547672078}\n{\"type\": \"text\", \"text\": \"x\", \"timestamp\": 1793547672090}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793547672101}\n{\"type\": \"text\", \"text\": \"202\", \"timestamp\": 1793547672113}\n{\"type\": \"text\", \"text\": \"611\", \"timestamp\": 1793547672124}\n{\"type\": \"text\", \"text\": \"01\", \"timestamp\": 1793547672136}\n{\"type\": \"text\", \"text\": \"/t\", \"timestamp\": 1793547672147}\n{\"type\": \"text\", \"text\": \"asks\", \"timestamp\": 1793547672159}\n{\"type\": \"text\", \"text\": \"/L\", \"timestamp\": 1793547672170}\n{\"type\": \"text\", \"text\": \"FM\", \"timestamp\": 1793547672182}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547672193}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793547672205}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793547672216}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547672228}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793547672239}\n{\"type\": \"text\", \"text\": \"B\", \"timestamp\": 1793547672251}\n{\"type\": \"text\", \"text\": \"-Q\", \"timestamp\": 1793547672262}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793547672273}\n{\"type\": \"text\", \"text\": \"-K\", \"timestamp\": 1793547672285}\n{\"type\": \"text\", \"text\": \"-M\", \"timestamp\": 1793547672297}\n{\"type\": \"text\", \"text\": \"-a\", \"timestamp\": 1793547672308}\n{\"type\": \"text\", \"text\": \"9\", \"timestamp\": 1793547672319}\n{\"type\": \"text\", \"text\": \"e\", \"timestamp\": 1793547672342}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547672342}\n{\"type\": \"text\", \"text\": \"dc\", \"timestamp\": 1793547672354}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793547672366}\n{\"type\": \"text\", \"text\": \"18\", \"timestamp\": 1793547672377}\n{\"type\": \"text\", \"text\": \"-ne\", \"timestamp\": 1793547672388}\n{\"type\": \"text\", \"text\": \"ed\", \"timestamp\": 1793547672400}\n{\"type\": \"text\", \"text\": \"le\", \"timestamp\": 1793547672412}\n{\"type\": \"text\", \"text\": \"-h\", \"timestamp\": 1793547672423}\n{\"type\": \"text\", \"text\": \"ay\", \"timestamp\": 1793547672435}\n{\"type\": \"text\", \"text\": \"stack\", \"timestamp\": 1793547672446}\n{\"type\": \"text\", \"text\": \"-ag\", \"timestamp\": 1793547672457}\n{\"type\": \"text\", \"text\": \"entic\", \"timestamp\": 1793547672469}\n{\"type\": \"text\", \"text\": \"/r\", \"timestamp\": 1793547672480}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547672491}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793547672503}\n{\"type\": \"text\", \"text\": \"work\", \"timestamp\": 1793547672514}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793547672526}\n{\"type\": \"text\", \"text\": \"need\", \"timestamp\": 1793547672538}\n{\"type\": \"text\", \"text\": \"le\", \"timestamp\": 1793547672549}\n{\"type\": \"text\", \"text\": \".txt\", \"timestamp\": 1793547672560}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793547672572}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793547672584}\n{\"type\": \"text\", \"text\": \"just\", \"timestamp\": 1793547672595}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793547672606}\n{\"type\": \"text\", \"text\": \"ERR\", \"timestamp\": 1793547672618}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793547672629}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793547672641}\n{\"type\": \"text\", \"text\": \"F\", \"timestamp\": 1793547672652}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547672663}\n{\"type\": \"text\", \"text\": \"A\", \"timestamp\": 1793547672674}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793547672686}\n{\"type\": \"text\", \"text\": \" with\", \"timestamp\": 1793547672697}\n{\"type\": \"text\", \"text\": \" a\", \"timestamp\": 1793547672708}\n{\"type\": \"text\", \"text\": \" trailing\", \"timestamp\": 1793547672720}\n{\"type\": \"text\", \"text\": \" newline\", \"timestamp\": 1793547672731}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793547672743}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793547672754}\n{\"type\": \"text\", \"text\": \"9\", \"timestamp\": 1793547672766}\n{\"type\": \"text\", \"text\": \" bytes\", \"timestamp\": 1793547672777}\n{\"type\": \"text\", \"text\": \").\", \"timestamp\": 1793547672790}\n{\"type\": \"result\", \"session_id\": \"local-681b90038b382114d54a6ef17a8895d80db7ba90eb933f5b40ff00cec3d3df25\", \"exit_code\": 0, \"text\": \"Found it. In `haystack.log` line 1253:\\n\\n```\\n[2026-10-30T09:04:16Z] ERROR req-986108 svc=token fatal module code ERR-7F3A halted pipeline\\n```\\n\\nThe single occurrence of the form `ERR-XXXX` is **ERR-7F3A**. Written to `/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/18-needle-haystack-agentic/r3/work/needle.txt` (just `ERR-7F3A` with a trailing newline, 9 bytes).\", \"tokens\": {\"input\": 109056, \"output\": 1038, \"total\": 110094, \"cache_read\": 85891, \"cache_write\": 0}, \"duration_ms\": 35365, \"timestamp\": 1793547674816}\n",
+  "stream_error": null,
   "task": "18-needle-haystack-agentic",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 1920,
   "tokens_in": 109056,
   "tokens_out": 1038,
+  "tokens_total": 110094,
   "tool_calls": 4,
-  "total_checks": 3,
+  "tool_names": [
+    "search_files",
+    "search_files",
+    "write_file",
+    "read_file"
+  ],
   "turns": 10,
-  "wall_seconds": 37.6
+  "wall_seconds": 37.6,
+  "workdir": "/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/18-needle-haystack-agentic/r3/work",
+  "workspace_changed": true
 }

@@ -1,5 +1,10 @@
 {
+  "api_calls": 4,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 86247,
   "checks": [
     {
       "check": "needle.txt exists",
@@ -17,6 +22,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "25",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -25,6 +56,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 644,
+  "db_output_tokens": 588,
+  "db_tool_calls": 3,
   "decision": {
     "context": {
       "headroom_pct": 66.2,
@@ -79,24 +113,61 @@
     "wall_seconds": 39.7
   },
   "exit_code": 0,
+  "final_text": "Found it. The log contained exactly one line matching `ERR-XXXX`, and it's `ERR-7F3A` (appearing once). Written to `needle.txt` as `ERR-7F3A\\n`.",
   "finished": "2026-11-01T18:35:29.762210+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
-  "passed": 3,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": true,
+    "evaluated": 1,
+    "gates": [
+      {
+        "detail": "no markdown fences in stdout",
+        "gate": "no_markdown_fences",
+        "pass": true
+      }
+    ],
+    "passed": 1,
+    "stopped_at": null,
+    "total": 1
+  },
+  "quality_score": 1.0,
+  "reasoning": null,
   "repeat": 3,
+  "run_budget_seconds": 1800,
   "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-f277329ef3fe8c4966ddd28b804e8e7f3b0a942268b625904b2988808682cedb",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
   "started": "2026-11-01T18:34:50.013271+00:00",
+  "stderr": "Session: local-f277329ef3fe8c4966ddd28b804e8e7f3b0a942268b625904b2988808682cedb\n\nsession_id: local-f277329ef3fe8c4966ddd28b804e8e7f3b0a942268b625904b2988808682cedb\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793558092002}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"GvCefBE2hlZ0BMEEOdg8DpTF5QcA4ggW\", \"input\": {\"command\": \"cd \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/18-needle-haystack-agentic/r3/work\\\" && ls -la && grep -oE 'ERR-[0-9A-F]{4}' haystack.log | sort | uniq -c | sort -rn\"}, \"timestamp\": 1793558105832}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"GvCefBE2hlZ0BMEEOdg8DpTF5QcA4ggW\", \"output\": \"{\\\"output\\\": \\\"total 244\\\\ndrwxr-xr-x 2 root root   4096 Nov  1 04:03 .\\\\ndrwxr-xr-x 4 root root   4096 Nov  1 18:34 ..\\\\n-rw-r--r-- 1 root root 241230 Nov  1 04:07 haystack.log\\\\n      1 ERR-7F3A\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 325, \"is_error\": false, \"timestamp\": 1793558106158}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"66nqm5UlMZ6tcBkEoDz6OHoYtvJVaHGL\", \"input\": {\"command\": \"cd \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/18-needle-haystack-agentic/r3/work\\\" && echo \\\"total ERR lines:\\\" && grep -c 'ERR-[0-9A-F]\\\\{4\\\\}' haystack.log && echo \\\"ERR-7F3A count:\\\" && grep -c 'ERR-7F3A' haystack.log\"}, \"timestamp\": 1793558114040}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"66nqm5UlMZ6tcBkEoDz6OHoYtvJVaHGL\", \"output\": \"{\\\"output\\\": \\\"total ERR lines:\\\\n1\\\\nERR-7F3A count:\\\\n1\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 109, \"is_error\": false, \"timestamp\": 1793558114149}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"ttE9jCnJWTVFz2KepVv9Uv3VmH6efrEm\", \"input\": {\"command\": \"cd \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/18-needle-haystack-agentic/r3/work\\\" && printf 'ERR-7F3A\\\\n' > needle.txt && cat needle.txt && wc -c needle.txt\"}, \"timestamp\": 1793558120844}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"ttE9jCnJWTVFz2KepVv9Uv3VmH6efrEm\", \"output\": \"{\\\"output\\\": \\\"ERR-7F3A\\\\n9 needle.txt\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 132, \"is_error\": false, \"timestamp\": 1793558120977}\n{\"type\": \"text\", \"text\": \"\\n\\nFound\", \"timestamp\": 1793558122886}\n{\"type\": \"text\", \"text\": \" it\", \"timestamp\": 1793558122923}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793558122962}\n{\"type\": \"text\", \"text\": \" The\", \"timestamp\": 1793558123001}\n{\"type\": \"text\", \"text\": \" log\", \"timestamp\": 1793558123039}\n{\"type\": \"text\", \"text\": \" contained\", \"timestamp\": 1793558123079}\n{\"type\": \"text\", \"text\": \" exactly\", \"timestamp\": 1793558123117}\n{\"type\": \"text\", \"text\": \" one\", \"timestamp\": 1793558123155}\n{\"type\": \"text\", \"text\": \" line\", \"timestamp\": 1793558123198}\n{\"type\": \"text\", \"text\": \" matching\", \"timestamp\": 1793558123233}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793558123285}\n{\"type\": \"text\", \"text\": \"ERR\", \"timestamp\": 1793558123311}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793558123350}\n{\"type\": \"text\", \"text\": \"XXXX\", \"timestamp\": 1793558123389}\n{\"type\": \"text\", \"text\": \"`,\", \"timestamp\": 1793558123427}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793558123466}\n{\"type\": \"text\", \"text\": \" it\", \"timestamp\": 1793558123505}\n{\"type\": \"text\", \"text\": \"'s\", \"timestamp\": 1793558123544}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793558123582}\n{\"type\": \"text\", \"text\": \"ERR\", \"timestamp\": 1793558123621}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793558123660}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793558123700}\n{\"type\": \"text\", \"text\": \"F\", \"timestamp\": 1793558123738}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793558123777}\n{\"type\": \"text\", \"text\": \"A\", \"timestamp\": 1793558123816}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793558123855}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793558123894}\n{\"type\": \"text\", \"text\": \"appe\", \"timestamp\": 1793558123933}\n{\"type\": \"text\", \"text\": \"aring\", \"timestamp\": 1793558123971}\n{\"type\": \"text\", \"text\": \" once\", \"timestamp\": 1793558124011}\n{\"type\": \"text\", \"text\": \").\", \"timestamp\": 1793558124049}\n{\"type\": \"text\", \"text\": \" Written\", \"timestamp\": 1793558124088}\n{\"type\": \"text\", \"text\": \" to\", \"timestamp\": 1793558124127}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793558124165}\n{\"type\": \"text\", \"text\": \"needle\", \"timestamp\": 1793558124204}\n{\"type\": \"text\", \"text\": \".txt\", \"timestamp\": 1793558124243}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793558124282}\n{\"type\": \"text\", \"text\": \" as\", \"timestamp\": 1793558124320}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793558124359}\n{\"type\": \"text\", \"text\": \"ERR\", \"timestamp\": 1793558124398}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793558124437}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793558124476}\n{\"type\": \"text\", \"text\": \"F\", \"timestamp\": 1793558124515}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793558124553}\n{\"type\": \"text\", \"text\": \"A\", \"timestamp\": 1793558124592}\n{\"type\": \"text\", \"text\": \"\\\\n\", \"timestamp\": 1793558124631}\n{\"type\": \"text\", \"text\": \"`.\", \"timestamp\": 1793558124670}\n{\"type\": \"result\", \"session_id\": \"local-f277329ef3fe8c4966ddd28b804e8e7f3b0a942268b625904b2988808682cedb\", \"exit_code\": 0, \"text\": \"Found it. The log contained exactly one line matching `ERR-XXXX`, and it's `ERR-7F3A` (appearing once). Written to `needle.txt` as `ERR-7F3A\\\\n`.\", \"tokens\": {\"input\": 86891, \"output\": 588, \"total\": 87479, \"cache_read\": 86247, \"cache_write\": 0}, \"duration_ms\": 37417, \"timestamp\": 1793558129420}\n",
+  "stream_error": null,
   "task": "18-needle-haystack-agentic",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 1920,
   "tokens_in": 86891,
   "tokens_out": 588,
+  "tokens_total": 87479,
   "tool_calls": 3,
-  "total_checks": 3,
+  "tool_names": [
+    "terminal",
+    "terminal",
+    "terminal"
+  ],
   "turns": 8,
-  "wall_seconds": 39.7
+  "wall_seconds": 39.7,
+  "workdir": "/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/18-needle-haystack-agentic/r3/work",
+  "workspace_changed": true
 }

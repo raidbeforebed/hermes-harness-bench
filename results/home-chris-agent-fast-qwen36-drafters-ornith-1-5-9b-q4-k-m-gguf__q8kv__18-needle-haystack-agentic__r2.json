@@ -1,5 +1,10 @@
 {
+  "api_calls": 3,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 64158,
   "checks": [
     {
       "check": "needle.txt exists",
@@ -17,6 +22,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "25",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -25,6 +56,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 519,
+  "db_output_tokens": 428,
+  "db_tool_calls": 2,
   "decision": {
     "context": {
       "headroom_pct": 66.7,
@@ -79,24 +113,60 @@
     "wall_seconds": 32.7
   },
   "exit_code": 0,
+  "final_text": "Found it. The log contains exactly one fatal error code, `ERR-7F3A`, and it's written to `needle.txt`.",
   "finished": "2026-11-01T18:34:50.010801+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
-  "passed": 3,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": true,
+    "evaluated": 1,
+    "gates": [
+      {
+        "detail": "no markdown fences in stdout",
+        "gate": "no_markdown_fences",
+        "pass": true
+      }
+    ],
+    "passed": 1,
+    "stopped_at": null,
+    "total": 1
+  },
+  "quality_score": 1.0,
+  "reasoning": null,
   "repeat": 2,
+  "run_budget_seconds": 1800,
   "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-66d886962e0f85c4a634795c46c1a093c08dd4bd9458ef2c626f0470a20075f4",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
   "started": "2026-11-01T18:34:17.293789+00:00",
+  "stderr": "Session: local-66d886962e0f85c4a634795c46c1a093c08dd4bd9458ef2c626f0470a20075f4\n\nsession_id: local-66d886962e0f85c4a634795c46c1a093c08dd4bd9458ef2c626f0470a20075f4\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793558059771}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"GGkZAI1w2ME3heoz9bd0AaPiotTgV8v7\", \"input\": {\"command\": \"cd /root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/18-needle-haystack-agentic/r2/work && grep -oE 'ERR-[0-9A-F]{4}' haystack.log | sort | uniq -c | sort -rn\"}, \"timestamp\": 1793558074022}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"GGkZAI1w2ME3heoz9bd0AaPiotTgV8v7\", \"output\": \"{\\\"output\\\": \\\"1 ERR-7F3A\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 445, \"is_error\": false, \"timestamp\": 1793558074468}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"ZQWQScZ1hVnhgKWQOCgfMTDuVZvrnshS\", \"input\": {\"command\": \"cd /root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/18-needle-haystack-agentic/r2/work && echo \\\"total ERR codes: $(grep -oE 'ERR-[0-9A-F]{4}' haystack.log | wc -l)\\\"; echo \\\"unique fatal ERR codes: $(grep -oE 'ERR-[0-9A-F]{4}' haystack.log | sort -u | wc -l)\\\"; printf 'ERR-7F3A\\\\n' > needle.txt && echo \\\"written:\\\" && cat needle.txt\"}, \"timestamp\": 1793558083596}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"ZQWQScZ1hVnhgKWQOCgfMTDuVZvrnshS\", \"output\": \"{\\\"output\\\": \\\"total ERR codes: 1\\\\nunique fatal ERR codes: 1\\\\nwritten:\\\\nERR-7F3A\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 117, \"is_error\": false, \"timestamp\": 1793558083713}\n{\"type\": \"text\", \"text\": \"\\n\\nFound\", \"timestamp\": 1793558085103}\n{\"type\": \"text\", \"text\": \" it\", \"timestamp\": 1793558085135}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793558085170}\n{\"type\": \"text\", \"text\": \" The\", \"timestamp\": 1793558085209}\n{\"type\": \"text\", \"text\": \" log\", \"timestamp\": 1793558085249}\n{\"type\": \"text\", \"text\": \" contains\", \"timestamp\": 1793558085289}\n{\"type\": \"text\", \"text\": \" exactly\", \"timestamp\": 1793558085329}\n{\"type\": \"text\", \"text\": \" one\", \"timestamp\": 1793558085362}\n{\"type\": \"text\", \"text\": \" fatal\", \"timestamp\": 1793558085405}\n{\"type\": \"text\", \"text\": \" error\", \"timestamp\": 1793558085439}\n{\"type\": \"text\", \"text\": \" code\", \"timestamp\": 1793558085477}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793558085516}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793558085554}\n{\"type\": \"text\", \"text\": \"ERR\", \"timestamp\": 1793558085596}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793558085632}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793558085671}\n{\"type\": \"text\", \"text\": \"F\", \"timestamp\": 1793558085710}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793558085749}\n{\"type\": \"text\", \"text\": \"A\", \"timestamp\": 1793558085787}\n{\"type\": \"text\", \"text\": \"`,\", \"timestamp\": 1793558085826}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793558085864}\n{\"type\": \"text\", \"text\": \" it\", \"timestamp\": 1793558085904}\n{\"type\": \"text\", \"text\": \"'s\", \"timestamp\": 1793558085942}\n{\"type\": \"text\", \"text\": \" written\", \"timestamp\": 1793558085981}\n{\"type\": \"text\", \"text\": \" to\", \"timestamp\": 1793558086020}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793558086060}\n{\"type\": \"text\", \"text\": \"needle\", \"timestamp\": 1793558086098}\n{\"type\": \"text\", \"text\": \".txt\", \"timestamp\": 1793558086136}\n{\"type\": \"text\", \"text\": \"`.\", \"timestamp\": 1793558086175}\n{\"type\": \"result\", \"session_id\": \"local-66d886962e0f85c4a634795c46c1a093c08dd4bd9458ef2c626f0470a20075f4\", \"exit_code\": 0, \"text\": \"Found it. The log contains exactly one fatal error code, `ERR-7F3A`, and it's written to `needle.txt`.\", \"tokens\": {\"input\": 64677, \"output\": 428, \"total\": 65105, \"cache_read\": 64158, \"cache_write\": 0}, \"duration_ms\": 29973, \"timestamp\": 1793558089744}\n",
+  "stream_error": null,
   "task": "18-needle-haystack-agentic",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 1920,
   "tokens_in": 64677,
   "tokens_out": 428,
+  "tokens_total": 65105,
   "tool_calls": 2,
-  "total_checks": 3,
+  "tool_names": [
+    "terminal",
+    "terminal"
+  ],
   "turns": 6,
-  "wall_seconds": 32.7
+  "wall_seconds": 32.7,
+  "workdir": "/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/18-needle-haystack-agentic/r2/work",
+  "workspace_changed": true
 }

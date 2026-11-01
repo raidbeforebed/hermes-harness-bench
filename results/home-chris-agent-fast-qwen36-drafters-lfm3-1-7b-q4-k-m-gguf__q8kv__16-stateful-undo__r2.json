@@ -1,5 +1,10 @@
 {
+  "api_calls": 10,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 222704,
   "checks": [
     {
       "check": "notes.md exists",
@@ -22,6 +27,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "15",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -30,6 +61,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 29500,
+  "db_output_tokens": 6019,
+  "db_tool_calls": 9,
   "decision": {
     "context": {
       "headroom_pct": 57.9,
@@ -86,24 +120,61 @@
     "wall_seconds": 106.8
   },
   "exit_code": 0,
+  "final_text": "Created/updated `notes.md` in the current directory with exactly these three lines (trailing newline at end):\n\n```\n# Notes\n- alpha\n- charlie\n```",
   "finished": "2026-11-01T15:34:47.663654+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "9e3decfa8402419b1b7ef173fa5f40c068b627792aef432c4988995a04baddda",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "4d74e47b7f6fe56d8dc7fe563a6080af2c0693d3d3f2123b2fe90806bb9bf672",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
-  "passed": 4,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": false,
+    "evaluated": 0,
+    "gates": [],
+    "passed": 0,
+    "stopped_at": null,
+    "total": 0
+  },
+  "quality_score": null,
+  "reasoning": null,
   "repeat": 2,
+  "run_budget_seconds": 540,
   "run_id": "agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-e1cfe69ceeaf8af43feda2c657a379c5d0517f4e3d8834f753faba455ba659e0",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
   "started": "2026-11-01T15:33:00.769154+00:00",
+  "stderr": "Session: local-e1cfe69ceeaf8af43feda2c657a379c5d0517f4e3d8834f753faba455ba659e0\n\nsession_id: local-e1cfe69ceeaf8af43feda2c657a379c5d0517f4e3d8834f753faba455ba659e0\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793547183897}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"4cYwcRJREjllexaMpCty7Ou0GbIHa8QZ\", \"input\": {\"command\": \"printf '# Notes\\\\n- alpha\\\\n- charlie\\\\n' > /root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/16-stateful-undo/r2/work/notes.md\"}, \"timestamp\": 1793547240634}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"4cYwcRJREjllexaMpCty7Ou0GbIHa8QZ\", \"output\": \"{\\\"output\\\": \\\"\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 201, \"is_error\": false, \"timestamp\": 1793547240835}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"RIx7BGl42NHFsM2cJZOah9A17Q5ymYWY\", \"input\": {\"command\": \"cat -A /root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/16-stateful-undo/r2/work/notes.md\"}, \"timestamp\": 1793547245032}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"RIx7BGl42NHFsM2cJZOah9A17Q5ymYWY\", \"output\": \"{\\\"output\\\": \\\"# Notes$\\\\n- alpha$\\\\n- charlie$\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 101, \"is_error\": false, \"timestamp\": 1793547245133}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"GcttbysawQbXyhEVdlRd8TTQUUskWdcG\", \"input\": {\"command\": \"printf '# Notes\\\\n' > notes.md && cat -A notes.md\"}, \"timestamp\": 1793547253596}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"GcttbysawQbXyhEVdlRd8TTQUUskWdcG\", \"output\": \"{\\\"output\\\": \\\"# Notes$\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 137, \"is_error\": false, \"timestamp\": 1793547253734}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"nllH9D6rSJ4SBB9wHqGPJLGEV84BuzkB\", \"input\": {\"command\": \"printf '- alpha\\\\n' >> notes.md && cat -A notes.md\"}, \"timestamp\": 1793547255100}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"nllH9D6rSJ4SBB9wHqGPJLGEV84BuzkB\", \"output\": \"{\\\"output\\\": \\\"/usr/bin/bash: line 7: printf: - : invalid option\\\\nprintf: usage: printf [-v var] format [arguments]\\\", \\\"exit_code\\\": 2, \\\"error\\\": null}\", \"duration_ms\": 126, \"is_error\": true, \"timestamp\": 1793547255227}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"VczBxuTjOwt45y9FZAJGGhJjy8uRxFbU\", \"input\": {\"command\": \"printf '%s\\\\n' '- alpha' >> notes.md && cat -A notes.md\"}, \"timestamp\": 1793547259557}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"VczBxuTjOwt45y9FZAJGGhJjy8uRxFbU\", \"output\": \"{\\\"output\\\": \\\"# Notes$\\\\n- alpha$\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 102, \"is_error\": false, \"timestamp\": 1793547259659}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"cy0pih4pJcigwB8RBz2MyP1AfFz8IRLB\", \"input\": {\"command\": \"printf '%s\\\\n' '- bravo' >> notes.md && cat -A notes.md\"}, \"timestamp\": 1793547260796}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"cy0pih4pJcigwB8RBz2MyP1AfFz8IRLB\", \"output\": \"{\\\"output\\\": \\\"# Notes$\\\\n- alpha$\\\\n- bravo$\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 96, \"is_error\": false, \"timestamp\": 1793547260893}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"uL1StgS4pqneDAcs1PxvjtDsQTVLev4L\", \"input\": {\"command\": \"printf '# Notes\\\\n' > notes.md && cat -A notes.md\"}, \"timestamp\": 1793547262206}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"uL1StgS4pqneDAcs1PxvjtDsQTVLev4L\", \"output\": \"{\\\"output\\\": \\\"# Notes$\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 149, \"is_error\": false, \"timestamp\": 1793547262355}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"hgd3G9HhLCskM8LDEezVC1gJThJVv16u\", \"input\": {\"command\": \"printf '%s\\\\n' '- charlie' >> notes.md && cat -A notes.md\"}, \"timestamp\": 1793547263757}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"hgd3G9HhLCskM8LDEezVC1gJThJVv16u\", \"output\": \"{\\\"output\\\": \\\"# Notes$\\\\n- charlie$\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 111, \"is_error\": false, \"timestamp\": 1793547263869}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"uY5DDfZgviKNci6ahzycD2FwiawwMxqZ\", \"input\": {\"command\": \"printf '# Notes\\\\n- alpha\\\\n- charlie\\\\n' > notes.md && cat -A notes.md\"}, \"timestamp\": 1793547276999}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"uY5DDfZgviKNci6ahzycD2FwiawwMxqZ\", \"output\": \"{\\\"output\\\": \\\"# Notes$\\\\n- alpha$\\\\n- charlie$\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 101, \"is_error\": false, \"timestamp\": 1793547277101}\n{\"type\": \"text\", \"text\": \"\\n\\nCreated\", \"timestamp\": 1793547283657}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793547283669}\n{\"type\": \"text\", \"text\": \"updated\", \"timestamp\": 1793547283681}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793547283693}\n{\"type\": \"text\", \"text\": \"notes\", \"timestamp\": 1793547283705}\n{\"type\": \"text\", \"text\": \".md\", \"timestamp\": 1793547283717}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793547283730}\n{\"type\": \"text\", \"text\": \" in\", \"timestamp\": 1793547283741}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793547283753}\n{\"type\": \"text\", \"text\": \" current\", \"timestamp\": 1793547283766}\n{\"type\": \"text\", \"text\": \" directory\", \"timestamp\": 1793547283778}\n{\"type\": \"text\", \"text\": \" with\", \"timestamp\": 1793547283790}\n{\"type\": \"text\", \"text\": \" exactly\", \"timestamp\": 1793547283803}\n{\"type\": \"text\", \"text\": \" these\", \"timestamp\": 1793547283815}\n{\"type\": \"text\", \"text\": \" three\", \"timestamp\": 1793547283827}\n{\"type\": \"text\", \"text\": \" lines\", \"timestamp\": 1793547283839}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793547283851}\n{\"type\": \"text\", \"text\": \"tra\", \"timestamp\": 1793547283863}\n{\"type\": \"text\", \"text\": \"iling\", \"timestamp\": 1793547283875}\n{\"type\": \"text\", \"text\": \" newline\", \"timestamp\": 1793547283887}\n{\"type\": \"text\", \"text\": \" at\", \"timestamp\": 1793547283899}\n{\"type\": \"text\", \"text\": \" end\", \"timestamp\": 1793547283912}\n{\"type\": \"text\", \"text\": \"):\", \"timestamp\": 1793547283926}\n{\"type\": \"text\", \"text\": \"\\n\\n```\", \"timestamp\": 1793547283937}\n{\"type\": \"text\", \"text\": \"\\n#\", \"timestamp\": 1793547283955}\n{\"type\": \"text\", \"text\": \" Notes\", \"timestamp\": 1793547283962}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793547283986}\n{\"type\": \"text\", \"text\": \" alpha\", \"timestamp\": 1793547283999}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793547284023}\n{\"type\": \"text\", \"text\": \" char\", \"timestamp\": 1793547284035}\n{\"type\": \"text\", \"text\": \"lie\", \"timestamp\": 1793547284047}\n{\"type\": \"text\", \"text\": \"\\n```\", \"timestamp\": 1793547284071}\n{\"type\": \"result\", \"session_id\": \"local-e1cfe69ceeaf8af43feda2c657a379c5d0517f4e3d8834f753faba455ba659e0\", \"exit_code\": 0, \"text\": \"Created/updated `notes.md` in the current directory with exactly these three lines (trailing newline at end):\\n\\n```\\n# Notes\\n- alpha\\n- charlie\\n```\", \"tokens\": {\"input\": 252204, \"output\": 6019, \"total\": 258223, \"cache_read\": 222704, \"cache_write\": 0}, \"duration_ms\": 103347, \"timestamp\": 1793547287245}\n",
+  "stream_error": null,
   "task": "16-stateful-undo",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 660,
   "tokens_in": 252204,
   "tokens_out": 6019,
+  "tokens_total": 258223,
   "tool_calls": 9,
-  "total_checks": 4,
+  "tool_names": [
+    "terminal",
+    "terminal",
+    "terminal",
+    "terminal",
+    "terminal",
+    "terminal",
+    "terminal",
+    "terminal",
+    "terminal"
+  ],
   "turns": 20,
-  "wall_seconds": 106.8
+  "wall_seconds": 106.8,
+  "workdir": "/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/16-stateful-undo/r2/work",
+  "workspace_changed": true
 }

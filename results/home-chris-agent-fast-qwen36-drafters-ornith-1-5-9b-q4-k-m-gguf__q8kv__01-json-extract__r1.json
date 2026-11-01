@@ -1,5 +1,10 @@
 {
+  "api_calls": 4,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 66976,
   "checks": [
     {
       "check": "report.json exists",
@@ -37,6 +42,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "30",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -45,6 +76,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 22090,
+  "db_output_tokens": 1257,
+  "db_tool_calls": 3,
   "decision": {
     "context": {
       "headroom_pct": 64.4,
@@ -99,24 +133,66 @@
     "wall_seconds": 111.0
   },
   "exit_code": 0,
+  "final_text": "`report.json` written. Results:\n\n- **total_orders**: 7 (every data row)\n- **shipped_revenue**: 149.97\n- **by_customer**: Acme Corp (3 orders, 119.97), Beta LLC (2 orders, 30.00), Gamma Inc (1 order, 0.00), Delta Co (1 order, 0.00)\n\nAll four customers appear, including the two with no shipped revenue. Note JSON numbers like `30.0` and `0.0` carry no trailing zeros \u2014 that's the numeric value rounded to 2 decimals, not a formatting issue.",
   "finished": "2026-11-01T15:43:23.100717+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
-  "passed": 7,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": true,
+    "evaluated": 2,
+    "gates": [
+      {
+        "detail": "key set == ['by_customer', 'shipped_revenue', 'total_orders']",
+        "gate": "json_schema_strict",
+        "pass": true
+      },
+      {
+        "detail": "no markdown fences in stdout",
+        "gate": "no_markdown_fences",
+        "pass": true
+      }
+    ],
+    "passed": 2,
+    "stopped_at": null,
+    "total": 2
+  },
+  "quality_score": 1.0,
+  "reasoning": null,
   "repeat": 1,
+  "run_budget_seconds": 900,
   "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-c6e42d59c05a059afae7b5ed31c7866e7db00f4e2c72321c4431623a1c58ad9a",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
   "started": "2026-11-01T15:41:32.042121+00:00",
+  "stderr": "Session: local-c6e42d59c05a059afae7b5ed31c7866e7db00f4e2c72321c4431623a1c58ad9a\n\nsession_id: local-c6e42d59c05a059afae7b5ed31c7866e7db00f4e2c72321c4431623a1c58ad9a\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793547693841}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"mOKNeI8nUO8WvsaewVNHIdB2HCGUQfsg\", \"input\": {\"path\": \"./orders.csv\"}, \"timestamp\": 1793547748844}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"mOKNeI8nUO8WvsaewVNHIdB2HCGUQfsg\", \"output\": \"{\\\"content\\\": \\\"1|order_id,customer,item,qty,unit_price,status\\\\n2|1001,Acme Corp,Widget A,3,19.99,shipped\\\\n3|1002,Beta LLC,Widget B,1,45.00,pending\\\\n4|1003,Acme Corp,Gadget C,2,7.50,shipped\\\\n5|1004,Gamma Inc,Widget A,10,19.99,cancelled\\\\n6|1005,Beta LLC,Gadget C,4,7.50,shipped\\\\n7|1006,Acme Corp,Widget B,1,45.00,shipped\\\\n8|1007,Delta Co,Widget A,2,19.99,pending\\\", \\\"total_lines\\\": 8, \\\"file_size\\\": 323, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 97, \"is_error\": false, \"timestamp\": 1793547748942}\n{\"type\": \"tool_use\", \"name\": \"execute_code\", \"tool_call_id\": \"mATgwucCubhzr41cOBGfnf2qHhftD3vM\", \"input\": {\"code\": \"import csv, json\\n\\norders = []\\nwith open('orders.csv', newline='') as f:\\n    reader = csv.reader(f)\\n    header = next(reader)\\n    for row in reader:\\n        if not row:\\n            continue\\n        orders.append(row)\\n\\ntotal_orders = len(orders)\\n\\n# columns: order_id, customer, item, qty, unit_price, status\\ncustomers = {}\\nshipped_revenue = 0.0\\nfor row in orders:\\n    order_id, customer, item, qty, unit_price, status = row\\n    customers.setdefault(customer, {'orders': 0, 'revenue': 0.0})\\n    customers[customer]['orders'] += 1\\n    if status == 'shipped':\\n        rev = float(qty) * float(unit_price)\\n        customers[customer]['revenue'] += rev\\n        shipped_revenue += rev\\n\\nby_customer = {c: {'orders': o['orders'], 'revenue': round(o['revenue'], 2)} for c, o in customers.items()}\\n# sort by_customer for stable output\\nby_customer = dict(sorted(by_customer.items()))\\n\\nreport = {\\n    'total_orders': total_orders,\\n    'by_customer': by_customer,\\n    'shipped_revenue': round(shipped_revenue, 2)\\n}\\n\\nwith open('report.json', 'w') as f:\\n    json.dump(report, f, indent=2)\\n\\nprint(json.dumps(report, indent=2))\\n\"}, \"timestamp\": 1793547787262}\n{\"type\": \"tool_result\", \"name\": \"execute_code\", \"tool_call_id\": \"mATgwucCubhzr41cOBGfnf2qHhftD3vM\", \"output\": \"{\\\"status\\\": \\\"success\\\", \\\"output\\\": \\\"{\\\\n  \\\\\\\"total_orders\\\\\\\": 7,\\\\n  \\\\\\\"by_customer\\\\\\\": {\\\\n    \\\\\\\"Acme Corp\\\\\\\": {\\\\n      \\\\\\\"orders\\\\\\\": 3,\\\\n      \\\\\\\"revenue\\\\\\\": 119.97\\\\n    },\\\\n    \\\\\\\"Beta LLC\\\\\\\": {\\\\n      \\\\\\\"orders\\\\\\\": 2,\\\\n      \\\\\\\"revenue\\\\\\\": 30.0\\\\n    },\\\\n    \\\\\\\"Delta Co\\\\\\\": {\\\\n      \\\\\\\"orders\\\\\\\": 1,\\\\n      \\\\\\\"revenue\\\\\\\": 0.0\\\\n    },\\\\n    \\\\\\\"Gamma Inc\\\\\\\": {\\\\n      \\\\\\\"orders\\\\\\\": 1,\\\\n      \\\\\\\"revenue\\\\\\\": 0.0\\\\n    }\\\\n  },\\\\n  \\\\\\\"shipped_revenue\\\\\\\": 149.97\\\\n}\\\\n\\\", \\\"exit_code\\\": 0, \\\"tool_calls_made\\\": 0, \\\"duration_seconds\\\": 0.05, \\\"kernel\\\": {\\\"mode\\\": \\\"session\\\", \\\"reused\\\": false, \\\"execution_count\\\": 1, \\\"state_reset\\\": false}, \\\"stdout_truncated\\\": false, \\\"stdout_bytes_captured\\\": 342, \\\"stdout_bytes_total\\\": 342, \\\"stdout_bytes_omitted\\\": 0}\", \"duration_ms\": 86, \"is_error\": false, \"timestamp\": 1793547787349}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"NIaRarge3xd5wRKYcuilHykbi7kA84XG\", \"input\": {\"command\": \"cat report.json\"}, \"timestamp\": 1793547790084}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"NIaRarge3xd5wRKYcuilHykbi7kA84XG\", \"output\": \"{\\\"output\\\": \\\"{\\\\n  \\\\\\\"total_orders\\\\\\\": 7,\\\\n  \\\\\\\"by_customer\\\\\\\": {\\\\n    \\\\\\\"Acme Corp\\\\\\\": {\\\\n      \\\\\\\"orders\\\\\\\": 3,\\\\n      \\\\\\\"revenue\\\\\\\": 119.97\\\\n    },\\\\n    \\\\\\\"Beta LLC\\\\\\\": {\\\\n      \\\\\\\"orders\\\\\\\": 2,\\\\n      \\\\\\\"revenue\\\\\\\": 30.0\\\\n    },\\\\n    \\\\\\\"Delta Co\\\\\\\": {\\\\n      \\\\\\\"orders\\\\\\\": 1,\\\\n      \\\\\\\"revenue\\\\\\\": 0.0\\\\n    },\\\\n    \\\\\\\"Gamma Inc\\\\\\\": {\\\\n      \\\\\\\"orders\\\\\\\": 1,\\\\n      \\\\\\\"revenue\\\\\\\": 0.0\\\\n    }\\\\n  },\\\\n  \\\\\\\"shipped_revenue\\\\\\\": 149.97\\\\n}\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 114, \"is_error\": false, \"timestamp\": 1793547790198}\n{\"type\": \"text\", \"text\": \"\\n\\n`\", \"timestamp\": 1793547793650}\n{\"type\": \"text\", \"text\": \"report\", \"timestamp\": 1793547793688}\n{\"type\": \"text\", \"text\": \".json\", \"timestamp\": 1793547793726}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793547793766}\n{\"type\": \"text\", \"text\": \" written\", \"timestamp\": 1793547793804}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547793843}\n{\"type\": \"text\", \"text\": \" Results\", \"timestamp\": 1793547793882}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793547793999}\n{\"type\": \"text\", \"text\": \"\\n\\n-\", \"timestamp\": 1793547793999}\n{\"type\": \"text\", \"text\": \" **\", \"timestamp\": 1793547794038}\n{\"type\": \"text\", \"text\": \"total\", \"timestamp\": 1793547794075}\n{\"type\": \"text\", \"text\": \"_orders\", \"timestamp\": 1793547794114}\n{\"type\": \"text\", \"text\": \"**:\", \"timestamp\": 1793547794153}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793547794192}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793547794230}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793547794269}\n{\"type\": \"text\", \"text\": \"every\", \"timestamp\": 1793547794308}\n{\"type\": \"text\", \"text\": \" data\", \"timestamp\": 1793547794386}\n{\"type\": \"text\", \"text\": \" row\", \"timestamp\": 1793547794388}\n{\"type\": \"text\", \"text\": \")\", \"timestamp\": 1793547794430}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793547794501}\n{\"type\": \"text\", \"text\": \" **\", \"timestamp\": 1793547794539}\n{\"type\": \"text\", \"text\": \"sh\", \"timestamp\": 1793547794578}\n{\"type\": \"text\", \"text\": \"ipped\", \"timestamp\": 1793547794617}\n{\"type\": \"text\", \"text\": \"_re\", \"timestamp\": 1793547794655}\n{\"type\": \"text\", \"text\": \"venue\", \"timestamp\": 1793547794700}\n{\"type\": \"text\", \"text\": \"**:\", \"timestamp\": 1793547794733}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793547794771}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793547794809}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793547794849}\n{\"type\": \"text\", \"text\": \"9\", \"timestamp\": 1793547794887}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547794927}\n{\"type\": \"text\", \"text\": \"9\", \"timestamp\": 1793547794968}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793547795006}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793547795083}\n{\"type\": \"text\", \"text\": \" **\", \"timestamp\": 1793547795122}\n{\"type\": \"text\", \"text\": \"by\", \"timestamp\": 1793547795175}\n{\"type\": \"text\", \"text\": \"_customer\", \"timestamp\": 1793547795218}\n{\"type\": \"text\", \"text\": \"**:\", \"timestamp\": 1793547795236}\n{\"type\": \"text\", \"text\": \" Ac\", \"timestamp\": 1793547795277}\n{\"type\": \"text\", \"text\": \"me\", \"timestamp\": 1793547795315}\n{\"type\": \"text\", \"text\": \" Corp\", \"timestamp\": 1793547795355}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793547795417}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547795432}\n{\"type\": \"text\", \"text\": \" orders\", \"timestamp\": 1793547795469}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793547795509}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793547795552}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793547795583}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793547795622}\n{\"type\": \"text\", \"text\": \"9\", \"timestamp\": 1793547795661}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547795699}\n{\"type\": \"text\", \"text\": \"9\", \"timestamp\": 1793547795738}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793547795777}\n{\"type\": \"text\", \"text\": \"),\", \"timestamp\": 1793547795816}\n{\"type\": \"text\", \"text\": \" Beta\", \"timestamp\": 1793547795855}\n{\"type\": \"text\", \"text\": \" LLC\", \"timestamp\": 1793547795894}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793547795932}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793547795971}\n{\"type\": \"text\", \"text\": \" orders\", \"timestamp\": 1793547796010}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793547796049}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793547796087}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547796126}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547796165}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547796203}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547796242}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547796280}\n{\"type\": \"text\", \"text\": \"),\", \"timestamp\": 1793547796319}\n{\"type\": \"text\", \"text\": \" Gamma\", \"timestamp\": 1793547796357}\n{\"type\": \"text\", \"text\": \" Inc\", \"timestamp\": 1793547796396}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793547796436}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793547796474}\n{\"type\": \"text\", \"text\": \" order\", \"timestamp\": 1793547796512}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793547796551}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793547796589}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547796627}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547796667}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547796705}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547796744}\n{\"type\": \"text\", \"text\": \"),\", \"timestamp\": 1793547796783}\n{\"type\": \"text\", \"text\": \" Delta\", \"timestamp\": 1793547796822}\n{\"type\": \"text\", \"text\": \" Co\", \"timestamp\": 1793547796861}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793547796899}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793547796937}\n{\"type\": \"text\", \"text\": \" order\", \"timestamp\": 1793547796976}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793547797015}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793547797054}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547797092}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547797131}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547797170}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547797208}\n{\"type\": \"text\", \"text\": \")\", \"timestamp\": 1793547797249}\n{\"type\": \"text\", \"text\": \"\\n\\nAll\", \"timestamp\": 1793547797324}\n{\"type\": \"text\", \"text\": \" four\", \"timestamp\": 1793547797363}\n{\"type\": \"text\", \"text\": \" customers\", \"timestamp\": 1793547797402}\n{\"type\": \"text\", \"text\": \" appear\", \"timestamp\": 1793547797442}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793547797481}\n{\"type\": \"text\", \"text\": \" including\", \"timestamp\": 1793547797526}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793547797562}\n{\"type\": \"text\", \"text\": \" two\", \"timestamp\": 1793547797599}\n{\"type\": \"text\", \"text\": \" with\", \"timestamp\": 1793547797638}\n{\"type\": \"text\", \"text\": \" no\", \"timestamp\": 1793547797677}\n{\"type\": \"text\", \"text\": \" shipped\", \"timestamp\": 1793547797717}\n{\"type\": \"text\", \"text\": \" revenue\", \"timestamp\": 1793547797756}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547797795}\n{\"type\": \"text\", \"text\": \" Note\", \"timestamp\": 1793547797835}\n{\"type\": \"text\", \"text\": \" JSON\", \"timestamp\": 1793547797874}\n{\"type\": \"text\", \"text\": \" numbers\", \"timestamp\": 1793547797913}\n{\"type\": \"text\", \"text\": \" like\", \"timestamp\": 1793547797952}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793547797991}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793547798030}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547798069}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547798108}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547798148}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793547798186}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793547798225}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793547798265}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547798304}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547798344}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793547798384}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793547798423}\n{\"type\": \"text\", \"text\": \" carry\", \"timestamp\": 1793547798464}\n{\"type\": \"text\", \"text\": \" no\", \"timestamp\": 1793547798502}\n{\"type\": \"text\", \"text\": \" trailing\", \"timestamp\": 1793547798542}\n{\"type\": \"text\", \"text\": \" zeros\", \"timestamp\": 1793547798582}\n{\"type\": \"text\", \"text\": \" \u2014\", \"timestamp\": 1793547798621}\n{\"type\": \"text\", \"text\": \" that\", \"timestamp\": 1793547798660}\n{\"type\": \"text\", \"text\": \"'s\", \"timestamp\": 1793547798700}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793547798739}\n{\"type\": \"text\", \"text\": \" numeric\", \"timestamp\": 1793547798779}\n{\"type\": \"text\", \"text\": \" value\", \"timestamp\": 1793547798817}\n{\"type\": \"text\", \"text\": \" rounded\", \"timestamp\": 1793547798856}\n{\"type\": \"text\", \"text\": \" to\", \"timestamp\": 1793547798896}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793547798935}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793547798974}\n{\"type\": \"text\", \"text\": \" decimals\", \"timestamp\": 1793547799018}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793547799052}\n{\"type\": \"text\", \"text\": \" not\", \"timestamp\": 1793547799091}\n{\"type\": \"text\", \"text\": \" a\", \"timestamp\": 1793547799131}\n{\"type\": \"text\", \"text\": \" formatting\", \"timestamp\": 1793547799170}\n{\"type\": \"text\", \"text\": \" issue\", \"timestamp\": 1793547799209}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793547799248}\n{\"type\": \"result\", \"session_id\": \"local-c6e42d59c05a059afae7b5ed31c7866e7db00f4e2c72321c4431623a1c58ad9a\", \"exit_code\": 0, \"text\": \"`report.json` written. Results:\\n\\n- **total_orders**: 7 (every data row)\\n- **shipped_revenue**: 149.97\\n- **by_customer**: Acme Corp (3 orders, 119.97), Beta LLC (2 orders, 30.00), Gamma Inc (1 order, 0.00), Delta Co (1 order, 0.00)\\n\\nAll four customers appear, including the two with no shipped revenue. Note JSON numbers like `30.0` and `0.0` carry no trailing zeros \u2014 that's the numeric value rounded to 2 decimals, not a formatting issue.\", \"tokens\": {\"input\": 89066, \"output\": 1257, \"total\": 90323, \"cache_read\": 66976, \"cache_write\": 0}, \"duration_ms\": 109019, \"timestamp\": 1793547802861}\n",
+  "stream_error": null,
   "task": "01-json-extract",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 1020,
   "tokens_in": 89066,
   "tokens_out": 1257,
+  "tokens_total": 90323,
   "tool_calls": 3,
-  "total_checks": 7,
+  "tool_names": [
+    "read_file",
+    "execute_code",
+    "terminal"
+  ],
   "turns": 8,
-  "wall_seconds": 111.0
+  "wall_seconds": 111.0,
+  "workdir": "/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/01-json-extract/r1/work",
+  "workspace_changed": true
 }

@@ -1,5 +1,10 @@
 {
+  "api_calls": 5,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 89419,
   "checks": [
     {
       "check": "report.json exists",
@@ -37,6 +42,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "30",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -45,6 +76,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 26662,
+  "db_output_tokens": 4592,
+  "db_tool_calls": 4,
   "decision": {
     "context": {
       "headroom_pct": 59.6,
@@ -99,24 +133,67 @@
     "wall_seconds": 81.3
   },
   "exit_code": 0,
+  "final_text": "Created `/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/01-json-extract/r1/work/report.json` with the requested shape:\n\n{\n  \"total_orders\": 7,\n  \"by_customer\": {\n    \"Acme Corp\": {\"orders\": 3, \"revenue\": 119.97},\n    \"Beta LLC\": {\"orders\": 2, \"revenue\": 30.00},\n    \"Gamma Inc\": {\"orders\": 1, \"revenue\": 0.0},\n    \"Delta Co\": {\"orders\": 1, \"revenue\": 0.0}\n  },\n  \"shipped_revenue\": 149.97\n}",
   "finished": "2026-11-01T13:56:12.307251+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "9e3decfa8402419b1b7ef173fa5f40c068b627792aef432c4988995a04baddda",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "4d74e47b7f6fe56d8dc7fe563a6080af2c0693d3d3f2123b2fe90806bb9bf672",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
-  "passed": 7,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": true,
+    "evaluated": 2,
+    "gates": [
+      {
+        "detail": "key set == ['by_customer', 'shipped_revenue', 'total_orders']",
+        "gate": "json_schema_strict",
+        "pass": true
+      },
+      {
+        "detail": "no markdown fences in stdout",
+        "gate": "no_markdown_fences",
+        "pass": true
+      }
+    ],
+    "passed": 2,
+    "stopped_at": null,
+    "total": 2
+  },
+  "quality_score": 1.0,
+  "reasoning": null,
   "repeat": 1,
+  "run_budget_seconds": 900,
   "run_id": "agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-daa6a65124aa99068d72a52be604cf7a3e667c4bcf6ef9468f59ef54196c3174",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
   "started": "2026-11-01T13:54:50.962826+00:00",
+  "stderr": "Session: local-daa6a65124aa99068d72a52be604cf7a3e667c4bcf6ef9468f59ef54196c3174\n\nsession_id: local-daa6a65124aa99068d72a52be604cf7a3e667c4bcf6ef9468f59ef54196c3174\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793541292583}\n{\"type\": \"tool_use\", \"name\": \"search_files\", \"tool_call_id\": \"LBKEnbrC2uIAXIkQQLUMmeRWDuMXYHwy\", \"input\": {\"pattern\": \"orders.csv\", \"target\": \"files\"}, \"timestamp\": 1793541315165}\n{\"type\": \"tool_result\", \"name\": \"search_files\", \"tool_call_id\": \"LBKEnbrC2uIAXIkQQLUMmeRWDuMXYHwy\", \"output\": \"{\\\"total_count\\\": 1, \\\"files\\\": [\\\"./orders.csv\\\"]}\", \"duration_ms\": 460, \"is_error\": false, \"timestamp\": 1793541315625}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"jrUewUoScZafyqlhXwbCsDvBtRVxD4LG\", \"input\": {\"path\": \"orders.csv\"}, \"timestamp\": 1793541318284}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"jrUewUoScZafyqlhXwbCsDvBtRVxD4LG\", \"output\": \"{\\\"content\\\": \\\"1|order_id,customer,item,qty,unit_price,status\\\\n2|1001,Acme Corp,Widget A,3,19.99,shipped\\\\n3|1002,Beta LLC,Widget B,1,45.00,pending\\\\n4|1003,Acme Corp,Gadget C,2,7.50,shipped\\\\n5|1004,Gamma Inc,Widget A,10,19.99,cancelled\\\\n6|1005,Beta LLC,Gadget C,4,7.50,shipped\\\\n7|1006,Acme Corp,Widget B,1,45.00,shipped\\\\n8|1007,Delta Co,Widget A,2,19.99,pending\\\", \\\"total_lines\\\": 8, \\\"file_size\\\": 323, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 21, \"is_error\": false, \"timestamp\": 1793541318305}\n{\"type\": \"tool_use\", \"name\": \"write_file\", \"tool_call_id\": \"ltxmKiE2ZKnJOv5UMQDnxCCu9ayB0ZDz\", \"input\": {\"content\": \"{\\n  \\\"total_orders\\\": 7,\\n  \\\"by_customer\\\": {\\n    \\\"Acme Corp\\\": {\\\"orders\\\": 3, \\\"revenue\\\": 119.97},\\n    \\\"Beta LLC\\\": {\\\"orders\\\": 2, \\\"revenue\\\": 30.00},\\n    \\\"Gamma Inc\\\": {\\\"orders\\\": 1, \\\"revenue\\\": 0.0},\\n    \\\"Delta Co\\\": {\\\"orders\\\": 1, \\\"revenue\\\": 0.0}\\n  },\\n  \\\"shipped_revenue\\\": 149.97\\n}\\n\", \"path\": \"report.json\"}, \"timestamp\": 1793541355146}\n{\"type\": \"tool_result\", \"name\": \"write_file\", \"tool_call_id\": \"ltxmKiE2ZKnJOv5UMQDnxCCu9ayB0ZDz\", \"output\": \"{\\\"bytes_written\\\": 271, \\\"dirs_created\\\": true, \\\"verified\\\": true, \\\"lint\\\": {\\\"status\\\": \\\"ok\\\", \\\"output\\\": \\\"\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/01-json-extract/r1/work/report.json\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/01-json-extract/r1/work/report.json\\\"]}\", \"duration_ms\": 32, \"is_error\": false, \"timestamp\": 1793541355179}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"gTvDb1l4WLEhiUCjHEZWv3wyX31sQ1Sp\", \"input\": {\"path\": \"report.json\"}, \"timestamp\": 1793541358800}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"gTvDb1l4WLEhiUCjHEZWv3wyX31sQ1Sp\", \"output\": \"{\\\"content\\\": \\\"1|{\\\\n2|  \\\\\\\"total_orders\\\\\\\": 7,\\\\n3|  \\\\\\\"by_customer\\\\\\\": {\\\\n4|    \\\\\\\"Acme Corp\\\\\\\": {\\\\\\\"orders\\\\\\\": 3, \\\\\\\"revenue\\\\\\\": 119.97},\\\\n5|    \\\\\\\"Beta LLC\\\\\\\": {\\\\\\\"orders\\\\\\\": 2, \\\\\\\"revenue\\\\\\\": 30.00},\\\\n6|    \\\\\\\"Gamma Inc\\\\\\\": {\\\\\\\"orders\\\\\\\": 1, \\\\\\\"revenue\\\\\\\": 0.0},\\\\n7|    \\\\\\\"Delta Co\\\\\\\": {\\\\\\\"orders\\\\\\\": 1, \\\\\\\"revenue\\\\\\\": 0.0}\\\\n8|  },\\\\n9|  \\\\\\\"shipped_revenue\\\\\\\": 149.97\\\\n10|}\\\", \\\"total_lines\\\": 10, \\\"file_size\\\": 271, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 29, \"is_error\": false, \"timestamp\": 1793541358830}\n{\"type\": \"text\", \"text\": \"\\n\\nCreated\", \"timestamp\": 1793541365397}\n{\"type\": \"text\", \"text\": \" `/\", \"timestamp\": 1793541365408}\n{\"type\": \"text\", \"text\": \"root\", \"timestamp\": 1793541365421}\n{\"type\": \"text\", \"text\": \"/h\", \"timestamp\": 1793541365429}\n{\"type\": \"text\", \"text\": \"erm\", \"timestamp\": 1793541365440}\n{\"type\": \"text\", \"text\": \"es\", \"timestamp\": 1793541365452}\n{\"type\": \"text\", \"text\": \"-ben\", \"timestamp\": 1793541365462}\n{\"type\": \"text\", \"text\": \"ch\", \"timestamp\": 1793541365474}\n{\"type\": \"text\", \"text\": \"/r\", \"timestamp\": 1793541365486}\n{\"type\": \"text\", \"text\": \"uns\", \"timestamp\": 1793541365496}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793541365507}\n{\"type\": \"text\", \"text\": \"agent\", \"timestamp\": 1793541365519}\n{\"type\": \"text\", \"text\": \"-L\", \"timestamp\": 1793541365531}\n{\"type\": \"text\", \"text\": \"FM\", \"timestamp\": 1793541365541}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793541365552}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793541365564}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793541365580}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793541365591}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793541365602}\n{\"type\": \"text\", \"text\": \"B\", \"timestamp\": 1793541365638}\n{\"type\": \"text\", \"text\": \"-Q\", \"timestamp\": 1793541365647}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793541365647}\n{\"type\": \"text\", \"text\": \"_K\", \"timestamp\": 1793541365649}\n{\"type\": \"text\", \"text\": \"_M\", \"timestamp\": 1793541365655}\n{\"type\": \"text\", \"text\": \"-q\", \"timestamp\": 1793541365667}\n{\"type\": \"text\", \"text\": \"8\", \"timestamp\": 1793541365677}\n{\"type\": \"text\", \"text\": \"kv\", \"timestamp\": 1793541365689}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793541365700}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793541365712}\n{\"type\": \"text\", \"text\": \"x\", \"timestamp\": 1793541365722}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793541365733}\n{\"type\": \"text\", \"text\": \"202\", \"timestamp\": 1793541365744}\n{\"type\": \"text\", \"text\": \"611\", \"timestamp\": 1793541365755}\n{\"type\": \"text\", \"text\": \"01\", \"timestamp\": 1793541365767}\n{\"type\": \"text\", \"text\": \"/t\", \"timestamp\": 1793541365777}\n{\"type\": \"text\", \"text\": \"asks\", \"timestamp\": 1793541365788}\n{\"type\": \"text\", \"text\": \"/L\", \"timestamp\": 1793541365823}\n{\"type\": \"text\", \"text\": \"FM\", \"timestamp\": 1793541365823}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793541365825}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793541365833}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793541365844}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793541365855}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793541365866}\n{\"type\": \"text\", \"text\": \"B\", \"timestamp\": 1793541365881}\n{\"type\": \"text\", \"text\": \"-Q\", \"timestamp\": 1793541365915}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793541365916}\n{\"type\": \"text\", \"text\": \"-K\", \"timestamp\": 1793541365917}\n{\"type\": \"text\", \"text\": \"-M\", \"timestamp\": 1793541365921}\n{\"type\": \"text\", \"text\": \"-a\", \"timestamp\": 1793541365933}\n{\"type\": \"text\", \"text\": \"9\", \"timestamp\": 1793541365943}\n{\"type\": \"text\", \"text\": \"e\", \"timestamp\": 1793541365966}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793541365967}\n{\"type\": \"text\", \"text\": \"dc\", \"timestamp\": 1793541365977}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793541365988}\n{\"type\": \"text\", \"text\": \"01\", \"timestamp\": 1793541366000}\n{\"type\": \"text\", \"text\": \"-json\", \"timestamp\": 1793541366011}\n{\"type\": \"text\", \"text\": \"-extract\", \"timestamp\": 1793541366021}\n{\"type\": \"text\", \"text\": \"/r\", \"timestamp\": 1793541366032}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793541366043}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793541366055}\n{\"type\": \"text\", \"text\": \"work\", \"timestamp\": 1793541366067}\n{\"type\": \"text\", \"text\": \"/re\", \"timestamp\": 1793541366077}\n{\"type\": \"text\", \"text\": \"port\", \"timestamp\": 1793541366089}\n{\"type\": \"text\", \"text\": \".json\", \"timestamp\": 1793541366099}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793541366110}\n{\"type\": \"text\", \"text\": \" with\", \"timestamp\": 1793541366121}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793541366132}\n{\"type\": \"text\", \"text\": \" requested\", \"timestamp\": 1793541366143}\n{\"type\": \"text\", \"text\": \" shape\", \"timestamp\": 1793541366155}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793541366178}\n{\"type\": \"text\", \"text\": \"\\n\\n{\", \"timestamp\": 1793541366179}\n{\"type\": \"text\", \"text\": \"\\n \", \"timestamp\": 1793541366189}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793541366199}\n{\"type\": \"text\", \"text\": \"total\", \"timestamp\": 1793541366210}\n{\"type\": \"text\", \"text\": \"_\", \"timestamp\": 1793541366221}\n{\"type\": \"text\", \"text\": \"orders\", \"timestamp\": 1793541366232}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541366244}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793541366254}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793541366266}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793541366277}\n{\"type\": \"text\", \"text\": \"\\n \", \"timestamp\": 1793541366292}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793541366298}\n{\"type\": \"text\", \"text\": \"by\", \"timestamp\": 1793541366315}\n{\"type\": \"text\", \"text\": \"_c\", \"timestamp\": 1793541366320}\n{\"type\": \"text\", \"text\": \"ustomer\", \"timestamp\": 1793541366332}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541366342}\n{\"type\": \"text\", \"text\": \" {\", \"timestamp\": 1793541366354}\n{\"type\": \"text\", \"text\": \"\\n   \", \"timestamp\": 1793541366364}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793541366376}\n{\"type\": \"text\", \"text\": \"Ac\", \"timestamp\": 1793541366388}\n{\"type\": \"text\", \"text\": \"me\", \"timestamp\": 1793541366398}\n{\"type\": \"text\", \"text\": \" Corp\", \"timestamp\": 1793541366412}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541366420}\n{\"type\": \"text\", \"text\": \" {\\\"\", \"timestamp\": 1793541366431}\n{\"type\": \"text\", \"text\": \"orders\", \"timestamp\": 1793541366442}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541366454}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793541366465}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793541366476}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793541366487}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793541366499}\n{\"type\": \"text\", \"text\": \"re\", \"timestamp\": 1793541366522}\n{\"type\": \"text\", \"text\": \"venue\", \"timestamp\": 1793541366522}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541366532}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793541366543}\n{\"type\": \"text\", \"text\": \"119\", \"timestamp\": 1793541366554}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793541366565}\n{\"type\": \"text\", \"text\": \"97\", \"timestamp\": 1793541366576}\n{\"type\": \"text\", \"text\": \"},\", \"timestamp\": 1793541366587}\n{\"type\": \"text\", \"text\": \"\\n   \", \"timestamp\": 1793541366597}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793541366609}\n{\"type\": \"text\", \"text\": \"B\", \"timestamp\": 1793541366620}\n{\"type\": \"text\", \"text\": \"eta\", \"timestamp\": 1793541366631}\n{\"type\": \"text\", \"text\": \" LLC\", \"timestamp\": 1793541366643}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541366654}\n{\"type\": \"text\", \"text\": \" {\\\"\", \"timestamp\": 1793541366664}\n{\"type\": \"text\", \"text\": \"orders\", \"timestamp\": 1793541366675}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541366687}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793541366700}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793541366709}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793541366720}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793541366731}\n{\"type\": \"text\", \"text\": \"re\", \"timestamp\": 1793541366755}\n{\"type\": \"text\", \"text\": \"venue\", \"timestamp\": 1793541366756}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541366764}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793541366776}\n{\"type\": \"text\", \"text\": \"30\", \"timestamp\": 1793541366787}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793541366818}\n{\"type\": \"text\", \"text\": \"00\", \"timestamp\": 1793541366820}\n{\"type\": \"text\", \"text\": \"},\", \"timestamp\": 1793541366862}\n{\"type\": \"text\", \"text\": \"\\n   \", \"timestamp\": 1793541366881}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793541366916}\n{\"type\": \"text\", \"text\": \"Gamma\", \"timestamp\": 1793541366924}\n{\"type\": \"text\", \"text\": \" Inc\", \"timestamp\": 1793541366924}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541366925}\n{\"type\": \"text\", \"text\": \" {\\\"\", \"timestamp\": 1793541366959}\n{\"type\": \"text\", \"text\": \"orders\", \"timestamp\": 1793541366963}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541366976}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793541366995}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793541367009}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793541367031}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793541367031}\n{\"type\": \"text\", \"text\": \"re\", \"timestamp\": 1793541367043}\n{\"type\": \"text\", \"text\": \"venue\", \"timestamp\": 1793541367055}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541367059}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793541367094}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793541367096}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793541367097}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793541367109}\n{\"type\": \"text\", \"text\": \"},\", \"timestamp\": 1793541367115}\n{\"type\": \"text\", \"text\": \"\\n   \", \"timestamp\": 1793541367131}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793541367133}\n{\"type\": \"text\", \"text\": \"Delta\", \"timestamp\": 1793541367141}\n{\"type\": \"text\", \"text\": \" Co\", \"timestamp\": 1793541367152}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541367159}\n{\"type\": \"text\", \"text\": \" {\\\"\", \"timestamp\": 1793541367175}\n{\"type\": \"text\", \"text\": \"orders\", \"timestamp\": 1793541367176}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541367178}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793541367180}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793541367182}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793541367203}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793541367224}\n{\"type\": \"text\", \"text\": \"re\", \"timestamp\": 1793541367224}\n{\"type\": \"text\", \"text\": \"venue\", \"timestamp\": 1793541367226}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541367234}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793541367234}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793541367266}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793541367270}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793541367271}\n{\"type\": \"text\", \"text\": \"}\", \"timestamp\": 1793541367274}\n{\"type\": \"text\", \"text\": \"\\n \", \"timestamp\": 1793541367276}\n{\"type\": \"text\", \"text\": \" },\", \"timestamp\": 1793541367301}\n{\"type\": \"text\", \"text\": \"\\n \", \"timestamp\": 1793541367301}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793541367305}\n{\"type\": \"text\", \"text\": \"sh\", \"timestamp\": 1793541367327}\n{\"type\": \"text\", \"text\": \"ipped\", \"timestamp\": 1793541367338}\n{\"type\": \"text\", \"text\": \"_re\", \"timestamp\": 1793541367339}\n{\"type\": \"text\", \"text\": \"venue\", \"timestamp\": 1793541368311}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793541368371}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793541368386}\n{\"type\": \"text\", \"text\": \"149\", \"timestamp\": 1793541368390}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793541368410}\n{\"type\": \"text\", \"text\": \"97\", \"timestamp\": 1793541368414}\n{\"type\": \"text\", \"text\": \"\\n}\", \"timestamp\": 1793541368422}\n{\"type\": \"result\", \"session_id\": \"local-daa6a65124aa99068d72a52be604cf7a3e667c4bcf6ef9468f59ef54196c3174\", \"exit_code\": 0, \"text\": \"Created `/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/01-json-extract/r1/work/report.json` with the requested shape:\\n\\n{\\n  \\\"total_orders\\\": 7,\\n  \\\"by_customer\\\": {\\n    \\\"Acme Corp\\\": {\\\"orders\\\": 3, \\\"revenue\\\": 119.97},\\n    \\\"Beta LLC\\\": {\\\"orders\\\": 2, \\\"revenue\\\": 30.00},\\n    \\\"Gamma Inc\\\": {\\\"orders\\\": 1, \\\"revenue\\\": 0.0},\\n    \\\"Delta Co\\\": {\\\"orders\\\": 1, \\\"revenue\\\": 0.0}\\n  },\\n  \\\"shipped_revenue\\\": 149.97\\n}\", \"tokens\": {\"input\": 116081, \"output\": 4592, \"total\": 120673, \"cache_read\": 89419, \"cache_write\": 0}, \"duration_ms\": 79243, \"timestamp\": 1793541371827}\n",
+  "stream_error": null,
   "task": "01-json-extract",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 1020,
   "tokens_in": 116081,
   "tokens_out": 4592,
+  "tokens_total": 120673,
   "tool_calls": 4,
-  "total_checks": 7,
+  "tool_names": [
+    "search_files",
+    "read_file",
+    "write_file",
+    "read_file"
+  ],
   "turns": 10,
-  "wall_seconds": 81.3
+  "wall_seconds": 81.3,
+  "workdir": "/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/01-json-extract/r1/work",
+  "workspace_changed": true
 }

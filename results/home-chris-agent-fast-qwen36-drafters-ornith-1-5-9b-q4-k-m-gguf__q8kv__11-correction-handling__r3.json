@@ -1,5 +1,10 @@
 {
+  "api_calls": 4,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 86509,
   "checks": [
     {
       "check": "LOG_LEVEL changed to debug",
@@ -33,6 +38,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "40",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -41,6 +72,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 1877,
+  "db_output_tokens": 564,
+  "db_tool_calls": 4,
   "decision": {
     "context": {
       "headroom_pct": 65.1,
@@ -95,24 +129,56 @@
     "wall_seconds": 43.0
   },
   "exit_code": 0,
+  "final_text": "Done. `pipeline.yaml` now has `replicas: 2` (kept, per your correction), `LOG_LEVEL: debug`, and `TIMEOUT: 60`. Structure, key order, and formatting are unchanged.",
   "finished": "2026-11-01T17:56:05.850209+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
-  "passed": 5,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": false,
+    "evaluated": 0,
+    "gates": [],
+    "passed": 0,
+    "stopped_at": null,
+    "total": 0
+  },
+  "quality_score": null,
+  "reasoning": null,
   "repeat": 3,
+  "run_budget_seconds": 1260,
   "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-12026378e0621960650889c2d0fa49a2529665d2b5f1c673661e28e753eee7a2",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
   "started": "2026-11-01T17:55:22.832819+00:00",
+  "stderr": "Session: local-12026378e0621960650889c2d0fa49a2529665d2b5f1c673661e28e753eee7a2\n\nsession_id: local-12026378e0621960650889c2d0fa49a2529665d2b5f1c673661e28e753eee7a2\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793555724682}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"FZEGDyu0uqI7ifJFjOLpEf0xJwCQ1u8Z\", \"input\": {\"path\": \"pipeline.yaml\"}, \"timestamp\": 1793555735800}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"FZEGDyu0uqI7ifJFjOLpEf0xJwCQ1u8Z\", \"output\": \"{\\\"content\\\": \\\"1|service: billing\\\\n2|replicas: 2\\\\n3|image: billing:1.4.0\\\\n4|env:\\\\n5|  LOG_LEVEL: info\\\\n6|  TIMEOUT: 30\\\", \\\"total_lines\\\": 6, \\\"file_size\\\": 87, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 141, \"is_error\": false, \"timestamp\": 1793555735942}\n{\"type\": \"text\", \"text\": \"\\n\\nRequirements\", \"timestamp\": 1793555745884}\n{\"type\": \"text\", \"text\": \" resolved\", \"timestamp\": 1793555745923}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793555747597}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793555747598}\n{\"type\": \"text\", \"text\": \" last\", \"timestamp\": 1793555747599}\n{\"type\": \"text\", \"text\": \" line\", \"timestamp\": 1793555747600}\n{\"type\": \"text\", \"text\": \" overrides\", \"timestamp\": 1793555747600}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793555747601}\n{\"type\": \"text\", \"text\": \" first\", \"timestamp\": 1793555747602}\n{\"type\": \"text\", \"text\": \" \u2014\", \"timestamp\": 1793555747602}\n{\"type\": \"text\", \"text\": \" keep\", \"timestamp\": 1793555747603}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793555747603}\n{\"type\": \"text\", \"text\": \"rep\", \"timestamp\": 1793555747604}\n{\"type\": \"text\", \"text\": \"licas\", \"timestamp\": 1793555747604}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793555747605}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793555747605}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793555747606}\n{\"type\": \"text\", \"text\": \"`,\", \"timestamp\": 1793555747606}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793555747607}\n{\"type\": \"text\", \"text\": \" change\", \"timestamp\": 1793555747607}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793555747608}\n{\"type\": \"text\", \"text\": \"LOG\", \"timestamp\": 1793555747609}\n{\"type\": \"text\", \"text\": \"_LEVEL\", \"timestamp\": 1793555747609}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793555747610}\n{\"type\": \"text\", \"text\": \" to\", \"timestamp\": 1793555747610}\n{\"type\": \"text\", \"text\": \" debug\", \"timestamp\": 1793555747611}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793555747612}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793555747612}\n{\"type\": \"text\", \"text\": \"TIME\", \"timestamp\": 1793555747613}\n{\"type\": \"text\", \"text\": \"OUT\", \"timestamp\": 1793555747613}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793555747614}\n{\"type\": \"text\", \"text\": \" to\", \"timestamp\": 1793555747614}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793555747615}\n{\"type\": \"text\", \"text\": \"6\", \"timestamp\": 1793555747616}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793555747616}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793555747616}\n{\"type\": \"tool_use\", \"name\": \"patch\", \"tool_call_id\": \"tnT7XwVd9NsVvGOgG64fXQffriuh9bJX\", \"input\": {\"path\": \"pipeline.yaml\", \"old_string\": \"  LOG_LEVEL: info\", \"new_string\": \"  LOG_LEVEL: debug\"}, \"timestamp\": 1793555752024}\n{\"type\": \"tool_result\", \"name\": \"patch\", \"tool_call_id\": \"tnT7XwVd9NsVvGOgG64fXQffriuh9bJX\", \"output\": \"{\\\"success\\\": true, \\\"diff\\\": \\\"--- a//root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/11-correction-handling/r3/work/pipeline.yaml\\\\n+++ b//root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/11-correction-handling/r3/work/pipeline.yaml\\\\n@@ -2,5 +2,5 @@\\\\n replicas: 2\\\\n image: billing:1.4.0\\\\n env:\\\\n-  LOG_LEVEL: info\\\\n+  LOG_LEVEL: debug\\\\n   TIMEOUT: 30\\\\n\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/11-correction-handling/r3/work/pipeline.yaml\\\"], \\\"lint\\\": {\\\"status\\\": \\\"ok\\\", \\\"output\\\": \\\"\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/11-correction-handling/r3/work/pipeline.yaml\\\"}\", \"duration_ms\": 129, \"is_error\": false, \"timestamp\": 1793555752153}\n{\"type\": \"tool_use\", \"name\": \"patch\", \"tool_call_id\": \"jd3CaFDOE291vSjI7pqMuKQod4gljAZC\", \"input\": {\"path\": \"pipeline.yaml\", \"old_string\": \"  TIMEOUT: 30\", \"new_string\": \"  TIMEOUT: 60\"}, \"timestamp\": 1793555752164}\n{\"type\": \"tool_result\", \"name\": \"patch\", \"tool_call_id\": \"jd3CaFDOE291vSjI7pqMuKQod4gljAZC\", \"output\": \"{\\\"success\\\": true, \\\"diff\\\": \\\"--- a//root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/11-correction-handling/r3/work/pipeline.yaml\\\\n+++ b//root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/11-correction-handling/r3/work/pipeline.yaml\\\\n@@ -3,4 +3,4 @@\\\\n image: billing:1.4.0\\\\n env:\\\\n   LOG_LEVEL: debug\\\\n-  TIMEOUT: 30\\\\n+  TIMEOUT: 60\\\\n\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/11-correction-handling/r3/work/pipeline.yaml\\\"], \\\"lint\\\": {\\\"status\\\": \\\"ok\\\", \\\"output\\\": \\\"\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/11-correction-handling/r3/work/pipeline.yaml\\\"}\", \"duration_ms\": 114, \"is_error\": false, \"timestamp\": 1793555752278}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"hHvVvjNGlOVXGHMETsObfYWEv2XURhlC\", \"input\": {\"path\": \"pipeline.yaml\"}, \"timestamp\": 1793555757499}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"hHvVvjNGlOVXGHMETsObfYWEv2XURhlC\", \"output\": \"{\\\"content\\\": \\\"1|service: billing\\\\n2|replicas: 2\\\\n3|image: billing:1.4.0\\\\n4|env:\\\\n5|  LOG_LEVEL: debug\\\\n6|  TIMEOUT: 60\\\", \\\"total_lines\\\": 6, \\\"file_size\\\": 88, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 20, \"is_error\": false, \"timestamp\": 1793555757519}\n{\"type\": \"text\", \"text\": \"\\n\\nDone\", \"timestamp\": 1793555759572}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793555759617}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793555759655}\n{\"type\": \"text\", \"text\": \"pipeline\", \"timestamp\": 1793555759686}\n{\"type\": \"text\", \"text\": \".yaml\", \"timestamp\": 1793555759732}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793555759766}\n{\"type\": \"text\", \"text\": \" now\", \"timestamp\": 1793555759811}\n{\"type\": \"text\", \"text\": \" has\", \"timestamp\": 1793555759853}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793555759896}\n{\"type\": \"text\", \"text\": \"rep\", \"timestamp\": 1793555759926}\n{\"type\": \"text\", \"text\": \"licas\", \"timestamp\": 1793555759970}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793555761428}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793555761428}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793555761428}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793555761428}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793555761430}\n{\"type\": \"text\", \"text\": \"kept\", \"timestamp\": 1793555761434}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793555761435}\n{\"type\": \"text\", \"text\": \" per\", \"timestamp\": 1793555761436}\n{\"type\": \"text\", \"text\": \" your\", \"timestamp\": 1793555761437}\n{\"type\": \"text\", \"text\": \" correction\", \"timestamp\": 1793555761438}\n{\"type\": \"text\", \"text\": \"),\", \"timestamp\": 1793555761440}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793555761441}\n{\"type\": \"text\", \"text\": \"LOG\", \"timestamp\": 1793555761441}\n{\"type\": \"text\", \"text\": \"_LEVEL\", \"timestamp\": 1793555761442}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793555761445}\n{\"type\": \"text\", \"text\": \" debug\", \"timestamp\": 1793555761446}\n{\"type\": \"text\", \"text\": \"`,\", \"timestamp\": 1793555761448}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793555761451}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793555761456}\n{\"type\": \"text\", \"text\": \"TIME\", \"timestamp\": 1793555761462}\n{\"type\": \"text\", \"text\": \"OUT\", \"timestamp\": 1793555761463}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793555761465}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793555761466}\n{\"type\": \"text\", \"text\": \"6\", \"timestamp\": 1793555761471}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793555761474}\n{\"type\": \"text\", \"text\": \"`.\", \"timestamp\": 1793555761475}\n{\"type\": \"text\", \"text\": \" Structure\", \"timestamp\": 1793555761480}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793555761484}\n{\"type\": \"text\", \"text\": \" key\", \"timestamp\": 1793555761487}\n{\"type\": \"text\", \"text\": \" order\", \"timestamp\": 1793555761499}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793555761501}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793555761504}\n{\"type\": \"text\", \"text\": \" formatting\", \"timestamp\": 1793555761509}\n{\"type\": \"text\", \"text\": \" are\", \"timestamp\": 1793555761510}\n{\"type\": \"text\", \"text\": \" unchanged\", \"timestamp\": 1793555761513}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793555761515}\n{\"type\": \"result\", \"session_id\": \"local-12026378e0621960650889c2d0fa49a2529665d2b5f1c673661e28e753eee7a2\", \"exit_code\": 0, \"text\": \"Done. `pipeline.yaml` now has `replicas: 2` (kept, per your correction), `LOG_LEVEL: debug`, and `TIMEOUT: 60`. Structure, key order, and formatting are unchanged.\", \"tokens\": {\"input\": 88386, \"output\": 564, \"total\": 88950, \"cache_read\": 86509, \"cache_write\": 0}, \"duration_ms\": 40815, \"timestamp\": 1793555765497}\n",
+  "stream_error": null,
   "task": "11-correction-handling",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 1380,
   "tokens_in": 88386,
   "tokens_out": 564,
+  "tokens_total": 88950,
   "tool_calls": 4,
-  "total_checks": 5,
+  "tool_names": [
+    "read_file",
+    "patch",
+    "patch",
+    "read_file"
+  ],
   "turns": 9,
-  "wall_seconds": 43.0
+  "wall_seconds": 43.0,
+  "workdir": "/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/11-correction-handling/r3/work",
+  "workspace_changed": true
 }

@@ -1,5 +1,10 @@
 {
+  "api_calls": 4,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 85864,
   "checks": [
     {
       "check": "config.ini -> config.bak (content preserved)",
@@ -32,6 +37,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "30",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -40,6 +71,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 937,
+  "db_output_tokens": 426,
+  "db_tool_calls": 3,
   "decision": {
     "context": {
       "headroom_pct": 66.2,
@@ -94,24 +128,71 @@
     "wall_seconds": 32.7
   },
   "exit_code": 0,
+  "final_text": "Done. All three files present; work performed:\n\n- `config.ini` \u2192 `config.bak`\n- `notes.txt` \u2192 `notes.bak`\n- `README.md` unchanged\n\n`MANIFEST.txt` created with exactly the five required lines. `cat -A` confirms line 5 (`total_after: 3`) has no trailing newline \u2014 five lines, no extra/blank line. No internet fetches.",
   "finished": "2026-11-01T15:58:13.410767+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
-  "passed": 6,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": true,
+    "evaluated": 3,
+    "gates": [
+      {
+        "detail": "none of ['config.ini', 'notes.txt'] remain",
+        "gate": "no_old_names",
+        "pass": true
+      },
+      {
+        "detail": "files == ['MANIFEST.txt', 'README.md', 'config.bak', 'notes.bak']",
+        "gate": "no_unrelated_files",
+        "pass": true
+      },
+      {
+        "detail": "MANIFEST.txt has no trailing blank line",
+        "gate": "no_trailing_blank_line",
+        "pass": true
+      }
+    ],
+    "passed": 3,
+    "stopped_at": null,
+    "total": 3
+  },
+  "quality_score": 1.0,
+  "reasoning": null,
   "repeat": 1,
+  "run_budget_seconds": 900,
   "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-b4f57a73fba177f0622fc1c8b425ac3d4c81ece55b8d9f2fd6761f38e96cafd1",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
   "started": "2026-11-01T15:57:40.666027+00:00",
+  "stderr": "Session: local-b4f57a73fba177f0622fc1c8b425ac3d4c81ece55b8d9f2fd6761f38e96cafd1\n\nsession_id: local-b4f57a73fba177f0622fc1c8b425ac3d4c81ece55b8d9f2fd6761f38e96cafd1\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793548662462}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"kVZsYYOCZelk6mNDjCvp5vQxyn8zegEa\", \"input\": {\"command\": \"ls -la\"}, \"timestamp\": 1793548672939}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"kVZsYYOCZelk6mNDjCvp5vQxyn8zegEa\", \"output\": \"{\\\"output\\\": \\\"total 20\\\\ndrwxr-xr-x 2 root root 4096 Oct 21 13:09 .\\\\ndrwxr-xr-x 4 root root 4096 Nov  1 15:57 ..\\\\n-rw-r--r-- 1 root root    7 Oct 21 13:09 README.md\\\\n-rw-r--r-- 1 root root   17 Oct 21 13:09 config.ini\\\\n-rw-r--r-- 1 root root   14 Oct 21 13:09 notes.txt\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 223, \"is_error\": false, \"timestamp\": 1793548673162}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"KIs7qdmejtoS8bXAhuJfHSZw8xiGZrXf\", \"input\": {\"command\": \"mv config.ini config.bak && mv notes.txt notes.bak && printf 'renamed: config.ini -> config.bak\\\\nrenamed: notes.txt -> notes.bak\\\\nunchanged: README.md\\\\ntotal_before: 3\\\\ntotal_after: 3' > MANIFEST.txt && ls -la\"}, \"timestamp\": 1793548678458}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"KIs7qdmejtoS8bXAhuJfHSZw8xiGZrXf\", \"output\": \"{\\\"output\\\": \\\"total 24\\\\ndrwxr-xr-x 2 root root 4096 Nov  1 15:57 .\\\\ndrwxr-xr-x 4 root root 4096 Nov  1 15:57 ..\\\\n-rw-r--r-- 1 root root  117 Nov  1 15:57 MANIFEST.txt\\\\n-rw-r--r-- 1 root root    7 Oct 21 13:09 README.md\\\\n-rw-r--r-- 1 root root   17 Oct 21 13:09 config.bak\\\\n-rw-r--r-- 1 root root   14 Oct 21 13:09 notes.bak\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 113, \"is_error\": false, \"timestamp\": 1793548678571}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"Msu4VDFyYGX4LVcnPF6oPeNS70aznHX5\", \"input\": {\"command\": \"cat -A MANIFEST.txt && echo \\\"---lines---\\\" && wc -l MANIFEST.txt\"}, \"timestamp\": 1793548681942}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"Msu4VDFyYGX4LVcnPF6oPeNS70aznHX5\", \"output\": \"{\\\"output\\\": \\\"renamed: config.ini -> config.bak$\\\\nrenamed: notes.txt -> notes.bak$\\\\nunchanged: README.md$\\\\ntotal_before: 3$\\\\ntotal_after: 3---lines---\\\\n4 MANIFEST.txt\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 174, \"is_error\": false, \"timestamp\": 1793548682116}\n{\"type\": \"text\", \"text\": \"\\n\\nDone\", \"timestamp\": 1793548686812}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793548686851}\n{\"type\": \"text\", \"text\": \" All\", \"timestamp\": 1793548686890}\n{\"type\": \"text\", \"text\": \" three\", \"timestamp\": 1793548686935}\n{\"type\": \"text\", \"text\": \" files\", \"timestamp\": 1793548686968}\n{\"type\": \"text\", \"text\": \" present\", \"timestamp\": 1793548687007}\n{\"type\": \"text\", \"text\": \";\", \"timestamp\": 1793548687045}\n{\"type\": \"text\", \"text\": \" work\", \"timestamp\": 1793548687086}\n{\"type\": \"text\", \"text\": \" performed\", \"timestamp\": 1793548687123}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793548687239}\n{\"type\": \"text\", \"text\": \"\\n\\n-\", \"timestamp\": 1793548687241}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793548687277}\n{\"type\": \"text\", \"text\": \"config\", \"timestamp\": 1793548687319}\n{\"type\": \"text\", \"text\": \".ini\", \"timestamp\": 1793548687354}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793548687392}\n{\"type\": \"text\", \"text\": \" \u2192\", \"timestamp\": 1793548687431}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793548687470}\n{\"type\": \"text\", \"text\": \"config\", \"timestamp\": 1793548687512}\n{\"type\": \"text\", \"text\": \".b\", \"timestamp\": 1793548687548}\n{\"type\": \"text\", \"text\": \"ak\", \"timestamp\": 1793548687587}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793548687626}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793548687703}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793548687741}\n{\"type\": \"text\", \"text\": \"notes\", \"timestamp\": 1793548687780}\n{\"type\": \"text\", \"text\": \".txt\", \"timestamp\": 1793548687819}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793548687857}\n{\"type\": \"text\", \"text\": \" \u2192\", \"timestamp\": 1793548687896}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793548687934}\n{\"type\": \"text\", \"text\": \"notes\", \"timestamp\": 1793548687974}\n{\"type\": \"text\", \"text\": \".b\", \"timestamp\": 1793548688011}\n{\"type\": \"text\", \"text\": \"ak\", \"timestamp\": 1793548688050}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793548688098}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793548688168}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793548688206}\n{\"type\": \"text\", \"text\": \"README\", \"timestamp\": 1793548688245}\n{\"type\": \"text\", \"text\": \".md\", \"timestamp\": 1793548688283}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793548688322}\n{\"type\": \"text\", \"text\": \" unchanged\", \"timestamp\": 1793548688361}\n{\"type\": \"text\", \"text\": \"\\n\\n`\", \"timestamp\": 1793548688438}\n{\"type\": \"text\", \"text\": \"MAN\", \"timestamp\": 1793548688476}\n{\"type\": \"text\", \"text\": \"IFEST\", \"timestamp\": 1793548688515}\n{\"type\": \"text\", \"text\": \".txt\", \"timestamp\": 1793548688554}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793548688592}\n{\"type\": \"text\", \"text\": \" created\", \"timestamp\": 1793548688631}\n{\"type\": \"text\", \"text\": \" with\", \"timestamp\": 1793548688670}\n{\"type\": \"text\", \"text\": \" exactly\", \"timestamp\": 1793548688709}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793548688747}\n{\"type\": \"text\", \"text\": \" five\", \"timestamp\": 1793548688785}\n{\"type\": \"text\", \"text\": \" required\", \"timestamp\": 1793548688824}\n{\"type\": \"text\", \"text\": \" lines\", \"timestamp\": 1793548688862}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793548688901}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793548688940}\n{\"type\": \"text\", \"text\": \"cat\", \"timestamp\": 1793548688980}\n{\"type\": \"text\", \"text\": \" -\", \"timestamp\": 1793548689018}\n{\"type\": \"text\", \"text\": \"A\", \"timestamp\": 1793548689057}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793548689095}\n{\"type\": \"text\", \"text\": \" confirms\", \"timestamp\": 1793548689135}\n{\"type\": \"text\", \"text\": \" line\", \"timestamp\": 1793548689174}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793548689212}\n{\"type\": \"text\", \"text\": \"5\", \"timestamp\": 1793548689251}\n{\"type\": \"text\", \"text\": \" (`\", \"timestamp\": 1793548689289}\n{\"type\": \"text\", \"text\": \"total\", \"timestamp\": 1793548689328}\n{\"type\": \"text\", \"text\": \"_after\", \"timestamp\": 1793548689366}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793548690296}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793548690297}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793548690297}\n{\"type\": \"text\", \"text\": \"`)\", \"timestamp\": 1793548690299}\n{\"type\": \"text\", \"text\": \" has\", \"timestamp\": 1793548690299}\n{\"type\": \"text\", \"text\": \" no\", \"timestamp\": 1793548690299}\n{\"type\": \"text\", \"text\": \" trailing\", \"timestamp\": 1793548690299}\n{\"type\": \"text\", \"text\": \" newline\", \"timestamp\": 1793548690299}\n{\"type\": \"text\", \"text\": \" \u2014\", \"timestamp\": 1793548690300}\n{\"type\": \"text\", \"text\": \" five\", \"timestamp\": 1793548690300}\n{\"type\": \"text\", \"text\": \" lines\", \"timestamp\": 1793548690301}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793548690301}\n{\"type\": \"text\", \"text\": \" no\", \"timestamp\": 1793548690302}\n{\"type\": \"text\", \"text\": \" extra\", \"timestamp\": 1793548690302}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793548690303}\n{\"type\": \"text\", \"text\": \"blank\", \"timestamp\": 1793548690303}\n{\"type\": \"text\", \"text\": \" line\", \"timestamp\": 1793548690304}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793548690304}\n{\"type\": \"text\", \"text\": \" No\", \"timestamp\": 1793548690304}\n{\"type\": \"text\", \"text\": \" internet\", \"timestamp\": 1793548690305}\n{\"type\": \"text\", \"text\": \" fetch\", \"timestamp\": 1793548690309}\n{\"type\": \"text\", \"text\": \"es\", \"timestamp\": 1793548690309}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793548690310}\n{\"type\": \"result\", \"session_id\": \"local-b4f57a73fba177f0622fc1c8b425ac3d4c81ece55b8d9f2fd6761f38e96cafd1\", \"exit_code\": 0, \"text\": \"Done. All three files present; work performed:\\n\\n- `config.ini` \u2192 `config.bak`\\n- `notes.txt` \u2192 `notes.bak`\\n- `README.md` unchanged\\n\\n`MANIFEST.txt` created with exactly the five required lines. `cat -A` confirms line 5 (`total_after: 3`) has no trailing newline \u2014 five lines, no extra/blank line. No internet fetches.\", \"tokens\": {\"input\": 86801, \"output\": 426, \"total\": 87227, \"cache_read\": 85864, \"cache_write\": 0}, \"duration_ms\": 30728, \"timestamp\": 1793548693191}\n",
+  "stream_error": null,
   "task": "04-rename-safe",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 1020,
   "tokens_in": 86801,
   "tokens_out": 426,
+  "tokens_total": 87227,
   "tool_calls": 3,
-  "total_checks": 6,
+  "tool_names": [
+    "terminal",
+    "terminal",
+    "terminal"
+  ],
   "turns": 8,
-  "wall_seconds": 32.7
+  "wall_seconds": 32.7,
+  "workdir": "/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/04-rename-safe/r1/work",
+  "workspace_changed": true
 }

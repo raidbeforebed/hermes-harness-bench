@@ -1,5 +1,10 @@
 {
+  "api_calls": 3,
   "artifact_score": 0.5,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 64936,
   "checks": [
     {
       "check": "notes.md exists",
@@ -22,6 +27,32 @@
       "pass": false
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "15",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -30,6 +61,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 597,
+  "db_output_tokens": 1556,
+  "db_tool_calls": 2,
   "decision": {
     "context": {
       "headroom_pct": 64.8,
@@ -84,24 +118,54 @@
     "wall_seconds": 76.0
   },
   "exit_code": 0,
+  "final_text": "Done. `notes.md` is in its final state, verified byte-for-byte:\n\n- `cat -A` shows exactly two lines, each newline-terminated (`$`): `# Notes` and `- charlie`.\n- `wc -c` = 18 bytes = `# Notes\\n` (8) + `- charlie\\n` (10), matching the required content with a trailing newline and no `- bravo` line.",
   "finished": "2026-11-01T18:25:56.220502+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
-  "passed": 2,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": false,
+    "evaluated": 0,
+    "gates": [],
+    "passed": 0,
+    "stopped_at": null,
+    "total": 0
+  },
+  "quality_score": null,
+  "reasoning": null,
   "repeat": 2,
+  "run_budget_seconds": 540,
   "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
   "score": 0.5,
   "score_source": "artifact",
+  "session_id": "local-45ab67014504f3052ab43335d901f44e21da8ec9e1d0f4a5a2aa135742b06d5b",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
   "started": "2026-11-01T18:24:40.215516+00:00",
+  "stderr": "Session: local-45ab67014504f3052ab43335d901f44e21da8ec9e1d0f4a5a2aa135742b06d5b\n\nsession_id: local-45ab67014504f3052ab43335d901f44e21da8ec9e1d0f4a5a2aa135742b06d5b\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793557482502}\n{\"type\": \"text\", \"text\": \"I\", \"timestamp\": 1793557504650}\n{\"type\": \"text\", \"text\": \"'ll\", \"timestamp\": 1793557504650}\n{\"type\": \"text\", \"text\": \" perform\", \"timestamp\": 1793557504691}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793557504730}\n{\"type\": \"text\", \"text\": \" five\", \"timestamp\": 1793557504769}\n{\"type\": \"text\", \"text\": \" operations\", \"timestamp\": 1793557504809}\n{\"type\": \"text\", \"text\": \" in\", \"timestamp\": 1793557504848}\n{\"type\": \"text\", \"text\": \" order\", \"timestamp\": 1793557504886}\n{\"type\": \"text\", \"text\": \" using\", \"timestamp\": 1793557504927}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793557504966}\n{\"type\": \"text\", \"text\": \" terminal\", \"timestamp\": 1793557505006}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793557505044}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"ogdEbnhvF6OYhjBShHa1zeAPKWYE5miS\", \"input\": {\"command\": \"cd /root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/16-stateful-undo/r2/work && printf '# Notes\\\\n' > notes.md && printf -- '- alpha\\\\n' >> notes.md && printf -- '- bravo\\\\n' >> notes.md && echo \\\"after step 3:\\\" && cat -A notes.md\"}, \"timestamp\": 1793557510750}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"ogdEbnhvF6OYhjBShHa1zeAPKWYE5miS\", \"output\": \"{\\\"output\\\": \\\"after step 3:\\\\n# Notes$\\\\n- alpha$\\\\n- bravo$\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 269, \"is_error\": false, \"timestamp\": 1793557511020}\n{\"type\": \"text\", \"text\": \"\\n\\nNow\", \"timestamp\": 1793557512263}\n{\"type\": \"text\", \"text\": \" step\", \"timestamp\": 1793557512302}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793557512342}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793557512381}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793557512420}\n{\"type\": \"text\", \"text\": \"re\", \"timestamp\": 1793557512498}\n{\"type\": \"text\", \"text\": \"vert\", \"timestamp\": 1793557512499}\n{\"type\": \"text\", \"text\": \" to\", \"timestamp\": 1793557512537}\n{\"type\": \"text\", \"text\": \" header\", \"timestamp\": 1793557512576}\n{\"type\": \"text\", \"text\": \" only\", \"timestamp\": 1793557512615}\n{\"type\": \"text\", \"text\": \")\", \"timestamp\": 1793557512654}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793557512693}\n{\"type\": \"text\", \"text\": \" step\", \"timestamp\": 1793557512732}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793557512771}\n{\"type\": \"text\", \"text\": \"5\", \"timestamp\": 1793557512810}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793557512848}\n{\"type\": \"text\", \"text\": \"append\", \"timestamp\": 1793557512887}\n{\"type\": \"text\", \"text\": \" char\", \"timestamp\": 1793557512926}\n{\"type\": \"text\", \"text\": \"lie\", \"timestamp\": 1793557512965}\n{\"type\": \"text\", \"text\": \").\", \"timestamp\": 1793557513005}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"IfLPFdzP1RL1mFqUSWq4LwbTU4gNB0Ci\", \"input\": {\"command\": \"printf '# Notes\\\\n' > notes.md && printf -- '- charlie\\\\n' >> notes.md && echo \\\"final:\\\" && cat -A notes.md && echo \\\"bytes:\\\" && wc -c notes.md\"}, \"timestamp\": 1793557515669}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"IfLPFdzP1RL1mFqUSWq4LwbTU4gNB0Ci\", \"output\": \"{\\\"output\\\": \\\"final:\\\\n# Notes$\\\\n- charlie$\\\\nbytes:\\\\n18 notes.md\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 96, \"is_error\": false, \"timestamp\": 1793557515766}\n{\"type\": \"text\", \"text\": \"\\n\\nDone\", \"timestamp\": 1793557549101}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793557549137}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793557549177}\n{\"type\": \"text\", \"text\": \"notes\", \"timestamp\": 1793557549216}\n{\"type\": \"text\", \"text\": \".md\", \"timestamp\": 1793557549256}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793557549295}\n{\"type\": \"text\", \"text\": \" is\", \"timestamp\": 1793557549334}\n{\"type\": \"text\", \"text\": \" in\", \"timestamp\": 1793557549372}\n{\"type\": \"text\", \"text\": \" its\", \"timestamp\": 1793557549413}\n{\"type\": \"text\", \"text\": \" final\", \"timestamp\": 1793557549451}\n{\"type\": \"text\", \"text\": \" state\", \"timestamp\": 1793557549491}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793557549530}\n{\"type\": \"text\", \"text\": \" verified\", \"timestamp\": 1793557549569}\n{\"type\": \"text\", \"text\": \" byte\", \"timestamp\": 1793557549609}\n{\"type\": \"text\", \"text\": \"-for\", \"timestamp\": 1793557549648}\n{\"type\": \"text\", \"text\": \"-byte\", \"timestamp\": 1793557549687}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793557549805}\n{\"type\": \"text\", \"text\": \"\\n\\n-\", \"timestamp\": 1793557549805}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793557549844}\n{\"type\": \"text\", \"text\": \"cat\", \"timestamp\": 1793557549883}\n{\"type\": \"text\", \"text\": \" -\", \"timestamp\": 1793557549923}\n{\"type\": \"text\", \"text\": \"A\", \"timestamp\": 1793557549962}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793557550001}\n{\"type\": \"text\", \"text\": \" shows\", \"timestamp\": 1793557550040}\n{\"type\": \"text\", \"text\": \" exactly\", \"timestamp\": 1793557550080}\n{\"type\": \"text\", \"text\": \" two\", \"timestamp\": 1793557550118}\n{\"type\": \"text\", \"text\": \" lines\", \"timestamp\": 1793557550159}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793557550197}\n{\"type\": \"text\", \"text\": \" each\", \"timestamp\": 1793557550236}\n{\"type\": \"text\", \"text\": \" newline\", \"timestamp\": 1793557550275}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793557550315}\n{\"type\": \"text\", \"text\": \"terminated\", \"timestamp\": 1793557550354}\n{\"type\": \"text\", \"text\": \" (`\", \"timestamp\": 1793557550394}\n{\"type\": \"text\", \"text\": \"$\", \"timestamp\": 1793557550434}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793557550472}\n{\"type\": \"text\", \"text\": \"):\", \"timestamp\": 1793557550511}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793557550550}\n{\"type\": \"text\", \"text\": \"#\", \"timestamp\": 1793557550590}\n{\"type\": \"text\", \"text\": \" Notes\", \"timestamp\": 1793557550629}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793557550668}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793557550707}\n{\"type\": \"text\", \"text\": \" `-\", \"timestamp\": 1793557550752}\n{\"type\": \"text\", \"text\": \" char\", \"timestamp\": 1793557550785}\n{\"type\": \"text\", \"text\": \"lie\", \"timestamp\": 1793557550826}\n{\"type\": \"text\", \"text\": \"`.\", \"timestamp\": 1793557550864}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793557550942}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793557550981}\n{\"type\": \"text\", \"text\": \"wc\", \"timestamp\": 1793557551020}\n{\"type\": \"text\", \"text\": \" -\", \"timestamp\": 1793557551060}\n{\"type\": \"text\", \"text\": \"c\", \"timestamp\": 1793557551098}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793557551137}\n{\"type\": \"text\", \"text\": \" =\", \"timestamp\": 1793557551177}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793557551216}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793557551257}\n{\"type\": \"text\", \"text\": \"8\", \"timestamp\": 1793557551296}\n{\"type\": \"text\", \"text\": \" bytes\", \"timestamp\": 1793557551335}\n{\"type\": \"text\", \"text\": \" =\", \"timestamp\": 1793557551374}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793557551414}\n{\"type\": \"text\", \"text\": \"#\", \"timestamp\": 1793557551452}\n{\"type\": \"text\", \"text\": \" Notes\", \"timestamp\": 1793557551491}\n{\"type\": \"text\", \"text\": \"\\\\n\", \"timestamp\": 1793557551530}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793557551568}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793557551607}\n{\"type\": \"text\", \"text\": \"8\", \"timestamp\": 1793557551646}\n{\"type\": \"text\", \"text\": \")\", \"timestamp\": 1793557551685}\n{\"type\": \"text\", \"text\": \" +\", \"timestamp\": 1793557551723}\n{\"type\": \"text\", \"text\": \" `-\", \"timestamp\": 1793557551761}\n{\"type\": \"text\", \"text\": \" char\", \"timestamp\": 1793557551800}\n{\"type\": \"text\", \"text\": \"lie\", \"timestamp\": 1793557551838}\n{\"type\": \"text\", \"text\": \"\\\\n\", \"timestamp\": 1793557551877}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793557551916}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793557551954}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793557551993}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793557552032}\n{\"type\": \"text\", \"text\": \"),\", \"timestamp\": 1793557552070}\n{\"type\": \"text\", \"text\": \" matching\", \"timestamp\": 1793557552110}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793557552148}\n{\"type\": \"text\", \"text\": \" required\", \"timestamp\": 1793557552187}\n{\"type\": \"text\", \"text\": \" content\", \"timestamp\": 1793557552225}\n{\"type\": \"text\", \"text\": \" with\", \"timestamp\": 1793557552264}\n{\"type\": \"text\", \"text\": \" a\", \"timestamp\": 1793557552303}\n{\"type\": \"text\", \"text\": \" trailing\", \"timestamp\": 1793557552342}\n{\"type\": \"text\", \"text\": \" newline\", \"timestamp\": 1793557552380}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793557552419}\n{\"type\": \"text\", \"text\": \" no\", \"timestamp\": 1793557552458}\n{\"type\": \"text\", \"text\": \" `-\", \"timestamp\": 1793557552498}\n{\"type\": \"text\", \"text\": \" bravo\", \"timestamp\": 1793557552537}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793557552576}\n{\"type\": \"text\", \"text\": \" line\", \"timestamp\": 1793557552615}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793557552653}\n{\"type\": \"result\", \"session_id\": \"local-45ab67014504f3052ab43335d901f44e21da8ec9e1d0f4a5a2aa135742b06d5b\", \"exit_code\": 0, \"text\": \"Done. `notes.md` is in its final state, verified byte-for-byte:\\n\\n- `cat -A` shows exactly two lines, each newline-terminated (`$`): `# Notes` and `- charlie`.\\n- `wc -c` = 18 bytes = `# Notes\\\\n` (8) + `- charlie\\\\n` (10), matching the required content with a trailing newline and no `- bravo` line.\", \"tokens\": {\"input\": 65533, \"output\": 1556, \"total\": 67089, \"cache_read\": 64936, \"cache_write\": 0}, \"duration_ms\": 73490, \"timestamp\": 1793557555993}\n",
+  "stream_error": null,
   "task": "16-stateful-undo",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 660,
   "tokens_in": 65533,
   "tokens_out": 1556,
+  "tokens_total": 67089,
   "tool_calls": 2,
-  "total_checks": 4,
+  "tool_names": [
+    "terminal",
+    "terminal"
+  ],
   "turns": 6,
-  "wall_seconds": 76.0
+  "wall_seconds": 76.0,
+  "workdir": "/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/16-stateful-undo/r2/work",
+  "workspace_changed": true
 }

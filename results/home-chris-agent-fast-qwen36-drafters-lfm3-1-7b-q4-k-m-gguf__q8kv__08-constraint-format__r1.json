@@ -1,5 +1,10 @@
 {
+  "api_calls": 3,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 49576,
   "checks": [
     {
       "check": "format_check.txt exists",
@@ -42,6 +47,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "20",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -50,6 +81,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 29557,
+  "db_output_tokens": 8780,
+  "db_tool_calls": 2,
   "decision": {
     "context": {
       "headroom_pct": 53.7,
@@ -104,24 +138,65 @@
     "wall_seconds": 132.8
   },
   "exit_code": 0,
+  "final_text": "The file `format_check.txt` has been written to:\n\n/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/08-constraint-format/r1/work/format_check.txt\n\nIt contains exactly 5 lines, each starting with \u201c- \u201d, mentions a distinct tool (grep, awk, cut, tr, head), stays under the character limit, and line\u202f3 is the longest. No stray lowercase \u201ce\u201d appears outside of those tool names.",
   "finished": "2026-11-01T14:50:51.855051+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "9e3decfa8402419b1b7ef173fa5f40c068b627792aef432c4988995a04baddda",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "4d74e47b7f6fe56d8dc7fe563a6080af2c0693d3d3f2123b2fe90806bb9bf672",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
-  "passed": 8,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": true,
+    "evaluated": 2,
+    "gates": [
+      {
+        "detail": "format_check.txt has no trailing blank line",
+        "gate": "no_trailing_blank_line",
+        "pass": true
+      },
+      {
+        "detail": "no markdown fences in stdout",
+        "gate": "no_markdown_fences",
+        "pass": true
+      }
+    ],
+    "passed": 2,
+    "stopped_at": null,
+    "total": 2
+  },
+  "quality_score": 1.0,
+  "reasoning": null,
   "repeat": 1,
+  "run_budget_seconds": 720,
   "run_id": "agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-27cad6c37c1036bea93eb29dd8899f3573bb12033cb7d801db9c60fd7459e620",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
   "started": "2026-11-01T14:48:39.000188+00:00",
+  "stderr": "Session: local-27cad6c37c1036bea93eb29dd8899f3573bb12033cb7d801db9c60fd7459e620\n\nsession_id: local-27cad6c37c1036bea93eb29dd8899f3573bb12033cb7d801db9c60fd7459e620\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793544520799}\n{\"type\": \"tool_use\", \"name\": \"write_file\", \"tool_call_id\": \"Z73nXf5QhJpSE1MbUjT8IX6A5I4mRH1h\", \"input\": {\"path\": \"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/08-constraint-format/r1/work/format_check.txt\", \"content\": \"- run grep on doc\\n- apply awk to split col\\n- apply cut to drop col2 from data and show rows now\\n- run tr on data\\n- show head rows\\n\"}, \"timestamp\": 1793544623752}\n{\"type\": \"tool_result\", \"name\": \"write_file\", \"tool_call_id\": \"Z73nXf5QhJpSE1MbUjT8IX6A5I4mRH1h\", \"output\": \"{\\\"bytes_written\\\": 130, \\\"dirs_created\\\": true, \\\"verified\\\": true, \\\"lint\\\": {\\\"status\\\": \\\"skipped\\\", \\\"message\\\": \\\"No linter for .txt files\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/08-constraint-format/r1/work/format_check.txt\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/08-constraint-format/r1/work/format_check.txt\\\"]}\", \"duration_ms\": 150, \"is_error\": false, \"timestamp\": 1793544623903}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"WJlkMJ8cV5xCtKqCFHc8IH3P22S92MLR\", \"input\": {\"path\": \"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/08-constraint-format/r1/work/format_check.txt\"}, \"timestamp\": 1793544631584}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"WJlkMJ8cV5xCtKqCFHc8IH3P22S92MLR\", \"output\": \"{\\\"content\\\": \\\"1|- run grep on doc\\\\n2|- apply awk to split col\\\\n3|- apply cut to drop col2 from data and show rows now\\\\n4|- run tr on data\\\\n5|- show head rows\\\", \\\"total_lines\\\": 5, \\\"file_size\\\": 130, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 19, \"is_error\": false, \"timestamp\": 1793544631603}\n{\"type\": \"text\", \"text\": \"\\n\\nThe\", \"timestamp\": 1793544647106}\n{\"type\": \"text\", \"text\": \" file\", \"timestamp\": 1793544647119}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793544647131}\n{\"type\": \"text\", \"text\": \"format\", \"timestamp\": 1793544647145}\n{\"type\": \"text\", \"text\": \"_check\", \"timestamp\": 1793544647155}\n{\"type\": \"text\", \"text\": \".txt\", \"timestamp\": 1793544647167}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793544647180}\n{\"type\": \"text\", \"text\": \" has\", \"timestamp\": 1793544647191}\n{\"type\": \"text\", \"text\": \" been\", \"timestamp\": 1793544647203}\n{\"type\": \"text\", \"text\": \" written\", \"timestamp\": 1793544647215}\n{\"type\": \"text\", \"text\": \" to\", \"timestamp\": 1793544647226}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793544647251}\n{\"type\": \"text\", \"text\": \"\\n\\n/\", \"timestamp\": 1793544647251}\n{\"type\": \"text\", \"text\": \"root\", \"timestamp\": 1793544647262}\n{\"type\": \"text\", \"text\": \"/h\", \"timestamp\": 1793544647274}\n{\"type\": \"text\", \"text\": \"erm\", \"timestamp\": 1793544647287}\n{\"type\": \"text\", \"text\": \"es\", \"timestamp\": 1793544647298}\n{\"type\": \"text\", \"text\": \"-ben\", \"timestamp\": 1793544647310}\n{\"type\": \"text\", \"text\": \"ch\", \"timestamp\": 1793544647322}\n{\"type\": \"text\", \"text\": \"/r\", \"timestamp\": 1793544647334}\n{\"type\": \"text\", \"text\": \"uns\", \"timestamp\": 1793544647346}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793544647358}\n{\"type\": \"text\", \"text\": \"agent\", \"timestamp\": 1793544647369}\n{\"type\": \"text\", \"text\": \"-L\", \"timestamp\": 1793544647381}\n{\"type\": \"text\", \"text\": \"FM\", \"timestamp\": 1793544647393}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793544647405}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793544647417}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793544647429}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793544647441}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793544647454}\n{\"type\": \"text\", \"text\": \"B\", \"timestamp\": 1793544647465}\n{\"type\": \"text\", \"text\": \"-Q\", \"timestamp\": 1793544647477}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793544647489}\n{\"type\": \"text\", \"text\": \"_K\", \"timestamp\": 1793544647501}\n{\"type\": \"text\", \"text\": \"_M\", \"timestamp\": 1793544647514}\n{\"type\": \"text\", \"text\": \"-q\", \"timestamp\": 1793544647526}\n{\"type\": \"text\", \"text\": \"8\", \"timestamp\": 1793544647538}\n{\"type\": \"text\", \"text\": \"kv\", \"timestamp\": 1793544647551}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793544647564}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793544647577}\n{\"type\": \"text\", \"text\": \"x\", \"timestamp\": 1793544647590}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793544647602}\n{\"type\": \"text\", \"text\": \"202\", \"timestamp\": 1793544647614}\n{\"type\": \"text\", \"text\": \"611\", \"timestamp\": 1793544647627}\n{\"type\": \"text\", \"text\": \"01\", \"timestamp\": 1793544647639}\n{\"type\": \"text\", \"text\": \"/t\", \"timestamp\": 1793544647652}\n{\"type\": \"text\", \"text\": \"asks\", \"timestamp\": 1793544647666}\n{\"type\": \"text\", \"text\": \"/L\", \"timestamp\": 1793544647677}\n{\"type\": \"text\", \"text\": \"FM\", \"timestamp\": 1793544647690}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793544647703}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793544647718}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793544647728}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793544647740}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793544647752}\n{\"type\": \"text\", \"text\": \"B\", \"timestamp\": 1793544647764}\n{\"type\": \"text\", \"text\": \"-Q\", \"timestamp\": 1793544647776}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793544647789}\n{\"type\": \"text\", \"text\": \"-K\", \"timestamp\": 1793544647800}\n{\"type\": \"text\", \"text\": \"-M\", \"timestamp\": 1793544647812}\n{\"type\": \"text\", \"text\": \"-a\", \"timestamp\": 1793544647824}\n{\"type\": \"text\", \"text\": \"9\", \"timestamp\": 1793544647836}\n{\"type\": \"text\", \"text\": \"e\", \"timestamp\": 1793544647860}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793544647861}\n{\"type\": \"text\", \"text\": \"dc\", \"timestamp\": 1793544647872}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793544647884}\n{\"type\": \"text\", \"text\": \"08\", \"timestamp\": 1793544647895}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793544647907}\n{\"type\": \"text\", \"text\": \"const\", \"timestamp\": 1793544647920}\n{\"type\": \"text\", \"text\": \"raint\", \"timestamp\": 1793544647932}\n{\"type\": \"text\", \"text\": \"-format\", \"timestamp\": 1793544647944}\n{\"type\": \"text\", \"text\": \"/r\", \"timestamp\": 1793544647956}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793544647968}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793544647980}\n{\"type\": \"text\", \"text\": \"work\", \"timestamp\": 1793544647992}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793544648004}\n{\"type\": \"text\", \"text\": \"format\", \"timestamp\": 1793544648016}\n{\"type\": \"text\", \"text\": \"_check\", \"timestamp\": 1793544648028}\n{\"type\": \"text\", \"text\": \".txt\", \"timestamp\": 1793544648040}\n{\"type\": \"text\", \"text\": \"\\n\\nIt\", \"timestamp\": 1793544648063}\n{\"type\": \"text\", \"text\": \" contains\", \"timestamp\": 1793544648075}\n{\"type\": \"text\", \"text\": \" exactly\", \"timestamp\": 1793544648087}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793544648099}\n{\"type\": \"text\", \"text\": \"5\", \"timestamp\": 1793544648111}\n{\"type\": \"text\", \"text\": \" lines\", \"timestamp\": 1793544648123}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793544648134}\n{\"type\": \"text\", \"text\": \" each\", \"timestamp\": 1793544648147}\n{\"type\": \"text\", \"text\": \" starting\", \"timestamp\": 1793544648159}\n{\"type\": \"text\", \"text\": \" with\", \"timestamp\": 1793544648170}\n{\"type\": \"text\", \"text\": \" \u201c\", \"timestamp\": 1793544648182}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793544648194}\n{\"type\": \"text\", \"text\": \" \u201d\", \"timestamp\": 1793544648206}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793544648218}\n{\"type\": \"text\", \"text\": \" mentions\", \"timestamp\": 1793544648230}\n{\"type\": \"text\", \"text\": \" a\", \"timestamp\": 1793544648241}\n{\"type\": \"text\", \"text\": \" distinct\", \"timestamp\": 1793544648253}\n{\"type\": \"text\", \"text\": \" tool\", \"timestamp\": 1793544648265}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793544648277}\n{\"type\": \"text\", \"text\": \"grep\", \"timestamp\": 1793544648289}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793544648301}\n{\"type\": \"text\", \"text\": \" awk\", \"timestamp\": 1793544648314}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793544648326}\n{\"type\": \"text\", \"text\": \" cut\", \"timestamp\": 1793544648338}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793544648350}\n{\"type\": \"text\", \"text\": \" tr\", \"timestamp\": 1793544648362}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793544648374}\n{\"type\": \"text\", \"text\": \" head\", \"timestamp\": 1793544648386}\n{\"type\": \"text\", \"text\": \"),\", \"timestamp\": 1793544648397}\n{\"type\": \"text\", \"text\": \" stays\", \"timestamp\": 1793544648409}\n{\"type\": \"text\", \"text\": \" under\", \"timestamp\": 1793544648422}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793544648433}\n{\"type\": \"text\", \"text\": \" character\", \"timestamp\": 1793544648445}\n{\"type\": \"text\", \"text\": \" limit\", \"timestamp\": 1793544648457}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793544648469}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793544648481}\n{\"type\": \"text\", \"text\": \" line\", \"timestamp\": 1793544648493}\n{\"type\": \"text\", \"text\": \"\u202f\", \"timestamp\": 1793544648505}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793544648516}\n{\"type\": \"text\", \"text\": \" is\", \"timestamp\": 1793544648528}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793544648540}\n{\"type\": \"text\", \"text\": \" longest\", \"timestamp\": 1793544648552}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793544648565}\n{\"type\": \"text\", \"text\": \" No\", \"timestamp\": 1793544648576}\n{\"type\": \"text\", \"text\": \" stray\", \"timestamp\": 1793544648588}\n{\"type\": \"text\", \"text\": \" lowercase\", \"timestamp\": 1793544648600}\n{\"type\": \"text\", \"text\": \" \u201c\", \"timestamp\": 1793544648612}\n{\"type\": \"text\", \"text\": \"e\", \"timestamp\": 1793544648635}\n{\"type\": \"text\", \"text\": \"\u201d\", \"timestamp\": 1793544648636}\n{\"type\": \"text\", \"text\": \" appears\", \"timestamp\": 1793544648647}\n{\"type\": \"text\", \"text\": \" outside\", \"timestamp\": 1793544648659}\n{\"type\": \"text\", \"text\": \" of\", \"timestamp\": 1793544648671}\n{\"type\": \"text\", \"text\": \" those\", \"timestamp\": 1793544648683}\n{\"type\": \"text\", \"text\": \" tool\", \"timestamp\": 1793544648695}\n{\"type\": \"text\", \"text\": \" names\", \"timestamp\": 1793544648706}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793544648718}\n{\"type\": \"result\", \"session_id\": \"local-27cad6c37c1036bea93eb29dd8899f3573bb12033cb7d801db9c60fd7459e620\", \"exit_code\": 0, \"text\": \"The file `format_check.txt` has been written to:\\n\\n/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/08-constraint-format/r1/work/format_check.txt\\n\\nIt contains exactly 5 lines, each starting with \u201c- \u201d, mentions a distinct tool (grep, awk, cut, tr, head), stays under the character limit, and line\u202f3 is the longest. No stray lowercase \u201ce\u201d appears outside of those tool names.\", \"tokens\": {\"input\": 79133, \"output\": 8780, \"total\": 87913, \"cache_read\": 49576, \"cache_write\": 0}, \"duration_ms\": 130834, \"timestamp\": 1793544651633}\n",
+  "stream_error": null,
   "task": "08-constraint-format",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 840,
   "tokens_in": 79133,
   "tokens_out": 8780,
+  "tokens_total": 87913,
   "tool_calls": 2,
-  "total_checks": 8,
+  "tool_names": [
+    "write_file",
+    "read_file"
+  ],
   "turns": 6,
-  "wall_seconds": 132.8
+  "wall_seconds": 132.8,
+  "workdir": "/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/08-constraint-format/r1/work",
+  "workspace_changed": true
 }

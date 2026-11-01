@@ -1,5 +1,10 @@
 {
+  "api_calls": 3,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 64024,
   "checks": [
     {
       "check": "reconcile.json exists",
@@ -32,6 +37,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "30",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -40,6 +71,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 1267,
+  "db_output_tokens": 671,
+  "db_tool_calls": 2,
   "decision": {
     "context": {
       "headroom_pct": 65.8,
@@ -94,24 +128,54 @@
     "wall_seconds": 42.8
   },
   "exit_code": 0,
+  "final_text": "`reconcile.json` written.\n\n- **only_in_a**: A-300 (quantity 0, present only in system_a)\n- **only_in_b**: C-900 (present only in system_b)\n- **quantity_mismatch**: A-200 \u2014 a=4, b=6\n\nThe shared skus with matching quantities (A-100=12, B-100=7, B-200=19) correctly excluded.",
   "finished": "2026-11-01T15:49:30.395755+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
-  "passed": 6,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": false,
+    "evaluated": 0,
+    "gates": [],
+    "passed": 0,
+    "stopped_at": null,
+    "total": 0
+  },
+  "quality_score": null,
+  "reasoning": null,
   "repeat": 3,
+  "run_budget_seconds": 900,
   "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-c7423f6f08d19f71a619d6752d9de0a7564b3ac580ee3b1fbf8b7fd69da77ea3",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
   "started": "2026-11-01T15:48:47.579117+00:00",
+  "stderr": "Session: local-c7423f6f08d19f71a619d6752d9de0a7564b3ac580ee3b1fbf8b7fd69da77ea3\n\nsession_id: local-c7423f6f08d19f71a619d6752d9de0a7564b3ac580ee3b1fbf8b7fd69da77ea3\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793548129949}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"A4OHInvqH1ZbOJ5NOoJ7csnKGHnBCwFz\", \"input\": {\"command\": \"cd /root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/02-inventory-reconcile/r3/work && echo \\\"=== system_a.csv ===\\\" && cat system_a.csv && echo \\\"=== system_b.csv ===\\\" && cat system_b.csv\"}, \"timestamp\": 1793548143261}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"A4OHInvqH1ZbOJ5NOoJ7csnKGHnBCwFz\", \"output\": \"{\\\"output\\\": \\\"=== system_a.csv ===\\\\nsku,on_hand\\\\nA-100,12\\\\nA-200,4\\\\nA-300,0\\\\nB-100,7\\\\nB-200,19\\\\n=== system_b.csv ===\\\\nsku,on_hand\\\\nA-100,12\\\\nA-200,6\\\\nB-100,7\\\\nC-900,3\\\\nB-200,19\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 240, \"is_error\": false, \"timestamp\": 1793548143501}\n{\"type\": \"tool_use\", \"name\": \"write_file\", \"tool_call_id\": \"iW5vfCGd31K4HOSGuHwjAoP6z4mniE87\", \"input\": {\"path\": \"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/02-inventory-reconcile/r3/work/reconcile.json\", \"content\": \"{\\n  \\\"only_in_a\\\": [\\\"A-300\\\"],\\n  \\\"only_in_b\\\": [\\\"C-900\\\"],\\n  \\\"quantity_mismatch\\\": [\\n    {\\\"sku\\\": \\\"A-200\\\", \\\"a\\\": 4, \\\"b\\\": 6}\\n  ]\\n}\\n\"}, \"timestamp\": 1793548159833}\n{\"type\": \"tool_result\", \"name\": \"write_file\", \"tool_call_id\": \"iW5vfCGd31K4HOSGuHwjAoP6z4mniE87\", \"output\": \"{\\\"bytes_written\\\": 122, \\\"dirs_created\\\": true, \\\"verified\\\": true, \\\"lint\\\": {\\\"status\\\": \\\"ok\\\", \\\"output\\\": \\\"\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/02-inventory-reconcile/r3/work/reconcile.json\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/02-inventory-reconcile/r3/work/reconcile.json\\\"]}\", \"duration_ms\": 25, \"is_error\": false, \"timestamp\": 1793548159859}\n{\"type\": \"text\", \"text\": \"\\n\\n`\", \"timestamp\": 1793548162454}\n{\"type\": \"text\", \"text\": \"re\", \"timestamp\": 1793548162531}\n{\"type\": \"text\", \"text\": \"conc\", \"timestamp\": 1793548162532}\n{\"type\": \"text\", \"text\": \"ile\", \"timestamp\": 1793548162570}\n{\"type\": \"text\", \"text\": \".json\", \"timestamp\": 1793548162608}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793548162648}\n{\"type\": \"text\", \"text\": \" written\", \"timestamp\": 1793548162686}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793548162725}\n{\"type\": \"text\", \"text\": \"\\n\\n-\", \"timestamp\": 1793548162803}\n{\"type\": \"text\", \"text\": \" **\", \"timestamp\": 1793548162843}\n{\"type\": \"text\", \"text\": \"only\", \"timestamp\": 1793548162881}\n{\"type\": \"text\", \"text\": \"_in\", \"timestamp\": 1793548162920}\n{\"type\": \"text\", \"text\": \"_a\", \"timestamp\": 1793548162959}\n{\"type\": \"text\", \"text\": \"**:\", \"timestamp\": 1793548162998}\n{\"type\": \"text\", \"text\": \" A\", \"timestamp\": 1793548163038}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793548163077}\n{\"type\": \"text\", \"text\": \"3\", \"timestamp\": 1793548163115}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548163155}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548163193}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793548163232}\n{\"type\": \"text\", \"text\": \"quantity\", \"timestamp\": 1793548163272}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793548163310}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548163349}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793548163388}\n{\"type\": \"text\", \"text\": \" present\", \"timestamp\": 1793548163427}\n{\"type\": \"text\", \"text\": \" only\", \"timestamp\": 1793548163466}\n{\"type\": \"text\", \"text\": \" in\", \"timestamp\": 1793548163505}\n{\"type\": \"text\", \"text\": \" system\", \"timestamp\": 1793548163544}\n{\"type\": \"text\", \"text\": \"_a\", \"timestamp\": 1793548163584}\n{\"type\": \"text\", \"text\": \")\", \"timestamp\": 1793548163624}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793548163702}\n{\"type\": \"text\", \"text\": \" **\", \"timestamp\": 1793548163741}\n{\"type\": \"text\", \"text\": \"only\", \"timestamp\": 1793548163780}\n{\"type\": \"text\", \"text\": \"_in\", \"timestamp\": 1793548163820}\n{\"type\": \"text\", \"text\": \"_b\", \"timestamp\": 1793548163859}\n{\"type\": \"text\", \"text\": \"**:\", \"timestamp\": 1793548163898}\n{\"type\": \"text\", \"text\": \" C\", \"timestamp\": 1793548163938}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793548163977}\n{\"type\": \"text\", \"text\": \"9\", \"timestamp\": 1793548164018}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548164057}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548164099}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793548164136}\n{\"type\": \"text\", \"text\": \"present\", \"timestamp\": 1793548164176}\n{\"type\": \"text\", \"text\": \" only\", \"timestamp\": 1793548164216}\n{\"type\": \"text\", \"text\": \" in\", \"timestamp\": 1793548164255}\n{\"type\": \"text\", \"text\": \" system\", \"timestamp\": 1793548164293}\n{\"type\": \"text\", \"text\": \"_b\", \"timestamp\": 1793548164332}\n{\"type\": \"text\", \"text\": \")\", \"timestamp\": 1793548164371}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793548164449}\n{\"type\": \"text\", \"text\": \" **\", \"timestamp\": 1793548164488}\n{\"type\": \"text\", \"text\": \"quantity\", \"timestamp\": 1793548164527}\n{\"type\": \"text\", \"text\": \"_m\", \"timestamp\": 1793548164567}\n{\"type\": \"text\", \"text\": \"ismatch\", \"timestamp\": 1793548164606}\n{\"type\": \"text\", \"text\": \"**:\", \"timestamp\": 1793548164645}\n{\"type\": \"text\", \"text\": \" A\", \"timestamp\": 1793548164685}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793548164723}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793548164762}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548164801}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548164841}\n{\"type\": \"text\", \"text\": \" \u2014\", \"timestamp\": 1793548164879}\n{\"type\": \"text\", \"text\": \" a\", \"timestamp\": 1793548164919}\n{\"type\": \"text\", \"text\": \"=\", \"timestamp\": 1793548164958}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793548164997}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793548165036}\n{\"type\": \"text\", \"text\": \" b\", \"timestamp\": 1793548165075}\n{\"type\": \"text\", \"text\": \"=\", \"timestamp\": 1793548165114}\n{\"type\": \"text\", \"text\": \"6\", \"timestamp\": 1793548165153}\n{\"type\": \"text\", \"text\": \"\\n\\nThe\", \"timestamp\": 1793548165231}\n{\"type\": \"text\", \"text\": \" shared\", \"timestamp\": 1793548165270}\n{\"type\": \"text\", \"text\": \" sk\", \"timestamp\": 1793548165309}\n{\"type\": \"text\", \"text\": \"us\", \"timestamp\": 1793548165348}\n{\"type\": \"text\", \"text\": \" with\", \"timestamp\": 1793548165387}\n{\"type\": \"text\", \"text\": \" matching\", \"timestamp\": 1793548165426}\n{\"type\": \"text\", \"text\": \" quantities\", \"timestamp\": 1793548165466}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793548165504}\n{\"type\": \"text\", \"text\": \"A\", \"timestamp\": 1793548165544}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793548165583}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793548165622}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548165661}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548165701}\n{\"type\": \"text\", \"text\": \"=\", \"timestamp\": 1793548165740}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793548165780}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793548165819}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793548165861}\n{\"type\": \"text\", \"text\": \" B\", \"timestamp\": 1793548165899}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793548165954}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793548165990}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548166016}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548166611}\n{\"type\": \"text\", \"text\": \"=\", \"timestamp\": 1793548166612}\n{\"type\": \"text\", \"text\": \"7\", \"timestamp\": 1793548166626}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793548166632}\n{\"type\": \"text\", \"text\": \" B\", \"timestamp\": 1793548166636}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793548166638}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793548166639}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548166639}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793548166640}\n{\"type\": \"text\", \"text\": \"=\", \"timestamp\": 1793548166641}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793548166642}\n{\"type\": \"text\", \"text\": \"9\", \"timestamp\": 1793548166644}\n{\"type\": \"text\", \"text\": \")\", \"timestamp\": 1793548166645}\n{\"type\": \"text\", \"text\": \" correctly\", \"timestamp\": 1793548166646}\n{\"type\": \"text\", \"text\": \" excluded\", \"timestamp\": 1793548166647}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793548166648}\n{\"type\": \"result\", \"session_id\": \"local-c7423f6f08d19f71a619d6752d9de0a7564b3ac580ee3b1fbf8b7fd69da77ea3\", \"exit_code\": 0, \"text\": \"`reconcile.json` written.\\n\\n- **only_in_a**: A-300 (quantity 0, present only in system_a)\\n- **only_in_b**: C-900 (present only in system_b)\\n- **quantity_mismatch**: A-200 \u2014 a=4, b=6\\n\\nThe shared skus with matching quantities (A-100=12, B-100=7, B-200=19) correctly excluded.\", \"tokens\": {\"input\": 65291, \"output\": 671, \"total\": 65962, \"cache_read\": 64024, \"cache_write\": 0}, \"duration_ms\": 40170, \"timestamp\": 1793548170119}\n",
+  "stream_error": null,
   "task": "02-inventory-reconcile",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 1020,
   "tokens_in": 65291,
   "tokens_out": 671,
+  "tokens_total": 65962,
   "tool_calls": 2,
-  "total_checks": 6,
+  "tool_names": [
+    "terminal",
+    "write_file"
+  ],
   "turns": 6,
-  "wall_seconds": 42.8
+  "wall_seconds": 42.8,
+  "workdir": "/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/02-inventory-reconcile/r3/work",
+  "workspace_changed": true
 }

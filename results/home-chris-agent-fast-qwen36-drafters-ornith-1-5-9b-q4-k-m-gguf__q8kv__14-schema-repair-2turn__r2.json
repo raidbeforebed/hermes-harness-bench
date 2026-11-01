@@ -1,5 +1,10 @@
 {
+  "api_calls": 4,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 86252,
   "checks": [
     {
       "check": "corrected_call.json exists",
@@ -47,6 +52,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "15",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -55,6 +86,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 1554,
+  "db_output_tokens": 372,
+  "db_tool_calls": 3,
   "decision": {
     "context": {
       "headroom_pct": 65.5,
@@ -111,24 +145,55 @@
     "wall_seconds": 32.9
   },
   "exit_code": 0,
+  "final_text": "`corrected_call.json` written \u2014 single object, `search_files` with `pattern` and `path` (no extra fields, same values as the original request).",
   "finished": "2026-11-01T18:13:39.538173+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
-  "passed": 9,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": false,
+    "evaluated": 0,
+    "gates": [],
+    "passed": 0,
+    "stopped_at": null,
+    "total": 0
+  },
+  "quality_score": null,
+  "reasoning": null,
   "repeat": 2,
+  "run_budget_seconds": 600,
   "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-4101fca97dddb8585998d0d41238bd58e0af33f22884e9a90279ab2f32ba1b11",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
   "started": "2026-11-01T18:13:06.610296+00:00",
+  "stderr": "Session: local-4101fca97dddb8585998d0d41238bd58e0af33f22884e9a90279ab2f32ba1b11\n\nsession_id: local-4101fca97dddb8585998d0d41238bd58e0af33f22884e9a90279ab2f32ba1b11\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793556788541}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"fk5i9io9GJxSF0CZckMy5Z9vc39CypO0\", \"input\": {\"path\": \".\"}, \"timestamp\": 1793556798866}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"fk5i9io9GJxSF0CZckMy5Z9vc39CypO0\", \"output\": \"{\\\"content\\\": \\\"\\\", \\\"total_lines\\\": 0, \\\"file_size\\\": 0, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"error\\\": \\\"Cannot read '/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r2/work': not a regular file (directory, dangling symlink, FIFO, socket, or device). Reading it could block indefinitely.\\\", \\\"not_found\\\": false}\", \"duration_ms\": 158, \"is_error\": true, \"timestamp\": 1793556799025}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"dy0eapjrr3R9K4pTZgmG2QdnMQ6frCTx\", \"input\": {\"command\": \"ls -la && echo \\\"---REJECTED---\\\" && cat turn1_rejected.json && echo \\\"---SCHEMA---\\\" && cat tool_schema.json\"}, \"timestamp\": 1793556802386}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"dy0eapjrr3R9K4pTZgmG2QdnMQ6frCTx\", \"output\": \"{\\\"output\\\": \\\"total 16\\\\ndrwxr-xr-x 2 root root 4096 Nov  1 04:03 .\\\\ndrwxr-xr-x 4 root root 4096 Nov  1 18:13 ..\\\\n-rw-r--r-- 1 root root  450 Nov  1 04:03 tool_schema.json\\\\n-rw-r--r-- 1 root root  568 Nov  1 04:03 turn1_rejected.json\\\\n---REJECTED---\\\\n{\\\\n  \\\\\\\"turn\\\\\\\": 1,\\\\n  \\\\\\\"user_request\\\\\\\": \\\\\\\"Search for the definition of `calculate_total` in /srv/payments/charge.py\\\\\\\",\\\\n  \\\\\\\"tool_call_sent\\\\\\\": {\\\\n    \\\\\\\"tool\\\\\\\": \\\\\\\"search_files\\\\\\\",\\\\n    \\\\\\\"args\\\\\\\": {\\\\n      \\\\\\\"pattern\\\\\\\": \\\\\\\"def calculate_total\\\\\\\"\\\\n    }\\\\n  },\\\\n  \\\\\\\"note\\\\\\\": \\\\\\\"The call above was cut off: the args object never closed, and the required `path` property is missing.\\\\\\\",\\\\n  \\\\\\\"harness_error\\\\\\\": \\\\\\\"SCHEMA ERROR: tool_call.args is not valid against args_schema: missing required property 'path'; input appears truncated after 'pattern'. Re-emit a single valid tool call with the same operation and path.\\\\\\\"\\\\n}\\\\n---SCHEMA---\\\\n{\\\\n  \\\\\\\"tool\\\\\\\": \\\\\\\"search_files\\\\\\\",\\\\n  \\\\\\\"description\\\\\\\": \\\\\\\"Search a single file for a literal substring and return the matching line numbers.\\\\\\\",\\\\n  \\\\\\\"args_schema\\\\\\\": {\\\\n    \\\\\\\"type\\\\\\\": \\\\\\\"object\\\\\\\",\\\\n    \\\\\\\"required\\\\\\\": [\\\\\\\"pattern\\\\\\\", \\\\\\\"path\\\\\\\"],\\\\n    \\\\\\\"additionalProperties\\\\\\\": false,\\\\n    \\\\\\\"properties\\\\\\\": {\\\\n      \\\\\\\"pattern\\\\\\\": {\\\\\\\"type\\\\\\\": \\\\\\\"string\\\\\\\", \\\\\\\"description\\\\\\\": \\\\\\\"literal substring to search for\\\\\\\"},\\\\n      \\\\\\\"path\\\\\\\": {\\\\\\\"type\\\\\\\": \\\\\\\"string\\\\\\\", \\\\\\\"description\\\\\\\": \\\\\\\"absolute path of the file to search\\\\\\\"}\\\\n    }\\\\n  }\\\\n}\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 161, \"is_error\": false, \"timestamp\": 1793556802547}\n{\"type\": \"tool_use\", \"name\": \"write_file\", \"tool_call_id\": \"dIj72gefCNwOIx4GMb2N4C5NTw7nF2fD\", \"input\": {\"path\": \"corrected_call.json\", \"content\": \"{\\n  \\\"tool\\\": \\\"search_files\\\",\\n  \\\"args\\\": {\\n    \\\"pattern\\\": \\\"def calculate_total\\\",\\n    \\\"path\\\": \\\"/srv/payments/charge.py\\\"\\n  }\\n}\\n\"}, \"timestamp\": 1793556812076}\n{\"type\": \"tool_result\", \"name\": \"write_file\", \"tool_call_id\": \"dIj72gefCNwOIx4GMb2N4C5NTw7nF2fD\", \"output\": \"{\\\"bytes_written\\\": 122, \\\"dirs_created\\\": true, \\\"verified\\\": true, \\\"lint\\\": {\\\"status\\\": \\\"ok\\\", \\\"output\\\": \\\"\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r2/work/corrected_call.json\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r2/work/corrected_call.json\\\"]}\", \"duration_ms\": 29, \"is_error\": false, \"timestamp\": 1793556812106}\n{\"type\": \"text\", \"text\": \"\\n\\n`\", \"timestamp\": 1793556814488}\n{\"type\": \"text\", \"text\": \"correct\", \"timestamp\": 1793556814527}\n{\"type\": \"text\", \"text\": \"ed\", \"timestamp\": 1793556814566}\n{\"type\": \"text\", \"text\": \"_call\", \"timestamp\": 1793556814605}\n{\"type\": \"text\", \"text\": \".json\", \"timestamp\": 1793556814645}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793556814683}\n{\"type\": \"text\", \"text\": \" written\", \"timestamp\": 1793556814724}\n{\"type\": \"text\", \"text\": \" \u2014\", \"timestamp\": 1793556814763}\n{\"type\": \"text\", \"text\": \" single\", \"timestamp\": 1793556814802}\n{\"type\": \"text\", \"text\": \" object\", \"timestamp\": 1793556814842}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793556814881}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793556814935}\n{\"type\": \"text\", \"text\": \"search\", \"timestamp\": 1793556814960}\n{\"type\": \"text\", \"text\": \"_files\", \"timestamp\": 1793556814999}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793556815039}\n{\"type\": \"text\", \"text\": \" with\", \"timestamp\": 1793556815078}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793556815117}\n{\"type\": \"text\", \"text\": \"pattern\", \"timestamp\": 1793556815158}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793556815196}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793556815236}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793556815275}\n{\"type\": \"text\", \"text\": \"path\", \"timestamp\": 1793556815314}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793556815355}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793556815394}\n{\"type\": \"text\", \"text\": \"no\", \"timestamp\": 1793556815433}\n{\"type\": \"text\", \"text\": \" extra\", \"timestamp\": 1793556815474}\n{\"type\": \"text\", \"text\": \" fields\", \"timestamp\": 1793556815513}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793556815553}\n{\"type\": \"text\", \"text\": \" same\", \"timestamp\": 1793556815593}\n{\"type\": \"text\", \"text\": \" values\", \"timestamp\": 1793556815632}\n{\"type\": \"text\", \"text\": \" as\", \"timestamp\": 1793556815672}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793556815712}\n{\"type\": \"text\", \"text\": \" original\", \"timestamp\": 1793556815752}\n{\"type\": \"text\", \"text\": \" request\", \"timestamp\": 1793556815792}\n{\"type\": \"text\", \"text\": \").\", \"timestamp\": 1793556815831}\n{\"type\": \"result\", \"session_id\": \"local-4101fca97dddb8585998d0d41238bd58e0af33f22884e9a90279ab2f32ba1b11\", \"exit_code\": 0, \"text\": \"`corrected_call.json` written \u2014 single object, `search_files` with `pattern` and `path` (no extra fields, same values as the original request).\", \"tokens\": {\"input\": 87806, \"output\": 372, \"total\": 88178, \"cache_read\": 86252, \"cache_write\": 0}, \"duration_ms\": 30785, \"timestamp\": 1793556819326}\n",
+  "stream_error": null,
   "task": "14-schema-repair-2turn",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 720,
   "tokens_in": 87806,
   "tokens_out": 372,
+  "tokens_total": 88178,
   "tool_calls": 3,
-  "total_checks": 9,
+  "tool_names": [
+    "read_file",
+    "terminal",
+    "write_file"
+  ],
   "turns": 8,
-  "wall_seconds": 32.9
+  "wall_seconds": 32.9,
+  "workdir": "/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r2/work",
+  "workspace_changed": true
 }

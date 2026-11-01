@@ -1,5 +1,10 @@
 {
+  "api_calls": 6,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 133985,
   "checks": [
     {
       "check": "corrected_call.json exists",
@@ -47,6 +52,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "15",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -55,6 +86,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 2938,
+  "db_output_tokens": 1155,
+  "db_tool_calls": 7,
   "decision": {
     "context": {
       "headroom_pct": 62.8,
@@ -112,24 +146,59 @@
     "wall_seconds": 71.2
   },
   "exit_code": 0,
+  "final_text": "`corrected_call.json` written and validated (single object, only `pattern` + `path`, valid JSON per the lint check).",
   "finished": "2026-11-01T18:13:06.607777+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "3a1b826facd7108ebb32183b1b61412ec5f27ea68e9fb2b07c177cb3df563265",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "e00c42c3bcab910452e99910e39fe74774c0dc798756560440ceec82fa74c4b8",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
-  "passed": 9,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": false,
+    "evaluated": 0,
+    "gates": [],
+    "passed": 0,
+    "stopped_at": null,
+    "total": 0
+  },
+  "quality_score": null,
+  "reasoning": null,
   "repeat": 1,
+  "run_budget_seconds": 600,
   "run_id": "agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-2bca1a365c8c886a4a48ffaa430285242e844a79c4d3241e8530b0a697c08274",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
   "started": "2026-11-01T18:11:55.338354+00:00",
+  "stderr": "Session: local-2bca1a365c8c886a4a48ffaa430285242e844a79c4d3241e8530b0a697c08274\n\nsession_id: local-2bca1a365c8c886a4a48ffaa430285242e844a79c4d3241e8530b0a697c08274\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793556717939}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"a1wH8C9pmdTTEK8VdE5VpUgoP256USau\", \"input\": {\"path\": \"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/turn1_rejected.json\"}, \"timestamp\": 1793556737250}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"4vaka92ZE59hKpWG5uQtV60J8iPaiH6F\", \"input\": {\"path\": \"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/tool_schema.json\"}, \"timestamp\": 1793556737253}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"a1wH8C9pmdTTEK8VdE5VpUgoP256USau\", \"output\": \"{\\\"content\\\": \\\"\\\", \\\"total_lines\\\": 0, \\\"file_size\\\": 0, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"error\\\": \\\"File not found: /root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/turn1_rejected.json\\\", \\\"not_found\\\": true}\", \"duration_ms\": 586, \"is_error\": true, \"timestamp\": 1793556737836}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"4vaka92ZE59hKpWG5uQtV60J8iPaiH6F\", \"output\": \"{\\\"content\\\": \\\"\\\", \\\"total_lines\\\": 0, \\\"file_size\\\": 0, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"error\\\": \\\"File not found: /root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/tool_schema.json\\\", \\\"not_found\\\": true}\", \"duration_ms\": 607, \"is_error\": true, \"timestamp\": 1793556737861}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"PGfR1T7jnvHnSOHtKwcs4YsdPFfj3MaF\", \"input\": {\"command\": \"ls -la \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/\\\"\"}, \"timestamp\": 1793556744205}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"PGfR1T7jnvHnSOHtKwcs4YsdPFfj3MaF\", \"output\": \"{\\\"output\\\": \\\"total 16\\\\ndrwxr-xr-x 4 root root 4096 Nov  1 18:11 .\\\\ndrwxr-xr-x 3 root root 4096 Nov  1 18:11 ..\\\\ndrwxr-xr-x 2 root root 4096 Nov  1 18:11 tmp\\\\ndrwxr-xr-x 2 root root 4096 Nov  1 04:03 work\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 124, \"is_error\": false, \"timestamp\": 1793556744330}\n{\"type\": \"tool_use\", \"name\": \"terminal\", \"tool_call_id\": \"akINeipXZUKlgtr6jtuqDDUTIabsg8I0\", \"input\": {\"command\": \"find \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/\\\" -type f 2>/dev/null; echo \\\"---parent---\\\"; ls -la \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/\\\" 2>/dev/null\"}, \"timestamp\": 1793556752888}\n{\"type\": \"tool_result\", \"name\": \"terminal\", \"tool_call_id\": \"akINeipXZUKlgtr6jtuqDDUTIabsg8I0\", \"output\": \"{\\\"output\\\": \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/work/tool_schema.json\\\\n/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/work/turn1_rejected.json\\\\n---parent---\\\\ntotal 64\\\\ndrwxr-xr-x 16 root root 4096 Nov  1 18:11 .\\\\ndrwxr-xr-x  3 root root 4096 Nov  1 15:41 ..\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 15:45 01-json-extract\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 15:48 02-inventory-reconcile\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 15:56 03-test-fix\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 15:58 04-rename-safe\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 16:00 05-memory-nodestructive\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 16:06 06-multiturn-continuity\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 16:51 07-error-recovery\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 17:21 08-constraint-format\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 17:28 09-long-context-retrieval\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 17:41 10-multifile-refactor\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 17:55 11-correction-handling\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 18:02 12-long-chain\\\\ndrwxr-xr-x  5 root root 4096 Nov  1 18:10 13-constraint-stack\\\\ndrwxr-xr-x  3 root root 4096 Nov  1 18:11 14-schema-repair-2turn\\\", \\\"exit_code\\\": 0, \\\"error\\\": null}\", \"duration_ms\": 116, \"is_error\": false, \"timestamp\": 1793556753005}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"OSf1BG2P8n240OStwcXDKj7RFHGUioeY\", \"input\": {\"path\": \"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/work/turn1_rejected.json\"}, \"timestamp\": 1793556764131}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"Y58LJLL4ZhFYGXd4CR2vUlxtATk465KU\", \"input\": {\"path\": \"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/work/tool_schema.json\"}, \"timestamp\": 1793556764133}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"OSf1BG2P8n240OStwcXDKj7RFHGUioeY\", \"output\": \"{\\\"content\\\": \\\"1|{\\\\n2|  \\\\\\\"turn\\\\\\\": 1,\\\\n3|  \\\\\\\"user_request\\\\\\\": \\\\\\\"Search for the definition of `calculate_total` in /srv/payments/charge.py\\\\\\\",\\\\n4|  \\\\\\\"tool_call_sent\\\\\\\": {\\\\n5|    \\\\\\\"tool\\\\\\\": \\\\\\\"search_files\\\\\\\",\\\\n6|    \\\\\\\"args\\\\\\\": {\\\\n7|      \\\\\\\"pattern\\\\\\\": \\\\\\\"def calculate_total\\\\\\\"\\\\n8|    }\\\\n9|  },\\\\n10|  \\\\\\\"note\\\\\\\": \\\\\\\"The call above was cut off: the args object never closed, and the required `path` property is missing.\\\\\\\",\\\\n11|  \\\\\\\"harness_error\\\\\\\": \\\\\\\"SCHEMA ERROR: tool_call.args is not valid against args_schema: missing required property 'path'; input appears truncated after 'pattern'. Re-emit a single valid tool call with the same operation and path.\\\\\\\"\\\\n12|}\\\", \\\"total_lines\\\": 12, \\\"file_size\\\": 568, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 31, \"is_error\": false, \"timestamp\": 1793556764163}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"Y58LJLL4ZhFYGXd4CR2vUlxtATk465KU\", \"output\": \"{\\\"content\\\": \\\"1|{\\\\n2|  \\\\\\\"tool\\\\\\\": \\\\\\\"search_files\\\\\\\",\\\\n3|  \\\\\\\"description\\\\\\\": \\\\\\\"Search a single file for a literal substring and return the matching line numbers.\\\\\\\",\\\\n4|  \\\\\\\"args_schema\\\\\\\": {\\\\n5|    \\\\\\\"type\\\\\\\": \\\\\\\"object\\\\\\\",\\\\n6|    \\\\\\\"required\\\\\\\": [\\\\\\\"pattern\\\\\\\", \\\\\\\"path\\\\\\\"],\\\\n7|    \\\\\\\"additionalProperties\\\\\\\": false,\\\\n8|    \\\\\\\"properties\\\\\\\": {\\\\n9|      \\\\\\\"pattern\\\\\\\": {\\\\\\\"type\\\\\\\": \\\\\\\"string\\\\\\\", \\\\\\\"description\\\\\\\": \\\\\\\"literal substring to search for\\\\\\\"},\\\\n10|      \\\\\\\"path\\\\\\\": {\\\\\\\"type\\\\\\\": \\\\\\\"string\\\\\\\", \\\\\\\"description\\\\\\\": \\\\\\\"absolute path of the file to search\\\\\\\"}\\\\n11|    }\\\\n12|  }\\\\n13|}\\\", \\\"total_lines\\\": 13, \\\"file_size\\\": 450, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 57, \"is_error\": false, \"timestamp\": 1793556764190}\n{\"type\": \"tool_use\", \"name\": \"write_file\", \"tool_call_id\": \"4qcjLosSZOkFZ8mBylPE4OyT7S1VgdJS\", \"input\": {\"path\": \"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/work/corrected_call.json\", \"content\": \"{\\\"tool\\\": \\\"search_files\\\", \\\"args\\\": {\\\"pattern\\\": \\\"def calculate_total\\\", \\\"path\\\": \\\"/srv/payments/charge.py\\\"}}\"}, \"timestamp\": 1793556779504}\n{\"type\": \"tool_result\", \"name\": \"write_file\", \"tool_call_id\": \"4qcjLosSZOkFZ8mBylPE4OyT7S1VgdJS\", \"output\": \"{\\\"bytes_written\\\": 103, \\\"dirs_created\\\": true, \\\"verified\\\": true, \\\"lint\\\": {\\\"status\\\": \\\"ok\\\", \\\"output\\\": \\\"\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/work/corrected_call.json\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/work/corrected_call.json\\\"]}\", \"duration_ms\": 53, \"is_error\": false, \"timestamp\": 1793556779558}\n{\"type\": \"text\", \"text\": \"\\n\\n`\", \"timestamp\": 1793556782143}\n{\"type\": \"text\", \"text\": \"correct\", \"timestamp\": 1793556782180}\n{\"type\": \"text\", \"text\": \"ed\", \"timestamp\": 1793556782221}\n{\"type\": \"text\", \"text\": \"_call\", \"timestamp\": 1793556782258}\n{\"type\": \"text\", \"text\": \".json\", \"timestamp\": 1793556782298}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793556782337}\n{\"type\": \"text\", \"text\": \" written\", \"timestamp\": 1793556782377}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793556782417}\n{\"type\": \"text\", \"text\": \" validated\", \"timestamp\": 1793556782456}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793556782496}\n{\"type\": \"text\", \"text\": \"single\", \"timestamp\": 1793556782534}\n{\"type\": \"text\", \"text\": \" object\", \"timestamp\": 1793556782573}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793556782614}\n{\"type\": \"text\", \"text\": \" only\", \"timestamp\": 1793556782652}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793556782692}\n{\"type\": \"text\", \"text\": \"pattern\", \"timestamp\": 1793556782731}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793556782771}\n{\"type\": \"text\", \"text\": \" +\", \"timestamp\": 1793556782810}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793556782849}\n{\"type\": \"text\", \"text\": \"path\", \"timestamp\": 1793556782890}\n{\"type\": \"text\", \"text\": \"`,\", \"timestamp\": 1793556782930}\n{\"type\": \"text\", \"text\": \" valid\", \"timestamp\": 1793556782970}\n{\"type\": \"text\", \"text\": \" JSON\", \"timestamp\": 1793556783010}\n{\"type\": \"text\", \"text\": \" per\", \"timestamp\": 1793556783047}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793556783087}\n{\"type\": \"text\", \"text\": \" lint\", \"timestamp\": 1793556783126}\n{\"type\": \"text\", \"text\": \" check\", \"timestamp\": 1793556783165}\n{\"type\": \"text\", \"text\": \").\", \"timestamp\": 1793556783205}\n{\"type\": \"result\", \"session_id\": \"local-2bca1a365c8c886a4a48ffaa430285242e844a79c4d3241e8530b0a697c08274\", \"exit_code\": 0, \"text\": \"`corrected_call.json` written and validated (single object, only `pattern` + `path`, valid JSON per the lint check).\", \"tokens\": {\"input\": 136923, \"output\": 1155, \"total\": 138078, \"cache_read\": 133985, \"cache_write\": 0}, \"duration_ms\": 68439, \"timestamp\": 1793556786378}\n",
+  "stream_error": null,
   "task": "14-schema-repair-2turn",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 720,
   "tokens_in": 136923,
   "tokens_out": 1155,
+  "tokens_total": 138078,
   "tool_calls": 7,
-  "total_checks": 9,
+  "tool_names": [
+    "read_file",
+    "read_file",
+    "terminal",
+    "terminal",
+    "read_file",
+    "read_file",
+    "write_file"
+  ],
   "turns": 14,
-  "wall_seconds": 71.2
+  "wall_seconds": 71.2,
+  "workdir": "/root/hermes-bench/runs/agent-Ornith-1.5-9B-Q4_K_M-q8kv-3x-20261101/tasks/Ornith-1.5-9B-Q4-K-M-2f3149/14-schema-repair-2turn/r1/work",
+  "workspace_changed": true
 }

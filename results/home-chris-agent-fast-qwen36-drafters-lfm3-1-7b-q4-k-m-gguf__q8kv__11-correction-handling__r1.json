@@ -1,5 +1,10 @@
 {
+  "api_calls": 5,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 85806,
   "checks": [
     {
       "check": "LOG_LEVEL changed to debug",
@@ -33,6 +38,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "40",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -41,6 +72,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 23204,
+  "db_output_tokens": 926,
+  "db_tool_calls": 4,
   "decision": {
     "context": {
       "headroom_pct": 35.0,
@@ -95,24 +129,56 @@
     "wall_seconds": 38.4
   },
   "exit_code": 0,
+  "final_text": "Done. `pipeline.yaml` updated in place:\n\n```\nservice: billing\nreplicas: 2\nimage: billing:1.4.0\nenv:\n  LOG_LEVEL: debug\n  TIMEOUT: 60\n```\n\n- `replicas` left at 2 (per your correction).\n- `LOG_LEVEL` changed from `info` \u2192 `debug`.\n- `TIMEOUT` changed from `30` \u2192 `60`.\n- All other values and structure preserved.",
   "finished": "2026-11-01T15:08:45.881501+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "9e3decfa8402419b1b7ef173fa5f40c068b627792aef432c4988995a04baddda",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "4d74e47b7f6fe56d8dc7fe563a6080af2c0693d3d3f2123b2fe90806bb9bf672",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
-  "passed": 5,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": false,
+    "evaluated": 0,
+    "gates": [],
+    "passed": 0,
+    "stopped_at": null,
+    "total": 0
+  },
+  "quality_score": null,
+  "reasoning": null,
   "repeat": 1,
+  "run_budget_seconds": 1260,
   "run_id": "agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-699e349452abe8f728260b0f63eb18850cefb67c2e9ec7682fa440c005a9b127",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
   "started": "2026-11-01T15:08:07.470490+00:00",
+  "stderr": "Session: local-699e349452abe8f728260b0f63eb18850cefb67c2e9ec7682fa440c005a9b127\n\nsession_id: local-699e349452abe8f728260b0f63eb18850cefb67c2e9ec7682fa440c005a9b127\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793545690034}\n{\"type\": \"tool_use\", \"name\": \"search_files\", \"tool_call_id\": \"tPPmMa3bfHq4DKLUki5nikvvxt2vxFPJ\", \"input\": {\"pattern\": \"pipeline.yaml\", \"target\": \"files\"}, \"timestamp\": 1793545711653}\n{\"type\": \"tool_result\", \"name\": \"search_files\", \"tool_call_id\": \"tPPmMa3bfHq4DKLUki5nikvvxt2vxFPJ\", \"output\": \"{\\\"total_count\\\": 1, \\\"files\\\": [\\\"./pipeline.yaml\\\"]}\", \"duration_ms\": 436, \"is_error\": false, \"timestamp\": 1793545712089}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"9CXM19H4aCTaGWx8osZ2jUU5vzxKA7qy\", \"input\": {\"path\": \"./pipeline.yaml\"}, \"timestamp\": 1793545713092}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"9CXM19H4aCTaGWx8osZ2jUU5vzxKA7qy\", \"output\": \"{\\\"content\\\": \\\"1|service: billing\\\\n2|replicas: 2\\\\n3|image: billing:1.4.0\\\\n4|env:\\\\n5|  LOG_LEVEL: info\\\\n6|  TIMEOUT: 30\\\", \\\"total_lines\\\": 6, \\\"file_size\\\": 87, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 36, \"is_error\": false, \"timestamp\": 1793545713128}\n{\"type\": \"tool_use\", \"name\": \"write_file\", \"tool_call_id\": \"DouRhP4WBWA6IzDxyHqsa3VGzozKoZou\", \"input\": {\"content\": \"service: billing\\nreplicas: 2\\nimage: billing:1.4.0\\nenv:\\n  LOG_LEVEL: debug\\n  TIMEOUT: 60\\n\", \"path\": \"./pipeline.yaml\"}, \"timestamp\": 1793545718165}\n{\"type\": \"tool_result\", \"name\": \"write_file\", \"tool_call_id\": \"DouRhP4WBWA6IzDxyHqsa3VGzozKoZou\", \"output\": \"{\\\"bytes_written\\\": 88, \\\"dirs_created\\\": true, \\\"verified\\\": true, \\\"lint\\\": {\\\"status\\\": \\\"ok\\\", \\\"output\\\": \\\"\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/11-correction-handling/r1/work/pipeline.yaml\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/11-correction-handling/r1/work/pipeline.yaml\\\"]}\", \"duration_ms\": 109, \"is_error\": false, \"timestamp\": 1793545718274}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"C4akM82vI4R1IDGocnGxfaP9KXOlxsvm\", \"input\": {\"path\": \"./pipeline.yaml\"}, \"timestamp\": 1793545719249}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"C4akM82vI4R1IDGocnGxfaP9KXOlxsvm\", \"output\": \"{\\\"content\\\": \\\"1|service: billing\\\\n2|replicas: 2\\\\n3|image: billing:1.4.0\\\\n4|env:\\\\n5|  LOG_LEVEL: debug\\\\n6|  TIMEOUT: 60\\\", \\\"total_lines\\\": 6, \\\"file_size\\\": 88, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 29, \"is_error\": false, \"timestamp\": 1793545719279}\n{\"type\": \"text\", \"text\": \"\\n\\nDone\", \"timestamp\": 1793545720960}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793545720971}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793545720982}\n{\"type\": \"text\", \"text\": \"p\", \"timestamp\": 1793545720993}\n{\"type\": \"text\", \"text\": \"ipeline\", \"timestamp\": 1793545721005}\n{\"type\": \"text\", \"text\": \".yaml\", \"timestamp\": 1793545721017}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793545721027}\n{\"type\": \"text\", \"text\": \" updated\", \"timestamp\": 1793545721039}\n{\"type\": \"text\", \"text\": \" in\", \"timestamp\": 1793545721050}\n{\"type\": \"text\", \"text\": \" place\", \"timestamp\": 1793545721062}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793545721085}\n{\"type\": \"text\", \"text\": \"\\n\\n```\", \"timestamp\": 1793545721085}\n{\"type\": \"text\", \"text\": \"\\nservice\", \"timestamp\": 1793545721096}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793545721165}\n{\"type\": \"text\", \"text\": \" bill\", \"timestamp\": 1793545721165}\n{\"type\": \"text\", \"text\": \"ing\", \"timestamp\": 1793545721166}\n{\"type\": \"text\", \"text\": \"\\nre\", \"timestamp\": 1793545721166}\n{\"type\": \"text\", \"text\": \"plic\", \"timestamp\": 1793545721166}\n{\"type\": \"text\", \"text\": \"as\", \"timestamp\": 1793545721176}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793545721233}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793545721234}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793545721235}\n{\"type\": \"text\", \"text\": \"\\nimage\", \"timestamp\": 1793545721236}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793545721359}\n{\"type\": \"text\", \"text\": \" bill\", \"timestamp\": 1793545721360}\n{\"type\": \"text\", \"text\": \"ing\", \"timestamp\": 1793545721360}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793545721362}\n{\"type\": \"text\", \"text\": \"1\", \"timestamp\": 1793545721362}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793545721363}\n{\"type\": \"text\", \"text\": \"4\", \"timestamp\": 1793545721363}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793545721364}\n{\"type\": \"text\", \"text\": \"0\", \"timestamp\": 1793545721364}\n{\"type\": \"text\", \"text\": \"\\nenv\", \"timestamp\": 1793545721365}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793545721393}\n{\"type\": \"text\", \"text\": \"\\n \", \"timestamp\": 1793545721394}\n{\"type\": \"text\", \"text\": \" LOG\", \"timestamp\": 1793545721394}\n{\"type\": \"text\", \"text\": \"_LE\", \"timestamp\": 1793545721405}\n{\"type\": \"text\", \"text\": \"VEL\", \"timestamp\": 1793545721416}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793545721473}\n{\"type\": \"text\", \"text\": \" debug\", \"timestamp\": 1793545721474}\n{\"type\": \"text\", \"text\": \"\\n \", \"timestamp\": 1793545721474}\n{\"type\": \"text\", \"text\": \" TIME\", \"timestamp\": 1793545721475}\n{\"type\": \"text\", \"text\": \"OUT\", \"timestamp\": 1793545721484}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793545721541}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793545721542}\n{\"type\": \"text\", \"text\": \"60\", \"timestamp\": 1793545721542}\n{\"type\": \"text\", \"text\": \"\\n```\", \"timestamp\": 1793545721543}\n{\"type\": \"text\", \"text\": \"\\n\\n-\", \"timestamp\": 1793545721552}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793545721563}\n{\"type\": \"text\", \"text\": \"re\", \"timestamp\": 1793545721587}\n{\"type\": \"text\", \"text\": \"plic\", \"timestamp\": 1793545721587}\n{\"type\": \"text\", \"text\": \"as\", \"timestamp\": 1793545721598}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793545721609}\n{\"type\": \"text\", \"text\": \" left\", \"timestamp\": 1793545721621}\n{\"type\": \"text\", \"text\": \" at\", \"timestamp\": 1793545721632}\n{\"type\": \"text\", \"text\": \" \", \"timestamp\": 1793545721643}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793545721655}\n{\"type\": \"text\", \"text\": \" (\", \"timestamp\": 1793545721666}\n{\"type\": \"text\", \"text\": \"per\", \"timestamp\": 1793545721677}\n{\"type\": \"text\", \"text\": \" your\", \"timestamp\": 1793545721689}\n{\"type\": \"text\", \"text\": \" correction\", \"timestamp\": 1793545721700}\n{\"type\": \"text\", \"text\": \").\", \"timestamp\": 1793545721711}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793545721722}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793545721734}\n{\"type\": \"text\", \"text\": \"LOG\", \"timestamp\": 1793545721745}\n{\"type\": \"text\", \"text\": \"_LE\", \"timestamp\": 1793545721757}\n{\"type\": \"text\", \"text\": \"VEL\", \"timestamp\": 1793545721768}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793545721779}\n{\"type\": \"text\", \"text\": \" changed\", \"timestamp\": 1793545721791}\n{\"type\": \"text\", \"text\": \" from\", \"timestamp\": 1793545721802}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793545721813}\n{\"type\": \"text\", \"text\": \"info\", \"timestamp\": 1793545721825}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793545721836}\n{\"type\": \"text\", \"text\": \" \u2192\", \"timestamp\": 1793545721847}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793545721859}\n{\"type\": \"text\", \"text\": \"debug\", \"timestamp\": 1793545721871}\n{\"type\": \"text\", \"text\": \"`.\", \"timestamp\": 1793545721883}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793545721894}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793545721906}\n{\"type\": \"text\", \"text\": \"TIME\", \"timestamp\": 1793545721919}\n{\"type\": \"text\", \"text\": \"OUT\", \"timestamp\": 1793545721932}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793545721950}\n{\"type\": \"text\", \"text\": \" changed\", \"timestamp\": 1793545721955}\n{\"type\": \"text\", \"text\": \" from\", \"timestamp\": 1793545721965}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793545721977}\n{\"type\": \"text\", \"text\": \"30\", \"timestamp\": 1793545721989}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793545722000}\n{\"type\": \"text\", \"text\": \" \u2192\", \"timestamp\": 1793545722011}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793545722023}\n{\"type\": \"text\", \"text\": \"60\", \"timestamp\": 1793545722035}\n{\"type\": \"text\", \"text\": \"`.\", \"timestamp\": 1793545722046}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793545722058}\n{\"type\": \"text\", \"text\": \" All\", \"timestamp\": 1793545722069}\n{\"type\": \"text\", \"text\": \" other\", \"timestamp\": 1793545722081}\n{\"type\": \"text\", \"text\": \" values\", \"timestamp\": 1793545722092}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793545722104}\n{\"type\": \"text\", \"text\": \" structure\", \"timestamp\": 1793545722115}\n{\"type\": \"text\", \"text\": \" preserved\", \"timestamp\": 1793545722127}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793545722139}\n{\"type\": \"result\", \"session_id\": \"local-699e349452abe8f728260b0f63eb18850cefb67c2e9ec7682fa440c005a9b127\", \"exit_code\": 0, \"text\": \"Done. `pipeline.yaml` updated in place:\\n\\n```\\nservice: billing\\nreplicas: 2\\nimage: billing:1.4.0\\nenv:\\n  LOG_LEVEL: debug\\n  TIMEOUT: 60\\n```\\n\\n- `replicas` left at 2 (per your correction).\\n- `LOG_LEVEL` changed from `info` \u2192 `debug`.\\n- `TIMEOUT` changed from `30` \u2192 `60`.\\n- All other values and structure preserved.\", \"tokens\": {\"input\": 109010, \"output\": 926, \"total\": 109936, \"cache_read\": 85806, \"cache_write\": 0}, \"duration_ms\": 35635, \"timestamp\": 1793545725669}\n",
+  "stream_error": null,
   "task": "11-correction-handling",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 1380,
   "tokens_in": 109010,
   "tokens_out": 926,
+  "tokens_total": 109936,
   "tool_calls": 4,
-  "total_checks": 5,
+  "tool_names": [
+    "search_files",
+    "read_file",
+    "write_file",
+    "read_file"
+  ],
   "turns": 10,
-  "wall_seconds": 38.4
+  "wall_seconds": 38.4,
+  "workdir": "/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/11-correction-handling/r1/work",
+  "workspace_changed": true
 }

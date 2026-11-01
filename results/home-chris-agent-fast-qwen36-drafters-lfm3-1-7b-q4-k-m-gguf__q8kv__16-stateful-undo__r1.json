@@ -1,5 +1,10 @@
 {
+  "api_calls": 3,
   "artifact_score": 1.0,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 48074,
   "checks": [
     {
       "check": "notes.md exists",
@@ -22,6 +27,32 @@
       "pass": true
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "15",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -30,6 +61,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 27997,
+  "db_output_tokens": 6245,
+  "db_tool_calls": 2,
   "decision": {
     "context": {
       "headroom_pct": 57.8,
@@ -84,24 +118,54 @@
     "wall_seconds": 110.0
   },
   "exit_code": 0,
+  "final_text": "Created/updated `notes.md` in the current directory with its final content:\n\n```\n# Notes\n- alpha\n- charlie\n```\n\n(Three lines, trailing newline at end.)",
   "finished": "2026-11-01T15:33:00.767302+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "9e3decfa8402419b1b7ef173fa5f40c068b627792aef432c4988995a04baddda",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "4d74e47b7f6fe56d8dc7fe563a6080af2c0693d3d3f2123b2fe90806bb9bf672",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
-  "passed": 4,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": false,
+    "evaluated": 0,
+    "gates": [],
+    "passed": 0,
+    "stopped_at": null,
+    "total": 0
+  },
+  "quality_score": null,
+  "reasoning": null,
   "repeat": 1,
+  "run_budget_seconds": 540,
   "run_id": "agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101",
   "score": 1.0,
   "score_source": "artifact",
+  "session_id": "local-eec75a51c4ba917d15d364c71f50921d4e12a052c4579b9ff15a85290396f054",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
   "started": "2026-11-01T15:31:10.768848+00:00",
+  "stderr": "Session: local-eec75a51c4ba917d15d364c71f50921d4e12a052c4579b9ff15a85290396f054\n\nsession_id: local-eec75a51c4ba917d15d364c71f50921d4e12a052c4579b9ff15a85290396f054\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793547074677}\n{\"type\": \"tool_use\", \"name\": \"write_file\", \"tool_call_id\": \"Ag7bX90WJHdIzKPtF5gpAaO4CSydxuMT\", \"input\": {\"content\": \"# Notes\\n- alpha\\n- charlie\\n\", \"path\": \"notes.md\"}, \"timestamp\": 1793547167092}\n{\"type\": \"tool_result\", \"name\": \"write_file\", \"tool_call_id\": \"Ag7bX90WJHdIzKPtF5gpAaO4CSydxuMT\", \"output\": \"{\\\"bytes_written\\\": 26, \\\"dirs_created\\\": true, \\\"verified\\\": true, \\\"lint\\\": {\\\"status\\\": \\\"skipped\\\", \\\"message\\\": \\\"No linter for .md files\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/16-stateful-undo/r1/work/notes.md\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/16-stateful-undo/r1/work/notes.md\\\"]}\", \"duration_ms\": 185, \"is_error\": false, \"timestamp\": 1793547167278}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"zC07ghWcv7fwMVAjhjUKyuIAgDgGoY1Q\", \"input\": {\"path\": \"notes.md\"}, \"timestamp\": 1793547173362}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"zC07ghWcv7fwMVAjhjUKyuIAgDgGoY1Q\", \"output\": \"{\\\"content\\\": \\\"1|# Notes\\\\n2|- alpha\\\\n3|- charlie\\\", \\\"total_lines\\\": 3, \\\"file_size\\\": 26, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 21, \"is_error\": false, \"timestamp\": 1793547173384}\n{\"type\": \"text\", \"text\": \"\\n\\nCreated\", \"timestamp\": 1793547177727}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793547177738}\n{\"type\": \"text\", \"text\": \"updated\", \"timestamp\": 1793547177751}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793547177763}\n{\"type\": \"text\", \"text\": \"notes\", \"timestamp\": 1793547177775}\n{\"type\": \"text\", \"text\": \".md\", \"timestamp\": 1793547177789}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793547177800}\n{\"type\": \"text\", \"text\": \" in\", \"timestamp\": 1793547177812}\n{\"type\": \"text\", \"text\": \" the\", \"timestamp\": 1793547177824}\n{\"type\": \"text\", \"text\": \" current\", \"timestamp\": 1793547177836}\n{\"type\": \"text\", \"text\": \" directory\", \"timestamp\": 1793547177849}\n{\"type\": \"text\", \"text\": \" with\", \"timestamp\": 1793547177861}\n{\"type\": \"text\", \"text\": \" its\", \"timestamp\": 1793547177872}\n{\"type\": \"text\", \"text\": \" final\", \"timestamp\": 1793547177885}\n{\"type\": \"text\", \"text\": \" content\", \"timestamp\": 1793547177897}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793547177921}\n{\"type\": \"text\", \"text\": \"\\n\\n```\", \"timestamp\": 1793547177921}\n{\"type\": \"text\", \"text\": \"\\n#\", \"timestamp\": 1793547177934}\n{\"type\": \"text\", \"text\": \" Notes\", \"timestamp\": 1793547177946}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793547177970}\n{\"type\": \"text\", \"text\": \" alpha\", \"timestamp\": 1793547177983}\n{\"type\": \"text\", \"text\": \"\\n-\", \"timestamp\": 1793547178007}\n{\"type\": \"text\", \"text\": \" char\", \"timestamp\": 1793547178019}\n{\"type\": \"text\", \"text\": \"lie\", \"timestamp\": 1793547178031}\n{\"type\": \"text\", \"text\": \"\\n```\", \"timestamp\": 1793547178056}\n{\"type\": \"text\", \"text\": \"\\n\\n(\", \"timestamp\": 1793547178068}\n{\"type\": \"text\", \"text\": \"Three\", \"timestamp\": 1793547178080}\n{\"type\": \"text\", \"text\": \" lines\", \"timestamp\": 1793547178092}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793547178104}\n{\"type\": \"text\", \"text\": \" trailing\", \"timestamp\": 1793547178117}\n{\"type\": \"text\", \"text\": \" newline\", \"timestamp\": 1793547178129}\n{\"type\": \"text\", \"text\": \" at\", \"timestamp\": 1793547178141}\n{\"type\": \"text\", \"text\": \" end\", \"timestamp\": 1793547178153}\n{\"type\": \"text\", \"text\": \".)\", \"timestamp\": 1793547178166}\n{\"type\": \"result\", \"session_id\": \"local-eec75a51c4ba917d15d364c71f50921d4e12a052c4579b9ff15a85290396f054\", \"exit_code\": 0, \"text\": \"Created/updated `notes.md` in the current directory with its final content:\\n\\n```\\n# Notes\\n- alpha\\n- charlie\\n```\\n\\n(Three lines, trailing newline at end.)\", \"tokens\": {\"input\": 76071, \"output\": 6245, \"total\": 82316, \"cache_read\": 48074, \"cache_write\": 0}, \"duration_ms\": 105710, \"timestamp\": 1793547180388}\n",
+  "stream_error": null,
   "task": "16-stateful-undo",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 660,
   "tokens_in": 76071,
   "tokens_out": 6245,
+  "tokens_total": 82316,
   "tool_calls": 2,
-  "total_checks": 4,
+  "tool_names": [
+    "write_file",
+    "read_file"
+  ],
   "turns": 6,
-  "wall_seconds": 110.0
+  "wall_seconds": 110.0,
+  "workdir": "/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/16-stateful-undo/r1/work",
+  "workspace_changed": true
 }

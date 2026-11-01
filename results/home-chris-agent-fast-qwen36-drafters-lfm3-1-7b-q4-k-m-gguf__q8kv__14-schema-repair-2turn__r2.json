@@ -1,5 +1,10 @@
 {
+  "api_calls": 4,
   "artifact_score": 0.6667,
+  "billing_base_url": "http://192.168.1.15:8096/v1",
+  "billing_provider": "custom",
+  "budget_mode": "runner_timeout",
+  "cache_read": 65368,
   "checks": [
     {
       "check": "corrected_call.json exists",
@@ -47,6 +52,32 @@
       "pass": false
     }
   ],
+  "cli_flags": [
+    "/root/.local/bin/hermes",
+    "chat",
+    "-m",
+    "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
+    "--provider",
+    "custom",
+    "--base-url",
+    "http://192.168.1.15:8096/v1",
+    "--api-key",
+    "<redacted>",
+    "--yolo",
+    "--quiet",
+    "--format",
+    "stream-json",
+    "--oneshot",
+    "--source",
+    "tool",
+    "--ignore-rules",
+    "--ignore-user-config",
+    "--max-turns",
+    "15",
+    "--pass-session-id",
+    "-q",
+    "<task prompt>"
+  ],
   "config": {
     "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
     "ctx": 65536,
@@ -55,6 +86,9 @@
     "thinking": "unknown",
     "variant": "q8kv"
   },
+  "db_input_tokens": 23867,
+  "db_output_tokens": 1222,
+  "db_tool_calls": 4,
   "decision": {
     "context": {
       "headroom_pct": 64.4,
@@ -109,24 +143,56 @@
     "wall_seconds": 46.4
   },
   "exit_code": 0,
+  "final_text": "Written to `/root/hermes-bench/.../14-schema-repair-2turn/r2/work/corrected_call.json`:\n\n```json\n{\n  \"tool\": \"search_files\",\n  \"args\": {\n    \"pattern\": \"def calculate_total\",\n    \"path\": \"/srv/payments/charge.py\"\n  }\n}\n```\n\nThis matches `search_files`'s args schema exactly: required properties `pattern` and `path`, no extra fields, single tool-call object.",
   "finished": "2026-11-01T15:26:49.989493+00:00",
   "harness_failed": false,
   "instrument_fingerprint": "9e3decfa8402419b1b7ef173fa5f40c068b627792aef432c4988995a04baddda",
+  "isolation": "full (--ignore-rules, --ignore-user-config) + provider block loaded explicitly + --yolo (inline scripts allowed; hardline floors still apply)",
   "manifest_sha256": "4d74e47b7f6fe56d8dc7fe563a6080af2c0693d3d3f2123b2fe90806bb9bf672",
   "model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
-  "passed": 6,
+  "parse_errors": 0,
+  "provider_config": {
+    "base_url": "http://192.168.1.15:8096/v1",
+    "label": "inline",
+    "source": "command line"
+  },
+  "quality_gates": {
+    "all_pass": false,
+    "evaluated": 0,
+    "gates": [],
+    "passed": 0,
+    "stopped_at": null,
+    "total": 0
+  },
+  "quality_score": null,
+  "reasoning": null,
   "repeat": 2,
+  "run_budget_seconds": 600,
   "run_id": "agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101",
   "score": 0.6667,
   "score_source": "artifact",
+  "session_id": "local-0723649e174c5544e108d55557a6acb5d7c672bc4d37aa9d7ed4bc9f9b9a947e",
+  "session_model": "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
   "started": "2026-11-01T15:26:03.540641+00:00",
+  "stderr": "Session: local-0723649e174c5544e108d55557a6acb5d7c672bc4d37aa9d7ed4bc9f9b9a947e\n\nsession_id: local-0723649e174c5544e108d55557a6acb5d7c672bc4d37aa9d7ed4bc9f9b9a947e\n",
+  "stdout_raw": "{\"type\": \"system\", \"subtype\": \"init\", \"model\": \"/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf\", \"session_id\": \"\", \"timestamp\": 1793546766557}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"w9OrYndAEIb6IH9Hlocw2CbIIzcXrmLd\", \"input\": {\"path\": \"turn1_rejected.json\"}, \"timestamp\": 1793546792021}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"Gb0LvU49I9vQxWaXjlejdma1oldyx3FD\", \"input\": {\"path\": \"tool_schema.json\"}, \"timestamp\": 1793546792023}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"w9OrYndAEIb6IH9Hlocw2CbIIzcXrmLd\", \"output\": \"{\\\"content\\\": \\\"1|{\\\\n2|  \\\\\\\"turn\\\\\\\": 1,\\\\n3|  \\\\\\\"user_request\\\\\\\": \\\\\\\"Search for the definition of `calculate_total` in /srv/payments/charge.py\\\\\\\",\\\\n4|  \\\\\\\"tool_call_sent\\\\\\\": {\\\\n5|    \\\\\\\"tool\\\\\\\": \\\\\\\"search_files\\\\\\\",\\\\n6|    \\\\\\\"args\\\\\\\": {\\\\n7|      \\\\\\\"pattern\\\\\\\": \\\\\\\"def calculate_total\\\\\\\"\\\\n8|    }\\\\n9|  },\\\\n10|  \\\\\\\"note\\\\\\\": \\\\\\\"The call above was cut off: the args object never closed, and the required `path` property is missing.\\\\\\\",\\\\n11|  \\\\\\\"harness_error\\\\\\\": \\\\\\\"SCHEMA ERROR: tool_call.args is not valid against args_schema: missing required property 'path'; input appears truncated after 'pattern'. Re-emit a single valid tool call with the same operation and path.\\\\\\\"\\\\n12|}\\\", \\\"total_lines\\\": 12, \\\"file_size\\\": 568, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 124, \"is_error\": false, \"timestamp\": 1793546792146}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"Gb0LvU49I9vQxWaXjlejdma1oldyx3FD\", \"output\": \"{\\\"content\\\": \\\"1|{\\\\n2|  \\\\\\\"tool\\\\\\\": \\\\\\\"search_files\\\\\\\",\\\\n3|  \\\\\\\"description\\\\\\\": \\\\\\\"Search a single file for a literal substring and return the matching line numbers.\\\\\\\",\\\\n4|  \\\\\\\"args_schema\\\\\\\": {\\\\n5|    \\\\\\\"type\\\\\\\": \\\\\\\"object\\\\\\\",\\\\n6|    \\\\\\\"required\\\\\\\": [\\\\\\\"pattern\\\\\\\", \\\\\\\"path\\\\\\\"],\\\\n7|    \\\\\\\"additionalProperties\\\\\\\": false,\\\\n8|    \\\\\\\"properties\\\\\\\": {\\\\n9|      \\\\\\\"pattern\\\\\\\": {\\\\\\\"type\\\\\\\": \\\\\\\"string\\\\\\\", \\\\\\\"description\\\\\\\": \\\\\\\"literal substring to search for\\\\\\\"},\\\\n10|      \\\\\\\"path\\\\\\\": {\\\\\\\"type\\\\\\\": \\\\\\\"string\\\\\\\", \\\\\\\"description\\\\\\\": \\\\\\\"absolute path of the file to search\\\\\\\"}\\\\n11|    }\\\\n12|  }\\\\n13|}\\\", \\\"total_lines\\\": 13, \\\"file_size\\\": 450, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 138, \"is_error\": false, \"timestamp\": 1793546792161}\n{\"type\": \"tool_use\", \"name\": \"write_file\", \"tool_call_id\": \"LXMLGhaN15ITjaoxAxSuAFKXpgXLtg58\", \"input\": {\"content\": \"{\\n  \\\"tool\\\": \\\"search_files\\\",\\n  \\\"args\\\": {\\n    \\\"pattern\\\": \\\"def calculate_total\\\",\\n    \\\"path\\\": \\\"/srv/payments/charge.py\\\"\\n  }\\n}\\n\", \"path\": \"corrected_call.json\"}, \"timestamp\": 1793546802238}\n{\"type\": \"tool_result\", \"name\": \"write_file\", \"tool_call_id\": \"LXMLGhaN15ITjaoxAxSuAFKXpgXLtg58\", \"output\": \"{\\\"bytes_written\\\": 122, \\\"dirs_created\\\": true, \\\"verified\\\": true, \\\"lint\\\": {\\\"status\\\": \\\"ok\\\", \\\"output\\\": \\\"\\\"}, \\\"resolved_path\\\": \\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/14-schema-repair-2turn/r2/work/corrected_call.json\\\", \\\"files_modified\\\": [\\\"/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/14-schema-repair-2turn/r2/work/corrected_call.json\\\"]}\", \"duration_ms\": 34, \"is_error\": false, \"timestamp\": 1793546802273}\n{\"type\": \"tool_use\", \"name\": \"read_file\", \"tool_call_id\": \"YIzo3W0gmW6pjLUIxKalf9FmgSlU2bvs\", \"input\": {\"path\": \"corrected_call.json\"}, \"timestamp\": 1793546804064}\n{\"type\": \"tool_result\", \"name\": \"read_file\", \"tool_call_id\": \"YIzo3W0gmW6pjLUIxKalf9FmgSlU2bvs\", \"output\": \"{\\\"content\\\": \\\"1|{\\\\n2|  \\\\\\\"tool\\\\\\\": \\\\\\\"search_files\\\\\\\",\\\\n3|  \\\\\\\"args\\\\\\\": {\\\\n4|    \\\\\\\"pattern\\\\\\\": \\\\\\\"def calculate_total\\\\\\\",\\\\n5|    \\\\\\\"path\\\\\\\": \\\\\\\"/srv/payments/charge.py\\\\\\\"\\\\n6|  }\\\\n7|}\\\", \\\"total_lines\\\": 7, \\\"file_size\\\": 122, \\\"truncated\\\": false, \\\"is_binary\\\": false, \\\"is_image\\\": false, \\\"not_found\\\": false}\", \"duration_ms\": 23, \"is_error\": false, \"timestamp\": 1793546804088}\n{\"type\": \"text\", \"text\": \"\\n\\nWritten\", \"timestamp\": 1793546805867}\n{\"type\": \"text\", \"text\": \" to\", \"timestamp\": 1793546805878}\n{\"type\": \"text\", \"text\": \" `/\", \"timestamp\": 1793546805880}\n{\"type\": \"text\", \"text\": \"root\", \"timestamp\": 1793546805884}\n{\"type\": \"text\", \"text\": \"/h\", \"timestamp\": 1793546805890}\n{\"type\": \"text\", \"text\": \"erm\", \"timestamp\": 1793546805907}\n{\"type\": \"text\", \"text\": \"es\", \"timestamp\": 1793546805914}\n{\"type\": \"text\", \"text\": \"-ben\", \"timestamp\": 1793546805930}\n{\"type\": \"text\", \"text\": \"ch\", \"timestamp\": 1793546805940}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793546805948}\n{\"type\": \"text\", \"text\": \"...\", \"timestamp\": 1793546805960}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793546805971}\n{\"type\": \"text\", \"text\": \"14\", \"timestamp\": 1793546805983}\n{\"type\": \"text\", \"text\": \"-schema\", \"timestamp\": 1793546805995}\n{\"type\": \"text\", \"text\": \"-re\", \"timestamp\": 1793546806007}\n{\"type\": \"text\", \"text\": \"pair\", \"timestamp\": 1793546806018}\n{\"type\": \"text\", \"text\": \"-\", \"timestamp\": 1793546806030}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793546806042}\n{\"type\": \"text\", \"text\": \"turn\", \"timestamp\": 1793546806053}\n{\"type\": \"text\", \"text\": \"/r\", \"timestamp\": 1793546806066}\n{\"type\": \"text\", \"text\": \"2\", \"timestamp\": 1793546806077}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793546806088}\n{\"type\": \"text\", \"text\": \"work\", \"timestamp\": 1793546806100}\n{\"type\": \"text\", \"text\": \"/c\", \"timestamp\": 1793546806113}\n{\"type\": \"text\", \"text\": \"orrect\", \"timestamp\": 1793546806123}\n{\"type\": \"text\", \"text\": \"ed\", \"timestamp\": 1793546806136}\n{\"type\": \"text\", \"text\": \"_call\", \"timestamp\": 1793546806146}\n{\"type\": \"text\", \"text\": \".json\", \"timestamp\": 1793546806158}\n{\"type\": \"text\", \"text\": \"`:\", \"timestamp\": 1793546806169}\n{\"type\": \"text\", \"text\": \"\\n\\n```\", \"timestamp\": 1793546806190}\n{\"type\": \"text\", \"text\": \"json\", \"timestamp\": 1793546806193}\n{\"type\": \"text\", \"text\": \"\\n{\", \"timestamp\": 1793546806224}\n{\"type\": \"text\", \"text\": \"\\n \", \"timestamp\": 1793546806229}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793546806248}\n{\"type\": \"text\", \"text\": \"tool\", \"timestamp\": 1793546806254}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793546806266}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793546806281}\n{\"type\": \"text\", \"text\": \"search\", \"timestamp\": 1793546806295}\n{\"type\": \"text\", \"text\": \"_files\", \"timestamp\": 1793546806298}\n{\"type\": \"text\", \"text\": \"\\\",\", \"timestamp\": 1793546806310}\n{\"type\": \"text\", \"text\": \"\\n \", \"timestamp\": 1793546806323}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793546806337}\n{\"type\": \"text\", \"text\": \"args\", \"timestamp\": 1793546806349}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793546806358}\n{\"type\": \"text\", \"text\": \" {\", \"timestamp\": 1793546806369}\n{\"type\": \"text\", \"text\": \"\\n   \", \"timestamp\": 1793546806409}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793546806411}\n{\"type\": \"text\", \"text\": \"pattern\", \"timestamp\": 1793546806411}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793546806414}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793546806430}\n{\"type\": \"text\", \"text\": \"def\", \"timestamp\": 1793546806445}\n{\"type\": \"text\", \"text\": \" calculate\", \"timestamp\": 1793546806453}\n{\"type\": \"text\", \"text\": \"_total\", \"timestamp\": 1793546806462}\n{\"type\": \"text\", \"text\": \"\\\",\", \"timestamp\": 1793546806476}\n{\"type\": \"text\", \"text\": \"\\n   \", \"timestamp\": 1793546806490}\n{\"type\": \"text\", \"text\": \" \\\"\", \"timestamp\": 1793546806505}\n{\"type\": \"text\", \"text\": \"path\", \"timestamp\": 1793546806510}\n{\"type\": \"text\", \"text\": \"\\\":\", \"timestamp\": 1793546806523}\n{\"type\": \"text\", \"text\": \" \\\"/\", \"timestamp\": 1793546806530}\n{\"type\": \"text\", \"text\": \"s\", \"timestamp\": 1793546806544}\n{\"type\": \"text\", \"text\": \"rv\", \"timestamp\": 1793546806556}\n{\"type\": \"text\", \"text\": \"/p\", \"timestamp\": 1793546806570}\n{\"type\": \"text\", \"text\": \"ay\", \"timestamp\": 1793546806579}\n{\"type\": \"text\", \"text\": \"ments\", \"timestamp\": 1793546806591}\n{\"type\": \"text\", \"text\": \"/\", \"timestamp\": 1793546806602}\n{\"type\": \"text\", \"text\": \"charge\", \"timestamp\": 1793546806617}\n{\"type\": \"text\", \"text\": \".py\", \"timestamp\": 1793546806626}\n{\"type\": \"text\", \"text\": \"\\\"\", \"timestamp\": 1793546806637}\n{\"type\": \"text\", \"text\": \"\\n \", \"timestamp\": 1793546806649}\n{\"type\": \"text\", \"text\": \" }\", \"timestamp\": 1793546806660}\n{\"type\": \"text\", \"text\": \"\\n}\", \"timestamp\": 1793546806672}\n{\"type\": \"text\", \"text\": \"\\n```\", \"timestamp\": 1793546806684}\n{\"type\": \"text\", \"text\": \"\\n\\nThis\", \"timestamp\": 1793546806696}\n{\"type\": \"text\", \"text\": \" matches\", \"timestamp\": 1793546806708}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793546806718}\n{\"type\": \"text\", \"text\": \"search\", \"timestamp\": 1793546806731}\n{\"type\": \"text\", \"text\": \"_files\", \"timestamp\": 1793546806741}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793546806752}\n{\"type\": \"text\", \"text\": \"'\", \"timestamp\": 1793546806764}\n{\"type\": \"text\", \"text\": \"s\", \"timestamp\": 1793546806776}\n{\"type\": \"text\", \"text\": \" args\", \"timestamp\": 1793546806787}\n{\"type\": \"text\", \"text\": \" schema\", \"timestamp\": 1793546806800}\n{\"type\": \"text\", \"text\": \" exactly\", \"timestamp\": 1793546806812}\n{\"type\": \"text\", \"text\": \":\", \"timestamp\": 1793546807051}\n{\"type\": \"text\", \"text\": \" required\", \"timestamp\": 1793546807052}\n{\"type\": \"text\", \"text\": \" properties\", \"timestamp\": 1793546807056}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793546807057}\n{\"type\": \"text\", \"text\": \"pattern\", \"timestamp\": 1793546807064}\n{\"type\": \"text\", \"text\": \"`\", \"timestamp\": 1793546807082}\n{\"type\": \"text\", \"text\": \" and\", \"timestamp\": 1793546807083}\n{\"type\": \"text\", \"text\": \" `\", \"timestamp\": 1793546807083}\n{\"type\": \"text\", \"text\": \"path\", \"timestamp\": 1793546807085}\n{\"type\": \"text\", \"text\": \"`,\", \"timestamp\": 1793546807086}\n{\"type\": \"text\", \"text\": \" no\", \"timestamp\": 1793546807107}\n{\"type\": \"text\", \"text\": \" extra\", \"timestamp\": 1793546807109}\n{\"type\": \"text\", \"text\": \" fields\", \"timestamp\": 1793546807110}\n{\"type\": \"text\", \"text\": \",\", \"timestamp\": 1793546807112}\n{\"type\": \"text\", \"text\": \" single\", \"timestamp\": 1793546807118}\n{\"type\": \"text\", \"text\": \" tool\", \"timestamp\": 1793546807119}\n{\"type\": \"text\", \"text\": \"-call\", \"timestamp\": 1793546807122}\n{\"type\": \"text\", \"text\": \" object\", \"timestamp\": 1793546807124}\n{\"type\": \"text\", \"text\": \".\", \"timestamp\": 1793546807127}\n{\"type\": \"result\", \"session_id\": \"local-0723649e174c5544e108d55557a6acb5d7c672bc4d37aa9d7ed4bc9f9b9a947e\", \"exit_code\": 0, \"text\": \"Written to `/root/hermes-bench/.../14-schema-repair-2turn/r2/work/corrected_call.json`:\\n\\n```json\\n{\\n  \\\"tool\\\": \\\"search_files\\\",\\n  \\\"args\\\": {\\n    \\\"pattern\\\": \\\"def calculate_total\\\",\\n    \\\"path\\\": \\\"/srv/payments/charge.py\\\"\\n  }\\n}\\n```\\n\\nThis matches `search_files`'s args schema exactly: required properties `pattern` and `path`, no extra fields, single tool-call object.\", \"tokens\": {\"input\": 89235, \"output\": 1222, \"total\": 90457, \"cache_read\": 65368, \"cache_write\": 0}, \"duration_ms\": 43180, \"timestamp\": 1793546809737}\n",
+  "stream_error": null,
   "task": "14-schema-repair-2turn",
   "task_bundle_sha256": "d41a23888d49aaa7accea59a73573655e2b413bedbead809df6e5bf56922c368",
   "task_bundle_tasks": 18,
+  "timeout_seconds": 720,
   "tokens_in": 89235,
   "tokens_out": 1222,
+  "tokens_total": 90457,
   "tool_calls": 4,
-  "total_checks": 9,
+  "tool_names": [
+    "read_file",
+    "read_file",
+    "write_file",
+    "read_file"
+  ],
   "turns": 9,
-  "wall_seconds": 46.4
+  "wall_seconds": 46.4,
+  "workdir": "/root/hermes-bench/runs/agent-LFM3-1.7B-Q4_K_M-q8kv-3x-20261101/tasks/LFM3-1.7B-Q4-K-M-a9e3dc/14-schema-repair-2turn/r2/work",
+  "workspace_changed": true
 }
