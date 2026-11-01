@@ -1,52 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="616" viewBox="0 0 760 616" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="582" viewBox="0 0 760 582" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
 <rect width="100%" height="100%" fill="#0d1117"/>
 <text x="28" y="36" fill="#e6edf3" font-size="17" font-weight="600">Turns per task</text>
 <text x="28" y="58" fill="#7d8590" font-size="12">Mean tool-calling turns. The Hermes harness averages 22.6 turns on Harness-Bench, so fewer turns per task is</text>
 <text x="28" y="74" fill="#7d8590" font-size="12">less context pressure.</text>
-<line x1="327.5" y1="88" x2="327.5" y2="566" stroke="#21262d" stroke-width="1"/>
-<line x1="445.0" y1="88" x2="445.0" y2="566" stroke="#21262d" stroke-width="1"/>
-<line x1="562.5" y1="88" x2="562.5" y2="566" stroke="#21262d" stroke-width="1"/>
-<line x1="680.0" y1="88" x2="680.0" y2="566" stroke="#21262d" stroke-width="1"/>
-<text x="196" y="111" fill="#c9d1d9" font-size="13" text-anchor="end">GLM-5.3 Flash</text>
+<line x1="327.5" y1="88" x2="327.5" y2="532" stroke="#21262d" stroke-width="1"/>
+<line x1="445.0" y1="88" x2="445.0" y2="532" stroke="#21262d" stroke-width="1"/>
+<line x1="562.5" y1="88" x2="562.5" y2="532" stroke="#21262d" stroke-width="1"/>
+<line x1="680.0" y1="88" x2="680.0" y2="532" stroke="#21262d" stroke-width="1"/>
+<text x="196" y="111" fill="#c9d1d9" font-size="13" text-anchor="end">GLM-5.3 Flash (configuration unrecorded)</text>
 <rect x="210" y="98" width="176.5" height="20" rx="4" fill="#7aa2f7" opacity="0.85"/>
 <text x="396.5" y="112" fill="#e6edf3" font-size="12.5" font-weight="600">10.6</text>
-<text x="196" y="145" fill="#c9d1d9" font-size="13" text-anchor="end">DeepSeek V4.1 Flash</text>
+<text x="196" y="145" fill="#c9d1d9" font-size="13" text-anchor="end">DeepSeek V4.1 Flash (configuration unrecorded)</text>
 <rect x="210" y="132" width="196.8" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
 <text x="416.8" y="146" fill="#e6edf3" font-size="12.5" font-weight="600">11.9</text>
-<text x="196" y="179" fill="#c9d1d9" font-size="13" text-anchor="end">Groot 19B (local)</text>
+<text x="196" y="179" fill="#c9d1d9" font-size="13" text-anchor="end">Groot 19B (local, configuration unrecorded)</text>
 <rect x="210" y="166" width="197.7" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
 <text x="417.7" y="180" fill="#e6edf3" font-size="12.5" font-weight="600">11.9</text>
-<text x="196" y="213" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 122B (free)</text>
+<text x="196" y="213" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 122B (free, configuration unrecorded)</text>
 <rect x="210" y="200" width="200.0" height="20" rx="4" fill="#7dcfff" opacity="0.85"/>
 <text x="420.0" y="214" fill="#e6edf3" font-size="12.5" font-weight="600">12.1</text>
-<text x="196" y="247" fill="#c9d1d9" font-size="13" text-anchor="end">Qwen3.6 35B (local)</text>
+<text x="196" y="247" fill="#c9d1d9" font-size="13" text-anchor="end">Qwen3.6 35B (local, configuration unrecorded)</text>
 <rect x="210" y="234" width="202.7" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
 <text x="422.7" y="248" fill="#e6edf3" font-size="12.5" font-weight="600">12.2</text>
-<text x="196" y="281" fill="#c9d1d9" font-size="13" text-anchor="end">Gemma 4 (cloud)</text>
+<text x="196" y="281" fill="#c9d1d9" font-size="13" text-anchor="end">Gemma 4 (cloud, configuration unrecorded)</text>
 <rect x="210" y="268" width="206.0" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
 <text x="426.0" y="282" fill="#e6edf3" font-size="12.5" font-weight="600">12.4</text>
-<text x="196" y="315" fill="#c9d1d9" font-size="13" text-anchor="end">Beam</text>
+<text x="196" y="315" fill="#c9d1d9" font-size="13" text-anchor="end">Beam (configuration unrecorded)</text>
 <rect x="210" y="302" width="223.5" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
 <text x="443.5" y="316" fill="#e6edf3" font-size="12.5" font-weight="600">13.5</text>
-<text x="196" y="349" fill="#c9d1d9" font-size="13" text-anchor="end">Bonsai 2 9B (ternary Q2_0)</text>
+<text x="196" y="349" fill="#c9d1d9" font-size="13" text-anchor="end">Bonsai 2 9B (ternary Q2_0, configuration unrecorded)</text>
 <rect x="210" y="336" width="235.0" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
 <text x="455.0" y="350" fill="#e6edf3" font-size="12.5" font-weight="600">14.2</text>
-<text x="196" y="383" fill="#c9d1d9" font-size="13" text-anchor="end">MiniMax M3.1 Flash</text>
+<text x="196" y="383" fill="#c9d1d9" font-size="13" text-anchor="end">MiniMax M3.1 Flash (configuration unrecorded)</text>
 <rect x="210" y="370" width="273.7" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
 <text x="493.7" y="384" fill="#e6edf3" font-size="12.5" font-weight="600">16.5</text>
-<text x="196" y="417" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free)</text>
+<text x="196" y="417" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free, configuration unrecorded)</text>
 <rect x="210" y="404" width="322.1" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
 <text x="542.1" y="418" fill="#e6edf3" font-size="12.5" font-weight="600">19.4</text>
-<text x="196" y="451" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 9B (llama.cpp)</text>
+<text x="196" y="451" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 9B (llama.cpp, configuration unrecorded)</text>
 <rect x="210" y="438" width="340.7" height="20" rx="4" fill="#c0caf5" opacity="0.85"/>
 <text x="560.7" y="452" fill="#e6edf3" font-size="12.5" font-weight="600">20.5</text>
-<text x="196" y="485" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp)</text>
+<text x="196" y="485" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp, configuration unrecorded)</text>
 <rect x="210" y="472" width="381.5" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
 <text x="601.5" y="486" fill="#e6edf3" font-size="12.5" font-weight="600">23.0</text>
-<text x="196" y="519" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (local, reason on)</text>
-<rect x="210" y="506" width="404.6" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
-<text x="624.6" y="520" fill="#e6edf3" font-size="12.5" font-weight="600">24.4</text>
-<text x="196" y="553" fill="#c9d1d9" font-size="13" text-anchor="end">Nemotron 3.5 Lightning 30B (local)</text>
-<rect x="210" y="540" width="470.0" height="20" rx="4" fill="#ff9e64" opacity="0.85"/>
-<text x="690.0" y="554" fill="#e6edf3" font-size="12.5" font-weight="600">28.3</text>
+<text x="196" y="519" fill="#c9d1d9" font-size="13" text-anchor="end">Nemotron 3.5 Lightning 30B (local, configuration unrecorded)</text>
+<rect x="210" y="506" width="470.0" height="20" rx="4" fill="#ff9e64" opacity="0.85"/>
+<text x="690.0" y="520" fill="#e6edf3" font-size="12.5" font-weight="600">28.3</text>
 </svg>

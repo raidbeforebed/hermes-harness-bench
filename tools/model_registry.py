@@ -14,9 +14,27 @@ Rules for adding a model:
    so an unregistered model still renders under its own name in grey instead of
    vanishing. `tests/test_publish.py` fails until the entry exists, which is the
    prompt to give it a proper name rather than the raw provider id.
+
+A label now carries the run's configuration as well as its name. `label(model)` alone
+means "no configuration stated" and reads `(configuration unrecorded)`; pass the
+record's config block and the same base label qualifies itself:
+
+    LFM3 1.7B (llama.cpp)                       the registry entry
+    LFM3 1.7B (llama.cpp, not thinking)        run under nothink-q8kv
+    LFM3 1.7B (llama.cpp, q8kv, thinking unstated)
+    LFM3 1.7B (llama.cpp, configuration unrecorded)   a row from before 2026-11-01
+
+The wording and the token both come from tools/result_key.py, which is the one rule the
+publisher, the exporter and every surface share.
 """
 
 from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import result_key  # noqa: E402
 
 # model id -> human label. The id is exactly what hbench recorded.
 LABEL = {
@@ -86,7 +104,8 @@ ORDER = [
 
 # Pareto label placement: (dx, dy, text-anchor) per model id. Hand-tuned because the
 # perfect-scoring models sit within a few thousand tokens of each other on the x axis
-# and three of them share y = 100%.
+# and three of them share y = 100%. Keyed by model, so two configurations of one model
+# share a placement; the collision pass in make_charts.py separates them afterwards.
 PARETO_OFFSET = {
     "deepseek-v4.1-flash:1017": (0, -20, "end"),
     "glm-5.3-flash:cloud": (-14, 26, "end"),
@@ -98,18 +117,40 @@ PARETO_OFFSET = {
 }
 
 
-def label(model: str) -> str:
-    """Human name for a model id, falling back to the id itself."""
+def base_label(model: str) -> str:
+    """Human name for a model id alone, falling back to the id itself."""
     return LABEL.get(model, model)
+
+
+def label(model: str, config: dict | None = None) -> str:
+    """Human name for one row: the model and, inside the same parenthesis, its configuration.
+
+    A model that published under two configurations gets two labels and therefore two rows,
+    which is the whole point: the reader must be able to see that the better number came
+    from the other setting. ``config=None`` is "nothing recorded", never a guess.
+    """
+    base = base_label(model)
+    qualifier = result_key.descriptor(config)
+    if base.endswith(")"):
+        return f"{base[:-1]}, {qualifier})"
+    return f"{base} ({qualifier})"
 
 
 def colour(model: str) -> str:
     return COLOUR.get(model, FALLBACK_COLOUR)
 
 
-def sort_key(model: str) -> tuple[int, str]:
-    """Registry order first, then anything unregistered alphabetically."""
-    return (ORDER.index(model) if model in ORDER else len(ORDER), label(model))
+def sort_key(model: str, config: dict | None = None) -> tuple:
+    """Registry order first, then anything unregistered alphabetically.
+
+    The model is the primary key and the configuration the secondary one, so a model's
+    configurations are adjacent and appear in the same fixed order for every model
+    (not-thinking, then thinking, then unstated, then unrecorded).
+    """
+    return (ORDER.index(model) if model in ORDER else len(ORDER),
+            base_label(model),
+            result_key.config_rank(config),
+            result_key.token(config) or "")
 
 
 def unregistered(models) -> list[str]:

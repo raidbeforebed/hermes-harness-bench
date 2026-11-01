@@ -38,6 +38,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import model_registry as registry  # noqa: E402
+import result_key  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 RESULTS = ROOT / "results"
@@ -72,21 +73,45 @@ def fmt_duration(seconds: float) -> str:
     return f"{seconds:.0f} s"
 
 
-def table_from_results() -> str:
-    """Rebuild the results table from results/*.json only."""
-    by_model: dict[str, list[dict]] = defaultdict(list)
+def published_rows() -> list[dict]:
+    """Every published record grouped by model AND configuration, in display order.
+
+    Grouping by model alone is what merged LFM3 thinking on with LFM3 thinking off: one
+    weights file, two instruments, one row. The configuration token comes from the record
+    itself (tools/result_key.py), so a run from before the field existed lands in the
+    unrecorded row rather than being folded into a named one.
+    """
+    grouped: dict[str, dict] = {}
     for f in glob.glob(str(RESULTS / "*.json")):
         try:
             d = json.loads(Path(f).read_text())
         except (OSError, ValueError):
             continue
-        if d.get("model") and d.get("task"):
-            by_model[d["model"]].append(d)
-    if not by_model:
+        if not (d.get("model") and d.get("task")):
+            continue
+        key = result_key.key_of(d)
+        row = grouped.get(key)
+        if row is None:
+            config = result_key.config_of(d)
+            row = grouped[key] = {
+                "key": key,
+                "model": d["model"],
+                "config": config,
+                "label": registry.label(d["model"], config),
+                "records": [],
+            }
+        row["records"].append(d)
+    if not grouped:
         raise SystemExit("no results to build a table from")
+    return sorted(grouped.values(),
+                  key=lambda r: registry.sort_key(r["model"], r["config"]))
 
+
+def table_from_results() -> str:
+    """Rebuild the results table from results/*.json only."""
     rows: list[dict] = []
-    for model, rs in by_model.items():
+    for row in published_rows():
+        model, rs = row["model"], row["records"]
         per_task: dict[str, list[float]] = defaultdict(list)
         for r in rs:
             per_task[r["task"]].append(float(r.get("score") or 0.0))
@@ -110,7 +135,7 @@ def table_from_results() -> str:
                 faults[(r.get("fault") or {}).get("class") or "unclassified"] += 1
         rows.append({
             "model": model,
-            "label": registry.label(model),
+            "label": row["label"],
             # A row whose tasks were attempted a different number of times must say so: "4"
             # over a set where nine tasks had one attempt reads as four of everything.
             "repeats": (str(reps[0]) if len(reps) == 1
@@ -124,7 +149,6 @@ def table_from_results() -> str:
             "total": sum(walls) if walls else None,
         })
 
-    rows.sort(key=lambda r: registry.sort_key(r["model"]))
     best = {
         "turns": min((r["turns"] for r in rows if r["turns"]), default=None),
         "tokens": min((r["tokens"] for r in rows if r["tokens"]), default=None),
@@ -209,19 +233,9 @@ def decision_table_from_results() -> str:
     same instrument and may be compared. A row with no hash predates the field, and a row
     reading MIXED spans two bundles and is not a series.
     """
-    by_model: dict[str, list[dict]] = defaultdict(list)
-    for f in glob.glob(str(RESULTS / "*.json")):
-        try:
-            d = json.loads(Path(f).read_text())
-        except (OSError, ValueError):
-            continue
-        if d.get("model") and d.get("task"):
-            by_model[d["model"]].append(d)
-    if not by_model:
-        raise SystemExit("no results to build a decision table from")
-
     rows: list[dict] = []
-    for model, rs in by_model.items():
+    for row in published_rows():
+        model, rs = row["model"], row["records"]
         per_repeat: dict[int, list[float]] = defaultdict(list)
         for r in rs:
             per_repeat[r.get("repeat") or 1].append(float(r.get("score") or 0.0))
@@ -251,7 +265,7 @@ def decision_table_from_results() -> str:
 
         rows.append({
             "model": model,
-            "label": registry.label(model),
+            "label": row["label"],
             "repeats": len(per_repeat),
             "attempts": len(rs),
             "mean": mean,
@@ -267,7 +281,8 @@ def decision_table_from_results() -> str:
             "tasks_seen": len({r["task"] for r in rs}),
         })
 
-    rows.sort(key=lambda r: registry.sort_key(r["model"]))
+    # published_rows() already returns display order, configurations adjacent and in their
+    # fixed order, so no second sort that would key on the model alone and separate them.
 
     def best(key: str, mode: str = "max"):
         vals = [r[key] for r in rows if r[key] is not None]

@@ -29,6 +29,10 @@ RUNS = Path(os.environ.get("HBENCH_RUNS") or "/root/hermes-bench/runs")
 if not RUNS.is_dir():
     RUNS = ROOT / "runs"
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import model_registry as registry  # noqa: E402
+import result_key  # noqa: E402
+
 
 def scorable(rec: dict) -> bool:
     src = rec.get("score_source")
@@ -97,15 +101,15 @@ def main() -> int:
     loaded = {}
     for run_id in a.runs:
         model, recs, notes = load(run_id)
-        # The same model may appear twice on purpose: an A/B of one configuration against another.
-        # Disambiguate on the note that says what changed, then on the run id.
-        label = model
+        # One column per (model, configuration). The same weights run under two flag sets are
+        # two instruments and therefore two columns, labelled by the record's own config block:
+        # a thinking run and a not-thinking run of one gguf must not collapse into one column.
+        config = result_key.config_of(recs[0]) if recs else result_key.config_of({})
+        label = registry.label(model, config)
         if label in loaded:
-            tag = notes.get("reasoning") or run_id
-            label = f"{model} [{tag}]"
-            if label in loaded:
-                label = f"{model} [{run_id}]"
-        loaded[label] = {"run": run_id, "notes": notes, "model": model, **summarise(recs)}
+            label = f"{label} [{run_id}]"
+        loaded[label] = {"run": run_id, "notes": notes, "model": model, "config": config,
+                         "label": label, **summarise(recs)}
 
     models = list(loaded)
     if a.tasks:
@@ -137,6 +141,11 @@ def main() -> int:
         overall[m] = {
             "run": loaded[m]["run"],
             "notes": loaded[m]["notes"],
+            # The configuration travels with the column, so a reader of the artifact can see
+            # which instrument produced each number without the run id being resolvable.
+            "model": loaded[m]["model"],
+            "config": loaded[m]["config"],
+            "label": loaded[m]["label"],
             "mean_over_tasks": round(statistics.mean(vals), 4) if vals else None,
             "attempts": sum(c["attempts"] for c in cells),
             "perfect": sum(c["perfect"] for c in cells),
@@ -161,11 +170,13 @@ def main() -> int:
         return "-" if not c else f"{c['mean']:.3f} ({c['attempts']})"
 
     width = max(len(t) for t in tasks) + 2
-    print(f"{'task':{width}}" + "".join(f"{m[-30:]:>32}" for m in models))
+    # Column headers are configuration-qualified labels, which are longer than a model id, so
+    # the truncation and the column width grow with them rather than cutting the qualifier off.
+    print(f"{'task':{width}}" + "".join(f"{m[-38:]:>40}" for m in models))
     for r in rows:
         line = f"{r['task']:{width}}"
         for m in models:
-            line += f"{cell_text(r['cells'][m]):>32}"
+            line += f"{cell_text(r['cells'][m]):>40}"
         print(line)
     print(f"{'MEAN OF TASK MEANS':{width}}" + "".join(f"{overall[m]['mean_over_tasks']:>22}" for m in models))
     print(f"{'attempts':{width}}" + "".join(f"{overall[m]['attempts']:>22}" for m in models))
@@ -173,9 +184,9 @@ def main() -> int:
     print(f"{'mean wall per attempt (s)':{width}}" + "".join(f"{str(overall[m]['mean_wall_s']):>22}" for m in models))
     print(f"{'mean turns':{width}}" + "".join(f"{str(overall[m]['mean_turns']):>22}" for m in models))
     for m in models:
-        note_txt = ", ".join(f"{k}={v}" for k, v in loaded[m]["notes"].items() if k == "reasoning")
-        if note_txt:
-            print(f"{m}: {note_txt} ({loaded[m]['run']})")
+        cfg = loaded[m]["config"]
+        print(f"{m}: variant {cfg.get('variant')}, thinking {cfg.get('thinking')} "
+              f"({loaded[m]['run']})")
     for m in models:
         if loaded[m]["excluded"]:
             print(f"excluded from {m}: " + ", ".join(f"{e['task']} {e['class']}" for e in loaded[m]["excluded"]))

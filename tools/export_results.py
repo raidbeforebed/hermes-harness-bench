@@ -29,7 +29,6 @@ import argparse
 import hashlib
 import json
 import os
-import re
 import sys
 from pathlib import Path
 
@@ -42,6 +41,10 @@ if not RUNS.is_dir():
     RUNS = Path("/root/hermes-bench/runs")
 RESULTS = ROOT / "results"
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import result_key  # noqa: E402
+
+
 # Keys the published schema carries. `passed` and `total_checks` are derived from
 # the checks list so a reader does not have to count booleans.
 FIELDS = ("checks", "exit_code", "finished", "model", "repeat", "score", "started",
@@ -53,7 +56,11 @@ FIELDS = ("checks", "exit_code", "finished", "model", "repeat", "score", "starte
           # Comparability, not decoration. A published record that cannot name its run and
           # the task bundle it measured cannot be paired with another model's row: the reader
           # has no way to tell a same-instrument comparison from a cross-suite accident.
-          "run_id", "decision", "instrument_fingerprint", "manifest_sha256")
+          "run_id", "decision", "instrument_fingerprint", "manifest_sha256",
+          # The configuration the model was measured under. A run from before 2026-11-01
+          # carries none, and that is published as all-unrecorded rather than inferred from
+          # its manifest: the record is the unit of publication. See tools/result_key.py.
+          "config")
 EXCLUDED = RESULTS / "excluded"
 STALL_CLASSES = {"no_work", "cli_error", ""}
 
@@ -84,8 +91,12 @@ def run_bundle(run_dir: Path) -> dict:
 
 
 def slug(model: str) -> str:
-    """Filesystem-safe model name: ``gemma4:cloud`` -> ``gemma4-cloud``."""
-    return re.sub(r"[^a-z0-9]+", "-", model.lower()).strip("-")
+    """Filesystem-safe model name: ``gemma4:cloud`` -> ``gemma4-cloud``.
+
+    The rule lives in tools/result_key.py, shared with the publish gate, so one model
+    cannot occupy two file sets under two spellings.
+    """
+    return result_key.model_slug(model)
 
 
 def record_files(run_dir: Path) -> list[Path]:
@@ -144,8 +155,14 @@ def export_run(run_dir: Path) -> tuple[int, int, list[dict]]:
                     "workdir": r.get("workdir"),
                 }
                 EXCLUDED.mkdir(parents=True, exist_ok=True)
-                stem = (f"{slug(model)}__{task}__{r.get('source_run')}__r{marker['attempt']}"
-                        if r.get("source_run") else f"{slug(model)}__{task}__r{marker['repeat']}")
+                # The configuration token travels here too, for the same reason it travels in
+                # results/: two configurations of one model are two instruments, and their
+                # exclusions must not overwrite each other.
+                tag = result_key.token(result_key.config_of(r))
+                mid = f"__{tag}" if tag else ""
+                stem = (f"{slug(model)}{mid}__{task}__{r.get('source_run')}__r{marker['attempt']}"
+                        if r.get("source_run")
+                        else f"{slug(model)}{mid}__{task}__r{marker['repeat']}")
                 path_out = EXCLUDED / f"{stem}.json"
                 path_out.write_text(json.dumps(marker, indent=2, sort_keys=True) + "\n")
                 names.append(marker)
@@ -156,11 +173,15 @@ def export_run(run_dir: Path) -> tuple[int, int, list[dict]]:
             pub["task"] = task
             pub["repeat"] = r.get("repeat", 1)
             pub["checks"] = checks
+            # Always present, and always a full six-field block: a record from before the
+            # field existed exports as all-unrecorded, never as a missing key that a surface
+            # might read as "no configuration dimension applies here".
+            pub["config"] = result_key.config_of(r)
             pub["passed"] = sum(1 for c in checks if c.get("pass"))
             pub["total_checks"] = len(checks)
             for k, v in bundle.items():
                 pub.setdefault(k, v)
-            out = RESULTS / f"{slug(model)}__{task}__r{pub['repeat']}.json"
+            out = RESULTS / result_key.published_name(pub)
             out.write_text(json.dumps(pub, indent=2, sort_keys=True) + "\n")
             written += 1
     return written, skipped, names

@@ -37,20 +37,28 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import model_registry as registry  # noqa: E402
+import result_key  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 RESULTS = ROOT / "results"
 
 
 def load() -> dict[str, dict]:
-    """Aggregate results/*.json into one summary row per model."""
-    by_model: dict[str, list[dict]] = defaultdict(list)
+    """Aggregate results/*.json into one summary row per model AND configuration.
+
+    Keyed by the same rule the publisher files records under, so a model measured under
+    two configurations is drawn twice with two labels. Keying on the model alone is what
+    let LFM3 thinking on and LFM3 thinking off share one bar.
+    """
+    by_row: dict[str, list[dict]] = defaultdict(list)
     for f in glob.glob(str(RESULTS / "*.json")):
         d = json.loads(Path(f).read_text())
-        by_model[d["model"]].append(d)
+        by_row[result_key.key_of(d)].append(d)
 
     out: dict[str, dict] = {}
-    for model, rows in by_model.items():
+    for key, rows in by_row.items():
+        model = rows[0]["model"]
+        config = result_key.config_of(rows[0])
         per_task: dict[str, list[float]] = defaultdict(list)
         for r in rows:
             per_task[r["task"]].append(r["score"])
@@ -63,9 +71,11 @@ def load() -> dict[str, dict]:
                for r in rows if r.get("tokens_in")]
         turns = [r["turns"] for r in rows if isinstance(r.get("turns"), int)]
         wall = [r["wall_seconds"] for r in rows if r.get("wall_seconds")]
-        out[model] = {
+        out[key] = {
+            "key": key,
             "model": model,
-            "label": registry.label(model),
+            "config": config,
+            "label": registry.label(model, config),
             "colour": registry.colour(model),
             "repeats": max((r.get("repeat") or 1) for r in rows),
             "runs": len(rows),
@@ -390,12 +400,12 @@ def main() -> None:
     if not data:
         sys.exit("no results found in results/")
 
-    # Every model in results/ is charted. Sort is display order, then alphabetical, so
-    # an unregistered model still appears instead of being filtered away.
-    models = sorted(data, key=registry.sort_key)
-    rows = [data[m] for m in models]
+    # Every row in results/ is charted. Sort is display order, then configuration order, so
+    # two configurations of one model sit side by side and an unregistered model still
+    # appears instead of being filtered away.
+    rows = sorted(data.values(), key=lambda r: registry.sort_key(r["model"], r["config"]))
 
-    unknown = registry.unregistered(models)
+    unknown = registry.unregistered({m["model"] for m in rows})
     if unknown:
         print("WARNING: no display entry in tools/model_registry.py for: " +
               ", ".join(unknown) + "\n         drawn under the raw model id in grey.",
@@ -408,11 +418,14 @@ def main() -> None:
     # bottom of a chart whose bars are proportions, which reads as a poor result.
     rows_p = sorted(rows, key=lambda r: (-(r["passed"] / r["runs"]),
                                          -(r["stable"] / r["tasks"]), -r["passed"]))
+    # The subtitle counts what the data holds rather than asserting a suite size: it said
+    # "twelve tasks" while the rows covered twelve and eighteen, and the configuration-qualified
+    # labels mean a model can now contribute more than one row.
     (outdir / "passes.svg").write_text(grouped_chart(
         rows_p,
         f"Reliability: one to {max(r['repeats'] for r in rows)} repeats per task",
-        f"Twelve tasks across {len(rows)} models. Runs per model are labelled; "
-        "a one-repeat row is a screen, not a graded result."))
+        f"{len(rows)} rows, the widest covering {max(r['tasks'] for r in rows)} tasks. "
+        "Runs per row are labelled; a one-repeat row is a screen, not a graded result."))
 
     # Tokens, cheapest first
     rows_t = sorted(rows, key=lambda r: r["tokens"])

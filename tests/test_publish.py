@@ -12,6 +12,11 @@ So this test asserts the two directions of the same rule:
   POSITIVE  every model in results/ is named in every chart, and in the README table.
   NEGATIVE  a chart that omits a model is reported, not silently accepted.
 
+A row is a (model, configuration) pair, not a model. The same weights run with thinking on
+and with thinking off are two instruments and must reach every surface twice, which is why
+every check below compares labels rather than model ids, and why KEY asserts that every
+published file name is exactly what the shared rule produces.
+
 Run it after any change to tools/, and before trusting a publish:
 
     python3 tests/test_publish.py
@@ -53,17 +58,38 @@ def load_tool(name: str):
     return mod
 
 
+sys.path.insert(0, str(TOOLS))
 make_charts = load_tool("make_charts")
 registry = load_tool("model_registry")
+result_key = load_tool("result_key")
 
 
-def models_in_results() -> list[str]:
-    seen = set()
+def rows_in_results() -> list[dict]:
+    """One row per (model, configuration), in the order the tables use.
+
+    Grouping by model alone would silently merge two configurations of one model back into
+    the single row this whole change exists to split.
+    """
+    grouped: dict[str, dict] = {}
     for f in glob.glob(str(RESULTS / "*.json")):
         d = json.loads(Path(f).read_text())
-        if d.get("model"):
-            seen.add(d["model"])
-    return sorted(seen)
+        if not d.get("model"):
+            continue
+        key = result_key.key_of(d)
+        row = grouped.get(key)
+        if row is None:
+            config = result_key.config_of(d)
+            row = grouped[key] = {
+                "key": key,
+                "model": d["model"],
+                "config": config,
+                "label": registry.label(d["model"], config),
+                "records": [],
+            }
+        row["records"].append(d)
+    rows = list(grouped.values())
+    rows.sort(key=lambda r: registry.sort_key(r["model"], r["config"]))
+    return rows
 
 
 def readme_table_rows() -> list[str]:
@@ -78,8 +104,10 @@ def readme_table_rows() -> list[str]:
 
 def main() -> int:
     failures = 0
-    models = models_in_results()
-    print(f"results/ holds {len(models)} models, {len(glob.glob(str(RESULTS / '*.json')))} records")
+    rows = rows_in_results()
+    models = sorted({r["model"] for r in rows})
+    print(f"results/ holds {len(rows)} rows over {len(models)} models, "
+          f"{len(glob.glob(str(RESULTS / '*.json')))} records")
 
     # 1. display registry coverage
     print("\nREGISTRY  every model in results/ must have a display name and colour")
@@ -88,12 +116,72 @@ def main() -> int:
         coloured = m in registry.COLOUR
         ok = named and coloured
         failures += 0 if ok else 1
-        print(f"  {'ok  ' if ok else 'FAIL'} {m:40} {registry.label(m)}")
+        print(f"  {'ok  ' if ok else 'FAIL'} {m:40} {registry.base_label(m)}")
         if not ok:
             print(f"        add it to {TOOLS / 'model_registry.py'}")
 
-    # 2. charts, built into a throwaway directory
-    print("\nCHARTS  every chart must name every model")
+    # 2. labels: every row says which configuration it was measured under
+    print("\nCONFIG  every published row is labelled with its configuration")
+    for r in rows:
+        qualified = r["label"] != registry.base_label(r["model"])
+        named = result_key.descriptor(r["config"]) in r["label"]
+        ok = qualified and named
+        failures += 0 if ok else 1
+        print(f"  {'ok  ' if ok else 'FAIL'} {r['label']}")
+    duplicate = {lab for lab in (r["label"] for r in rows)
+                 if sum(1 for x in rows if x["label"] == lab) > 1}
+    failures += 0 if not duplicate else 1
+    print(f"  {'ok  ' if not duplicate else 'FAIL'} every row has its own label"
+          + (f": {sorted(duplicate)}" if duplicate else ""))
+
+    # 3. the row key: one model must not occupy two file sets, and no row may be filed twice.
+    #    Both halves of the 2026-11-01 defect are checked here: two spellings for one model
+    #    (which split Ornith into 36 records under one stem and 54 under another), and two
+    #    files claiming the same (row, task, repeat), which is what a re-export under a
+    #    changed name produces.
+    print("\nKEY  one file set per model, one file per row, new records filed by the rule")
+    stems: dict[str, set[str]] = {}
+    seen: dict[tuple, str] = {}
+    duplicated: list[str] = []
+    unfiled: list[str] = []
+    legacy_names = 0
+    files = sorted(glob.glob(str(RESULTS / "*.json")))
+    for f in files:
+        d = json.loads(Path(f).read_text())
+        name = Path(f).name
+        stem = name.rsplit("__", 2)[0]
+        stems.setdefault(d.get("model"), set()).add(stem)
+        slot = (result_key.key_of(d), d.get("task"), d.get("repeat"))
+        if slot in seen:
+            duplicated.append(f"{seen[slot]} and {name}")
+        seen[slot] = name
+        expected = result_key.published_name(d)
+        if name != expected:
+            if isinstance(d.get("config"), dict):
+                # A record that states its configuration was written under this rule, so a
+                # name it does not produce means a writer bypassed the rule. Hard failure.
+                unfiled.append(f"{name} != {expected}")
+            else:
+                # A record from before the configuration existed keeps the name it was
+                # published under: renaming it would file the same attempts twice, which is
+                # the worse defect. Counted and reported rather than silently accepted.
+                legacy_names += 1
+    split = {m: sorted(s) for m, s in stems.items() if len(s) > 1}
+    failures += 0 if not split else 1
+    print(f"  {'ok  ' if not split else 'FAIL'} each model occupies exactly one file-set stem"
+          + ("" if not split else f": {split}"))
+    failures += 0 if not duplicated else 1
+    print(f"  {'ok  ' if not duplicated else 'FAIL'} no (row, task, repeat) is filed twice"
+          + ("" if not duplicated else f": {duplicated[:5]}"))
+    failures += 0 if not unfiled else 1
+    print(f"  {'ok  ' if not unfiled else 'FAIL'} every record that states a configuration is "
+          f"filed under the shared rule's name"
+          + ("" if not unfiled else f": {unfiled[:5]}"))
+    print(f"  ok   {len(files)} file name(s) checked; {legacy_names} historical name(s) kept "
+          f"as published, {len(files) - legacy_names} filed by the rule")
+
+    # 4. charts, built into a throwaway directory
+    print("\nCHARTS  every chart must name every row")
     with tempfile.TemporaryDirectory(prefix="hbcharts_") as tmp:
         r = subprocess.run([sys.executable, str(TOOLS / "make_charts.py"), "--outdir", tmp],
                            capture_output=True, text=True, timeout=120)
@@ -106,33 +194,34 @@ def main() -> int:
             print(f"  FAIL expected 4 charts, got {len(svgs)}")
         for svg in svgs:
             body = Path(svg).read_text()
-            missing = [m for m in models if make_charts.esc(registry.label(m)) not in body]
+            missing = [row["label"] for row in rows
+                       if make_charts.esc(row["label"]) not in body]
             failures += 1 if missing else 0
             print(f"  {'ok  ' if not missing else 'FAIL'} {Path(svg).name:12} "
-                  f"{'names all ' + str(len(models)) + ' models' if not missing else 'missing ' + ', '.join(missing)}")
+                  f"{'names all ' + str(len(rows)) + ' rows' if not missing else 'missing ' + ', '.join(missing)}")
 
-    # 3. README table
-    print("\nREADME  one row per model, display names only, numbers recomputed")
-    rows = readme_table_rows()
-    failures += 0 if len(rows) == len(models) else 1
-    print(f"  {'ok  ' if len(rows) == len(models) else 'FAIL'} table has {len(rows)} rows "
-          f"for {len(models)} models")
-    table = "\n".join(rows)
-    for m in models:
-        present = registry.label(m) in table
+    # 5. README table
+    print("\nREADME  one row per model and configuration, display names only, numbers recomputed")
+    table_rows = readme_table_rows()
+    failures += 0 if len(table_rows) == len(rows) else 1
+    print(f"  {'ok  ' if len(table_rows) == len(rows) else 'FAIL'} table has {len(table_rows)} rows "
+          f"for {len(rows)} published rows")
+    table = "\n".join(table_rows)
+    for row in rows:
+        present = row["label"] in table
         failures += 0 if present else 1
-        print(f"  {'ok  ' if present else 'FAIL'} {registry.label(m)}")
-    raw = [line for line in rows if "/" in line.split("|")[1]]
+        print(f"  {'ok  ' if present else 'FAIL'} {row['label']}")
+    raw = [line for line in table_rows if "/" in line.split("|")[1]]
     failures += 0 if not raw else 1
     print(f"  {'ok  ' if not raw else 'FAIL'} no raw provider ids in the Model column"
           + ("" if not raw else f": {raw}"))
 
-    # 4. NEGATIVE: a chart that drops a model must be reported
+    # 6. NEGATIVE: a chart that drops a model must be reported
     print("\nNEGATIVE  an incomplete chart must be reported, not accepted")
     with tempfile.TemporaryDirectory(prefix="hbneg_") as tmp:
-        fake = [{"model": "x/y:free", "label": "Ghost Model", "colour": "#888",
-                 "runs": 3, "passed": 3, "tasks": 1, "stable": 1, "tokens": 1,
-                 "tokens_known": 3, "turns": 1.0, "wall": 1.0, "repeats": 3}]
+        fake = [{"model": "x/y:free", "label": "Ghost Model (cloud, configuration unrecorded)",
+                 "colour": "#888", "runs": 3, "passed": 3, "tasks": 1, "stable": 1,
+                 "tokens": 1, "tokens_known": 3, "turns": 1.0, "wall": 1.0, "repeats": 3}]
         Path(tmp, "partial.svg").write_text('<svg><text>DeepSeek V4.1 Flash</text></svg>')
         problems = make_charts.audit(Path(tmp), fake)
         ok = any("Ghost Model" in p for p in problems)
@@ -144,23 +233,20 @@ def main() -> int:
     failures += 0 if ok else 1
     print(f"  {'ok  ' if ok else 'FAIL'} unregistered model is flagged: {unknown}")
 
-    # 5. PROSE: hand-written counts in the README must agree with results/
+    # 7. PROSE: hand-written counts in the README must agree with results/
     print("\nPROSE  count claims in the README must match the data they describe")
-    per: dict[str, list[dict]] = {}
-    for f in glob.glob(str(RESULTS / "*.json")):
-        d = json.loads(Path(f).read_text())
-        per.setdefault(d["model"], []).append(d)
-    perfect = sorted(m for m, rs in per.items() if all((r.get("score") or 0) == 1.0 for r in rs))
+    per: dict[str, list[dict]] = {r["key"]: r["records"] for r in rows}
+    perfect = sorted(k for k, rs in per.items() if all((r.get("score") or 0) == 1.0 for r in rs))
 
     def perfect_with_runs(runs_n: int) -> list[str]:
-        """Models that are perfect and hold exactly `runs_n` graded attempts.
+        """Rows that are perfect and hold exactly `runs_n` graded attempts.
 
         Keyed on the denominator the sentence states, not on the largest repeat count in the
         tree: "passed all 36 of 36 runs" means 12 tasks x 3 repeats for that model, and a row
         carrying four attempts on three tasks must not move what the sentence is checked
         against.
         """
-        return [m for m, rs in per.items()
+        return [k for k, rs in per.items()
                 if len(rs) == runs_n and all((r.get("score") or 0) == 1.0 for r in rs)]
     words = {w: i for i, w in enumerate(
         "zero one two three four five six seven eight nine ten eleven twelve".split())}
@@ -195,16 +281,16 @@ def main() -> int:
         print(f"  {'ok  ' if ok else 'FAIL'} \"{hit.group(0)}\" claims {hit.group(1)} = {got}; "
               f"data says {want} models perfect with {d} graded runs")
 
-    # denominator: "N of the M rows are perfect" must also match the model count
+    # denominator: "N of the M rows are perfect" must also match the row count
     for hit in re.finditer(r"(\w+) of (?:the )?(\w+) (?:models|rows) are perfect", text):
         got = words.get(hit.group(2).lower())
         ok = got == len(per)
         failures += 0 if ok else 1
         print(f"  {'ok  ' if ok else 'FAIL'} \"{hit.group(0)}\" denominator = {got}; "
-              f"data says {len(per)} models")
+              f"data says {len(per)} rows")
 
-    # a named per-model count in prose must match that model's record
-    beam = [m for m in per if "beam" in m.lower()]
+    # a named per-row count in prose must match that row's records
+    beam = [k for k in per if "beam" in k.lower()]
     if beam:
         rs = per[beam[0]]
         passed = sum(1 for r in rs if (r.get("score") or 0) == 1.0)
@@ -213,10 +299,10 @@ def main() -> int:
             ok = n == passed and d == len(rs)
             failures += 0 if ok else 1
             print(f"  {'ok  ' if ok else 'FAIL'} \"{hit.group(0)}\" vs data "
-                  f"{passed}/{len(rs)} for {registry.label(beam[0])}")
+                  f"{passed}/{len(rs)} for {beam[0]}")
 
-    # 6. DECISION table: one row per model, numbers recomputed, bundles must agree
-    print("\nDECISION  metrics table must cover every model, match the data, and name one bundle")
+    # 8. DECISION table: one row per model and configuration, numbers recomputed
+    print("\nDECISION  metrics table must cover every row, match the data, and name one bundle")
     text = README.read_text()
     if DECISION_START not in text or DECISION_END not in text:
         failures += 1
@@ -227,28 +313,28 @@ def main() -> int:
         lines = [ln for ln in block.splitlines() if ln.startswith("|")]
         lines = [ln for ln in lines if not set(ln) <= set("|- ")]
         decision_rows = lines[1:] if lines else []
-        ok = len(decision_rows) == len(models)
+        ok = len(decision_rows) == len(rows)
         failures += 0 if ok else 1
         print(f"  {'ok  ' if ok else 'FAIL'} decision table has {len(decision_rows)} rows "
-              f"for {len(models)} models")
+              f"for {len(rows)} published rows")
 
-    per_model_rows: dict[str, list[str]] = {}
+    per_row_cells: dict[str, list[str]] = {}
     for row in decision_rows:
         cells = [c.strip() for c in row.strip().strip("|").split("|")]
         if len(cells) >= 10:
-            per_model_rows[cells[0]] = cells
+            per_row_cells[cells[0]] = cells
 
-    for m in models:
-        label = registry.label(m)
-        cells = per_model_rows.get(label)
+    for r in rows:
+        label = r["label"]
+        cells = per_row_cells.get(label)
         if cells is None:
             failures += 1
             print(f"  FAIL {label} has no decision row")
             continue
-        rs = per[m]
+        rs = r["records"]
         per_repeat: dict[int, list[float]] = {}
-        for r in rs:
-            per_repeat.setdefault(r.get("repeat") or 1, []).append(float(r.get("score") or 0.0))
+        for x in rs:
+            per_repeat.setdefault(x.get("repeat") or 1, []).append(float(x.get("score") or 0.0))
         want_mean = sum(sum(v) / len(v) for v in per_repeat.values()) / len(per_repeat)
         printed = re.match(r"\*{0,2}([0-9.]+)", cells[2])
         got_mean = float(printed.group(1)) if printed else None
@@ -264,7 +350,7 @@ def main() -> int:
     # because there is one frozen suite. Two different hashes mean two instruments presented
     # as one table; a row whose bundle covers fewer tasks than it has records is mismatched.
     bundles: dict[str, tuple[int, str]] = {}
-    for row, cells in per_model_rows.items():
+    for row, cells in per_row_cells.items():
         hit = re.search(r"(\d+) tasks, `([0-9a-f]{12})`", cells[-1])
         if hit:
             bundles[row] = (int(hit.group(1)), hit.group(2))
@@ -277,19 +363,19 @@ def main() -> int:
     print(f"  {'ok  ' if ok else 'FAIL'} {len(bundles)} row(s) carry a bundle hash, "
           f"{len(hashes)} distinct: {sorted(hashes)}")
     for row, (n, h) in sorted(bundles.items()):
-        model = next((m for m in models if registry.label(m) == row), None)
-        rs = per.get(model, []) if model else []
-        own = {r["task_bundle_sha256"] for r in rs
-               if isinstance(r.get("task_bundle_sha256"), str)}
-        seen = len({r["task"] for r in rs})
-        ok = n == seen and any(x.startswith(h) for x in own)
+        key = next((r["key"] for r in rows if r["label"] == row), None)
+        rs = per.get(key, []) if key else []
+        own = {x["task_bundle_sha256"] for x in rs
+               if isinstance(x.get("task_bundle_sha256"), str)}
+        tasks_seen = len({x["task"] for x in rs})
+        ok = n == tasks_seen and any(x.startswith(h) for x in own)
         failures += 0 if ok else 1
-        print(f"  {'ok  ' if ok else 'FAIL'} {row:48} {n} tasks over {seen} in results, "
+        print(f"  {'ok  ' if ok else 'FAIL'} {row:48} {n} tasks over {tasks_seen} in results, "
               f"hash `{h}` matches its records")
     if not bundles:
         print("  note: no row carries a bundle hash; the comparability claim cannot be checked")
 
-    # 7. RETIRED: a retired run and a retired twelve-task row must not be restorable
+    # 9. RETIRED: a retired run and a retired twelve-task row must not be restorable
     print("\nRETIRED  twelve-task rows stay retired, not silently comparable")
     leaked_models = sorted(m for m in models if m in RETIRED_MODELS)
     failures += 0 if not leaked_models else 1

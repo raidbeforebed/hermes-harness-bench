@@ -134,19 +134,19 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 <!-- RESULTS:START -->
 | Model | Repeats | Runs passed | Faults | Tasks all-pass | Mean turns | Mean tokens | Mean wall | Total |
 |---|---|---|---|---|---|---|---|---|
-| DeepSeek V4.1 Flash | 3 | **36/36 (100%)** | - | 12/12 | 11.9 | 24,275 | 34 s | 21 min |
-| GLM-5.3 Flash | 3 | **36/36 (100%)** | - | 12/12 | **10.6** | 16,781 | 56 s | 34 min |
-| MiniMax M3.1 Flash | 3 | **36/36 (100%)** | - | 12/12 | 16.5 | 23,413 | 82 s | 49 min |
-| Ornith 1.5 122B (free) | 3 | **36/36 (100%)** | - | 12/12 | 12.1 | 146,497 | 115 s | 69 min |
-| Laguna S 2.1 (free) | 1 | **12/12 (100%)** | - | 12/12 | 19.4 | 241,814 | 162 s | 32 min |
-| Beam | 3 | 34/36 (94.4%) | - | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
-| Gemma 4 (cloud) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
-| Qwen3.6 35B (local) | 3 | 31/36 (86.1%) | - | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
-| Nemotron 3.5 Lightning 30B (local) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
-| LFM3 1.7B (llama.cpp) | 3 | 34/36 (94.4%) | - | 10/12 | 23.0 | 327,400 | 140 s | 84 min |
-| Ornith 1.5 9B (llama.cpp) | 3 | 45/54 (83.3%) | agent_exit 2 | 12/18 | 20.5 | 289,928 | 131 s | 1.97 h |
-| Bonsai 2 9B (ternary Q2_0) | 1 | 7/12 (58.3%) | - | 7/12 | 14.2 | 162,254 | 90 s | 18 min |
-| Groot 19B (local) | 3 | 30/36 (83.3%) | - | 8/12 | 11.9 | 127,891 | 71 s | 42 min |
+| DeepSeek V4.1 Flash (configuration unrecorded) | 3 | **36/36 (100%)** | - | 12/12 | 11.9 | 24,275 | 34 s | 21 min |
+| GLM-5.3 Flash (configuration unrecorded) | 3 | **36/36 (100%)** | - | 12/12 | **10.6** | 16,781 | 56 s | 34 min |
+| MiniMax M3.1 Flash (configuration unrecorded) | 3 | **36/36 (100%)** | - | 12/12 | 16.5 | 23,413 | 82 s | 49 min |
+| Ornith 1.5 122B (free, configuration unrecorded) | 3 | **36/36 (100%)** | - | 12/12 | 12.1 | 146,497 | 115 s | 69 min |
+| Laguna S 2.1 (free, configuration unrecorded) | 1 | **12/12 (100%)** | - | 12/12 | 19.4 | 241,814 | 162 s | 32 min |
+| Beam (configuration unrecorded) | 3 | 34/36 (94.4%) | - | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
+| Gemma 4 (cloud, configuration unrecorded) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
+| Qwen3.6 35B (local, configuration unrecorded) | 3 | 31/36 (86.1%) | - | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
+| Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
+| LFM3 1.7B (llama.cpp, configuration unrecorded) | 3 | 34/36 (94.4%) | - | 10/12 | 23.0 | 327,400 | 140 s | 84 min |
+| Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 45/54 (83.3%) | agent_exit 2 | 12/18 | 20.5 | 289,928 | 131 s | 1.97 h |
+| Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 7/12 (58.3%) | - | 7/12 | 14.2 | 162,254 | 90 s | 18 min |
+| Groot 19B (local, configuration unrecorded) | 3 | 30/36 (83.3%) | - | 8/12 | 11.9 | 127,891 | 71 s | 42 min |
 <!-- RESULTS:END -->
 
 Read the **Repeats** column before comparing rows. A one-repeat row is a screening
@@ -154,6 +154,16 @@ measurement, not a stable figure: the same model scored 0.80 and then 1.00 acros
 single-repeat runs of different timeout, which is why the graded baseline is three
 repeats. Charts and this table are generated from `results/` by `tools/publish.py`, so
 they cannot drift from the data.
+
+The model name carries the configuration the run was measured under, because the row key is
+the model **and** its server flags, not the weights file alone: the same weights with thinking
+left on and with it switched off are two instruments and get two rows. The qualifier reads
+`not thinking` or `thinking` when the record states the chat-template switch, and names the
+variant (`q8kv, thinking unstated`) when it records a variant but no thinking switch. A row
+reading `configuration unrecorded` was published before the record carried a configuration
+block, and it is labelled that way rather than given a setting that was never recorded: a
+guess would be worse than the stated unknown. `tools/result_key.py` holds the rule the
+publisher, the exporter, the charts, the matrix and the dashboard all call.
 
 ### Decision metrics: what separates models at the same accuracy
 
@@ -173,19 +183,19 @@ bundles and is not a series at all.
 <!-- DECISION:START -->
 | Model | Repeats | Mean score (95% CI) | Throughput | Wall p50 | Turns to success | Tool calls valid | Context headroom | Peak VRAM | Task bundle |
 |---|---|---|---|---|---|---|---|---|---|
-| DeepSeek V4.1 Flash | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
-| GLM-5.3 Flash | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
-| MiniMax M3.1 Flash | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
-| Ornith 1.5 122B (free) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
-| Laguna S 2.1 (free) | 1 | 1.0000 | - | - | - | - | - | - | - |
-| Beam | 3 | 0.9444 ± 0.1195 | - | - | - | - | - | - | - |
-| Gemma 4 (cloud) | 3 | 0.9821 ± 0.0171 | - | - | - | - | - | - | - |
-| Qwen3.6 35B (local) | 3 | 0.9504 ± 0.1537 | - | - | - | - | - | - | - |
-| Nemotron 3.5 Lightning 30B (local) | 4 | 0.8638 ± 0.1562 | - | - | - | - | - | - | - |
-| LFM3 1.7B (llama.cpp) | 3 | 0.9676 ± 0.1109 | - | - | - | - | - | - | - |
-| Ornith 1.5 9B (llama.cpp) | 3 | 0.9244 ± 0.0663 | **61 tok/s** | **61 s** | **17.7** | **90%** | **14%** | **6,682 MiB** | 18 tasks, `d41a23888d49` |
-| Bonsai 2 9B (ternary Q2_0) | 1 | 0.8566 | - | - | - | - | - | - | - |
-| Groot 19B (local) | 3 | 0.9595 ± 0.0366 | - | - | - | - | - | - | - |
+| DeepSeek V4.1 Flash (configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
+| GLM-5.3 Flash (configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
+| MiniMax M3.1 Flash (configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
+| Ornith 1.5 122B (free, configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
+| Laguna S 2.1 (free, configuration unrecorded) | 1 | 1.0000 | - | - | - | - | - | - | - |
+| Beam (configuration unrecorded) | 3 | 0.9444 ± 0.1195 | - | - | - | - | - | - | - |
+| Gemma 4 (cloud, configuration unrecorded) | 3 | 0.9821 ± 0.0171 | - | - | - | - | - | - | - |
+| Qwen3.6 35B (local, configuration unrecorded) | 3 | 0.9504 ± 0.1537 | - | - | - | - | - | - | - |
+| Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 4 | 0.8638 ± 0.1562 | - | - | - | - | - | - | - |
+| LFM3 1.7B (llama.cpp, configuration unrecorded) | 3 | 0.9676 ± 0.1109 | - | - | - | - | - | - | - |
+| Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 0.9244 ± 0.0663 | **61 tok/s** | **61 s** | **17.7** | **90%** | **14%** | **6,682 MiB** | 18 tasks, `d41a23888d49` |
+| Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 0.8566 | - | - | - | - | - | - | - |
+| Groot 19B (local, configuration unrecorded) | 3 | 0.9595 ± 0.0366 | - | - | - | - | - | - | - |
 <!-- DECISION:END -->
 
 Two columns, because they answer different questions:
