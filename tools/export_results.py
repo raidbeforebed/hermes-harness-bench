@@ -172,6 +172,12 @@ def main() -> None:
     total_written = total_skipped = 0
     all_skipped: list[dict] = []
     for run_dir in targets:
+        marker = run_dir / "RETIRED.md"
+        if marker.exists():
+            lines = [ln.strip() for ln in marker.read_text().splitlines() if ln.strip()]
+            reason = next((ln.lstrip("# ").strip() for ln in lines if not ln.startswith("#")), "")
+            print(f"  {run_dir.name}: RETIRED, not exported. {reason}")
+            continue
         w, s, names = export_run(run_dir)
         total_written += w
         total_skipped += s
