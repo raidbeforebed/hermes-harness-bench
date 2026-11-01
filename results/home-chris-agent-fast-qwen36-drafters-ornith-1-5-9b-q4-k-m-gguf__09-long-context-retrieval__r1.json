@@ -35,6 +35,8 @@
   "repeat": 1,
   "score": 1.0,
   "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "ornith9b-llamacpp-20261030",
   "started": "2026-10-30T14:06:32.036129+00:00",
   "task": "09-long-context-retrieval",
   "tokens_in": 154926,

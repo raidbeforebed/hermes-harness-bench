@@ -45,6 +45,8 @@
   "repeat": 1,
   "score": 1.0,
   "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "ornith9b-llamacpp-20261030",
   "started": "2026-10-30T13:34:23.998551+00:00",
   "task": "01-json-extract",
   "tokens_in": 159422,

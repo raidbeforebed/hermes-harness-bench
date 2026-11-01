@@ -25,6 +25,8 @@
   "repeat": 1,
   "score": 1.0,
   "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "ornith9b-llamacpp-20261030",
   "started": "2026-10-30T13:37:53.076770+00:00",
   "task": "03-test-fix",
   "tokens_in": 191015,

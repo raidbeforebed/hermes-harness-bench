@@ -40,6 +40,8 @@
   "repeat": 1,
   "score": 0.8333,
   "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "ornith9b-llamacpp-20261030",
   "started": "2026-10-30T13:36:45.322233+00:00",
   "task": "02-inventory-reconcile",
   "tokens_in": 110504,

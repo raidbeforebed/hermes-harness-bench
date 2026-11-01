@@ -40,6 +40,8 @@
   "repeat": 1,
   "score": 1.0,
   "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "ornith9b-llamacpp-20261030",
   "started": "2026-10-30T14:13:26.734744+00:00",
   "task": "12-long-chain",
   "tokens_in": 295537,

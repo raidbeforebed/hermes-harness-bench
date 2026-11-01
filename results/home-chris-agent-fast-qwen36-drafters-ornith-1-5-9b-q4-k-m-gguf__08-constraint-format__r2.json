@@ -1,0 +1,63 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "format_check.txt exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "exactly 5 lines",
+      "detail": "5 lines",
+      "pass": true
+    },
+    {
+      "check": "every line starts with '- '",
+      "detail": "[]",
+      "pass": true
+    },
+    {
+      "check": "each line names >=1 tool",
+      "detail": "5 of 5",
+      "pass": true
+    },
+    {
+      "check": "no tool used twice",
+      "detail": "['sort', 'grep', 'uniq', 'sed', 'cut']",
+      "pass": true
+    },
+    {
+      "check": "<=220 chars excluding newlines",
+      "detail": "65 chars",
+      "pass": true
+    },
+    {
+      "check": "no stray lowercase 'e'",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "line 3 is longest (strictly)",
+      "detail": "[8, 11, 24, 13, 9]",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-11-01T01:00:29.055259+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 8,
+  "repeat": 2,
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "agent-Ornith-1.5-9B-Q4_K_M-nothink-q8kv-20261101",
+  "started": "2026-11-01T00:57:48.791180+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 312824,
+  "tokens_out": 3419,
+  "tool_calls": 24,
+  "total_checks": 8,
+  "turns": 26,
+  "wall_seconds": 160.2
+}

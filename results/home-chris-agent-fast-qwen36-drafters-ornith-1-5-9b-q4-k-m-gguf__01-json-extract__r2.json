@@ -1,0 +1,58 @@
+{
+  "artifact_score": 0.8571,
+  "checks": [
+    {
+      "check": "report.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "required keys",
+      "detail": "['by_customer', 'shipped_revenue', 'total_orders']",
+      "pass": true
+    },
+    {
+      "check": "total_orders == 7",
+      "detail": "7",
+      "pass": true
+    },
+    {
+      "check": "all 4 customers present",
+      "detail": "['Acme Corp', 'Beta LLC', 'Delta Co', 'Gamma Inc']",
+      "pass": true
+    },
+    {
+      "check": "per-customer orders+revenue",
+      "detail": "Beta LLC: got {'orders': 1, 'revenue': 30.0} want {'orders': 2, 'revenue': 30.0}; Gamma Inc: got {'orders': 0, 'revenue': 0.0} want {'orders': 1, 'revenue': 0.0}; Delta Co: got {'orders': 0, 'revenue': 0.0} want {'orders': 1, 'revenue': 0.0}",
+      "pass": false
+    },
+    {
+      "check": "shipped_revenue == 149.97",
+      "detail": "149.97",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-11-01T00:38:04.244772+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 6,
+  "repeat": 2,
+  "score": 0.8571,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "agent-Ornith-1.5-9B-Q4_K_M-nothink-q8kv-20261101",
+  "started": "2026-11-01T00:31:35.105939+00:00",
+  "task": "01-json-extract",
+  "tokens_in": 283808,
+  "tokens_out": 2461,
+  "tool_calls": 22,
+  "total_checks": 7,
+  "turns": 24,
+  "wall_seconds": 389.1
+}

@@ -1,0 +1,39 @@
+{
+  "artifact_score": 0.0,
+  "checks": [
+    {
+      "check": "harness ran the requested model",
+      "detail": "exit 1: The file `format_check.txt` is **not yet written** \u2014 I'm blocked by an iteration limit while diagnosing a bizarre bug.\n\n## What I found\n\nThe working directory is empty (only the file I'm about to create). I designed five candidate lines:\n- `-head-x2`\n- `-tail-2`\n- `-tr-space-newl",
+      "pass": false
+    },
+    {
+      "check": "format_check.txt exists",
+      "detail": "missing",
+      "pass": false
+    }
+  ],
+  "exit_code": 1,
+  "fault": {
+    "class": "turn_limit",
+    "detail": "exit 1: The file `format_check.txt` is **not yet written** \u2014 I'm blocked by an iteration limit while diagnosing a bizarre bug.\n\n## What I found\n\nThe working directory is empty (only the file I'm about to create). I designed five candidate lines:\n- `-head-x2`\n- `-tail-2`\n- `-tr-space-newl",
+    "exit_code": 1,
+    "turns": 43
+  },
+  "finished": "2026-11-01T01:04:38.371431+00:00",
+  "harness_failed": true,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 0,
+  "repeat": 3,
+  "score": 0.0,
+  "score_source": "artifact",
+  "source_repeat": 2,
+  "source_run": "agent-Ornith-1.5-9B-Q4_K_M-nothink-q8kv-20261101",
+  "started": "2026-11-01T01:00:29.056268+00:00",
+  "task": "08-constraint-format",
+  "tokens_in": 524200,
+  "tokens_out": 4821,
+  "tool_calls": 40,
+  "total_checks": 2,
+  "turns": 43,
+  "wall_seconds": 249.3
+}

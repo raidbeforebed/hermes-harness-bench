@@ -1,0 +1,53 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "pytest suite passes",
+      "detail": ".....                                                                    [100%]\n5 passed in 0.01s\n",
+      "pass": true
+    },
+    {
+      "check": "test file untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "report.py untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "CHANGES.md exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "three sections in order",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "Verification quotes a pytest pass count",
+      "detail": "## Verification\n5 passed in 0.02s\n",
+      "pass": true
+    }
+  ],
+  "exit_code": 0,
+  "finished": "2026-11-01T01:11:36.145513+00:00",
+  "harness_failed": false,
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 6,
+  "repeat": 3,
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 2,
+  "source_run": "agent-Ornith-1.5-9B-Q4_K_M-nothink-q8kv-20261101",
+  "started": "2026-11-01T01:09:30.475008+00:00",
+  "task": "10-multifile-refactor",
+  "tokens_in": 489732,
+  "tokens_out": 2149,
+  "tool_calls": 38,
+  "total_checks": 6,
+  "turns": 40,
+  "wall_seconds": 125.4
+}

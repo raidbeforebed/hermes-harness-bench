@@ -45,6 +45,8 @@
   "repeat": 1,
   "score": 0.8571,
   "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "ornith9b-llamacpp-20261030",
   "started": "2026-10-30T13:42:07.566162+00:00",
   "task": "06-multiturn-continuity",
   "tokens_in": 167993,
