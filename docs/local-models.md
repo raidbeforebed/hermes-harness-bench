@@ -219,8 +219,10 @@ gguf row: the provider is a plain OpenAI-compatible endpoint and never reports a
 reasoning count. A zero there is not evidence that thinking was off.
 
 So `local_bench.sh run` reads the live process back with `bench info` and hands
-`hbench` one `--note` per flag, which lands in `runs/<id>/manifest.json` and on
-every per-attempt record:
+`hbench` one `--note` per flag. The notes land in `runs/<id>/manifest.json`, which
+is hashed at launch and published beside the run, and every per-attempt record
+carries the `instrument_fingerprint` computed over those fields, so a record can
+be traced back to the flags it was measured under:
 
 | Note | Source |
 |---|---|
