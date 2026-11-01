@@ -39,8 +39,8 @@
 <rect x="210" y="420" width="285.7" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
 <text x="505.7" y="434" fill="#e6edf3" font-size="12.5" font-weight="600">241,814</text>
 <text x="196" y="467" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 9B (llama.cpp)</text>
-<rect x="210" y="454" width="383.9" height="20" rx="4" fill="#c0caf5" opacity="0.85"/>
-<text x="603.9" y="468" fill="#e6edf3" font-size="12.5" font-weight="600">324,952</text>
+<rect x="210" y="454" width="342.5" height="20" rx="4" fill="#c0caf5" opacity="0.85"/>
+<text x="562.5" y="468" fill="#e6edf3" font-size="12.5" font-weight="600">289,928</text>
 <text x="196" y="501" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp)</text>
 <rect x="210" y="488" width="386.8" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
 <text x="606.8" y="502" fill="#e6edf3" font-size="12.5" font-weight="600">327,400</text>

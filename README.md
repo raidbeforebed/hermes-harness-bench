@@ -145,7 +145,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Nemotron 3.5 Lightning 30B (local) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
 | LFM3 1.7B (local, reason on) | 3 | 32/36 (88.9%) | agent_exit 1, turn_limit 1 | 9/12 | 24.4 | 333,947 | 245 s | 2.45 h |
 | LFM3 1.7B (llama.cpp) | 3 | 34/36 (94.4%) | - | 10/12 | 23.0 | 327,400 | 140 s | 84 min |
-| Ornith 1.5 9B (llama.cpp) | 3 | 32/36 (88.9%) | turn_limit 2 | 8/12 | 23.0 | 324,952 | 176 s | 1.76 h |
+| Ornith 1.5 9B (llama.cpp) | 3 | 45/54 (83.3%) | agent_exit 2 | 12/18 | 20.5 | 289,928 | 131 s | 1.97 h |
 | Bonsai 2 9B (ternary Q2_0) | 1 | 7/12 (58.3%) | - | 7/12 | 14.2 | 162,254 | 90 s | 18 min |
 | Groot 19B (local) | 3 | 30/36 (83.3%) | - | 8/12 | 11.9 | 127,891 | 71 s | 42 min |
 <!-- RESULTS:END -->
@@ -445,47 +445,45 @@ same model, same build, same flags, same prompt. Three attempts is a small sampl
 can invert between runs, which is the whole argument for the twelve-task, three-repeat design and the
 reason a targeted sample is never quoted as a suite score.
 
-### Ornith 1.5 9B: 0.9742 was one draw, and the third draw was worse
+### Ornith 1.5 9B: 0.9244 over three repeats on the eighteen-task suite
 
-Ornith 1.5 9B Q4_K_M was published here at 0.9742 from a single repeat, which read as a tie with LFM3's
-0.9676. It is not a tie, and the single draw sat above the model's own average. Three repeats:
-**32 of 36 attempts passed, eight of twelve tasks stable, mean 0.9597**, with per-repeat means of
-0.9742, 0.9881 and 0.9167.
+This row replaces a twelve-task figure of 0.9597, which is retired rather than adjusted. The suite grew
+from twelve tasks to eighteen on 2026-11-01 and four of the original twelve were rewritten that day, so
+an eighteen-task number cannot be substituted for a twelve-task one. The retired records also cannot be
+shown to share an instrument with the new series, because the run behind them records no chat-template
+flags: whether its first repeat had thinking on or off is unknowable from its manifest.
 
-| | Ornith 1.5 9B | LFM3 1.7B Q4_K_M |
+All three repeats were measured in one run, `agent-Ornith-1.5-9B-Q4_K_M-nothink-q8kv-3x-20261101d`,
+whose manifest records the variant (`nothink-q8kv`), the context (65536), the q8_0 KV cache, the
+chat-template flags, the sampler chain, the server build and the task-bundle hashes. **45 of 54 attempts
+passed, twelve of eighteen tasks were all-pass, mean 0.9244**, with per-repeat means of 0.8944, 0.9458
+and 0.9329, a spread of 0.0514.
+
+| | Ornith 1.5 9B (18 tasks, 3 repeats) | the retired 12-task row |
 |---|---|---|
-| runs passed | 32/36 (88.9%) | **34/36 (94.4%)** |
-| tasks stable | 8/12 | **10/12** |
-| mean score | 0.9597 | **0.9676** |
-| per-repeat means | 0.9742 / 0.9881 / 0.9167 | 0.9167 / 0.9861 / 1.0000 |
-| spread across repeats | 0.0714 | 0.0833 |
-| mean turns | 23.0 | 23.0 |
-| mean wall per attempt | 176 s | **140 s** |
+| runs passed | **45/54 (83.3%)** | 32/36 (88.9%) |
+| tasks all-pass | **12/18** | 8/12 |
+| mean score | **0.9244** | 0.9597 |
+| per-repeat means | 0.8944 / 0.9458 / 0.9329 | 0.9742 / 0.9881 / 0.9167 |
+| mean turns | **20.5** | 23.0 |
+| mean wall per attempt | **131 s** | 176 s |
+| total | **1.97 h** | 3.72 h |
 
-Both models move by about the same amount between draws, so the ordering between them is not what the
-spread says: the band is. LFM3's own three draws span 0.0833 and Ornith's span 0.0714, which is why a
-one-repeat row cannot support a tie claim in either direction. What the three repeats do settle is the
-gap below the top: Ornith is 0.0079 behind LFM3 on the mean and two tasks less stable, having lost one
-attempt each on `01-json-extract` (0.86), `02-inventory-reconcile` (0.83) and `06-multiturn-continuity`
-(0.86).
+**Where it loses points.** `16-stateful-undo` sits at 0.50 on all three attempts, which is a stable
+partial rather than a draw: it clears one of the two checks every time, so the undo path is understood and
+the state bookkeeping around it is not. `12-long-chain` failed outright once in three (0.00, then 1.00 and
+1.00) at 72 turns, the only outright failure in the series. `14-schema-repair-2turn` scored 1.00 and then
+0.667 twice. `17-parallel-tool-coordination` scored 0.60 and then 1.00 twice. `06-multiturn-continuity` and
+`08-constraint-format` each lost one attempt to a partial (0.857 and 0.625).
 
-The one real defect is `08-constraint-format`, which scored 0.00 in the third attempt: it spent 43
-turns re-deriving a five-line file against a wall of simultaneous constraints and ended at its own
-iteration limit without writing the file at all. That is the single task below 0.66 for this model, and
-it is the same task LFM3 finds hardest (0.6667 for both).
+**The two faults are both `agent_exit`, and neither is a lost artifact.** In both cases the model had
+finished and written its file before the child exited non-zero: `06-multiturn-continuity` r2 scored 0.857
+and `08-constraint-format` r3 scored 0.625 with the file on disk, reporting that it had verified it
+against every constraint. The artifact scores stand and the exits are recorded beside them.
 
-`12-long-chain` is a separate note, because it is not a capability failure: it scored 1.00 on all three
-attempts, and the middle one ended non-zero after writing a correct summary. The turn limit fired while
-the model was chasing 12 CSV files that had moved out from under its working directory mid-attempt
-(107 turns, 2.8M tokens, 1048 s). The artifact score stands and the fault is recorded beside it.
-
-Server settings, because a different server is a different measurement: thinking off, 65536 context,
-q8_0 KV cache, budget scale 3 (720 s to 1800 s per task, from each task's own base budget). The q8_0 KV
-cache is not a preference. At 64K context the f16 cache does not fit the 8 GB card and `llama-server`
-fails to allocate it, so the variant used here is `nothink-q8kv` rather than `nothink`. Repeat 1 of this
-series is the same measurement previously published as a single draw, run on the same model file, so
-the three repeats are one series rather than a re-run beside an old number.
-
+The two tasks this model now handles reliably are worth naming because they used to be the expensive ones:
+`03-test-fix` passed all three attempts at 128 s mean, and `07-error-recovery` passed all three at 215 s
+mean. Nothing in the series hit a run-budget timeout.
 ### Three local models on one instrument: Groot, Qwen, Nemotron
 
 ![Local models on three tasks: Groot in both reasoning modes, Qwen, Nemotron](assets/local-three-task.svg)

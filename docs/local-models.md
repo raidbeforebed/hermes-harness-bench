@@ -187,18 +187,67 @@ error that never shows up in a chat transcript.
 ## Which row is a measurement
 
 The per-model table in [README.md](../README.md#results-as-published) is the
-leaderboard, and its **Repeats** column is the sample size. A row reading three
-was run three times across all twelve tasks, and its figures are means over 36
-scored attempts; a row reading one is a screening draw. Three repeats are the
-graded baseline for a reason: the same model moves between draws. Ornith 1.5 9B
-scored 0.9742, then 0.9881, then 0.9167, a spread of 0.0714, and LFM3 1.7B Q4
-moved 0.0833 over its own three. A single draw of either model could have been
-quoted as a tie with the other; neither was one.
+leaderboard, and its **Repeats** column is the sample size. The suite has eighteen
+tasks, so a row reading three is 54 scored attempts; a row reading one is a
+screening draw. Three repeats are the graded baseline for a reason: the same model
+moves between draws. Ornith 1.5 9B scored 0.8944, 0.9458 and 0.9329 on its three
+repeats, a spread of 0.0514, and the single draws it was previously judged on sat
+inside that band rather than at its edge.
+
+**Rows measured on the twelve-task suite are retired, not rescaled.** The suite grew
+from twelve tasks to eighteen on 2026-11-01 and four of the original twelve were
+rewritten the same day, so those numbers cannot be compared with the current table.
+The Ornith 1.5 9B row was regenerated from three fresh repeats rather than adjusted.
+A row whose manifest does not record the variant, the context, the KV cache type
+and the chat-template flags is not a measurement this table can carry: without
+those, two runs cannot be shown to share an instrument.
 
 Read that column before comparing two rows, and read the model's own section in
 the README for the settings it was measured under. A row taken at a different
 context, KV cache type or budget scale is a different instrument, which is why
 those settings travel with the row rather than in a footnote.
+
+## What a local row must record
+
+A local row is only comparable to another local row when the server flags behind
+it travel with the numbers, and a **variant name is not enough**. `nothink-q8kv`
+is shorthand for `--chat-template-kwargs {"enable_thinking":false}` plus a q8_0
+key and value cache; the name alone does not say whether the model was asked to
+reason before acting. That difference is invisible in the score and nearly
+invisible in the token column, because `reasoning_tokens` is zero for every local
+gguf row: the provider is a plain OpenAI-compatible endpoint and never reports a
+reasoning count. A zero there is not evidence that thinking was off.
+
+So `local_bench.sh run` reads the live process back with `bench info` and hands
+`hbench` one `--note` per flag, which lands in `runs/<id>/manifest.json` and on
+every per-attempt record:
+
+| Note | Source |
+|---|---|
+| `variant` | the variant the PC was asked for |
+| `ctx` | the context the server actually opened |
+| `kv-cache-k`, `kv-cache-v` | `--cache-type-k` / `--cache-type-v` as launched |
+| `chat-template-kwargs` | the JSON handed to `--chat-template-kwargs`, or `(unset)` |
+| `jinja` | whether `--jinja` was in the argv |
+| `ngl` | layers offloaded |
+| `server`, `build` | the binary and its commit |
+| `server-argv` | the whole command line, credential redacted |
+
+`hbench run` **refuses to start** against a `--base-url` endpoint that records no
+`variant` and no `chat-template-kwargs`, because the alternative is a row nobody
+can defend later. If you drive `hbench` directly rather than through the wrapper,
+pass both by hand:
+
+```bash
+--note variant=nothink-q8kv --note chat-template-kwargs='{"enable_thinking":false}'
+```
+
+The rule exists because a published three-repeat series mixed repeats whose
+chat-template setting could not be proven identical: the manifest carried the
+server name, the context and the KV cache type but not the variant, so whether
+repeat 1 reasoned before acting was unanswerable after the fact. The three
+repeats were re-run under one recorded configuration rather than merged with a
+number that could not be defended.
 
 ## If `turns` is null
 

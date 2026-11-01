@@ -37,12 +37,12 @@
 <text x="196" y="417" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free)</text>
 <rect x="210" y="404" width="322.1" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
 <text x="542.1" y="418" fill="#e6edf3" font-size="12.5" font-weight="600">19.4</text>
-<text x="196" y="451" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp)</text>
-<rect x="210" y="438" width="381.5" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
-<text x="601.5" y="452" fill="#e6edf3" font-size="12.5" font-weight="600">23.0</text>
-<text x="196" y="485" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 9B (llama.cpp)</text>
-<rect x="210" y="472" width="382.0" height="20" rx="4" fill="#c0caf5" opacity="0.85"/>
-<text x="602.0" y="486" fill="#e6edf3" font-size="12.5" font-weight="600">23.0</text>
+<text x="196" y="451" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 9B (llama.cpp)</text>
+<rect x="210" y="438" width="340.7" height="20" rx="4" fill="#c0caf5" opacity="0.85"/>
+<text x="560.7" y="452" fill="#e6edf3" font-size="12.5" font-weight="600">20.5</text>
+<text x="196" y="485" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp)</text>
+<rect x="210" y="472" width="381.5" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="601.5" y="486" fill="#e6edf3" font-size="12.5" font-weight="600">23.0</text>
 <text x="196" y="519" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (local, reason on)</text>
 <rect x="210" y="506" width="404.6" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
 <text x="624.6" y="520" fill="#e6edf3" font-size="12.5" font-weight="600">24.4</text>
