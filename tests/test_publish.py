@@ -134,13 +134,17 @@ def main() -> int:
     print(f"  {'ok  ' if not duplicate else 'FAIL'} every row has its own label"
           + (f": {sorted(duplicate)}" if duplicate else ""))
 
-    # 3. the row key: one model must not occupy two file sets, and no row may be filed twice.
+    # 3. the row key: one file set per (model, configuration), and no row may be filed twice.
     #    Both halves of the 2026-11-01 defect are checked here: two spellings for one model
     #    (which split Ornith into 36 records under one stem and 54 under another), and two
     #    files claiming the same (row, task, repeat), which is what a re-export under a
-    #    changed name produces.
-    print("\nKEY  one file set per model, one file per row, new records filed by the rule")
-    stems: dict[str, set[str]] = {}
+    #    changed name produces. A model legitimately occupies more than one stem when it was
+    #    measured under more than one configuration: the row key is model plus configuration,
+    #    so LFM3 under q8kv and under nothink-q8kv are two file sets by design. What must
+    #    never happen is two stems for one configuration, or one stem carrying two.
+    print("\nKEY  one file set per row, one file per row, new records filed by the rule")
+    per_row: dict[tuple, set[str]] = {}
+    stem_configs: dict[str, set[str]] = {}
     seen: dict[tuple, str] = {}
     duplicated: list[str] = []
     unfiled: list[str] = []
@@ -150,7 +154,9 @@ def main() -> int:
         d = json.loads(Path(f).read_text())
         name = Path(f).name
         stem = name.rsplit("__", 2)[0]
-        stems.setdefault(d.get("model"), set()).add(stem)
+        cfg = result_key.token(result_key.config_of(d))
+        per_row.setdefault((d.get("model"), cfg), set()).add(stem)
+        stem_configs.setdefault(stem, set()).add(cfg or "(unrecorded)")
         slot = (result_key.key_of(d), d.get("task"), d.get("repeat"))
         if slot in seen:
             duplicated.append(f"{seen[slot]} and {name}")
@@ -166,10 +172,15 @@ def main() -> int:
                 # published under: renaming it would file the same attempts twice, which is
                 # the worse defect. Counted and reported rather than silently accepted.
                 legacy_names += 1
-    split = {m: sorted(s) for m, s in stems.items() if len(s) > 1}
+    split = {f"{m} | {c or '(unrecorded)'}": sorted(s)
+             for (m, c), s in per_row.items() if len(s) > 1}
     failures += 0 if not split else 1
-    print(f"  {'ok  ' if not split else 'FAIL'} each model occupies exactly one file-set stem"
+    print(f"  {'ok  ' if not split else 'FAIL'} each row occupies exactly one file-set stem"
           + ("" if not split else f": {split}"))
+    mixed = {s: sorted(c) for s, c in stem_configs.items() if len(c) > 1}
+    failures += 0 if not mixed else 1
+    print(f"  {'ok  ' if not mixed else 'FAIL'} no stem carries two configurations"
+          + ("" if not mixed else f": {mixed}"))
     failures += 0 if not duplicated else 1
     print(f"  {'ok  ' if not duplicated else 'FAIL'} no (row, task, repeat) is filed twice"
           + ("" if not duplicated else f": {duplicated[:5]}"))

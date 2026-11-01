@@ -268,14 +268,14 @@ from the data. Re-run it after a benchmark:
 python3 tools/make_charts.py
 ```
 
-### Five of 13 rows are perfect, so cost is the only differentiator
+### Five of 15 rows are perfect, so cost is the only differentiator
 
 Four models passed all **36 of 36** runs with zero variance on every individual task and
 zero timeouts, and a fifth, Laguna S 2.1, passed all 12 runs of its single-repeat
-screening pass. When five of the 13 rows are perfect, pass rate tells you almost
+screening pass. When five of the 15 rows are perfect, pass rate tells you almost
 nothing and the useful question becomes what each one costs to be perfect:
 
-The denominator is thirteen, not fourteen, because the twelve-task LFM3 row that used to sit
+The denominator is fifteen, not sixteen, because the twelve-task LFM3 row that used to sit
 here was retired on 2026-11-01: the suite grew to eighteen tasks and four originals were
 rewritten, so that row measured an instrument that no longer exists. It is preserved under
 `results/retired/` and its run carries a `RETIRED.md` stating why, rather than being left in
