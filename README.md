@@ -144,6 +144,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Beam (default, thinking unstated) | 3 | 50/54 (92.6%) | - | 16/18 | 11.9 | 111,761 | 24 s | 22 min |
 | Gemma 4 (cloud, configuration unrecorded) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
 | Qwen3.6 35B (local, configuration unrecorded) | 3 | 31/36 (86.1%) | - | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
+| Qwen3.6 35B (local, sentinel-qwen-local, thinking unstated) | 3 | 43/54 (79.6%) | - | 12/18 | 13.0 | 129,927 | 89 s | 80 min |
 | Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
 | LFM3 1.7B (llama.cpp, configuration unrecorded) | 3 | 34/36 (94.4%) | - | 10/12 | 23.0 | 327,400 | 140 s | 84 min |
 | LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 46/54 (85.2%) | turn_limit 1 | 13/18 | 18.8 | 246,054 | 118 s | 1.77 h |
@@ -197,11 +198,12 @@ bundles and is not a series at all.
 | Beam (default, thinking unstated) | 3 | 0.9802 ± 0.0425 | **1007 tok/s** | **24 s** | 11.7 | 95% | - | - | 18 tasks, `9fe550deb1c0` |
 | Gemma 4 (cloud, configuration unrecorded) | 3 | 0.9821 ± 0.0171 | - | - | - | - | - | - | - |
 | Qwen3.6 35B (local, configuration unrecorded) | 3 | 0.9504 ± 0.1537 | - | - | - | - | - | - | - |
+| Qwen3.6 35B (local, sentinel-qwen-local, thinking unstated) | 3 | 0.9074 ± 0.1978 | 102 tok/s | 70 s | 13.4 | 88% | **67%** | 6,472 MiB | 18 tasks, `9fe550deb1c0` |
 | Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 4 | 0.8638 ± 0.1562 | - | - | - | - | - | - | - |
 | LFM3 1.7B (llama.cpp, configuration unrecorded) | 3 | 0.9676 ± 0.1109 | - | - | - | - | - | - | - |
 | LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9583 ± 0.0345 | 443 tok/s | 84 s | 19.4 | 96% | 14% | **2,260 MiB** | 18 tasks, `d41a23888d49` |
 | Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 0.9244 ± 0.0663 | 61 tok/s | 61 s | 17.7 | 90% | 14% | 6,682 MiB | 18 tasks, `d41a23888d49` |
-| Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9765 ± 0.0369 | 48 tok/s | 77 s | 13.5 | 91% | **17%** | 6,718 MiB | 18 tasks, `d41a23888d49` |
+| Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9765 ± 0.0369 | 48 tok/s | 77 s | 13.5 | 91% | 17% | 6,718 MiB | 18 tasks, `d41a23888d49` |
 | Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 0.8566 | - | - | - | - | - | - | - |
 | Groot 19B (local, configuration unrecorded) | 3 | 0.9595 ± 0.0366 | - | - | - | - | - | - | - |
 <!-- DECISION:END -->
@@ -282,11 +284,12 @@ python3 tools/make_charts.py
 
 Four models passed all **36 of 36** runs with zero variance on every individual task and
 zero timeouts, and Laguna S 2.1 passed all 12 runs of its single-repeat screening pass.
-Three of the eighteen-task rows (Beam and Ornith 1.5 122B, thinking left at the model
-default) also pass every one of the twelve original tasks; they miss only on the six
-harder tasks added on 2026-11-01. Perfect on every task measured: 5 of the 17 rows, the
-twelve-task rows; add the two eighteen-task rows read on their twelve and it is 7.
-Since five of the 17 rows are perfect on everything they sat, pass rate tells you almost
+Three of the eighteen-task rows (Beam, Ornith 1.5 122B and Qwen3.6 35B, thinking left at the model
+default or unstated) also pass every one of the twelve original tasks; they miss only on the six
+harder tasks added on 2026-11-01. Perfect on the twelve: 5 of the 18 rows. Read on their whole
+suite, 5 of the 18 rows are perfect (the four rows that sat 36 runs and Laguna's 12); the other
+thirteen-task-per-row series miss at least one of the six newer tasks.
+Since five of the 18 rows are perfect on everything they sat, pass rate tells you almost
 nothing and the useful question becomes what each one costs to be perfect. The two free
 rows at the top of this list cost nothing and the most tokens, so "cost" below reads on
 both axes:

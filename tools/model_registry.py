@@ -47,6 +47,9 @@ LABEL = {
     "beam:cloud": "Beam",
     "gemma4:cloud": "Gemma 4 (cloud)",
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "Qwen3.6 35B (local)",
+    # The SENTINEL-managed server records the weights path rather than a short id, so the
+    # eighteen-task series from /mnt/fast lands under the same label as its twelve-task rows.
+    "/home/chris/models/Qwen3.6-35B-A3B-MTP/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf": "Qwen3.6 35B (local)",
     "nemotron-3.5-lightning-30b-a3b": "Nemotron 3.5 Lightning 30B (local)",
     "Groot-19B-A3B-261023": "Groot 19B (local)",
     "LFM2.5-24B-A2B": "LFM2.5 24B (local)",
@@ -71,6 +74,7 @@ COLOUR = {
     "beam:cloud": "#e0af68",
     "gemma4:cloud": "#9ece6a",
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "#f7768e",
+    "/home/chris/models/Qwen3.6-35B-A3B-MTP/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf": "#f7768e",
     "nemotron-3.5-lightning-30b-a3b": "#ff9e64",
     "Groot-19B-A3B-261023": "#bb9af7",
     "LFM2.5-24B-A2B": "#73daca",
@@ -95,6 +99,7 @@ ORDER = [
     "beam:cloud",
     "gemma4:cloud",
     "Qwen3.6-35B-A3B-UD-Q4_K_M",
+    "/home/chris/models/Qwen3.6-35B-A3B-MTP/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
     "nemotron-3.5-lightning-30b-a3b",
     "lfm3-64k",
     "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",

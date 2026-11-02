@@ -1,0 +1,112 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "alpha.json edited (active=true, retries=7, name kept)",
+      "detail": "got {'name': 'alpha', 'active': True, 'retries': 7}",
+      "pass": true
+    },
+    {
+      "check": "beta.json edited (tags += y, priority=1, name kept)",
+      "detail": "got {'name': 'beta', 'tags': ['x', 'y'], 'priority': 1}",
+      "pass": true
+    },
+    {
+      "check": "gamma.json edited (limits.mem=1024, limits.gpu=T4, cpu+name kept)",
+      "detail": "got {'name': 'gamma', 'limits': {'cpu': 1, 'mem': 1024, 'gpu': 'T4'}}",
+      "pass": true
+    },
+    {
+      "check": "trace: one turn issued calls covering all three files",
+      "detail": "turn 1 with 3 calls",
+      "pass": true
+    },
+    {
+      "check": "trace: the three batched edits all succeeded",
+      "detail": "all three non-error",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed by the unit; thinking state not recorded)",
+    "ctx": 98304,
+    "kv_cache_k": "(not exposed by the server)",
+    "kv_cache_v": "(not exposed by the server)",
+    "thinking": "unknown",
+    "variant": "sentinel-qwen-local"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 76.0,
+      "n_ctx": 98304,
+      "peak_prompt_tokens": 23638,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 62.78,
+    "schema_version": 1,
+    "stream_seconds": 63.55,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 6691,
+      "tokens_per_second": 106.58
+    },
+    "tokens": {
+      "cache_read": 61064,
+      "in": 66937,
+      "out": 818,
+      "prefill": 5873
+    },
+    "tool_calls": 6,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.77,
+    "tool_validity_pct": 100.0,
+    "turns": 10,
+    "turns_on_failure": null,
+    "turns_to_success": 10,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 6948,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 6949,
+      "peak_server_mib": 6232,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 65.7
+  },
+  "exit_code": 0,
+  "finished": "2026-11-01T21:36:01.803828+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "0be0359364463068677345d1beb3cb9ad4d435d55272aef6c0e0937938fd7f20",
+  "manifest_sha256": "dd598e57f0c47b68626ec67255b61e6fc259f93de040fac3fb98225c0dd43d61",
+  "model": "/home/chris/models/Qwen3.6-35B-A3B-MTP/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+  "passed": 5,
+  "repeat": 2,
+  "run_id": "agent-qwen36-35b-sentinel-18task-3x-final",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-01T21:34:56.024959+00:00",
+  "task": "17-parallel-tool-coordination",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 66937,
+  "tokens_out": 818,
+  "tool_calls": 6,
+  "total_checks": 5,
+  "turns": 10,
+  "wall_seconds": 65.7
+}
