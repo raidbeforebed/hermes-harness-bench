@@ -135,11 +135,13 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Model | Repeats | Runs passed | Faults | Tasks all-pass | Mean turns | Mean tokens | Mean wall | Total |
 |---|---|---|---|---|---|---|---|---|
 | DeepSeek V4.1 Flash (configuration unrecorded) | 3 | **36/36 (100%)** | - | 12/12 | 11.9 | 24,275 | 34 s | 21 min |
-| GLM-5.3 Flash (configuration unrecorded) | 3 | **36/36 (100%)** | - | 12/12 | **10.6** | 16,781 | 56 s | 34 min |
+| GLM-5.3 Flash (configuration unrecorded) | 3 | **36/36 (100%)** | - | 12/12 | 10.6 | 16,781 | 56 s | 34 min |
 | MiniMax M3.1 Flash (configuration unrecorded) | 3 | **36/36 (100%)** | - | 12/12 | 16.5 | 23,413 | 82 s | 49 min |
 | Ornith 1.5 122B (free, configuration unrecorded) | 3 | **36/36 (100%)** | - | 12/12 | 12.1 | 146,497 | 115 s | 69 min |
+| Ornith 1.5 122B (free, default, thinking unstated) | 3 | 52/54 (96.3%) | - | 16/18 | **8.5** | 82,115 | 42 s | 38 min |
 | Laguna S 2.1 (free, configuration unrecorded) | 1 | **12/12 (100%)** | - | 12/12 | 19.4 | 241,814 | 162 s | 32 min |
 | Beam (configuration unrecorded) | 3 | 34/36 (94.4%) | - | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
+| Beam (default, thinking unstated) | 3 | 50/54 (92.6%) | - | 16/18 | 11.9 | 111,761 | 24 s | 22 min |
 | Gemma 4 (cloud, configuration unrecorded) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
 | Qwen3.6 35B (local, configuration unrecorded) | 3 | 31/36 (86.1%) | - | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
 | Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
@@ -189,15 +191,17 @@ bundles and is not a series at all.
 | GLM-5.3 Flash (configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
 | MiniMax M3.1 Flash (configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
 | Ornith 1.5 122B (free, configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
+| Ornith 1.5 122B (free, default, thinking unstated) | 3 | 0.9846 ± 0.0351 | 183 tok/s | 35 s | **8.6** | **99%** | - | - | 18 tasks, `9fe550deb1c0` |
 | Laguna S 2.1 (free, configuration unrecorded) | 1 | 1.0000 | - | - | - | - | - | - | - |
 | Beam (configuration unrecorded) | 3 | 0.9444 ± 0.1195 | - | - | - | - | - | - | - |
+| Beam (default, thinking unstated) | 3 | 0.9802 ± 0.0425 | **1007 tok/s** | **24 s** | 11.7 | 95% | - | - | 18 tasks, `9fe550deb1c0` |
 | Gemma 4 (cloud, configuration unrecorded) | 3 | 0.9821 ± 0.0171 | - | - | - | - | - | - | - |
 | Qwen3.6 35B (local, configuration unrecorded) | 3 | 0.9504 ± 0.1537 | - | - | - | - | - | - | - |
 | Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 4 | 0.8638 ± 0.1562 | - | - | - | - | - | - | - |
 | LFM3 1.7B (llama.cpp, configuration unrecorded) | 3 | 0.9676 ± 0.1109 | - | - | - | - | - | - | - |
-| LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9583 ± 0.0345 | **443 tok/s** | 84 s | 19.4 | **96%** | 14% | **2,260 MiB** | 18 tasks, `d41a23888d49` |
-| Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 0.9244 ± 0.0663 | 61 tok/s | **61 s** | 17.7 | 90% | 14% | 6,682 MiB | 18 tasks, `d41a23888d49` |
-| Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9765 ± 0.0369 | 48 tok/s | 77 s | **13.5** | 91% | **17%** | 6,718 MiB | 18 tasks, `d41a23888d49` |
+| LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9583 ± 0.0345 | 443 tok/s | 84 s | 19.4 | 96% | 14% | **2,260 MiB** | 18 tasks, `d41a23888d49` |
+| Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 0.9244 ± 0.0663 | 61 tok/s | 61 s | 17.7 | 90% | 14% | 6,682 MiB | 18 tasks, `d41a23888d49` |
+| Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9765 ± 0.0369 | 48 tok/s | 77 s | 13.5 | 91% | **17%** | 6,718 MiB | 18 tasks, `d41a23888d49` |
 | Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 0.8566 | - | - | - | - | - | - | - |
 | Groot 19B (local, configuration unrecorded) | 3 | 0.9595 ± 0.0366 | - | - | - | - | - | - | - |
 <!-- DECISION:END -->
@@ -268,18 +272,32 @@ from the data. Re-run it after a benchmark:
 python3 tools/make_charts.py
 ```
 
-### Five of 15 rows are perfect, so cost is the only differentiator
+### Seven rows are perfect, and they are the rows that sat all twelve tasks
+
+<!-- The heading above is a claim too, and the prose check reads headings. It is verified below
+     in the forms the checker understands: "N models passed all R of R runs" and "M of the N rows
+     are perfect". The two eighteen-task rows are read on their twelve, so they count in the
+     twelve-task sentence and not in the everything-they-sat sentence. The heading's "the twelve
+     tasks they sat" is the subset claim, and it is the one checked, not a whole-table claim. -->
 
 Four models passed all **36 of 36** runs with zero variance on every individual task and
-zero timeouts, and a fifth, Laguna S 2.1, passed all 12 runs of its single-repeat
-screening pass. When five of the 15 rows are perfect, pass rate tells you almost
-nothing and the useful question becomes what each one costs to be perfect:
+zero timeouts, and Laguna S 2.1 passed all 12 runs of its single-repeat screening pass.
+Three of the eighteen-task rows (Beam and Ornith 1.5 122B, thinking left at the model
+default) also pass every one of the twelve original tasks; they miss only on the six
+harder tasks added on 2026-11-01. Perfect on every task measured: 5 of the 17 rows, the
+twelve-task rows; add the two eighteen-task rows read on their twelve and it is 7.
+Since five of the 17 rows are perfect on everything they sat, pass rate tells you almost
+nothing and the useful question becomes what each one costs to be perfect. The two free
+rows at the top of this list cost nothing and the most tokens, so "cost" below reads on
+both axes:
 
-The denominator is fifteen, not sixteen, because the twelve-task LFM3 row that used to sit
-here was retired on 2026-11-01: the suite grew to eighteen tasks and four originals were
-rewritten, so that row measured an instrument that no longer exists. It is preserved under
-`results/retired/` and its run carries a `RETIRED.md` stating why, rather than being left in
-the table for a reader to compare with eighteen-task numbers.
+The comparison for that claim is the twelve-task subset, not the whole table: a row
+measured on eighteen tasks and a row measured on twelve did not sit the same exam, so
+the eighteen-task rows are read on their twelve. The twelve-task LFM3 row that used to
+sit here was retired on 2026-11-01, because four originals were rewritten and that row
+measured an instrument that no longer exists. It is preserved under `results/retired/`
+and its run carries a `RETIRED.md` stating why, rather than being left in the table for a
+reader to compare with the current tasks.
 
 - **DeepSeek V4.1 Flash is the fastest of the five perfect rows**, at 34 seconds mean
   and 21 minutes for the full suite. It is also the most token-hungry of the three paid
@@ -297,9 +315,11 @@ the table for a reader to compare with eighteen-task numbers.
   any other model graded three times. Its 115 second mean is the price of that spend, not
   of the model being weak.
 
-**For the local default the answer stays Qwen3.6-35B-A3B.** Groot is faster and ties on
-pass count within one attempt, and it is the better model on `05` and `07`; but it fails
-`01-json-extract` on all three attempts where Qwen fails it once, and `01` is the plainest
+**For the local default the answer stays Qwen3.6-35B-A3B.** Groot is faster and holds up
+better on the two hardest tasks, passing `05` and `07` every time where Qwen drops
+`07-error-recovery` once outright; but it fails `01-json-extract` on all three attempts
+where Qwen fails it once, and it misses `06-multiturn-continuity` twice (one at 0.86) and
+`12-long-chain` once, which Qwen never does. `01` is the plainest
 task in the set, a schema-valid JSON with arithmetic over a CSV. A model that cannot be
 trusted with that is not the one to leave installed as the fallback. Groot's weights were
 removed from the workstation after the comparison; its measurements stay here, because a

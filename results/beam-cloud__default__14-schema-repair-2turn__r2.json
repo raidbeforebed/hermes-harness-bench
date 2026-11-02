@@ -1,0 +1,127 @@
+{
+  "artifact_score": 0.6667,
+  "checks": [
+    {
+      "check": "corrected_call.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "single object call, not a list or wrapper",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "exact top-level keys tool+args, no extras",
+      "detail": "keys=['args', 'tool']",
+      "pass": true
+    },
+    {
+      "check": "args has exactly pattern+path with string types",
+      "detail": "args={'pattern': 'def calculate_total', 'path': '/srv/payments/charge.py'}",
+      "pass": true
+    },
+    {
+      "check": "same operation, pattern and path as turn 1",
+      "detail": "tool='search_files' args={'pattern': 'def calculate_total', 'path': '/srv/payments/charge.py'}",
+      "pass": true
+    },
+    {
+      "check": "trace: rejected turn 1 is present (injected by the harness)",
+      "detail": "injected turns=[1]",
+      "pass": true
+    },
+    {
+      "check": "trace: exactly one correction call was emitted",
+      "detail": "correction calls=4",
+      "pass": false
+    },
+    {
+      "check": "trace: the correction call succeeded",
+      "detail": "no single correction call to test",
+      "pass": false
+    },
+    {
+      "check": "trace: the correction was a single call in its turn",
+      "detail": "no single correction call to test",
+      "pass": false
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 17.59,
+    "schema_version": 1,
+    "stream_seconds": 50.06,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 30003,
+      "tokens_per_second": 1705.69
+    },
+    "tokens": {
+      "cache_read": 117312,
+      "in": 146437,
+      "out": 878,
+      "prefill": 29125
+    },
+    "tool_calls": 7,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 32.47,
+    "tool_validity_pct": 100.0,
+    "turns": 15,
+    "turns_on_failure": 15,
+    "turns_to_success": null,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 52.8
+  },
+  "exit_code": 0,
+  "finished": "2026-11-01T20:35:26.973588+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "59e02172f104300626476f91e66caba1cec9cc09a47df40c019eaad36a9eb6ee",
+  "manifest_sha256": "a1bd4bcf60c1d9ab9c0695b3cb6a5f9b3150480287a122bd417a724c9fbdde73",
+  "model": "beam:cloud",
+  "passed": 6,
+  "repeat": 2,
+  "run_id": "agent-beam-cloud-18task-3x-final",
+  "score": 0.6667,
+  "score_source": "artifact",
+  "started": "2026-11-01T20:34:34.081652+00:00",
+  "task": "14-schema-repair-2turn",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 146437,
+  "tokens_out": 878,
+  "tool_calls": 7,
+  "total_checks": 9,
+  "turns": 15,
+  "wall_seconds": 52.8
+}

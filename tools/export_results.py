@@ -33,13 +33,52 @@ import sys
 from pathlib import Path
 
 ROOT = Path(os.environ.get("HBENCH_ROOT") or Path(__file__).resolve().parent.parent)
-# The publish repo does not contain runs/ (it is gitignored), so fall back to the
-# working tree's runs/ when this repo has none. Without this the documented
-# command fails from the publish checkout, which is the only place it is run.
-RUNS = Path(os.environ["HBENCH_RUNS"]) if os.environ.get("HBENCH_RUNS") else ROOT / "runs"
-if not RUNS.is_dir():
-    RUNS = Path("/root/hermes-bench/runs")
+# Where the measurements live. The publish repo does not contain runs/ (it is gitignored), and
+# the runs/ directory it does contain is not the working tree: the publish gate creates
+# runs/<run_id>/ there to hold manifest.json and published.json, and nothing else. So a run
+# directory can exist under this checkout and hold no records at all, which is how an export
+# once reported "0 written, 0 excluded" and exited clean.
+#
+# The rule: a run directory counts as a source only when it holds record files. Candidates are
+# tried in order, and the first root that holds at least one record-bearing run is used.
+def _has_records(d: Path) -> bool:
+    """True when a run directory holds something to export.
+
+    Aggregate layout is one results.json; per-task layout is tasks/*/*/*/result.json. This is
+    the same pair record_files() reads, kept here so RUNS can be chosen before that runs.
+    """
+    return (d / "results.json").is_file() or any(d.glob("tasks/*/*/*/result.json"))
+
+
+def _runs_roots() -> list[Path]:
+    env = os.environ.get("HBENCH_RUNS")
+    if env:
+        return [Path(env)]
+    return [ROOT / "runs", Path("/root/hermes-bench/runs")]
+
+
+_RUNS_ROOTS = [p for p in _runs_roots() if p.is_dir()]
+RUNS = next((p for p in _RUNS_ROOTS
+             if any(c.is_dir() and _has_records(c) for c in p.iterdir())),
+            _RUNS_ROOTS[0] if _RUNS_ROOTS else ROOT / "runs")
 RESULTS = ROOT / "results"
+
+
+def resolve_run(name: str) -> Path | None:
+    """The run directory for ``name`` that actually holds records, or None.
+
+    Prefers a root with records; falls back to a bare directory only so the caller can report
+    "this run has no records" by name instead of exporting nothing and returning success.
+    """
+    best: Path | None = None
+    for root in _RUNS_ROOTS:
+        d = root / name
+        if not d.is_dir():
+            continue
+        if _has_records(d):
+            return d
+        best = best or d
+    return best
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import result_key  # noqa: E402
@@ -189,21 +228,31 @@ def export_run(run_dir: Path) -> tuple[int, int, list[dict]]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("run_id", nargs="?", help="run directory name under runs/")
+    ap.add_argument("run_ids", nargs="*", metavar="run_id",
+                    help="run directory name(s) under runs/")
     ap.add_argument("--all", action="store_true", help="export every run")
     ap.add_argument("--latest", action="store_true", help="newest run per model")
     a = ap.parse_args()
 
-    if not a.run_id and not a.all and not a.latest:
-        ap.error("give a run_id, or --all, or --latest")
+    if not a.run_ids and not a.all and not a.latest:
+        ap.error("give at least one run_id, or --all, or --latest")
 
     RESULTS.mkdir(exist_ok=True)
 
-    if a.run_id:
-        run_dir = RUNS / a.run_id
-        if not run_dir.is_dir():
-            sys.exit(f"no such run: {run_dir}")
-        targets = [run_dir]
+    if a.run_ids:
+        targets = []
+        for name in a.run_ids:
+            run_dir = resolve_run(name)
+            if run_dir is None:
+                sys.exit(f"no such run: {name} under any of "
+                         + ", ".join(str(p) for p in _RUNS_ROOTS))
+            if not record_files(run_dir):
+                # A directory with a manifest and no records is a publish marker, not a
+                # measurement. Exporting it silently wrote nothing and returned success, which
+                # a caller reads as "done".
+                sys.exit(f"{name} holds no record files at {run_dir}; "
+                         "it is a publish marker, not a run")
+            targets.append(run_dir)
     elif a.all:
         targets = sorted(d for d in RUNS.iterdir() if d.is_dir())
     else:

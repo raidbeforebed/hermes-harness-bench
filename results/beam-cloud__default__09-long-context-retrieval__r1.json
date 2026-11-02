@@ -1,0 +1,107 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "log intact (3 codes)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "codes.json exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "all three codes found",
+      "detail": "got ['RIDGE-3391', 'RIDGE-7714', 'RIDGE-8826'] want ['RIDGE-3391', 'RIDGE-7714', 'RIDGE-8826']",
+      "pass": true
+    },
+    {
+      "check": "count consistent",
+      "detail": "count=3 vs 3",
+      "pass": true
+    },
+    {
+      "check": "no invented codes",
+      "detail": "[]",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 21.44,
+    "schema_version": 1,
+    "stream_seconds": 22.38,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 24397,
+      "tokens_per_second": 1137.92
+    },
+    "tokens": {
+      "cache_read": 112640,
+      "in": 135663,
+      "out": 1374,
+      "prefill": 23023
+    },
+    "tool_calls": 6,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.94,
+    "tool_validity_pct": 100.0,
+    "turns": 14,
+    "turns_on_failure": null,
+    "turns_to_success": 14,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 25.5
+  },
+  "exit_code": 0,
+  "finished": "2026-11-01T20:28:03.756415+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "59e02172f104300626476f91e66caba1cec9cc09a47df40c019eaad36a9eb6ee",
+  "manifest_sha256": "a1bd4bcf60c1d9ab9c0695b3cb6a5f9b3150480287a122bd417a724c9fbdde73",
+  "model": "beam:cloud",
+  "passed": 5,
+  "repeat": 1,
+  "run_id": "agent-beam-cloud-18task-3x-final",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-01T20:27:38.110286+00:00",
+  "task": "09-long-context-retrieval",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 135663,
+  "tokens_out": 1374,
+  "tool_calls": 6,
+  "total_checks": 5,
+  "turns": 14,
+  "wall_seconds": 25.5
+}

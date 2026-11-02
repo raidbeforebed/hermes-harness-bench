@@ -1,0 +1,113 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "LOG_LEVEL changed to debug",
+      "detail": [
+        "LOG_LEVEL: debug"
+      ],
+      "pass": true
+    },
+    {
+      "check": "TIMEOUT changed to 60",
+      "detail": [
+        "TIMEOUT: 60"
+      ],
+      "pass": true
+    },
+    {
+      "check": "replicas stayed 2 (correction honoured)",
+      "detail": [
+        "replicas: 2"
+      ],
+      "pass": true
+    },
+    {
+      "check": "service and image untouched",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "no comments added",
+      "detail": "",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 19.18,
+    "schema_version": 1,
+    "stream_seconds": 19.58,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 2258,
+      "tokens_per_second": 117.73
+    },
+    "tokens": {
+      "cache_read": 59632,
+      "in": 61601,
+      "out": 289,
+      "prefill": 1969
+    },
+    "tool_calls": 2,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.4,
+    "tool_validity_pct": 100.0,
+    "turns": 6,
+    "turns_on_failure": null,
+    "turns_to_success": 6,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 21.8
+  },
+  "exit_code": 0,
+  "finished": "2026-11-01T21:03:08.535907+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "3eece57014b1212c3cf45c23bd9cfe5865a288b7a083c2cbc3f281face7ea698",
+  "manifest_sha256": "3872583e4dc14099849070ef37270037299fed5f9a92d280db9039053707299c",
+  "model": "ornith/ornith-1.5-122b:free",
+  "passed": 5,
+  "repeat": 1,
+  "run_id": "agent-ornith122-nous-18task-3x-final",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-01T21:02:46.671341+00:00",
+  "task": "11-correction-handling",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 61601,
+  "tokens_out": 289,
+  "tool_calls": 2,
+  "total_checks": 5,
+  "turns": 6,
+  "wall_seconds": 21.8
+}

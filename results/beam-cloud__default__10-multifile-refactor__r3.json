@@ -1,0 +1,115 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "pytest suite passes",
+      "detail": ".....                                                                    [100%]\n5 passed in 0.01s\n",
+      "pass": true
+    },
+    {
+      "check": "test file untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "report.py untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "CHANGES.md exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "three sections in order",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "Verification quotes a pytest pass count",
+      "detail": "## Verification\n============================== 5 passed in 0.03s ===============================",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [
+      "patch",
+      "write_file"
+    ],
+    "model_seconds": 28.78,
+    "schema_version": 1,
+    "stream_seconds": 31.78,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 27460,
+      "tokens_per_second": 954.13
+    },
+    "tokens": {
+      "cache_read": 223680,
+      "in": 248430,
+      "out": 2710,
+      "prefill": 24750
+    },
+    "tool_calls": 11,
+    "tool_calls_invalid": 2,
+    "tool_seconds": 3.0,
+    "tool_validity_pct": 81.8,
+    "turns": 24,
+    "turns_on_failure": null,
+    "turns_to_success": 24,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 33.9
+  },
+  "exit_code": 0,
+  "finished": "2026-11-01T20:30:25.757544+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "59e02172f104300626476f91e66caba1cec9cc09a47df40c019eaad36a9eb6ee",
+  "manifest_sha256": "a1bd4bcf60c1d9ab9c0695b3cb6a5f9b3150480287a122bd417a724c9fbdde73",
+  "model": "beam:cloud",
+  "passed": 6,
+  "repeat": 3,
+  "run_id": "agent-beam-cloud-18task-3x-final",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-01T20:29:51.264348+00:00",
+  "task": "10-multifile-refactor",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 248430,
+  "tokens_out": 2710,
+  "tool_calls": 11,
+  "total_checks": 6,
+  "turns": 24,
+  "wall_seconds": 33.9
+}

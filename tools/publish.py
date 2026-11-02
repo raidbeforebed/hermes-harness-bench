@@ -364,7 +364,11 @@ def main() -> int:
     print(r.stdout.rstrip())
     if r.returncode != 0:
         print(r.stderr.rstrip(), file=sys.stderr)
-        print("\nPUBLISH ABORTED: the run has stall-class exclusions. Nothing was committed.",
+        # Name the real cause. This used to print "the run has stall-class exclusions" for any
+        # non-zero exit, including a bad argument and a run directory with no records, which
+        # sent the reader looking for exclusions that did not exist.
+        print("\nPUBLISH ABORTED: the export step failed (exit "
+              f"{r.returncode}); see the message above. Nothing was committed.",
               file=sys.stderr)
         return 1
 

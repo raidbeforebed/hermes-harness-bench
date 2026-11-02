@@ -1,0 +1,114 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "pytest suite passes",
+      "detail": ".....                                                                    [100%]\n5 passed in 0.01s\n",
+      "pass": true
+    },
+    {
+      "check": "test file untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "report.py untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "CHANGES.md exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "three sections in order",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "Verification quotes a pytest pass count",
+      "detail": "## Verification\n5 passed in 0.03s\n",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [
+      "read_file"
+    ],
+    "model_seconds": 69.09,
+    "schema_version": 1,
+    "stream_seconds": 71.12,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 8567,
+      "tokens_per_second": 124.0
+    },
+    "tokens": {
+      "cache_read": 155312,
+      "in": 161339,
+      "out": 2540,
+      "prefill": 6027
+    },
+    "tool_calls": 10,
+    "tool_calls_invalid": 1,
+    "tool_seconds": 2.03,
+    "tool_validity_pct": 90.0,
+    "turns": 18,
+    "turns_on_failure": null,
+    "turns_to_success": 18,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 74.0
+  },
+  "exit_code": 0,
+  "finished": "2026-11-01T21:00:19.354033+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "3eece57014b1212c3cf45c23bd9cfe5865a288b7a083c2cbc3f281face7ea698",
+  "manifest_sha256": "3872583e4dc14099849070ef37270037299fed5f9a92d280db9039053707299c",
+  "model": "ornith/ornith-1.5-122b:free",
+  "passed": 6,
+  "repeat": 1,
+  "run_id": "agent-ornith122-nous-18task-3x-final",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-01T20:59:04.928048+00:00",
+  "task": "10-multifile-refactor",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 161339,
+  "tokens_out": 2540,
+  "tool_calls": 10,
+  "total_checks": 6,
+  "turns": 18,
+  "wall_seconds": 74.0
+}

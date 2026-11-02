@@ -1,0 +1,112 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "config.ini -> config.bak (content preserved)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "config.ini removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "notes.txt -> notes.bak (content preserved)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "notes.txt removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "README.md untouched",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "MANIFEST.txt exact",
+      "detail": "renamed: config.ini -> config.bak\nrenamed: notes.txt -> notes.bak\nunchanged: README.md\ntotal_before: 3\ntotal_after: 3",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 13.02,
+    "schema_version": 1,
+    "stream_seconds": 13.76,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 9550,
+      "tokens_per_second": 733.49
+    },
+    "tokens": {
+      "cache_read": 63488,
+      "in": 72734,
+      "out": 304,
+      "prefill": 9246
+    },
+    "tool_calls": 3,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.74,
+    "tool_validity_pct": 100.0,
+    "turns": 8,
+    "turns_on_failure": null,
+    "turns_to_success": 8,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 17.2
+  },
+  "exit_code": 0,
+  "finished": "2026-11-01T20:22:26.859850+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "59e02172f104300626476f91e66caba1cec9cc09a47df40c019eaad36a9eb6ee",
+  "manifest_sha256": "a1bd4bcf60c1d9ab9c0695b3cb6a5f9b3150480287a122bd417a724c9fbdde73",
+  "model": "beam:cloud",
+  "passed": 6,
+  "repeat": 3,
+  "run_id": "agent-beam-cloud-18task-3x-final",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-01T20:22:09.587839+00:00",
+  "task": "04-rename-safe",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 72734,
+  "tokens_out": 304,
+  "tool_calls": 3,
+  "total_checks": 6,
+  "turns": 8,
+  "wall_seconds": 17.2
+}
