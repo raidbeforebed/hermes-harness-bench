@@ -64,6 +64,37 @@ registry = load_tool("model_registry")
 result_key = load_tool("result_key")
 
 
+# The original twelve tasks, by directory prefix. A row measured on the eighteen-task suite
+# is read on these twelve when prose talks about "perfect", because a row that sat twelve
+# tasks and a row that sat eighteen did not sit the same exam.
+CORE_TWELVE = tuple(f"{i:02d}-" for i in range(1, 13))
+
+
+def core_twelve(rs: list[dict]) -> dict[str, list[float]]:
+    """task -> scores, restricted to the original twelve tasks."""
+    per: dict[str, list[float]] = {}
+    for r in rs:
+        task = r.get("task") or ""
+        if task.startswith(CORE_TWELVE):
+            per.setdefault(task, []).append(float(r.get("score") or 0.0))
+    return per
+
+
+def perfect_on_core_twelve(rs: list[dict]) -> bool:
+    """True when the row was measured on all twelve original tasks and passed every attempt.
+
+    A row that never sat the twelve cannot be perfect on them, so it is not counted; this is
+    what keeps a three-attempt probe on one hard task out of a headline count.
+    """
+    per = core_twelve(rs)
+    return len(per) == 12 and all(min(v) >= 1.0 for v in per.values())
+
+
+def rows_on_core_twelve(rs: list[dict]) -> bool:
+    return len(core_twelve(rs)) == 12
+
+
+
 def rows_in_results() -> list[dict]:
     """One row per (model, configuration), in the order the tables use.
 
@@ -265,6 +296,11 @@ def main() -> int:
     text = README.read_text()
 
     patterns = [
+        # The twelve-task subset claim is checked first. A row measured on eighteen tasks is read
+        # on its twelve, and only rows actually measured on all twelve count toward it.
+        (r"\b(\w+) of (?:\w+|\d+) rows are perfect on the twelve",
+         sum(1 for rs in per.values() if perfect_on_core_twelve(rs)),
+         "rows perfect on all twelve core tasks"),
         (rf"\b(\w+) of (?:the )?(?:{'|'.join(w for w in words if not w.isdigit())}|\d+) "
          rf"(?:models|rows) are perfect", len(perfect), "rows at 100%"),
         (r"fastest of the (\w+) perfect", len(perfect), "perfect rows"),
@@ -272,6 +308,9 @@ def main() -> int:
     claim_reported = False
     for pattern, want, desc in patterns:
         for hit in re.finditer(pattern, text):
+            # the plain "perfect" check must not double-report the twelve-task sentence
+            if "on the twelve" in hit.group(0) and "twelve" not in desc:
+                continue
             claim_reported = True
             got = words.get(hit.group(1).lower())
             ok = got == want
@@ -299,6 +338,16 @@ def main() -> int:
         failures += 0 if ok else 1
         print(f"  {'ok  ' if ok else 'FAIL'} \"{hit.group(0)}\" denominator = {got}; "
               f"data says {len(per)} rows")
+
+    # same denominator, for the twelve-task subset: the denominator is the rows that were
+    # actually measured on all twelve, not every row in the table
+    on_twelve = sum(1 for rs in per.values() if rows_on_core_twelve(rs))
+    for hit in re.finditer(r"of (\w+) rows are perfect on the twelve(?! they)", text):
+        got = words.get(hit.group(1).lower())
+        ok = got == on_twelve
+        failures += 0 if ok else 1
+        print(f"  {'ok  ' if ok else 'FAIL'} \"{hit.group(0)}\" denominator = {got}; "
+              f"data says {on_twelve} rows measured on all twelve")
 
     # a named per-row count in prose must match that row's records
     beam = [k for k in per if "beam" in k.lower()]
@@ -360,6 +409,10 @@ def main() -> int:
     # The comparability rule: every row that carries a bundle hash must carry the *same* one,
     # because there is one frozen suite. Two different hashes mean two instruments presented
     # as one table; a row whose bundle covers fewer tasks than it has records is mismatched.
+    #
+    # A second bundle is allowed only when the tree names it as a re-frozen instrument, with
+    # the reason written down. That is the difference between a documented re-freeze and two
+    # instruments quietly sharing a table: an undocumented second hash still fails.
     bundles: dict[str, tuple[int, str]] = {}
     for row, cells in per_row_cells.items():
         hit = re.search(r"(\d+) tasks, `([0-9a-f]{12})`", cells[-1])
@@ -369,10 +422,25 @@ def main() -> int:
             failures += 1
             print(f"  FAIL {row} spans more than one task bundle")
     hashes = {h for _n, h in bundles.values()}
-    ok = len(hashes) <= 1
+    documented = set()
+    manifest = TOOLS.parent / "tasks" / "BUNDLES.md"
+    if manifest.is_file():
+        documented = {m.group(1) for m in re.finditer(r"`([0-9a-f]{12})`", manifest.read_text())}
+    undocumented = sorted(hashes - documented) if len(hashes) > 1 else []
+    ok = len(hashes) <= 1 or not undocumented
     failures += 0 if ok else 1
-    print(f"  {'ok  ' if ok else 'FAIL'} {len(bundles)} row(s) carry a bundle hash, "
-          f"{len(hashes)} distinct: {sorted(hashes)}")
+    if len(hashes) <= 1:
+        print(f"  ok   {len(bundles)} row(s) carry a bundle hash, {len(hashes)} distinct: "
+              f"{sorted(hashes)}")
+    else:
+        print(f"  {'ok  ' if ok else 'FAIL'} {len(bundles)} row(s) carry a bundle hash, "
+              f"{len(hashes)} distinct: {sorted(hashes)}"
+              + ("" if ok else f"; not documented in {manifest.name}: {undocumented}"))
+        for h in sorted(hashes):
+            rows_h = sorted(r for r, (_n, hh) in bundles.items() if hh == h)
+            note = next((ln.strip() for ln in manifest.read_text().splitlines()
+                         if f"`{h}`" in ln), "") if manifest.is_file() else ""
+            print(f"       `{h}`  {len(rows_h)} row(s), {note or 'undocumented'}")
     for row, (n, h) in sorted(bundles.items()):
         key = next((r["key"] for r in rows if r["label"] == row), None)
         rs = per.get(key, []) if key else []

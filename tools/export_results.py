@@ -285,6 +285,15 @@ def main() -> None:
             reason = next((ln.lstrip("# ").strip() for ln in lines if not ln.startswith("#")), "")
             print(f"  {run_dir.name}: RETIRED, not exported. {reason}")
             continue
+        # An abandoned run is not a measurement that finished. Its records are an aborted
+        # prefix (a provider outage on task 01, say), and exporting them would file zeros for a
+        # series nobody ran to the end. The collector refuses these; so does the exporter.
+        marker = run_dir / "ABANDONED.md"
+        if marker.exists():
+            lines = [ln.strip() for ln in marker.read_text().splitlines() if ln.strip()]
+            reason = next((ln.lstrip("# ").strip() for ln in lines if not ln.startswith("#")), "")
+            print(f"  {run_dir.name}: ABANDONED, not exported. {reason}")
+            continue
         w, s, names = export_run(run_dir)
         total_written += w
         total_skipped += s

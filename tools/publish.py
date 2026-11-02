@@ -412,7 +412,14 @@ def main() -> int:
     # 4. commit only if there is something to commit
     # tools/ is included on purpose: a pipeline change must land with the run it
     # publishes, or the published repo cannot reproduce what produced the numbers.
-    run(["git", "add", "-A", "results", "assets", "README.md", "tools"])
+    # tests/ belongs here for the same reason tools/ does: tests/test_publish.py is the file
+    # that checks the README's own claims against the data, so a run whose table needed a prose
+    # fix must ship the check that proves the fix. tasks/BUNDLES.md is the record of which
+    # instrument each row measured; without it a second bundle hash is indistinguishable from a
+    # defect. Both were left out of this path set once, and a commit that changed the claim and
+    # its checker shipped only the claim.
+    run(["git", "add", "-A", "results", "assets", "README.md", "tools", "tests",
+         "tasks/BUNDLES.md"])
     staged = run(["git", "diff", "--cached", "--quiet"])
     if staged.returncode == 0:
         print("\nNothing to publish: results, charts and table are already committed.")
