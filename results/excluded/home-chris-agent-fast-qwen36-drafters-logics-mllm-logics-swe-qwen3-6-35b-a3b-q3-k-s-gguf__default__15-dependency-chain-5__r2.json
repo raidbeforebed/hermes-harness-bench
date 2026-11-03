@@ -1,0 +1,14 @@
+{
+  "artifact_score": 0.0,
+  "attempt": null,
+  "detail": "exit -1: harness timeout after 2220s",
+  "exit_code": -1,
+  "fault_class": "timeout",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Logics-MLLM_Logics-SWE-Qwen3.6-35B-A3B-Q3_K_S.gguf",
+  "repeat": 2,
+  "run_id": "agent-logics-swe-qwen36-35b-18task-3x-20261103",
+  "source_repeat": null,
+  "source_run": null,
+  "task": "15-dependency-chain-5",
+  "workdir": "/mnt/fast/hbench-local/runs/agent-logics-swe-qwen36-35b-18task-3x-20261103/tasks/Logics-MLLM-Logics-SWE-Q-57a954/15-dependency-chain-5/r2/work"
+}

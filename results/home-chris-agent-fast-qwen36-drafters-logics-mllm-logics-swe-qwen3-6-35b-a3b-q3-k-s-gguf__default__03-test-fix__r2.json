@@ -1,0 +1,106 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "test file untouched",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "slugify.py exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "pytest suite passes",
+      "detail": "......                                                                   [100%]\n6 passed in 0.02s\n",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q4_0",
+    "kv_cache_v": "q4_0",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 61.8,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 25029,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [
+      "read_file",
+      "read_file",
+      "terminal"
+    ],
+    "model_seconds": 112.2,
+    "schema_version": 1,
+    "stream_seconds": 114.69,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 5309,
+      "tokens_per_second": 47.32
+    },
+    "tokens": {
+      "cache_read": 155777,
+      "in": 159379,
+      "out": 1707,
+      "prefill": 3602
+    },
+    "tool_calls": 8,
+    "tool_calls_invalid": 3,
+    "tool_seconds": 2.49,
+    "tool_validity_pct": 62.5,
+    "turns": 16,
+    "turns_on_failure": null,
+    "turns_to_success": 16,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 6116,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 6116,
+      "peak_server_mib": 5392,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 116.9
+  },
+  "exit_code": 0,
+  "finished": "2026-11-03T02:38:30.819555+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "3506acfec7be229094e3339206ff9f309eee676355716279fc8a20ce1dbc4b6b",
+  "manifest_sha256": "5b18d1d8feadf8d15c82425643a6e1055cfa2ebd6b83a3f59e45eac0cf353090",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Logics-MLLM_Logics-SWE-Qwen3.6-35B-A3B-Q3_K_S.gguf",
+  "passed": 3,
+  "repeat": 2,
+  "run_id": "agent-logics-swe-qwen36-35b-18task-3x-20261103",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-03T02:36:33.563097+00:00",
+  "task": "03-test-fix",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 159379,
+  "tokens_out": 1707,
+  "tool_calls": 8,
+  "total_checks": 3,
+  "turns": 16,
+  "wall_seconds": 116.9
+}

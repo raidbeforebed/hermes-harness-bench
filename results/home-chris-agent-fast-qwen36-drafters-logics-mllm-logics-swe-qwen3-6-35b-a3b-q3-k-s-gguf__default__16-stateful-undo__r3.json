@@ -1,0 +1,118 @@
+{
+  "artifact_score": 0.5,
+  "checks": [
+    {
+      "check": "harness ran the requested model",
+      "detail": "exit -1: harness timeout after 1020s",
+      "pass": false
+    },
+    {
+      "check": "notes.md exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "header is the first line",
+      "detail": "'# Notes'",
+      "pass": true
+    },
+    {
+      "check": "undo honoured: alpha kept, bravo dropped, charlie appended",
+      "detail": "ok",
+      "pass": false
+    },
+    {
+      "check": "exact final content (header, alpha, charlie, trailing newline)",
+      "detail": "'# Notes\\n- alpha\\n'",
+      "pass": false
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q4_0",
+    "kv_cache_v": "q4_0",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 0.0,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 65533,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 700.12,
+    "schema_version": 1,
+    "stream_seconds": 700.31,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": null,
+      "tokens_per_second": null
+    },
+    "tokens": {
+      "cache_read": null,
+      "in": null,
+      "out": null,
+      "prefill": null
+    },
+    "tool_calls": 2,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.19,
+    "tool_validity_pct": 100.0,
+    "turns": null,
+    "turns_on_failure": null,
+    "turns_to_success": null,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 6165,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 6171,
+      "peak_server_mib": 5394,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 1020.1
+  },
+  "exit_code": -1,
+  "fault": {
+    "class": "timeout",
+    "detail": "exit -1: harness timeout after 1020s",
+    "exit_code": -1,
+    "turns": null
+  },
+  "finished": "2026-11-03T05:29:16.605326+00:00",
+  "harness_failed": true,
+  "instrument_fingerprint": "3506acfec7be229094e3339206ff9f309eee676355716279fc8a20ce1dbc4b6b",
+  "manifest_sha256": "5b18d1d8feadf8d15c82425643a6e1055cfa2ebd6b83a3f59e45eac0cf353090",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Logics-MLLM_Logics-SWE-Qwen3.6-35B-A3B-Q3_K_S.gguf",
+  "passed": 2,
+  "repeat": 3,
+  "run_id": "agent-logics-swe-qwen36-35b-18task-3x-20261103",
+  "score": 0.5,
+  "score_source": "artifact",
+  "started": "2026-11-03T05:12:16.388574+00:00",
+  "task": "16-stateful-undo",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": null,
+  "tokens_out": null,
+  "tool_calls": 2,
+  "total_checks": 5,
+  "turns": null,
+  "wall_seconds": 1020.1
+}

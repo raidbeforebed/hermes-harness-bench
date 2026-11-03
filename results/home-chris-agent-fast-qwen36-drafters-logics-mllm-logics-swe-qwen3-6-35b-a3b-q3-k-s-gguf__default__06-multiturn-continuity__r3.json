@@ -1,0 +1,125 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "detail": "got 10",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "final problem_services correct",
+      "detail": "ok",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q4_0",
+    "kv_cache_v": "q4_0",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 58.7,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 27076,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [
+      "execute_code",
+      "execute_code"
+    ],
+    "model_seconds": 187.14,
+    "schema_version": 1,
+    "stream_seconds": 187.63,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 6387,
+      "tokens_per_second": 34.13
+    },
+    "tokens": {
+      "cache_read": 138971,
+      "in": 142302,
+      "out": 3056,
+      "prefill": 3331
+    },
+    "tool_calls": 7,
+    "tool_calls_invalid": 2,
+    "tool_seconds": 0.49,
+    "tool_validity_pct": 71.4,
+    "turns": 14,
+    "turns_on_failure": null,
+    "turns_to_success": 14,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 6124,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 6130,
+      "peak_server_mib": 5392,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 190.9
+  },
+  "exit_code": 0,
+  "finished": "2026-11-03T02:57:06.855295+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "3506acfec7be229094e3339206ff9f309eee676355716279fc8a20ce1dbc4b6b",
+  "manifest_sha256": "5b18d1d8feadf8d15c82425643a6e1055cfa2ebd6b83a3f59e45eac0cf353090",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Logics-MLLM_Logics-SWE-Qwen3.6-35B-A3B-Q3_K_S.gguf",
+  "passed": 7,
+  "repeat": 3,
+  "run_id": "agent-logics-swe-qwen36-35b-18task-3x-20261103",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-03T02:53:55.910405+00:00",
+  "task": "06-multiturn-continuity",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 142302,
+  "tokens_out": 3056,
+  "tool_calls": 7,
+  "total_checks": 7,
+  "turns": 14,
+  "wall_seconds": 190.9
+}

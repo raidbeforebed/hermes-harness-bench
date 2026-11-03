@@ -1,0 +1,103 @@
+{
+  "artifact_score": 0.0,
+  "checks": [
+    {
+      "check": "harness ran the requested model",
+      "detail": "exit 1: Model output entered a repetition loop and the stream was cut mid-loop; discarding the degenerate response.",
+      "pass": false
+    },
+    {
+      "check": "format_check.txt exists",
+      "detail": "missing",
+      "pass": false
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q4_0",
+    "kv_cache_v": "q4_0",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 56.0,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 28827,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 392.52,
+    "schema_version": 1,
+    "stream_seconds": 392.52,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 0,
+      "tokens_per_second": 0.0
+    },
+    "tokens": {
+      "cache_read": 0,
+      "in": 0,
+      "out": 0,
+      "prefill": 0
+    },
+    "tool_calls": 0,
+    "tool_calls_invalid": 0,
+    "tool_seconds": null,
+    "tool_validity_pct": null,
+    "turns": 2,
+    "turns_on_failure": 2,
+    "turns_to_success": null,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 6126,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 6135,
+      "peak_server_mib": 5392,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 395.3
+  },
+  "exit_code": 1,
+  "fault": {
+    "class": "agent_exit",
+    "detail": "exit 1: Model output entered a repetition loop and the stream was cut mid-loop; discarding the degenerate response.",
+    "exit_code": 1,
+    "turns": 2
+  },
+  "finished": "2026-11-03T03:08:16.470860+00:00",
+  "harness_failed": true,
+  "instrument_fingerprint": "3506acfec7be229094e3339206ff9f309eee676355716279fc8a20ce1dbc4b6b",
+  "manifest_sha256": "5b18d1d8feadf8d15c82425643a6e1055cfa2ebd6b83a3f59e45eac0cf353090",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/Logics-MLLM_Logics-SWE-Qwen3.6-35B-A3B-Q3_K_S.gguf",
+  "passed": 0,
+  "repeat": 1,
+  "run_id": "agent-logics-swe-qwen36-35b-18task-3x-20261103",
+  "score": 0.0,
+  "score_source": "artifact",
+  "started": "2026-11-03T03:01:40.860053+00:00",
+  "task": "08-constraint-format",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 0,
+  "tokens_out": 0,
+  "tool_calls": 0,
+  "total_checks": 2,
+  "turns": 2,
+  "wall_seconds": 395.3
+}
