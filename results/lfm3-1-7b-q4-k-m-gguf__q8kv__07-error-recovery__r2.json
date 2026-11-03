@@ -1,0 +1,124 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "pipeline runs green",
+      "detail": "build ok\n",
+      "pass": true
+    },
+    {
+      "check": "build.py untouched (and credit requires a green run)",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "clean.csv produced (requires green run)",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "4 active rows survive",
+      "detail": "4 rows",
+      "pass": true
+    },
+    {
+      "check": "only active rows",
+      "detail": "['active', 'active', 'active', 'active']",
+      "pass": true
+    },
+    {
+      "check": "qty is a bare integer",
+      "detail": "['12', '8', '3', '7']",
+      "pass": true
+    },
+    {
+      "check": "ids are exactly 1,3,4,5",
+      "detail": "['1', '3', '4', '5']",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q8_0",
+    "kv_cache_v": "q8_0",
+    "thinking": "unknown",
+    "variant": "q8kv"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 64.3,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 23386,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [
+      "terminal"
+    ],
+    "model_seconds": 49.11,
+    "schema_version": 1,
+    "stream_seconds": 50.12,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 26892,
+      "tokens_per_second": 547.59
+    },
+    "tokens": {
+      "cache_read": 127458,
+      "in": 152230,
+      "out": 2120,
+      "prefill": 24772
+    },
+    "tool_calls": 7,
+    "tool_calls_invalid": 1,
+    "tool_seconds": 1.01,
+    "tool_validity_pct": 85.7,
+    "turns": 15,
+    "turns_on_failure": null,
+    "turns_to_success": 15,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 3015,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 3015,
+      "peak_server_mib": 2258,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 52.0
+  },
+  "exit_code": 0,
+  "finished": "2026-11-03T15:29:29.042612+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "b6c933821b04e40b19cae0521ecc11806f1bcbf7193c79d7d46fb15ecf43772b",
+  "manifest_sha256": "8f966a708cd28f666d2a41ab8504600196dad750ad09ed5b81bb91cdd7f632bf",
+  "model": "LFM3-1.7B-Q4_K_M.gguf",
+  "passed": 7,
+  "repeat": 2,
+  "run_id": "agent-lfm3-18task-3x-current-q8kv-20261103",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-03T15:28:36.908068+00:00",
+  "task": "07-error-recovery",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 152230,
+  "tokens_out": 2120,
+  "tool_calls": 7,
+  "total_checks": 7,
+  "turns": 15,
+  "wall_seconds": 52.0
+}

@@ -1,0 +1,135 @@
+{
+  "artifact_score": 0.6667,
+  "checks": [
+    {
+      "check": "corrected_call.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "single object call, not a list or wrapper",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "exact top-level keys tool+args, no extras",
+      "detail": "keys=['args', 'tool']",
+      "pass": true
+    },
+    {
+      "check": "args has exactly pattern+path with string types",
+      "detail": "args={'pattern': 'def calculate_total', 'path': '/srv/payments/charge.py'}",
+      "pass": true
+    },
+    {
+      "check": "same operation, pattern and path as turn 1",
+      "detail": "tool='search_files' args={'pattern': 'def calculate_total', 'path': '/srv/payments/charge.py'}",
+      "pass": true
+    },
+    {
+      "check": "trace: rejected turn 1 is present (injected by the harness)",
+      "detail": "injected turns=[1]",
+      "pass": true
+    },
+    {
+      "check": "trace: exactly one correction call was emitted",
+      "detail": "correction calls=3",
+      "pass": false
+    },
+    {
+      "check": "trace: the correction call succeeded",
+      "detail": "no single correction call to test",
+      "pass": false
+    },
+    {
+      "check": "trace: the correction was a single call in its turn",
+      "detail": "no single correction call to test",
+      "pass": false
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q8_0",
+    "kv_cache_v": "q8_0",
+    "thinking": "unknown",
+    "variant": "q8kv"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 57.9,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 27607,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [
+      "terminal",
+      "search_files"
+    ],
+    "model_seconds": 99.97,
+    "schema_version": 1,
+    "stream_seconds": 100.93,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 34015,
+      "tokens_per_second": 340.25
+    },
+    "tokens": {
+      "cache_read": 95145,
+      "in": 122595,
+      "out": 6565,
+      "prefill": 27450
+    },
+    "tool_calls": 7,
+    "tool_calls_invalid": 2,
+    "tool_seconds": 0.96,
+    "tool_validity_pct": 71.4,
+    "turns": 13,
+    "turns_on_failure": 13,
+    "turns_to_success": null,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 2491,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 2497,
+      "peak_server_mib": 1800,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 103.2
+  },
+  "exit_code": 0,
+  "finished": "2026-11-03T16:16:17.580209+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "b6c933821b04e40b19cae0521ecc11806f1bcbf7193c79d7d46fb15ecf43772b",
+  "manifest_sha256": "8f966a708cd28f666d2a41ab8504600196dad750ad09ed5b81bb91cdd7f632bf",
+  "model": "LFM3-1.7B-Q4_K_M.gguf",
+  "passed": 6,
+  "repeat": 1,
+  "run_id": "agent-lfm3-18task-3x-current-q8kv-20261103",
+  "score": 0.6667,
+  "score_source": "artifact",
+  "started": "2026-11-03T16:14:34.382330+00:00",
+  "task": "14-schema-repair-2turn",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 122595,
+  "tokens_out": 6565,
+  "tool_calls": 7,
+  "total_checks": 9,
+  "turns": 13,
+  "wall_seconds": 103.2
+}

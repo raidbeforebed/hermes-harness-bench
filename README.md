@@ -147,7 +147,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Qwen3.6 35B (local, sentinel-qwen-local, thinking unstated) | 3 | 43/54 (79.6%) | - | 12/18 | 13.0 | 129,927 | 89 s | 80 min |
 | Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
 | LFM3 1.7B (llama.cpp, configuration unrecorded) | 3 | 34/36 (94.4%) | - | 10/12 | 23.0 | 327,400 | 140 s | 84 min |
-| LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 46/54 (85.2%) | turn_limit 1 | 13/18 | 18.8 | 246,054 | 118 s | 1.77 h |
+| LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 41/54 (75.9%) | - | 11/18 | 15.1 | 175,094 | 101 s | 1.51 h |
 | Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 45/54 (83.3%) | agent_exit 2 | 12/18 | 20.5 | 289,928 | 131 s | 1.97 h |
 | Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 50/54 (92.6%) | agent_exit 2, turn_limit 1 | 15/18 | 13.1 | 141,752 | 193 s | 2.90 h |
 | Ornith 1.5 9B (llama.cpp, default, thinking unstated) | 3 | 51/54 (94.4%) | - | 15/18 | 12.3 | 132,713 | 131 s | 1.97 h |
@@ -204,7 +204,7 @@ bundles and is not a series at all.
 | Qwen3.6 35B (local, sentinel-qwen-local, thinking unstated) | 3 | 0.9074 ± 0.1978 | 102 tok/s | 70 s | 13.4 | 88% | **67%** | 6,472 MiB | 18 tasks, `9fe550deb1c0` |
 | Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 4 | 0.8638 ± 0.1562 | - | - | - | - | - | - | - |
 | LFM3 1.7B (llama.cpp, configuration unrecorded) | 3 | 0.9676 ± 0.1109 | - | - | - | - | - | - | - |
-| LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9583 ± 0.0345 | 443 tok/s | 84 s | 19.4 | 96% | 14% | **2,260 MiB** | 18 tasks, `d41a23888d49` |
+| LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9059 ± 0.0531 | 469 tok/s | 73 s | 13.9 | 94% | 7% | **2,258 MiB** | 18 tasks, `9fe550deb1c0` |
 | Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 0.9244 ± 0.0663 | 61 tok/s | 61 s | 17.7 | 90% | 14% | 6,682 MiB | 18 tasks, `d41a23888d49` |
 | Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9765 ± 0.0369 | 48 tok/s | 77 s | 13.5 | 91% | 17% | 6,718 MiB | 18 tasks, `d41a23888d49` |
 | Ornith 1.5 9B (llama.cpp, default, thinking unstated) | 3 | 0.9727 ± 0.1010 | 55 tok/s | 77 s | 12.4 | 95% | 37% | 7,322 MiB | 18 tasks, `9fe550deb1c0` |
