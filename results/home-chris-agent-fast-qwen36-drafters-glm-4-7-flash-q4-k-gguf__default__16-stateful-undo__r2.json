@@ -1,0 +1,122 @@
+{
+  "artifact_score": 0.5,
+  "checks": [
+    {
+      "check": "harness ran the requested model",
+      "detail": "exit 1: I've completed the operations on `notes.md`:\n\n1. **Created** `notes.md` with the header `# Notes`\n2. **Appended** `- alpha` and `- bravo` (attempted, but then reverted)\n3. **Reverted** to the state after step 1 (header only)\n4. **Appended** `- charlie`\n\nThe final file content is ",
+      "pass": false
+    },
+    {
+      "check": "notes.md exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "header is the first line",
+      "detail": "'# Notes'",
+      "pass": true
+    },
+    {
+      "check": "undo honoured: alpha kept, bravo dropped, charlie appended",
+      "detail": "ok",
+      "pass": false
+    },
+    {
+      "check": "exact final content (header, alpha, charlie, trailing newline)",
+      "detail": "'# Notes\\n- charlie\\n'",
+      "pass": false
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q4_0",
+    "kv_cache_v": "q4_0",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 62.2,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 24754,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [
+      "terminal",
+      "terminal",
+      "read_file"
+    ],
+    "model_seconds": 378.13,
+    "schema_version": 1,
+    "stream_seconds": 381.11,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 4427,
+      "tokens_per_second": 11.71
+    },
+    "tokens": {
+      "cache_read": 344520,
+      "in": 346570,
+      "out": 2377,
+      "prefill": 2050
+    },
+    "tool_calls": 24,
+    "tool_calls_invalid": 3,
+    "tool_seconds": 2.98,
+    "tool_validity_pct": 87.5,
+    "turns": 42,
+    "turns_on_failure": 42,
+    "turns_to_success": null,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 6005,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 6011,
+      "peak_server_mib": 5242,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 383.4
+  },
+  "exit_code": 1,
+  "fault": {
+    "class": "agent_exit",
+    "detail": "exit 1: I've completed the operations on `notes.md`:\n\n1. **Created** `notes.md` with the header `# Notes`\n2. **Appended** `- alpha` and `- bravo` (attempted, but then reverted)\n3. **Reverted** to the state after step 1 (header only)\n4. **Appended** `- charlie`\n\nThe final file content is ",
+    "exit_code": 1,
+    "turns": 42
+  },
+  "finished": "2026-11-02T23:58:45.199244+00:00",
+  "harness_failed": true,
+  "instrument_fingerprint": "4a86fe6c9d0b40740de573cc21b6bf5d5fdbeadf89f707c2103240294f3c9610",
+  "manifest_sha256": "86b1d96b77aa5bc8fb4f1f893399ae1049f72b882b7f979bcf9c64850d4c276c",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/GLM-4.7-Flash-Q4_K.gguf",
+  "passed": 2,
+  "repeat": 2,
+  "run_id": "agent-glm47flash-q4k-18task-3x-20261102",
+  "score": 0.5,
+  "score_source": "artifact",
+  "started": "2026-11-02T23:52:21.761404+00:00",
+  "task": "16-stateful-undo",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 346570,
+  "tokens_out": 2377,
+  "tool_calls": 24,
+  "total_checks": 5,
+  "turns": 42,
+  "wall_seconds": 383.4
+}

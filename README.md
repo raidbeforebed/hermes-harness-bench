@@ -151,6 +151,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 45/54 (83.3%) | agent_exit 2 | 12/18 | 20.5 | 289,928 | 131 s | 1.97 h |
 | Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 50/54 (92.6%) | agent_exit 2, turn_limit 1 | 15/18 | 13.1 | 141,752 | 193 s | 2.90 h |
 | Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 7/12 (58.3%) | - | 7/12 | 14.2 | 162,254 | 90 s | 18 min |
+| GLM-4.7-Flash 30B (local, default, thinking unstated) | 3 | 36/54 (66.7%) | agent_exit 2 | 8/18 | 17.8 | 201,000 | 352 s | 5.28 h |
 | Groot 19B (local, configuration unrecorded) | 3 | 30/36 (83.3%) | - | 8/12 | 11.9 | 127,891 | 71 s | 42 min |
 <!-- RESULTS:END -->
 
@@ -205,6 +206,7 @@ bundles and is not a series at all.
 | Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 0.9244 ± 0.0663 | 61 tok/s | 61 s | 17.7 | 90% | 14% | 6,682 MiB | 18 tasks, `d41a23888d49` |
 | Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9765 ± 0.0369 | 48 tok/s | 77 s | 13.5 | 91% | 17% | 6,718 MiB | 18 tasks, `d41a23888d49` |
 | Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 0.8566 | - | - | - | - | - | - | - |
+| GLM-4.7-Flash 30B (local, default, thinking unstated) | 3 | 0.8458 ± 0.0807 | 15 tok/s | 241 s | 19.6 | 95% | 23% | 5,702 MiB | 18 tasks, `9fe550deb1c0` |
 | Groot 19B (local, configuration unrecorded) | 3 | 0.9595 ± 0.0366 | - | - | - | - | - | - | - |
 <!-- DECISION:END -->
 
@@ -286,10 +288,10 @@ Four models passed all **36 of 36** runs with zero variance on every individual 
 zero timeouts, and Laguna S 2.1 passed all 12 runs of its single-repeat screening pass.
 Three of the eighteen-task rows (Beam, Ornith 1.5 122B and Qwen3.6 35B, thinking left at the model
 default or unstated) also pass every one of the twelve original tasks; they miss only on the six
-harder tasks added on 2026-11-01. Perfect on the twelve: 5 of the 18 rows. Read on their whole
-suite, 5 of the 18 rows are perfect (the four rows that sat 36 runs and Laguna's 12); the other
-thirteen-task-per-row series miss at least one of the six newer tasks.
-Since five of the 18 rows are perfect on everything they sat, pass rate tells you almost
+harder tasks added on 2026-11-01. Perfect on the twelve: 5 of the 19 rows. Read on their whole
+suite, 5 of the 19 rows are perfect (the four rows that sat 36 runs and Laguna's 12); the other
+eighteen-task series miss at least one of the six newer tasks.
+Since five of the 19 rows are perfect on everything they sat, pass rate tells you almost
 nothing and the useful question becomes what each one costs to be perfect. The two free
 rows at the top of this list cost nothing and the most tokens, so "cost" below reads on
 both axes:

@@ -1,0 +1,117 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "config.ini -> config.bak (content preserved)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "config.ini removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "notes.txt -> notes.bak (content preserved)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "notes.txt removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "README.md untouched",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "MANIFEST.txt exact",
+      "detail": "renamed: config.ini -> config.bak\nrenamed: notes.txt -> notes.bak\nunchanged: README.md\ntotal_before: 3\ntotal_after: 3\n",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q4_0",
+    "kv_cache_v": "q4_0",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 67.5,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 21278,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 73.84,
+    "schema_version": 1,
+    "stream_seconds": 73.95,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 1030,
+      "tokens_per_second": 13.95
+    },
+    "tokens": {
+      "cache_read": 41246,
+      "in": 41833,
+      "out": 443,
+      "prefill": 587
+    },
+    "tool_calls": 1,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.11,
+    "tool_validity_pct": 100.0,
+    "turns": 4,
+    "turns_on_failure": null,
+    "turns_to_success": 4,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 5969,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 5978,
+      "peak_server_mib": 5242,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 76.6
+  },
+  "exit_code": 0,
+  "finished": "2026-11-02T20:12:30.827380+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "4a86fe6c9d0b40740de573cc21b6bf5d5fdbeadf89f707c2103240294f3c9610",
+  "manifest_sha256": "86b1d96b77aa5bc8fb4f1f893399ae1049f72b882b7f979bcf9c64850d4c276c",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/GLM-4.7-Flash-Q4_K.gguf",
+  "passed": 6,
+  "repeat": 1,
+  "run_id": "agent-glm47flash-q4k-18task-3x-20261102",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-02T20:11:14.137599+00:00",
+  "task": "04-rename-safe",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 41833,
+  "tokens_out": 443,
+  "tool_calls": 1,
+  "total_checks": 6,
+  "turns": 4,
+  "wall_seconds": 76.6
+}

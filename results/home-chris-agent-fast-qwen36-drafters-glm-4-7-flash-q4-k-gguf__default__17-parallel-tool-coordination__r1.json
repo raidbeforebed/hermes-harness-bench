@@ -1,0 +1,112 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "alpha.json edited (active=true, retries=7, name kept)",
+      "detail": "got {'name': 'alpha', 'active': True, 'retries': 7}",
+      "pass": true
+    },
+    {
+      "check": "beta.json edited (tags += y, priority=1, name kept)",
+      "detail": "got {'name': 'beta', 'tags': ['x', 'y'], 'priority': 1}",
+      "pass": true
+    },
+    {
+      "check": "gamma.json edited (limits.mem=1024, limits.gpu=T4, cpu+name kept)",
+      "detail": "got {'name': 'gamma', 'limits': {'cpu': 1, 'mem': 1024, 'gpu': 'T4'}}",
+      "pass": true
+    },
+    {
+      "check": "trace: one turn issued calls covering all three files",
+      "detail": "turn 1 with 3 calls",
+      "pass": true
+    },
+    {
+      "check": "trace: the three batched edits all succeeded",
+      "detail": "all three non-error",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q4_0",
+    "kv_cache_v": "q4_0",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 65.6,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 22532,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 180.99,
+    "schema_version": 1,
+    "stream_seconds": 181.76,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 2587,
+      "tokens_per_second": 14.29
+    },
+    "tokens": {
+      "cache_read": 62758,
+      "in": 64234,
+      "out": 1111,
+      "prefill": 1476
+    },
+    "tool_calls": 6,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.77,
+    "tool_validity_pct": 100.0,
+    "turns": 10,
+    "turns_on_failure": null,
+    "turns_to_success": 10,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 6009,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 6463,
+      "peak_server_mib": 5702,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 184.8
+  },
+  "exit_code": 0,
+  "finished": "2026-11-03T00:06:06.375624+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "4a86fe6c9d0b40740de573cc21b6bf5d5fdbeadf89f707c2103240294f3c9610",
+  "manifest_sha256": "86b1d96b77aa5bc8fb4f1f893399ae1049f72b882b7f979bcf9c64850d4c276c",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/GLM-4.7-Flash-Q4_K.gguf",
+  "passed": 5,
+  "repeat": 1,
+  "run_id": "agent-glm47flash-q4k-18task-3x-20261102",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-03T00:03:01.430901+00:00",
+  "task": "17-parallel-tool-coordination",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 64234,
+  "tokens_out": 1111,
+  "tool_calls": 6,
+  "total_checks": 5,
+  "turns": 10,
+  "wall_seconds": 184.8
+}

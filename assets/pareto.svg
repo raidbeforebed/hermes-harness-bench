@@ -40,6 +40,7 @@
 <circle cx="741.4" cy="423.9" r="7" fill="#c0caf5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="627.6" cy="258.8" r="7" fill="#c0caf5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="649.1" cy="869.6" r="7" fill="#e0af68" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="683.1" cy="721.0" r="7" fill="#f7768e" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="611.2" cy="423.9" r="7" fill="#bb9af7" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <line x1="346.8" y1="117.7" x2="346.8" y2="109.6" stroke="#6e7681" stroke-width="1"/>
 <text x="346.8" y="106.7" fill="#c9d1d9" font-size="11.5" text-anchor="end">DeepSeek V4.1 Flash (configuration unrecorded)</text>
@@ -73,6 +74,8 @@
 <text x="741.4" y="285.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Ornith 1.5 9B (llama.cpp, configuration unrecorded)</text>
 <line x1="613.7" y1="480.9" x2="613.7" y2="474.8" stroke="#6e7681" stroke-width="1"/>
 <text x="613.7" y="471.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Qwen3.6 35B (local, sentinel-qwen-local, thinking unstated)</text>
+<line x1="683.1" y1="712.0" x2="683.1" y2="705.9" stroke="#6e7681" stroke-width="1"/>
+<text x="683.1" y="703.0" fill="#c9d1d9" font-size="11.5" text-anchor="middle">GLM-4.7-Flash 30B (local, default, thinking unstated)</text>
 <line x1="791.8" y1="814.9" x2="791.8" y2="824.7" stroke="#6e7681" stroke-width="1"/>
 <text x="791.8" y="833.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Nemotron 3.5 Lightning 30B (local, configuration unrecorded)</text>
 <line x1="649.1" y1="860.6" x2="649.1" y2="854.5" stroke="#6e7681" stroke-width="1"/>

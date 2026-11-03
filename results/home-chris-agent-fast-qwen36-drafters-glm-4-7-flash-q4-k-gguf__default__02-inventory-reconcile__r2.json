@@ -1,0 +1,117 @@
+{
+  "artifact_score": 0.8333,
+  "checks": [
+    {
+      "check": "reconcile.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "only_in_a == ['A-300']",
+      "detail": "[]",
+      "pass": false
+    },
+    {
+      "check": "only_in_b == ['C-900']",
+      "detail": "['C-900']",
+      "pass": true
+    },
+    {
+      "check": "one mismatch only (A-200 4 vs 6)",
+      "detail": "[{'sku': 'A-200', 'a': 4, 'b': 6}]",
+      "pass": true
+    },
+    {
+      "check": "no invented SKUs",
+      "detail": "[]",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "q4_0",
+    "kv_cache_v": "q4_0",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 63.4,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 23963,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 295.24,
+    "schema_version": 1,
+    "stream_seconds": 295.89,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 3779,
+      "tokens_per_second": 12.8
+    },
+    "tokens": {
+      "cache_read": 155147,
+      "in": 156742,
+      "out": 2184,
+      "prefill": 1595
+    },
+    "tool_calls": 7,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.65,
+    "tool_validity_pct": 100.0,
+    "turns": 15,
+    "turns_on_failure": 15,
+    "turns_to_success": null,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 6019,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 6033,
+      "peak_server_mib": 5242,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 297.8
+  },
+  "exit_code": 0,
+  "finished": "2026-11-02T19:34:31.883375+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "4a86fe6c9d0b40740de573cc21b6bf5d5fdbeadf89f707c2103240294f3c9610",
+  "manifest_sha256": "86b1d96b77aa5bc8fb4f1f893399ae1049f72b882b7f979bcf9c64850d4c276c",
+  "model": "/home/chris/Agent_Fast/qwen36-drafters/GLM-4.7-Flash-Q4_K.gguf",
+  "passed": 5,
+  "repeat": 2,
+  "run_id": "agent-glm47flash-q4k-18task-3x-20261102",
+  "score": 0.8333,
+  "score_source": "artifact",
+  "started": "2026-11-02T19:29:33.967257+00:00",
+  "task": "02-inventory-reconcile",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 156742,
+  "tokens_out": 2184,
+  "tool_calls": 7,
+  "total_checks": 6,
+  "turns": 15,
+  "wall_seconds": 297.8
+}

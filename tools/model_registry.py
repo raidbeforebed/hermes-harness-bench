@@ -57,6 +57,7 @@ LABEL = {
     "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf": "LFM3 1.7B (llama.cpp)",
     "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf":    "Ornith 1.5 9B (llama.cpp)",
     "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf": "Bonsai 2 9B (ternary Q2_0)",
+    "/home/chris/Agent_Fast/qwen36-drafters/GLM-4.7-Flash-Q4_K.gguf": "GLM-4.7-Flash 30B (local)",
     "ornith9b-64k": "Ornith 1.5 9B (local)",
     "poolside/laguna-s-2.1": "Laguna S 2.1",
     "poolside/laguna-xs-2.1": "Laguna XS 2.1",
@@ -82,6 +83,7 @@ COLOUR = {
     "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf": "#9ece6a",
     "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf": "#c0caf5",
     "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf": "#e0af68",
+    "/home/chris/Agent_Fast/qwen36-drafters/GLM-4.7-Flash-Q4_K.gguf": "#f7768e",
     "ornith9b-64k": "#7dcfff",
     "poolside/laguna-s-2.1": "#2ac3de",
     "poolside/laguna-xs-2.1": "#c0caf5",
@@ -105,6 +107,7 @@ ORDER = [
     "/home/chris/Agent_Fast/qwen36-drafters/LFM3-1.7B-Q4_K_M.gguf",
     "/home/chris/Agent_Fast/qwen36-drafters/Ornith-1.5-9B-Q4_K_M.gguf",
     "/home/chris/Agent_Fast/qwen36-drafters/Ternary-Bonsai-2-9B-Q2_0.gguf",
+    "/home/chris/Agent_Fast/qwen36-drafters/GLM-4.7-Flash-Q4_K.gguf",
 ]
 
 # Pareto label placement: (dx, dy, text-anchor) per model id. Hand-tuned because the
