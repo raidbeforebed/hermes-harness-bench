@@ -1,0 +1,117 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "pytest suite passes",
+      "detail": ".....                                                                    [100%]\n5 passed in 0.04s\n",
+      "pass": true
+    },
+    {
+      "check": "test file untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "report.py untouched (requires green suite)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "CHANGES.md exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "three sections in order",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "Verification quotes a pytest pass count",
+      "detail": "## Verification\n5 passed in 0.02s\n",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "(default f16)",
+    "kv_cache_v": "(default f16)",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 59.7,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 26402,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 136.25,
+    "schema_version": 1,
+    "stream_seconds": 140.93,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 7128,
+      "tokens_per_second": 52.32
+    },
+    "tokens": {
+      "cache_read": 230415,
+      "in": 234618,
+      "out": 2925,
+      "prefill": 4203
+    },
+    "tool_calls": 15,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 4.68,
+    "tool_validity_pct": 100.0,
+    "turns": 26,
+    "turns_on_failure": null,
+    "turns_to_success": 26,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 7908,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 8038,
+      "peak_server_mib": 7322,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 144.1
+  },
+  "exit_code": 0,
+  "finished": "2026-11-03T14:02:06.820196+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "b821f81bb4a835d67763ff90646e330aef446dcd99dd5f5b15af24e75421bbb8",
+  "manifest_sha256": "bd10c0121eddfaf5e8882c36cf82ddb8ce4c1533a4614ab75112f8a9952858e2",
+  "model": "Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 6,
+  "repeat": 3,
+  "run_id": "agent-ornith9b-18task-3x-current-20261103",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-03T13:59:42.152188+00:00",
+  "task": "10-multifile-refactor",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 234618,
+  "tokens_out": 2925,
+  "tool_calls": 15,
+  "total_checks": 6,
+  "turns": 26,
+  "wall_seconds": 144.1
+}

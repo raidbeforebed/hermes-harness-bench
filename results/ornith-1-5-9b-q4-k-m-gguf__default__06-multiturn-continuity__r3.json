@@ -1,0 +1,125 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "detail": "got 10",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "final problem_services correct",
+      "detail": "ok",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "(default f16)",
+    "kv_cache_v": "(default f16)",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 59.5,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 26539,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [
+      "execute_code",
+      "terminal"
+    ],
+    "model_seconds": 160.41,
+    "schema_version": 1,
+    "stream_seconds": 161.56,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 6922,
+      "tokens_per_second": 43.15
+    },
+    "tokens": {
+      "cache_read": 158588,
+      "in": 161645,
+      "out": 3865,
+      "prefill": 3057
+    },
+    "tool_calls": 6,
+    "tool_calls_invalid": 2,
+    "tool_seconds": 1.15,
+    "tool_validity_pct": 66.7,
+    "turns": 14,
+    "turns_on_failure": null,
+    "turns_to_success": 14,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 7992,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 7994,
+      "peak_server_mib": 7322,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 164.2
+  },
+  "exit_code": 0,
+  "finished": "2026-11-03T13:21:35.398055+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "b821f81bb4a835d67763ff90646e330aef446dcd99dd5f5b15af24e75421bbb8",
+  "manifest_sha256": "bd10c0121eddfaf5e8882c36cf82ddb8ce4c1533a4614ab75112f8a9952858e2",
+  "model": "Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 7,
+  "repeat": 3,
+  "run_id": "agent-ornith9b-18task-3x-current-20261103",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-03T13:18:51.176389+00:00",
+  "task": "06-multiturn-continuity",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 161645,
+  "tokens_out": 3865,
+  "tool_calls": 6,
+  "total_checks": 7,
+  "turns": 14,
+  "wall_seconds": 164.2
+}

@@ -1,0 +1,116 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "main.py calls utils.debug_log",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "did not import the logging module",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "did not use print in main.py",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "config.py unchanged",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "main.py still parses as valid Python",
+      "detail": "ok",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "(default f16)",
+    "kv_cache_v": "(default f16)",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 61.9,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 25001,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 141.83,
+    "schema_version": 1,
+    "stream_seconds": 142.41,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 5608,
+      "tokens_per_second": 39.54
+    },
+    "tokens": {
+      "cache_read": 110654,
+      "in": 113018,
+      "out": 3244,
+      "prefill": 2364
+    },
+    "tool_calls": 4,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.58,
+    "tool_validity_pct": 100.0,
+    "turns": 10,
+    "turns_on_failure": null,
+    "turns_to_success": 10,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 8020,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        },
+        {
+          "name": "[No data]",
+          "peak_mib": 102
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 8044,
+      "peak_server_mib": 7322,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 145.1
+  },
+  "exit_code": 0,
+  "finished": "2026-11-03T14:20:36.825188+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "b821f81bb4a835d67763ff90646e330aef446dcd99dd5f5b15af24e75421bbb8",
+  "manifest_sha256": "bd10c0121eddfaf5e8882c36cf82ddb8ce4c1533a4614ab75112f8a9952858e2",
+  "model": "Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 5,
+  "repeat": 2,
+  "run_id": "agent-ornith9b-18task-3x-current-20261103",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-03T14:18:11.679004+00:00",
+  "task": "13-constraint-stack",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 113018,
+  "tokens_out": 3244,
+  "tool_calls": 4,
+  "total_checks": 5,
+  "turns": 10,
+  "wall_seconds": 145.1
+}

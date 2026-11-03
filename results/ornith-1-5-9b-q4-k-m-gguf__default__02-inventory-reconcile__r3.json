@@ -1,0 +1,121 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "reconcile.json exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "valid JSON",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "only_in_a == ['A-300']",
+      "detail": "['A-300']",
+      "pass": true
+    },
+    {
+      "check": "only_in_b == ['C-900']",
+      "detail": "['C-900']",
+      "pass": true
+    },
+    {
+      "check": "one mismatch only (A-200 4 vs 6)",
+      "detail": "[{'sku': 'A-200', 'a': 4, 'b': 6}]",
+      "pass": true
+    },
+    {
+      "check": "no invented SKUs",
+      "detail": "[]",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none passed: no --chat-template-kwargs)",
+    "ctx": 65536,
+    "kv_cache_k": "(default f16)",
+    "kv_cache_v": "(default f16)",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": 67.3,
+      "n_ctx": 65536,
+      "peak_prompt_tokens": 21406,
+      "source": "llama-server /slots n_prompt_tokens, sampled"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 46.65,
+    "schema_version": 1,
+    "stream_seconds": 47.07,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 1776,
+      "tokens_per_second": 38.07
+    },
+    "tokens": {
+      "cache_read": 60959,
+      "in": 61819,
+      "out": 916,
+      "prefill": 860
+    },
+    "tool_calls": 2,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.42,
+    "tool_validity_pct": 100.0,
+    "turns": 6,
+    "turns_on_failure": null,
+    "turns_to_success": 6,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": 8047,
+      "co_tenants": [
+        {
+          "name": ".../venv/bin/python3",
+          "peak_mib": 104
+        },
+        {
+          "name": "[No data]",
+          "peak_mib": 102
+        }
+      ],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": 8047,
+      "peak_server_mib": 7322,
+      "source": "SENTINEL /api/status vitals.gpu, sampled"
+    },
+    "wall_seconds": 49.2
+  },
+  "exit_code": 0,
+  "finished": "2026-11-03T13:00:43.695391+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "b821f81bb4a835d67763ff90646e330aef446dcd99dd5f5b15af24e75421bbb8",
+  "manifest_sha256": "bd10c0121eddfaf5e8882c36cf82ddb8ce4c1533a4614ab75112f8a9952858e2",
+  "model": "Ornith-1.5-9B-Q4_K_M.gguf",
+  "passed": 6,
+  "repeat": 3,
+  "run_id": "agent-ornith9b-18task-3x-current-20261103",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-03T12:59:54.499564+00:00",
+  "task": "02-inventory-reconcile",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 61819,
+  "tokens_out": 916,
+  "tool_calls": 2,
+  "total_checks": 6,
+  "turns": 6,
+  "wall_seconds": 49.2
+}

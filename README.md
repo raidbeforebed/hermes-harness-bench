@@ -150,6 +150,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 46/54 (85.2%) | turn_limit 1 | 13/18 | 18.8 | 246,054 | 118 s | 1.77 h |
 | Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 45/54 (83.3%) | agent_exit 2 | 12/18 | 20.5 | 289,928 | 131 s | 1.97 h |
 | Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 50/54 (92.6%) | agent_exit 2, turn_limit 1 | 15/18 | 13.1 | 141,752 | 193 s | 2.90 h |
+| Ornith 1.5 9B (llama.cpp, default, thinking unstated) | 3 | 51/54 (94.4%) | - | 15/18 | 12.3 | 132,713 | 131 s | 1.97 h |
 | Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 7/12 (58.3%) | - | 7/12 | 14.2 | 162,254 | 90 s | 18 min |
 | GLM-4.7-Flash 30B (local, default, thinking unstated) | 3 | 36/54 (66.7%) | agent_exit 2 | 8/18 | 17.8 | 201,000 | 352 s | 5.28 h |
 | Logics-SWE Qwen3.6 35B (local, default, thinking unstated) | 3 | 40/51 (78.4%) | agent_exit 2, timeout 2 | 11/18 | 12.4 | 125,198 | 188 s | 2.67 h |
@@ -206,6 +207,7 @@ bundles and is not a series at all.
 | LFM3 1.7B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9583 ± 0.0345 | 443 tok/s | 84 s | 19.4 | 96% | 14% | **2,260 MiB** | 18 tasks, `d41a23888d49` |
 | Ornith 1.5 9B (llama.cpp, configuration unrecorded) | 3 | 0.9244 ± 0.0663 | 61 tok/s | 61 s | 17.7 | 90% | 14% | 6,682 MiB | 18 tasks, `d41a23888d49` |
 | Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated) | 3 | 0.9765 ± 0.0369 | 48 tok/s | 77 s | 13.5 | 91% | 17% | 6,718 MiB | 18 tasks, `d41a23888d49` |
+| Ornith 1.5 9B (llama.cpp, default, thinking unstated) | 3 | 0.9727 ± 0.1010 | 55 tok/s | 77 s | 12.4 | 95% | 37% | 7,322 MiB | 18 tasks, `9fe550deb1c0` |
 | Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 0.8566 | - | - | - | - | - | - | - |
 | GLM-4.7-Flash 30B (local, default, thinking unstated) | 3 | 0.8458 ± 0.0807 | 15 tok/s | 241 s | 19.6 | 95% | 23% | 5,702 MiB | 18 tasks, `9fe550deb1c0` |
 | Logics-SWE Qwen3.6 35B (local, default, thinking unstated) | 3 | 0.9024 ± 0.0773 | 44 tok/s | 95 s | 12.8 | 90% | - | 5,852 MiB | 18 tasks, `9fe550deb1c0` |
