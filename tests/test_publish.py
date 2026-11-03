@@ -292,7 +292,7 @@ def main() -> int:
                 if len(rs) == runs_n and all((r.get("score") or 0) == 1.0 for r in rs)]
     words = {w: i for i, w in enumerate(
         "zero one two three four five six seven eight nine ten eleven twelve".split())}
-    words.update({str(i): i for i in range(0, 21)})
+    words.update({str(i): i for i in range(0, 64)})
     text = README.read_text()
 
     patterns = [

@@ -292,10 +292,10 @@ Four models passed all **36 of 36** runs with zero variance on every individual 
 zero timeouts, and Laguna S 2.1 passed all 12 runs of its single-repeat screening pass.
 Three of the eighteen-task rows (Beam, Ornith 1.5 122B and Qwen3.6 35B, thinking left at the model
 default or unstated) also pass every one of the twelve original tasks; they miss only on the six
-harder tasks added on 2026-11-01. Perfect on the twelve: 5 of the 20 rows. Read on their whole
-suite, 5 of the 20 rows are perfect (the four rows that sat 36 runs and Laguna's 12); the other
-eighteen-task series miss at least one of the six newer tasks.
-Since five of the 20 rows are perfect on everything they sat, pass rate tells you almost
+harder tasks added on 2026-11-01. Of the 21 rows, 7 rows are perfect on the twelve core tasks they
+sat. Read on their whole suite, 5 of the 21 rows are perfect (the four rows that
+sat 36 runs and Laguna's 12); the other eighteen-task series miss at least one of the six newer tasks.
+Since five of the 21 rows are perfect on everything they sat, pass rate tells you almost
 nothing and the useful question becomes what each one costs to be perfect. The two free
 rows at the top of this list cost nothing and the most tokens, so "cost" below reads on
 both axes:
