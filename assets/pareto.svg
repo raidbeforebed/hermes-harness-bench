@@ -44,7 +44,6 @@
 <circle cx="683.1" cy="721.0" r="7" fill="#f7768e" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="607.8" cy="511.3" r="7" fill="#73daca" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <circle cx="611.2" cy="423.9" r="7" fill="#bb9af7" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="687.4" cy="589.0" r="7" fill="#888888" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
 <line x1="346.8" y1="117.7" x2="346.8" y2="109.6" stroke="#6e7681" stroke-width="1"/>
 <text x="346.8" y="106.7" fill="#c9d1d9" font-size="11.5" text-anchor="end">DeepSeek V4.1 Flash (configuration unrecorded)</text>
 <line x1="632.8" y1="117.7" x2="632.8" y2="109.6" stroke="#6e7681" stroke-width="1"/>
@@ -81,8 +80,6 @@
 <text x="607.8" y="453.3" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Logics-SWE Qwen3.6 35B (local, default, thinking unstated)</text>
 <line x1="661.2" y1="546.9" x2="661.2" y2="540.8" stroke="#6e7681" stroke-width="1"/>
 <text x="661.2" y="537.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">LFM3 1.7B (llama.cpp, q8kv, thinking unstated)</text>
-<line x1="687.4" y1="580.0" x2="687.4" y2="453.8" stroke="#6e7681" stroke-width="1"/>
-<text x="687.4" y="451.0" fill="#c9d1d9" font-size="11.5" text-anchor="middle">MiMo-V2.6-Distill-Qwen-9B-Q4_K_M.gguf (q8kv, thinking unstated)</text>
 <line x1="683.1" y1="712.0" x2="683.1" y2="705.9" stroke="#6e7681" stroke-width="1"/>
 <text x="683.1" y="703.0" fill="#c9d1d9" font-size="11.5" text-anchor="middle">GLM-4.7-Flash 30B (local, default, thinking unstated)</text>
 <line x1="791.8" y1="814.9" x2="791.8" y2="824.7" stroke="#6e7681" stroke-width="1"/>

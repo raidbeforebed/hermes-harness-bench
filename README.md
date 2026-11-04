@@ -155,7 +155,6 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | GLM-4.7-Flash 30B (local, default, thinking unstated) | 3 | 36/54 (66.7%) | agent_exit 2 | 8/18 | 17.8 | 201,000 | 352 s | 5.28 h |
 | Logics-SWE Qwen3.6 35B (local, default, thinking unstated) | 3 | 40/51 (78.4%) | agent_exit 2, timeout 2 | 11/18 | 12.4 | 125,198 | 188 s | 2.67 h |
 | Groot 19B (local, configuration unrecorded) | 3 | 30/36 (83.3%) | - | 8/12 | 11.9 | 127,891 | 71 s | 42 min |
-| MiMo-V2.6-Distill-Qwen-9B-Q4_K_M.gguf (q8kv, thinking unstated) | 3 | 40/54 (74.1%) | agent_exit 2 | 12/18 | 16.1 | 206,424 | 137 s | 2.05 h |
 <!-- RESULTS:END -->
 
 Read the **Repeats** column before comparing rows. A one-repeat row is a screening
@@ -213,7 +212,6 @@ bundles and is not a series at all.
 | GLM-4.7-Flash 30B (local, default, thinking unstated) | 3 | 0.8458 ± 0.0807 | 15 tok/s | 241 s | 19.6 | 95% | 23% | 5,702 MiB | 18 tasks, `9fe550deb1c0` |
 | Logics-SWE Qwen3.6 35B (local, default, thinking unstated) | 3 | 0.9024 ± 0.0773 | 44 tok/s | 95 s | 12.8 | 90% | - | 5,852 MiB | 18 tasks, `9fe550deb1c0` |
 | Groot 19B (local, configuration unrecorded) | 3 | 0.9595 ± 0.0366 | - | - | - | - | - | - | - |
-| MiMo-V2.6-Distill-Qwen-9B-Q4_K_M.gguf (q8kv, thinking unstated) | 3 | 0.8634 ± 0.0660 | 58 tok/s | 66 s | 16.4 | 93% | 15% | 6,934 MiB | 18 tasks, `9fe550deb1c0` |
 <!-- DECISION:END -->
 
 Two columns, because they answer different questions:
