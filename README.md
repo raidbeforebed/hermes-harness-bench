@@ -155,6 +155,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | GLM-4.7-Flash 30B (local, default, thinking unstated) | 3 | 36/54 (66.7%) | agent_exit 2 | 8/18 | 17.8 | 201,000 | 352 s | 5.28 h |
 | Logics-SWE Qwen3.6 35B (local, default, thinking unstated) | 3 | 40/51 (78.4%) | agent_exit 2, timeout 2 | 11/18 | 12.4 | 125,198 | 188 s | 2.67 h |
 | Groot 19B (local, configuration unrecorded) | 3 | 30/36 (83.3%) | - | 8/12 | 11.9 | 127,891 | 71 s | 42 min |
+| gemma-4-26B-A4B-qat-q4_0.gguf (not thinking) | 3 | 47/54 (87.0%) | - | 13/18 | 13.1 | 147,544 | 142 s | 2.13 h |
 <!-- RESULTS:END -->
 
 Read the **Repeats** column before comparing rows. A one-repeat row is a screening
@@ -212,6 +213,7 @@ bundles and is not a series at all.
 | GLM-4.7-Flash 30B (local, default, thinking unstated) | 3 | 0.8458 ± 0.0807 | 15 tok/s | 241 s | 19.6 | 95% | 23% | 5,702 MiB | 18 tasks, `9fe550deb1c0` |
 | Logics-SWE Qwen3.6 35B (local, default, thinking unstated) | 3 | 0.9024 ± 0.0773 | 44 tok/s | 95 s | 12.8 | 90% | - | 5,852 MiB | 18 tasks, `9fe550deb1c0` |
 | Groot 19B (local, configuration unrecorded) | 3 | 0.9595 ± 0.0366 | - | - | - | - | - | - | - |
+| gemma-4-26B-A4B-qat-q4_0.gguf (not thinking) | 3 | 0.9437 ± 0.0867 | 186 tok/s | 129 s | 13.8 | 94% | 52% | 6,268 MiB | 18 tasks, `9fe550deb1c0` |
 <!-- DECISION:END -->
 
 Two columns, because they answer different questions:
