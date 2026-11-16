@@ -158,6 +158,17 @@ def label(model: str, config: dict | None = None) -> str:
     return f"{base} ({qualifier})"
 
 
+def short(model: str) -> str:
+    """Just the model, with any "(cloud)/(local)/(free)/(llama.cpp)" tag removed.
+
+    For a scatter plot, where a label has to fit beside a dot and the full qualified label
+    cannot. Where two rows of one model share a short name the caller disambiguates them
+    itself, because only the caller knows which rows are on its chart.
+    """
+    base = base_label(model)
+    return base.split(" (")[0].strip() if " (" in base else base
+
+
 def colour(model: str) -> str:
     return COLOUR.get(model, FALLBACK_COLOUR)
 

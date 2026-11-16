@@ -1,95 +1,153 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="478" viewBox="0 0 900 478" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="804" viewBox="0 0 980 804" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
 <rect width="100%" height="100%" fill="#0d1117"/>
 <text x="28" y="36" fill="#e6edf3" font-size="17" font-weight="600">Quality against token cost</text>
-<text x="28" y="58" fill="#7d8590" font-size="12">Upper left is best: reliable and cheap. The horizontal axis is each endpoint's own token accounting, not a common meter: Qwen and Groot</text>
-<text x="28" y="74" fill="#7d8590" font-size="12">are both llama-server on the same build and differ by fifteen times per turn, so read this as cost within a provider.</text>
-<line x1="128" y1="394.2" x2="804" y2="394.2" stroke="#21262d" stroke-width="1"/>
-<text x="116" y="398.2" fill="#7d8590" font-size="11" text-anchor="end">85%</text>
-<line x1="128" y1="305.0" x2="804" y2="305.0" stroke="#21262d" stroke-width="1"/>
-<text x="116" y="309.0" fill="#7d8590" font-size="11" text-anchor="end">90%</text>
-<line x1="128" y1="215.9" x2="804" y2="215.9" stroke="#21262d" stroke-width="1"/>
-<text x="116" y="219.9" fill="#7d8590" font-size="11" text-anchor="end">95%</text>
-<line x1="128" y1="126.7" x2="804" y2="126.7" stroke="#21262d" stroke-width="1"/>
-<text x="116" y="130.7" fill="#7d8590" font-size="11" text-anchor="end">100%</text>
-<line x1="205.7" y1="100" x2="205.7" y2="412" stroke="#161b22" stroke-width="1"/>
-<text x="205.7" y="434" fill="#7d8590" font-size="11" text-anchor="middle">10k</text>
-<line x1="316.0" y1="100" x2="316.0" y2="412" stroke="#161b22" stroke-width="1"/>
-<text x="316.0" y="434" fill="#7d8590" font-size="11" text-anchor="middle">20k</text>
-<line x1="461.8" y1="100" x2="461.8" y2="412" stroke="#161b22" stroke-width="1"/>
-<text x="461.8" y="434" fill="#7d8590" font-size="11" text-anchor="middle">50k</text>
-<line x1="572.1" y1="100" x2="572.1" y2="412" stroke="#161b22" stroke-width="1"/>
-<text x="572.1" y="434" fill="#7d8590" font-size="11" text-anchor="middle">100k</text>
-<line x1="682.3" y1="100" x2="682.3" y2="412" stroke="#161b22" stroke-width="1"/>
-<text x="682.3" y="434" fill="#7d8590" font-size="11" text-anchor="middle">200k</text>
-<text x="466" y="460" fill="#7d8590" font-size="12" text-anchor="middle">mean tokens per task (log scale)</text>
-<text x="30" y="256" fill="#7d8590" font-size="12" text-anchor="middle" transform="rotate(-90 30 256)">share of runs passed</text>
-<circle cx="346.8" cy="126.7" r="7" fill="#4fd1a5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="288.1" cy="126.7" r="7" fill="#7aa2f7" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="341.1" cy="126.7" r="7" fill="#bb9af7" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="632.8" cy="126.7" r="7" fill="#7dcfff" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="540.7" cy="192.8" r="7" fill="#7dcfff" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="712.5" cy="126.7" r="7" fill="#2ac3de" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="315.2" cy="225.8" r="7" fill="#e0af68" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="589.8" cy="258.8" r="7" fill="#e0af68" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="622.8" cy="324.8" r="7" fill="#9ece6a" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="599.8" cy="258.8" r="7" fill="#ff5f87" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="153.9" cy="374.4" r="7" fill="#f7768e" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="613.7" cy="489.9" r="7" fill="#f7768e" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="791.8" cy="805.9" r="7" fill="#ff9e64" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="760.8" cy="225.8" r="7" fill="#9ece6a" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="661.2" cy="555.9" r="7" fill="#9ece6a" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="741.4" cy="423.9" r="7" fill="#c0caf5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="627.6" cy="258.8" r="7" fill="#c0caf5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="617.1" cy="225.8" r="7" fill="#c0caf5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="649.1" cy="869.6" r="7" fill="#e0af68" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="683.1" cy="721.0" r="7" fill="#f7768e" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="607.8" cy="511.3" r="7" fill="#73daca" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="633.9" cy="357.9" r="7" fill="#b4f9f8" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<circle cx="611.2" cy="423.9" r="7" fill="#bb9af7" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
-<line x1="346.8" y1="117.7" x2="346.8" y2="109.6" stroke="#6e7681" stroke-width="1"/>
-<text x="346.8" y="106.7" fill="#c9d1d9" font-size="11.5" text-anchor="end">DeepSeek V4.1 Flash (configuration unrecorded)</text>
-<line x1="632.8" y1="117.7" x2="632.8" y2="109.6" stroke="#6e7681" stroke-width="1"/>
-<text x="632.8" y="106.7" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Ornith 1.5 122B (free, configuration unrecorded)</text>
-<line x1="712.5" y1="135.7" x2="712.5" y2="143.5" stroke="#6e7681" stroke-width="1"/>
-<text x="712.5" y="152.7" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Laguna S 2.1 (free, configuration unrecorded)</text>
-<line x1="282.3" y1="133.7" x2="274.1" y2="143.5" stroke="#6e7681" stroke-width="1"/>
-<text x="274.1" y="152.7" fill="#c9d1d9" font-size="11.5" text-anchor="end">GLM-5.3 Flash (configuration unrecorded)</text>
-<line x1="341.1" y1="135.7" x2="341.1" y2="163.5" stroke="#6e7681" stroke-width="1"/>
-<text x="355.1" y="172.7" fill="#c9d1d9" font-size="11.5" text-anchor="end">MiniMax M3.1 Flash (configuration unrecorded)</text>
-<line x1="540.7" y1="183.8" x2="540.7" y2="175.6" stroke="#6e7681" stroke-width="1"/>
-<text x="540.7" y="172.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Ornith 1.5 122B (free, default, thinking unstated)</text>
-<line x1="315.2" y1="216.8" x2="315.2" y2="208.7" stroke="#6e7681" stroke-width="1"/>
-<text x="315.2" y="205.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Beam (configuration unrecorded)</text>
-<line x1="617.1" y1="234.8" x2="617.1" y2="274.6" stroke="#6e7681" stroke-width="1"/>
-<text x="617.1" y="283.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Ornith 1.5 9B (llama.cpp, default, thinking unstated)</text>
-<line x1="760.8" y1="216.8" x2="760.8" y2="210.7" stroke="#6e7681" stroke-width="1"/>
-<text x="760.8" y="207.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">LFM3 1.7B (llama.cpp, configuration unrecorded)</text>
-<line x1="589.8" y1="267.8" x2="589.8" y2="293.6" stroke="#6e7681" stroke-width="1"/>
-<text x="589.8" y="302.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Beam (default, thinking unstated)</text>
-<line x1="599.8" y1="267.8" x2="599.8" y2="351.6" stroke="#6e7681" stroke-width="1"/>
-<text x="599.8" y="360.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Inkling 2 Small (cloud, default, thinking unstated)</text>
-<line x1="627.6" y1="267.8" x2="627.6" y2="351.6" stroke="#6e7681" stroke-width="1"/>
-<text x="627.6" y="360.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated)</text>
-<line x1="622.8" y1="333.8" x2="622.8" y2="373.6" stroke="#6e7681" stroke-width="1"/>
-<text x="622.8" y="382.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Gemma 4 (cloud, configuration unrecorded)</text>
-<line x1="633.9" y1="366.9" x2="633.9" y2="390.7" stroke="#6e7681" stroke-width="1"/>
-<text x="633.9" y="399.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Gemma 4 26B A4B (local, not thinking)</text>
-<line x1="153.9" y1="365.4" x2="153.9" y2="361.2" stroke="#6e7681" stroke-width="1"/>
-<text x="153.9" y="358.4" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Qwen3.6 35B (local, configuration unrecorded)</text>
-<line x1="611.2" y1="414.9" x2="611.2" y2="288.8" stroke="#6e7681" stroke-width="1"/>
-<text x="611.2" y="285.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Groot 19B (local, configuration unrecorded)</text>
-<line x1="741.4" y1="414.9" x2="741.4" y2="288.8" stroke="#6e7681" stroke-width="1"/>
-<text x="741.4" y="285.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Ornith 1.5 9B (llama.cpp, configuration unrecorded)</text>
-<line x1="613.7" y1="480.9" x2="613.7" y2="474.8" stroke="#6e7681" stroke-width="1"/>
-<text x="613.7" y="471.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Qwen3.6 35B (local, sentinel-qwen-local, thinking unstated)</text>
-<line x1="607.8" y1="502.3" x2="607.8" y2="456.2" stroke="#6e7681" stroke-width="1"/>
-<text x="607.8" y="453.3" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Logics-SWE Qwen3.6 35B (local, default, thinking unstated)</text>
-<line x1="661.2" y1="546.9" x2="661.2" y2="540.8" stroke="#6e7681" stroke-width="1"/>
-<text x="661.2" y="537.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">LFM3 1.7B (llama.cpp, q8kv, thinking unstated)</text>
-<line x1="683.1" y1="712.0" x2="683.1" y2="705.9" stroke="#6e7681" stroke-width="1"/>
-<text x="683.1" y="703.0" fill="#c9d1d9" font-size="11.5" text-anchor="middle">GLM-4.7-Flash 30B (local, default, thinking unstated)</text>
-<line x1="791.8" y1="814.9" x2="791.8" y2="824.7" stroke="#6e7681" stroke-width="1"/>
-<text x="791.8" y="833.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Nemotron 3.5 Lightning 30B (local, configuration unrecorded)</text>
-<line x1="649.1" y1="860.6" x2="649.1" y2="854.5" stroke="#6e7681" stroke-width="1"/>
-<text x="649.1" y="851.6" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Bonsai 2 9B (ternary Q2_0, configuration unrecorded)</text>
+<text x="28" y="58" fill="#7d8590" font-size="12">Upper left is best: reliable and cheap. The horizontal axis is each endpoint's own token accounting, not a common meter: Qwen and Groot are both</text>
+<text x="28" y="74" fill="#7d8590" font-size="12">llama-server on the same build and differ by fifteen times per turn, so read this as cost within a provider.</text>
+<line x1="128" y1="467.0" x2="884" y2="467.0" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="471.0" fill="#7d8590" font-size="11" text-anchor="end">55%</text>
+<line x1="128" y1="427.9" x2="884" y2="427.9" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="431.9" fill="#7d8590" font-size="11" text-anchor="end">60%</text>
+<line x1="128" y1="388.9" x2="884" y2="388.9" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="392.9" fill="#7d8590" font-size="11" text-anchor="end">65%</text>
+<line x1="128" y1="349.9" x2="884" y2="349.9" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="353.9" fill="#7d8590" font-size="11" text-anchor="end">70%</text>
+<line x1="128" y1="310.8" x2="884" y2="310.8" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="314.8" fill="#7d8590" font-size="11" text-anchor="end">75%</text>
+<line x1="128" y1="271.8" x2="884" y2="271.8" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="275.8" fill="#7d8590" font-size="11" text-anchor="end">80%</text>
+<line x1="128" y1="232.7" x2="884" y2="232.7" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="236.7" fill="#7d8590" font-size="11" text-anchor="end">85%</text>
+<line x1="128" y1="193.7" x2="884" y2="193.7" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="197.7" fill="#7d8590" font-size="11" text-anchor="end">90%</text>
+<line x1="128" y1="154.7" x2="884" y2="154.7" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="158.7" fill="#7d8590" font-size="11" text-anchor="end">95%</text>
+<line x1="128" y1="115.6" x2="884" y2="115.6" stroke="#21262d" stroke-width="1"/>
+<text x="116" y="119.6" fill="#7d8590" font-size="11" text-anchor="end">100%</text>
+<line x1="214.9" y1="100" x2="214.9" y2="480" stroke="#161b22" stroke-width="1"/>
+<text x="214.9" y="502" fill="#7d8590" font-size="11" text-anchor="middle">10k</text>
+<line x1="338.3" y1="100" x2="338.3" y2="480" stroke="#161b22" stroke-width="1"/>
+<text x="338.3" y="502" fill="#7d8590" font-size="11" text-anchor="middle">20k</text>
+<line x1="501.3" y1="100" x2="501.3" y2="480" stroke="#161b22" stroke-width="1"/>
+<text x="501.3" y="502" fill="#7d8590" font-size="11" text-anchor="middle">50k</text>
+<line x1="624.6" y1="100" x2="624.6" y2="480" stroke="#161b22" stroke-width="1"/>
+<text x="624.6" y="502" fill="#7d8590" font-size="11" text-anchor="middle">100k</text>
+<line x1="747.9" y1="100" x2="747.9" y2="480" stroke="#161b22" stroke-width="1"/>
+<text x="747.9" y="502" fill="#7d8590" font-size="11" text-anchor="middle">200k</text>
+<text x="506" y="526" fill="#7d8590" font-size="12" text-anchor="middle">mean tokens per task (log scale)</text>
+<text x="30" y="290" fill="#7d8590" font-size="12" text-anchor="middle" transform="rotate(-90 30 290)">share of runs passed</text>
+<circle cx="378.3" cy="115.6" r="7" fill="#4fd1a5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="307.0" cy="115.6" r="7" fill="#7aa2f7" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="360.8" cy="115.6" r="7" fill="#bb9af7" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="692.6" cy="115.6" r="7" fill="#7dcfff" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="589.6" cy="144.5" r="7" fill="#7dcfff" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="781.7" cy="115.6" r="7" fill="#2ac3de" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="337.3" cy="159.0" r="7" fill="#e0af68" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="641.3" cy="173.5" r="7" fill="#e0af68" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="681.4" cy="202.4" r="7" fill="#9ece6a" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="658.8" cy="173.5" r="7" fill="#ff5f87" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="156.9" cy="224.1" r="7" fill="#f7768e" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="672.9" cy="272.2" r="7" fill="#f7768e" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="870.3" cy="413.1" r="7" fill="#ff9e64" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="835.6" cy="159.0" r="7" fill="#9ece6a" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="724.3" cy="303.6" r="7" fill="#9ece6a" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="814.0" cy="245.8" r="7" fill="#c0caf5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="686.7" cy="173.5" r="7" fill="#c0caf5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="675.0" cy="159.0" r="7" fill="#c0caf5" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="710.7" cy="441.0" r="7" fill="#e0af68" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="748.8" cy="375.9" r="7" fill="#f7768e" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="662.9" cy="286.5" r="7" fill="#73daca" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="693.8" cy="216.8" r="7" fill="#b4f9f8" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<circle cx="668.4" cy="245.8" r="7" fill="#bb9af7" stroke="#0d1117" stroke-width="2" opacity="0.98"/>
+<line x1="387.2" y1="116.4" x2="446.3" y2="121.4" stroke="#6e7681" stroke-width="1"/>
+<text x="446.3" y="130.6" fill="#c9d1d9" font-size="11.5" text-anchor="start">DeepSeek V4.1 Flash</text>
+<line x1="684.8" y1="120.1" x2="611.8" y2="162.4" stroke="#6e7681" stroke-width="1"/>
+<text x="611.8" y="171.6" fill="#c9d1d9" font-size="11.5" text-anchor="end">Ornith 1.5 122B · unrec</text>
+<line x1="781.7" y1="124.6" x2="781.7" y2="138.4" stroke="#6e7681" stroke-width="1"/>
+<text x="781.7" y="147.6" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Laguna S 2.1</text>
+<line x1="587.7" y1="153.3" x2="579.6" y2="191.3" stroke="#6e7681" stroke-width="1"/>
+<text x="579.6" y="200.5" fill="#c9d1d9" font-size="11.5" text-anchor="end">Ornith 1.5 122B · default</text>
+<line x1="337.3" y1="150.0" x2="337.3" y2="141.9" stroke="#6e7681" stroke-width="1"/>
+<text x="337.3" y="139.0" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Beam · unrec</text>
+<line x1="667.8" y1="164.5" x2="594.2" y2="220.8" stroke="#6e7681" stroke-width="1"/>
+<text x="594.2" y="230.0" fill="#c9d1d9" font-size="11.5" text-anchor="end">Ornith 1.5 9B · default</text>
+<line x1="835.6" y1="168.0" x2="835.6" y2="181.8" stroke="#6e7681" stroke-width="1"/>
+<text x="835.6" y="191.0" fill="#c9d1d9" font-size="11.5" text-anchor="middle">LFM3 1.7B · unrec</text>
+<line x1="301.3" y1="122.5" x2="293.0" y2="132.4" stroke="#6e7681" stroke-width="1"/>
+<text x="293.0" y="141.6" fill="#c9d1d9" font-size="11.5" text-anchor="end">GLM-5.3 Flash</text>
+<line x1="353.5" y1="120.9" x2="295.8" y2="162.4" stroke="#6e7681" stroke-width="1"/>
+<text x="295.8" y="171.6" fill="#c9d1d9" font-size="11.5" text-anchor="end">MiniMax M3.1 Flash</text>
+<line x1="647.1" y1="180.3" x2="693.5" y2="235.3" stroke="#6e7681" stroke-width="1"/>
+<text x="693.5" y="244.5" fill="#c9d1d9" font-size="11.5" text-anchor="start">Beam · default</text>
+<line x1="658.8" y1="164.5" x2="658.8" y2="144.3" stroke="#6e7681" stroke-width="1"/>
+<text x="658.8" y="141.5" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Inkling 2 Small</text>
+<line x1="694.8" y1="177.3" x2="757.9" y2="207.3" stroke="#6e7681" stroke-width="1"/>
+<text x="757.9" y="216.5" fill="#c9d1d9" font-size="11.5" text-anchor="start">Ornith 1.5 9B · q8kv</text>
+<line x1="689.7" y1="199.0" x2="711.5" y2="190.2" stroke="#6e7681" stroke-width="1"/>
+<text x="711.5" y="187.4" fill="#c9d1d9" font-size="11.5" text-anchor="start">Gemma 4</text>
+<line x1="685.5" y1="220.3" x2="638.4" y2="239.6" stroke="#6e7681" stroke-width="1"/>
+<text x="638.4" y="248.8" fill="#c9d1d9" font-size="11.5" text-anchor="end">Gemma 4 26B A4B</text>
+<line x1="664.4" y1="237.7" x2="658.4" y2="225.6" stroke="#6e7681" stroke-width="1"/>
+<text x="658.4" y="222.8" fill="#c9d1d9" font-size="11.5" text-anchor="end">Groot 19B</text>
+<line x1="814.0" y1="254.8" x2="814.0" y2="268.6" stroke="#6e7681" stroke-width="1"/>
+<text x="814.0" y="277.8" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Ornith 1.5 9B · unrec</text>
+<line x1="165.8" y1="222.5" x2="225.0" y2="211.9" stroke="#6e7681" stroke-width="1"/>
+<text x="225.0" y="209.1" fill="#c9d1d9" font-size="11.5" text-anchor="start">Qwen3.6 35B · unrec</text>
+<line x1="664.0" y1="272.7" x2="560.6" y2="278.0" stroke="#6e7681" stroke-width="1"/>
+<text x="560.6" y="287.2" fill="#c9d1d9" font-size="11.5" text-anchor="end">Qwen3.6 35B · sentinel-qwen-local</text>
+<line x1="671.8" y1="287.2" x2="740.4" y2="292.3" stroke="#6e7681" stroke-width="1"/>
+<text x="740.4" y="301.5" fill="#c9d1d9" font-size="11.5" text-anchor="start">Logics-SWE Qwen3.6 35B</text>
+<line x1="733.2" y1="304.5" x2="782.9" y2="309.4" stroke="#6e7681" stroke-width="1"/>
+<text x="782.9" y="318.6" fill="#c9d1d9" font-size="11.5" text-anchor="start">LFM3 1.7B · q8kv</text>
+<line x1="748.8" y1="366.9" x2="748.8" y2="360.8" stroke="#6e7681" stroke-width="1"/>
+<text x="748.8" y="357.9" fill="#c9d1d9" font-size="11.5" text-anchor="middle">GLM-4.7-Flash 30B</text>
+<line x1="710.7" y1="432.0" x2="710.7" y2="425.8" stroke="#6e7681" stroke-width="1"/>
+<text x="710.7" y="423.0" fill="#c9d1d9" font-size="11.5" text-anchor="middle">Bonsai 2 9B</text>
+<line x1="868.4" y1="421.9" x2="860.3" y2="459.9" stroke="#6e7681" stroke-width="1"/>
+<text x="860.3" y="469.1" fill="#c9d1d9" font-size="11.5" text-anchor="end">Nemotron 3.5 Lightning 30B</text>
+<rect x="30" y="560.0" width="9" height="9" rx="2" fill="#4fd1a5" opacity="0.95"/>
+<text x="45" y="568.0" fill="#8b949e" font-size="11.5">DeepSeek V4.1 Flash (configuration unrecorded)</text>
+<rect x="30" y="579.0" width="9" height="9" rx="2" fill="#7aa2f7" opacity="0.95"/>
+<text x="45" y="587.0" fill="#8b949e" font-size="11.5">GLM-5.3 Flash (configuration unrecorded)</text>
+<rect x="30" y="598.0" width="9" height="9" rx="2" fill="#bb9af7" opacity="0.95"/>
+<text x="45" y="606.0" fill="#8b949e" font-size="11.5">MiniMax M3.1 Flash (configuration unrecorded)</text>
+<rect x="30" y="617.0" width="9" height="9" rx="2" fill="#7dcfff" opacity="0.95"/>
+<text x="45" y="625.0" fill="#8b949e" font-size="11.5">Ornith 1.5 122B (free, configuration unrecorded)</text>
+<rect x="30" y="636.0" width="9" height="9" rx="2" fill="#7dcfff" opacity="0.95"/>
+<text x="45" y="644.0" fill="#8b949e" font-size="11.5">Ornith 1.5 122B (free, default, thinking unstated)</text>
+<rect x="30" y="655.0" width="9" height="9" rx="2" fill="#2ac3de" opacity="0.95"/>
+<text x="45" y="663.0" fill="#8b949e" font-size="11.5">Laguna S 2.1 (free, configuration unrecorded)</text>
+<rect x="30" y="674.0" width="9" height="9" rx="2" fill="#e0af68" opacity="0.95"/>
+<text x="45" y="682.0" fill="#8b949e" font-size="11.5">Beam (configuration unrecorded)</text>
+<rect x="30" y="693.0" width="9" height="9" rx="2" fill="#e0af68" opacity="0.95"/>
+<text x="45" y="701.0" fill="#8b949e" font-size="11.5">Beam (default, thinking unstated)</text>
+<rect x="30" y="712.0" width="9" height="9" rx="2" fill="#9ece6a" opacity="0.95"/>
+<text x="45" y="720.0" fill="#8b949e" font-size="11.5">Gemma 4 (cloud, configuration unrecorded)</text>
+<rect x="30" y="731.0" width="9" height="9" rx="2" fill="#ff5f87" opacity="0.95"/>
+<text x="45" y="739.0" fill="#8b949e" font-size="11.5">Inkling 2 Small (cloud, default, thinking unstated)</text>
+<rect x="30" y="750.0" width="9" height="9" rx="2" fill="#f7768e" opacity="0.95"/>
+<text x="45" y="758.0" fill="#8b949e" font-size="11.5">Qwen3.6 35B (local, configuration unrecorded)</text>
+<rect x="30" y="769.0" width="9" height="9" rx="2" fill="#f7768e" opacity="0.95"/>
+<text x="45" y="777.0" fill="#8b949e" font-size="11.5">Qwen3.6 35B (local, sentinel-qwen-local, thinking unstated)</text>
+<rect x="500" y="560.0" width="9" height="9" rx="2" fill="#ff9e64" opacity="0.95"/>
+<text x="515" y="568.0" fill="#8b949e" font-size="11.5">Nemotron 3.5 Lightning 30B (local, configuration unrecorded)</text>
+<rect x="500" y="579.0" width="9" height="9" rx="2" fill="#9ece6a" opacity="0.95"/>
+<text x="515" y="587.0" fill="#8b949e" font-size="11.5">LFM3 1.7B (llama.cpp, configuration unrecorded)</text>
+<rect x="500" y="598.0" width="9" height="9" rx="2" fill="#9ece6a" opacity="0.95"/>
+<text x="515" y="606.0" fill="#8b949e" font-size="11.5">LFM3 1.7B (llama.cpp, q8kv, thinking unstated)</text>
+<rect x="500" y="617.0" width="9" height="9" rx="2" fill="#c0caf5" opacity="0.95"/>
+<text x="515" y="625.0" fill="#8b949e" font-size="11.5">Ornith 1.5 9B (llama.cpp, configuration unrecorded)</text>
+<rect x="500" y="636.0" width="9" height="9" rx="2" fill="#c0caf5" opacity="0.95"/>
+<text x="515" y="644.0" fill="#8b949e" font-size="11.5">Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated)</text>
+<rect x="500" y="655.0" width="9" height="9" rx="2" fill="#c0caf5" opacity="0.95"/>
+<text x="515" y="663.0" fill="#8b949e" font-size="11.5">Ornith 1.5 9B (llama.cpp, default, thinking unstated)</text>
+<rect x="500" y="674.0" width="9" height="9" rx="2" fill="#e0af68" opacity="0.95"/>
+<text x="515" y="682.0" fill="#8b949e" font-size="11.5">Bonsai 2 9B (ternary Q2_0, configuration unrecorded)</text>
+<rect x="500" y="693.0" width="9" height="9" rx="2" fill="#f7768e" opacity="0.95"/>
+<text x="515" y="701.0" fill="#8b949e" font-size="11.5">GLM-4.7-Flash 30B (local, default, thinking unstated)</text>
+<rect x="500" y="712.0" width="9" height="9" rx="2" fill="#73daca" opacity="0.95"/>
+<text x="515" y="720.0" fill="#8b949e" font-size="11.5">Logics-SWE Qwen3.6 35B (local, default, thinking unstated)</text>
+<rect x="500" y="731.0" width="9" height="9" rx="2" fill="#b4f9f8" opacity="0.95"/>
+<text x="515" y="739.0" fill="#8b949e" font-size="11.5">Gemma 4 26B A4B (local, not thinking)</text>
+<rect x="500" y="750.0" width="9" height="9" rx="2" fill="#bb9af7" opacity="0.95"/>
+<text x="515" y="758.0" fill="#8b949e" font-size="11.5">Groot 19B (local, configuration unrecorded)</text>
 </svg>

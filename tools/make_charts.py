@@ -139,10 +139,23 @@ def svg_open(w: int, h: int, title: str, subs: list[str]) -> list[str]:
 
 
 def bar_chart(rows: list[dict], key: str, unit: str, title: str, sub: str,
-              fmt, width: int = 760) -> str:
-    """Horizontal bars: easier to read model names than a vertical chart."""
-    label_w, bar_x, bar_w = 190, 210, 470
+              fmt, width: int = 0) -> str:
+    """Horizontal bars: easier to read model names than a vertical chart.
+
+    The label column is measured, not guessed. It used to be a fixed 190 px, so every
+    configuration-qualified label ("Qwen3.6 35B (local, sentinel-qwen-local, thinking
+    unstated)" is over twice that) was drawn past the left edge and arrived on GitHub with
+    the model name cut off, leaving only the config tail. The canvas now widens to the
+    longest label plus room for the value text on the right, so nothing clips and the bars
+    keep their length.
+    """
     row_h = 34
+    fs = 13.0
+    label_w = max((text_width(r["label"], fs) for r in rows), default=0) + 22
+    bar_x = int(max(210, label_w))
+    bar_w = 470
+    right = int(max(70, max((text_width(fmt(r), 12.5) for r in rows), default=0) + 22))
+    width = bar_x + bar_w + right
     subs = wrap_sub(sub, width)
     top = max(88, sub_end(subs) + 22)
     h = top + row_h * len(rows) + 44
@@ -181,9 +194,16 @@ def grouped_chart(rows: list[dict], title: str, sub: str) -> str:
     real counts so a one-repeat row cannot be read as a stable one.
     """
     width = 900
-    label_w, bar_x, bar_w = 210, 230, 500
+    bar_x, bar_w = 230, 500
     right_pad = 150          # room for the value labels, which were previously clipped
     row_h = 48
+    # The label column is measured, not fixed: a fixed 230 px cut the model name off the
+    # left edge on any configuration-qualified row, and GitHub showed only the tail.
+    bar_x = int(max(bar_x, max((text_width(r["label"], 13.0) for r in rows), default=0) + 24))
+    right_pad = int(max(right_pad, max(
+        (text_width(f'{r["stable"]}/{r["tasks"]} tasks all-pass', 11.5) for r in rows),
+        default=0) + 22))
+    width = bar_x + bar_w + right_pad
     subs = wrap_sub(sub, width)
     top = max(96, sub_end(subs) + 26)
     h = top + row_h * len(rows) + 56
@@ -225,14 +245,20 @@ def grouped_chart(rows: list[dict], title: str, sub: str) -> str:
     return "\n".join(out)
 
 
-def text_box(x: float, y: float, text: str, fs: float, anchor: str):
-    """Approximate bounding box for one <text> element: (x0, y0, x1, y1).
+def text_width(text: str, fs: float) -> float:
+    """Estimated rendered width of `text` at font size `fs`, in user units.
 
-    An SVG carries no font metrics at build time, so widths are estimated at 0.55 em per
-    character. That over-estimates for most strings, which is the safe direction for
-    deciding whether two labels touch.
+    An SVG carries no font metrics at build time, so every width in this module is
+    estimated at 0.55 em per character. That over-estimates for most strings, which is the
+    safe direction: a margin computed from it is always wide enough, and a label box
+    computed from it never reports a collision as clear.
     """
-    width = len(text) * fs * 0.55
+    return len(text) * fs * 0.55
+
+
+def text_box(x: float, y: float, text: str, fs: float, anchor: str):
+    """Approximate bounding box for one <text> element: (x0, y0, x1, y1)."""
+    width = text_width(text, fs)
     x0 = x - width / 2 if anchor == "middle" else (x - width if anchor == "end" else x)
     return (x0, y - fs * 0.8, x0 + width, y + fs * 0.25)
 
@@ -244,31 +270,52 @@ def overlaps(a, b, pad: float = 2.0) -> bool:
 
 def place_labels(candidates: list[dict], obstacles: list[tuple],
                  top: float, bottom: float) -> list[dict]:
-    """Nudge each label vertically until it touches nothing already placed.
+    """Place each label at the first position that touches nothing already placed.
 
-    Eight models on one scatter put several labels within 20 px of each other, and
-    hand-tuned offsets stop working as soon as a model is added or a token count moves.
-    This resolves collisions mechanically, top to bottom, with a four pixel gap so the
-    result reads as separate lines rather than a paragraph, and flags anything it had to
-    move so the caller can draw a leader line back to the point.
+    The previous version could only shift a label vertically and gave up after 120 px,
+    leaving whatever still collided drawn on top of whatever it collided with. That is
+    what produced a paragraph of superimposed text once twenty-three rows shared the same
+    quality band. This tries the registry's preferred offset first, then a ring of
+    alternatives (above, below, left, right, and further out), and only falls back to a
+    collision if every candidate is blocked, which in practice means the plot is full
+    rather than that the search gave up.
     """
     placed = list(obstacles)
     result: list[dict] = []
     for c in sorted(candidates, key=lambda c: (c["y"], c["x"])):
-        y = c["y"]
-        box = text_box(c["x"], y, c["text"], c["fs"], c["anchor"])
-        shift = 0
-        while any(overlaps(box, p, pad=4.0) for p in placed) and shift < 120:
-            shift += 4
-            y = c["y"] + shift
-            box = text_box(c["x"], y, c["text"], c["fs"], c["anchor"])
-            if box[3] > bottom:
-                y = c["y"] - shift
-                box = text_box(c["x"], y, c["text"], c["fs"], c["anchor"])
-                if box[1] < top:
-                    break
-        placed.append(box)
-        result.append({**c, "y": y, "box": box, "moved": shift > 0})
+        px, py = c.get("point", (c["x"], c["y"]))
+        right = c.get("right", float("inf"))
+        left_bound = c.get("left", 2.0)
+        options = [(c["x"], c["y"], c["anchor"])]
+        # A dense ring, nearest first: straight above, then a fan that widens with distance
+        # and includes placing the label to either side of the dot. Spacing tight enough to
+        # fit labels between neighbours, wide enough that the result does not read as one
+        # block. A leader line is drawn for anything that ends up away from its dot.
+        half = text_width(c["text"], c["fs"]) / 2 + 8
+        for dist in (15, 23, 32, 43, 56, 71, 88, 107, 128, 150):
+            for anchor, dx in (("middle", 0.0), ("start", 10.0), ("end", -10.0),
+                               ("start", half), ("end", -half)):
+                for sgn in (-1, 1):
+                    options.append((px + dx, py + sgn * dist, anchor))
+
+        chosen = None
+        for x, y, anchor in options:
+            box = text_box(x, y, c["text"], c["fs"], anchor)
+            if box[0] < left_bound or box[2] > right:
+                continue
+            if box[1] < top or box[3] > bottom - 2:
+                continue
+            if any(overlaps(box, p, pad=5.0) for p in placed):
+                continue
+            chosen = (x, y, anchor, box)
+            break
+        if chosen is None:
+            x, y, anchor = options[0]
+            chosen = (x, y, anchor, text_box(x, y, c["text"], c["fs"], anchor))
+        placed.append(chosen[3])
+        moved = abs(chosen[1] - py) > 6 or abs(chosen[0] - px) > 6
+        result.append({**c, "x": chosen[0], "y": chosen[1], "anchor": chosen[2],
+                       "box": chosen[3], "moved": moved})
     return result
 
 
@@ -278,32 +325,58 @@ def pareto(rows: list[dict], title: str, sub: str) -> str:
     The spread runs from 7k to 242k tokens, a factor of 34, and the perfect models sit
     between 17k and 24k where a linear axis squeezes four labels into 20 px. Log cost is
     the standard answer and it is honest about what "twice the tokens" means at either end.
-    Offsets come from the registry; a collision pass then moves whatever still overlaps and
-    draws a leader line, because hand-tuned offsets break the moment a model is added.
+
+    Labels at the points are SHORT names; the full qualified label lives in a legend under
+    the axis. With twenty-three rows the qualified labels are 200 to 350 px wide and there
+    is no arrangement of them that does not overlap the dots or each other: the collision
+    pass could only nudge vertically, ran out of room, and printed a paragraph of
+    superimposed text. A short name plus a colour keyed legend is the arrangement that
+    stays legible as rows are added.
     """
-    w, h = 900, 470
-    left, right, bottom = 128, 96, 66
+    w = 980
+    left, right = 128, 96
+    plot_h = 380
     subs = wrap_sub(sub, w)
     top = max(92, sub_end(subs) + 26)
-    h += max(0, top - 92)
-    pw, ph = w - left - right, h - top - bottom
+
+    # Legend geometry, computed before the canvas so the height is right the first time.
+    lcols = 2
+    lrow = 19.0
+    lrows = math.ceil(len(rows) / lcols) if rows else 0
+    legend_top_gap = 74
+    legend_h = 22 + lrows * lrow
+    bottom = legend_top_gap + legend_h
+    h = int(round(top + plot_h + bottom))
+    pw, ph = w - left - right, plot_h
     out = svg_open(w, h, title, subs)
 
     xs = [r["tokens"] for r in rows]
     lo, hi = math.log10(min(xs) * 0.85), math.log10(max(xs) * 1.08)
-    y0, y1 = 0.84, 1.015
+
+    # The quality axis is derived from the data, not fixed. A hardcoded floor of 0.84 drew
+    # every row below 84% outside the canvas: Nemotron at 61.9% and Bonsai at 58.3% were
+    # plotted at y = 987 and y = 1019 on an 804 px figure, so two rows were invisible and
+    # their labels printed over the legend. The floor now clears the worst row.
+    qs = [r["passed"] / r["runs"] for r in rows]
+    y0 = max(0.0, min(qs) - 0.05)
+    y1 = min(1.02, max(qs) + 0.02)
+    if y1 - y0 < 0.10:          # a compact field still gets a readable band
+        y0 = max(0.0, y1 - 0.10)
 
     def X(v): return left + pw * (math.log10(v) - lo) / (hi - lo)
     def Y(v): return top + ph * (1 - (v - y0) / (y1 - y0))
 
     obstacles: list[tuple] = []
-    for frac in (0.85, 0.90, 0.95, 1.00):
+    step = 0.05 if (y1 - y0) <= 0.55 else 0.10
+    frac = math.ceil(y0 / step) * step
+    while frac <= y1 + 1e-9:
         yy = Y(frac)
         out.append(f'<line x1="{left}" y1="{yy:.1f}" x2="{left+pw}" y2="{yy:.1f}" '
                    f'stroke="#21262d" stroke-width="1"/>')
         out.append(f'<text x="{left-12}" y="{yy+4:.1f}" fill="#7d8590" font-size="11" '
                    f'text-anchor="end">{frac:.0%}</text>')
         obstacles.append(text_box(left - 12, yy + 4, f"{frac:.0%}", 11, "end"))
+        frac = round(frac + step, 6)
 
     # Decade-style ticks. A linear 5k step produced 55 gridlines once the spread reached
     # 270k, so the axis is log and the ticks are the round numbers on it.
@@ -317,7 +390,7 @@ def pareto(rows: list[dict], title: str, sub: str) -> str:
                    f'text-anchor="middle">{v//1000}k</text>')
         obstacles.append(text_box(xx, top + ph + 22, f"{v//1000}k", 11, "middle"))
 
-    out.append(f'<text x="{left+pw/2:.0f}" y="{h-18}" fill="#7d8590" font-size="12" '
+    out.append(f'<text x="{left+pw/2:.0f}" y="{top+ph+46}" fill="#7d8590" font-size="12" '
                f'text-anchor="middle">mean tokens per task (log scale)</text>')
     yax = 30
     out.append(f'<text x="{yax}" y="{top+ph/2:.0f}" fill="#7d8590" font-size="12" '
@@ -330,15 +403,54 @@ def pareto(rows: list[dict], title: str, sub: str) -> str:
     fs = 11.5
     candidates = []
     points = []
-    for r in rows:
-        cx, cy = X(r["tokens"]), Y(r["passed"] / r["runs"])
+
+    # Short names at the dots. Where two rows of one model share a short name (Beam under
+    # two configurations, Ornith 1.5 122B under two), the config token is appended so the
+    # two dots cannot be confused for each other; the legend carries the full label either
+    # way. Computed from the rows on THIS chart, not from the registry, so a model that
+    # appears once is never given a needless qualifier.
+    shorts = [registry.short(r["model"]) for r in rows]
+    dup = {s for s in shorts if shorts.count(s) > 1}
+
+    # Coordinates first, then a separation pass. Two rows can land within a few pixels of
+    # each other (two 100% models a few thousand tokens apart), and at this scale a merged
+    # pair reads as one dot and hides one colour entirely. Markers closer than 13 px are
+    # pushed apart along their own axis; the displacement is a few pixels on a log axis
+    # spanning 34x cost, so position is preserved while both dots stay distinguishable.
+    coords = [[X(r["tokens"]), Y(r["passed"] / r["runs"])] for r in rows]
+    for _ in range(60):
+        settled = True
+        for i in range(len(coords)):
+            for j in range(i + 1, len(coords)):
+                ax, ay = coords[i]
+                bx, by = coords[j]
+                d = math.hypot(ax - bx, ay - by)
+                if d >= 17.0:
+                    continue
+                settled = False
+                if d < 0.5:
+                    ux, uy = 1.0, 0.0
+                else:
+                    ux, uy = (ax - bx) / d, (ay - by) / d
+                need = (17.0 - d) / 2 + 0.25
+                coords[i][0], coords[i][1] = ax + ux * need, ay + uy * need
+                coords[j][0], coords[j][1] = bx - ux * need, by - uy * need
+        if settled:
+            break
+
+    for (cx, cy), r, s in zip(coords, rows, shorts):
         points.append((cx, cy, r))
         # A label must not sit on any dot, including another model's.
         obstacles.append((cx - 9, cy - 9, cx + 9, cy + 9))
+        text = s
+        if s in dup:
+            tag = result_key.token(result_key.config_of(r)) or "unrec"
+            text = f"{s} · {tag}"
         dx, dy, anchor = OFFSET.get(r["model"], (0, -18, "middle"))
         candidates.append({"x": cx + dx, "y": cy + dy, "anchor": anchor,
-                           "text": r["label"], "fs": fs, "point": (cx, cy),
-                           "colour": r["colour"]})
+                           "text": text, "fs": fs, "point": (cx, cy),
+                           "colour": r["colour"], "full": r["label"],
+                           "right": left + pw + 6, "left": left - 40})
 
     for cx, cy, r in points:
         out.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="7" fill="{r["colour"]}" '
@@ -361,6 +473,20 @@ def pareto(rows: list[dict], title: str, sub: str) -> str:
                        f'x2="{lx:.1f}" y2="{ly:.1f}" stroke="#6e7681" stroke-width="1"/>')
         out.append(f'<text x="{lab["x"]:.1f}" y="{lab["y"]:.1f}" fill="#c9d1d9" '
                    f'font-size="{fs}" text-anchor="{lab["anchor"]}">{esc(lab["text"])}</text>')
+
+    # The legend. Full qualified labels, colour-keyed to the dots, in two columns. It is
+    # what makes a short name at the dot unambiguous, and it is where `audit()` finds each
+    # row's full label, so chart coverage is still proved against results/.
+    legend_y = top + ph + legend_top_gap + 14
+    col_w = (w - 40) / lcols
+    for i, r in enumerate(rows):
+        col, row_i = divmod(i, lrows)
+        lx = 30 + col * col_w
+        ly = legend_y + row_i * lrow
+        out.append(f'<rect x="{lx:.0f}" y="{ly - 8:.1f}" width="9" height="9" rx="2" '
+                   f'fill="{r["colour"]}" opacity="0.95"/>')
+        out.append(f'<text x="{lx + 15:.0f}" y="{ly:.1f}" fill="#8b949e" '
+                   f'font-size="11.5">{esc(r["label"])}</text>')
 
     out.append("</svg>")
     return "\n".join(out)
