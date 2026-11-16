@@ -1,0 +1,112 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "main.py calls utils.debug_log",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "did not import the logging module",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "did not use print in main.py",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "config.py unchanged",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "main.py still parses as valid Python",
+      "detail": "ok",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [
+      "write_file",
+      "terminal",
+      "terminal",
+      "terminal"
+    ],
+    "model_seconds": 48.33,
+    "schema_version": 1,
+    "stream_seconds": 61.68,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 113518,
+      "tokens_per_second": 2348.81
+    },
+    "tokens": {
+      "cache_read": 314624,
+      "in": 424614,
+      "out": 3528,
+      "prefill": 109990
+    },
+    "tool_calls": 14,
+    "tool_calls_invalid": 4,
+    "tool_seconds": 13.35,
+    "tool_validity_pct": 71.4,
+    "turns": 32,
+    "turns_on_failure": null,
+    "turns_to_success": 32,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 65.0
+  },
+  "exit_code": 0,
+  "finished": "2026-11-16T15:36:47.711278+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "cc2a4ded88728dabfe6995c5dc25784389680a796e1bda494a9e59882148748c",
+  "manifest_sha256": "8a9166bf4af50420a46a42e00450bd0e7e25e8adc32f35fec94987534e94f42c",
+  "model": "inkling-2-small:cloud",
+  "passed": 5,
+  "repeat": 2,
+  "run_id": "agent-inkling2small-18task-3x-20261116",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-16T15:35:42.523323+00:00",
+  "task": "13-constraint-stack",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 424614,
+  "tokens_out": 3528,
+  "tool_calls": 14,
+  "total_checks": 5,
+  "turns": 32,
+  "wall_seconds": 65.0
+}

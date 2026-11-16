@@ -46,6 +46,8 @@ LABEL = {
     "poolside/laguna-xs-2.1:free": "Laguna XS 2.1 (free)",
     "beam:cloud": "Beam",
     "gemma4:cloud": "Gemma 4 (cloud)",
+    "gemma-4-26B-A4B-qat-q4_0.gguf": "Gemma 4 26B A4B (local)",
+    "inkling-2-small:cloud": "Inkling 2 Small (cloud)",
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "Qwen3.6 35B (local)",
     # The SENTINEL-managed server records the weights path rather than a short id, so the
     # eighteen-task series from /mnt/fast lands under the same label as its twelve-task rows.
@@ -77,6 +79,8 @@ COLOUR = {
     "poolside/laguna-xs-2.1:free": "#c0caf5",
     "beam:cloud": "#e0af68",
     "gemma4:cloud": "#9ece6a",
+    "gemma-4-26B-A4B-qat-q4_0.gguf": "#b4f9f8",
+    "inkling-2-small:cloud": "#ff5f87",
     "Qwen3.6-35B-A3B-UD-Q4_K_M": "#f7768e",
     "/home/chris/models/Qwen3.6-35B-A3B-MTP/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf": "#f7768e",
     "nemotron-3.5-lightning-30b-a3b": "#ff9e64",
@@ -106,6 +110,7 @@ ORDER = [
     "poolside/laguna-xs-2.1:free",
     "beam:cloud",
     "gemma4:cloud",
+    "inkling-2-small:cloud",
     "Qwen3.6-35B-A3B-UD-Q4_K_M",
     "/home/chris/models/Qwen3.6-35B-A3B-MTP/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
     "nemotron-3.5-lightning-30b-a3b",

@@ -143,6 +143,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Beam (configuration unrecorded) | 3 | 34/36 (94.4%) | - | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
 | Beam (default, thinking unstated) | 3 | 50/54 (92.6%) | - | 16/18 | 11.9 | 111,761 | 24 s | 22 min |
 | Gemma 4 (cloud, configuration unrecorded) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
+| Inkling 2 Small (cloud, default, thinking unstated) | 3 | 50/54 (92.6%) | - | 16/18 | 9.9 | 119,036 | 27 s | 24 min |
 | Qwen3.6 35B (local, configuration unrecorded) | 3 | 31/36 (86.1%) | - | 9/12 | 12.2 | **7,218** | 107 s | 64 min |
 | Qwen3.6 35B (local, sentinel-qwen-local, thinking unstated) | 3 | 43/54 (79.6%) | - | 12/18 | 13.0 | 129,927 | 89 s | 80 min |
 | Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 1-4 | 13/21 (61.9%) | agent_exit 2, turn_limit 2 | 9/12 | 28.3 | 397,830 | 195 s | 68 min |
@@ -154,8 +155,8 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 7/12 (58.3%) | - | 7/12 | 14.2 | 162,254 | 90 s | 18 min |
 | GLM-4.7-Flash 30B (local, default, thinking unstated) | 3 | 36/54 (66.7%) | agent_exit 2 | 8/18 | 17.8 | 201,000 | 352 s | 5.28 h |
 | Logics-SWE Qwen3.6 35B (local, default, thinking unstated) | 3 | 40/51 (78.4%) | agent_exit 2, timeout 2 | 11/18 | 12.4 | 125,198 | 188 s | 2.67 h |
+| Gemma 4 26B A4B (local, not thinking) | 3 | 47/54 (87.0%) | - | 13/18 | 13.1 | 147,544 | 142 s | 2.13 h |
 | Groot 19B (local, configuration unrecorded) | 3 | 30/36 (83.3%) | - | 8/12 | 11.9 | 127,891 | 71 s | 42 min |
-| gemma-4-26B-A4B-qat-q4_0.gguf (not thinking) | 3 | 47/54 (87.0%) | - | 13/18 | 13.1 | 147,544 | 142 s | 2.13 h |
 <!-- RESULTS:END -->
 
 Read the **Repeats** column before comparing rows. A one-repeat row is a screening
@@ -199,8 +200,9 @@ bundles and is not a series at all.
 | Ornith 1.5 122B (free, default, thinking unstated) | 3 | 0.9846 ± 0.0351 | 183 tok/s | 35 s | **8.6** | **99%** | - | - | 18 tasks, `9fe550deb1c0` |
 | Laguna S 2.1 (free, configuration unrecorded) | 1 | 1.0000 | - | - | - | - | - | - | - |
 | Beam (configuration unrecorded) | 3 | 0.9444 ± 0.1195 | - | - | - | - | - | - | - |
-| Beam (default, thinking unstated) | 3 | 0.9802 ± 0.0425 | **1007 tok/s** | **24 s** | 11.7 | 95% | - | - | 18 tasks, `9fe550deb1c0` |
+| Beam (default, thinking unstated) | 3 | 0.9802 ± 0.0425 | 1007 tok/s | 24 s | 11.7 | 95% | - | - | 18 tasks, `9fe550deb1c0` |
 | Gemma 4 (cloud, configuration unrecorded) | 3 | 0.9821 ± 0.0171 | - | - | - | - | - | - | - |
+| Inkling 2 Small (cloud, default, thinking unstated) | 3 | 0.9728 ± 0.0584 | **2825 tok/s** | **23 s** | 10.2 | 98% | - | - | 18 tasks, `9fe550deb1c0` |
 | Qwen3.6 35B (local, configuration unrecorded) | 3 | 0.9504 ± 0.1537 | - | - | - | - | - | - | - |
 | Qwen3.6 35B (local, sentinel-qwen-local, thinking unstated) | 3 | 0.9074 ± 0.1978 | 102 tok/s | 70 s | 13.4 | 88% | **67%** | 6,472 MiB | 18 tasks, `9fe550deb1c0` |
 | Nemotron 3.5 Lightning 30B (local, configuration unrecorded) | 4 | 0.8638 ± 0.1562 | - | - | - | - | - | - | - |
@@ -212,8 +214,8 @@ bundles and is not a series at all.
 | Bonsai 2 9B (ternary Q2_0, configuration unrecorded) | 1 | 0.8566 | - | - | - | - | - | - | - |
 | GLM-4.7-Flash 30B (local, default, thinking unstated) | 3 | 0.8458 ± 0.0807 | 15 tok/s | 241 s | 19.6 | 95% | 23% | 5,702 MiB | 18 tasks, `9fe550deb1c0` |
 | Logics-SWE Qwen3.6 35B (local, default, thinking unstated) | 3 | 0.9024 ± 0.0773 | 44 tok/s | 95 s | 12.8 | 90% | - | 5,852 MiB | 18 tasks, `9fe550deb1c0` |
+| Gemma 4 26B A4B (local, not thinking) | 3 | 0.9437 ± 0.0867 | 186 tok/s | 129 s | 13.8 | 94% | 52% | 6,268 MiB | 18 tasks, `9fe550deb1c0` |
 | Groot 19B (local, configuration unrecorded) | 3 | 0.9595 ± 0.0366 | - | - | - | - | - | - | - |
-| gemma-4-26B-A4B-qat-q4_0.gguf (not thinking) | 3 | 0.9437 ± 0.0867 | 186 tok/s | 129 s | 13.8 | 94% | 52% | 6,268 MiB | 18 tasks, `9fe550deb1c0` |
 <!-- DECISION:END -->
 
 Two columns, because they answer different questions:
@@ -282,7 +284,7 @@ from the data. Re-run it after a benchmark:
 python3 tools/make_charts.py
 ```
 
-### Seven rows are perfect, and they are the rows that sat all twelve tasks
+### Eight rows are perfect, and they are the rows that sat all twelve tasks
 
 <!-- The heading above is a claim too, and the prose check reads headings. It is verified below
      in the forms the checker understands: "N models passed all R of R runs" and "M of the N rows
@@ -292,12 +294,12 @@ python3 tools/make_charts.py
 
 Four models passed all **36 of 36** runs with zero variance on every individual task and
 zero timeouts, and Laguna S 2.1 passed all 12 runs of its single-repeat screening pass.
-Three of the eighteen-task rows (Beam, Ornith 1.5 122B and Qwen3.6 35B, thinking left at the model
-default or unstated) also pass every one of the twelve original tasks; they miss only on the six
-harder tasks added on 2026-11-01. Of the 21 rows, 7 rows are perfect on the twelve core tasks they
-sat. Read on their whole suite, 5 of the 21 rows are perfect (the four rows that
+Three of the eighteen-task rows (Beam, Ornith 1.5 122B and Inkling 2 Small, thinking left at the
+model default or unstated) also pass every one of the twelve original tasks; they miss only on the
+six harder tasks added on 2026-11-01. Of the 23 rows, 8 rows are perfect on the twelve core tasks
+they sat. Read on their whole suite, 5 of the 23 rows are perfect (the four rows that
 sat 36 runs and Laguna's 12); the other eighteen-task series miss at least one of the six newer tasks.
-Since five of the 21 rows are perfect on everything they sat, pass rate tells you almost
+Since five of the 23 rows are perfect on everything they sat, pass rate tells you almost
 nothing and the useful question becomes what each one costs to be perfect. The two free
 rows at the top of this list cost nothing and the most tokens, so "cost" below reads on
 both axes:

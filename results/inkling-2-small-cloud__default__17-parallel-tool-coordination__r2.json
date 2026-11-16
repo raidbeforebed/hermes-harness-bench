@@ -1,0 +1,107 @@
+{
+  "artifact_score": 0.6,
+  "checks": [
+    {
+      "check": "alpha.json edited (active=true, retries=7, name kept)",
+      "detail": "got {'name': 'alpha', 'active': True, 'retries': 7}",
+      "pass": true
+    },
+    {
+      "check": "beta.json edited (tags += y, priority=1, name kept)",
+      "detail": "got {'name': 'beta', 'tags': ['x', 'y'], 'priority': 1}",
+      "pass": true
+    },
+    {
+      "check": "gamma.json edited (limits.mem=1024, limits.gpu=T4, cpu+name kept)",
+      "detail": "got {'name': 'gamma', 'limits': {'cpu': 1, 'mem': 1024, 'gpu': 'T4'}}",
+      "pass": true
+    },
+    {
+      "check": "trace: one turn issued calls covering all three files",
+      "detail": "no single turn covered all three files",
+      "pass": false
+    },
+    {
+      "check": "trace: the three batched edits all succeeded",
+      "detail": "no qualifying turn",
+      "pass": false
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 14.97,
+    "schema_version": 1,
+    "stream_seconds": 15.45,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 48208,
+      "tokens_per_second": 3220.31
+    },
+    "tokens": {
+      "cache_read": 23040,
+      "in": 70680,
+      "out": 568,
+      "prefill": 47640
+    },
+    "tool_calls": 2,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.48,
+    "tool_validity_pct": 100.0,
+    "turns": 6,
+    "turns_on_failure": 6,
+    "turns_to_success": null,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 17.9
+  },
+  "exit_code": 0,
+  "finished": "2026-11-16T15:42:13.010685+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "cc2a4ded88728dabfe6995c5dc25784389680a796e1bda494a9e59882148748c",
+  "manifest_sha256": "8a9166bf4af50420a46a42e00450bd0e7e25e8adc32f35fec94987534e94f42c",
+  "model": "inkling-2-small:cloud",
+  "passed": 3,
+  "repeat": 2,
+  "run_id": "agent-inkling2small-18task-3x-20261116",
+  "score": 0.6,
+  "score_source": "artifact",
+  "started": "2026-11-16T15:41:54.992251+00:00",
+  "task": "17-parallel-tool-coordination",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 70680,
+  "tokens_out": 568,
+  "tool_calls": 2,
+  "total_checks": 5,
+  "turns": 6,
+  "wall_seconds": 17.9
+}

@@ -1,0 +1,97 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "needle.txt exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "needle.txt is exactly the embedded error code",
+      "detail": "reported='ERR-7F3A' truth='ERR-7F3A'",
+      "pass": true
+    },
+    {
+      "check": "no invented code (reported code actually appears in the log)",
+      "detail": "reported='ERR-7F3A' known=['ERR-7F3A']",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 18.82,
+    "schema_version": 1,
+    "stream_seconds": 20.21,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 48061,
+      "tokens_per_second": 2553.72
+    },
+    "tokens": {
+      "cache_read": 69376,
+      "in": 117017,
+      "out": 420,
+      "prefill": 47641
+    },
+    "tool_calls": 4,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 1.39,
+    "tool_validity_pct": 100.0,
+    "turns": 10,
+    "turns_on_failure": null,
+    "turns_to_success": 10,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 23.4
+  },
+  "exit_code": 0,
+  "finished": "2026-11-16T15:42:54.979406+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "cc2a4ded88728dabfe6995c5dc25784389680a796e1bda494a9e59882148748c",
+  "manifest_sha256": "8a9166bf4af50420a46a42e00450bd0e7e25e8adc32f35fec94987534e94f42c",
+  "model": "inkling-2-small:cloud",
+  "passed": 3,
+  "repeat": 1,
+  "run_id": "agent-inkling2small-18task-3x-20261116",
+  "score": 1.0,
+  "score_source": "artifact",
+  "started": "2026-11-16T15:42:31.529054+00:00",
+  "task": "18-needle-haystack-agentic",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 117017,
+  "tokens_out": 420,
+  "tool_calls": 4,
+  "total_checks": 3,
+  "turns": 10,
+  "wall_seconds": 23.4
+}
