@@ -304,7 +304,8 @@ def decision_table_from_results() -> str:
     out = [
         DECISION_START,
         "| Model | Repeats | Mean score (95% CI) | Throughput | Wall p50 "
-        "| Turns to success | Tool calls valid | Context headroom | Peak VRAM | Task bundle |",
+        "| Turns to success | Tool calls valid (mean per attempt) | Context headroom "
+        "| Peak VRAM | Task bundle |",
         "|---|---|---|---|---|---|---|---|---|---|",
     ]
     for r in rows:

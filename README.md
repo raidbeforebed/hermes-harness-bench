@@ -191,7 +191,7 @@ A row with no hash cannot be paired with one that has it, and a row reading MIXE
 bundles and is not a series at all.
 
 <!-- DECISION:START -->
-| Model | Repeats | Mean score (95% CI) | Throughput | Wall p50 | Turns to success | Tool calls valid | Context headroom | Peak VRAM | Task bundle |
+| Model | Repeats | Mean score (95% CI) | Throughput | Wall p50 | Turns to success | Tool calls valid (mean per attempt) | Context headroom | Peak VRAM | Task bundle |
 |---|---|---|---|---|---|---|---|---|---|
 | DeepSeek V4.1 Flash (configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
 | GLM-5.3 Flash (configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
