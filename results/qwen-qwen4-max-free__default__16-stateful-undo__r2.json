@@ -1,0 +1,104 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "notes.md exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "header is the first line",
+      "detail": "'# Notes'",
+      "pass": true
+    },
+    {
+      "check": "undo honoured: alpha kept, bravo dropped, charlie appended",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "exact final content (header, alpha, charlie, trailing newline)",
+      "detail": "'# Notes\\n- alpha\\n- charlie\\n'",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 50.44,
+    "schema_version": 1,
+    "stream_seconds": 50.77,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 12025,
+      "tokens_per_second": 238.4
+    },
+    "tokens": {
+      "cache_read": 29905,
+      "in": 40711,
+      "out": 1219,
+      "prefill": 10806
+    },
+    "tool_calls": 1,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 0.33,
+    "tool_validity_pct": 100.0,
+    "turns": 4,
+    "turns_on_failure": null,
+    "turns_to_success": 4,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 58.8
+  },
+  "exit_code": 0,
+  "finished": "2026-11-19T14:46:32.326752+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "1d2a8b0f1d239828cfb92125bd1b8b0407e91ee870126b2e942cb4ecde02d553",
+  "manifest_sha256": "14de6b794ebb3653c5e737bcc9d9c7f428528376a76d4037b8521c94a1674d79",
+  "model": "qwen/qwen4-max:free",
+  "passed": 4,
+  "repeat": 2,
+  "run_id": "agent-nousfree-qwen4max-18task-3x-merged-20261119",
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "agent-nousfree-qwen4max-18task-1x-b-20261119",
+  "started": "2026-11-19T14:45:32.561470+00:00",
+  "task": "16-stateful-undo",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 40711,
+  "tokens_out": 1219,
+  "tool_calls": 1,
+  "total_checks": 4,
+  "turns": 4,
+  "wall_seconds": 58.8
+}

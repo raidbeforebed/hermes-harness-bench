@@ -140,6 +140,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Ornith 1.5 122B (free, configuration unrecorded) | 3 | **36/36 (100%)** | - | 12/12 | 12.1 | 146,497 | 115 s | 69 min |
 | Ornith 1.5 122B (free, default, thinking unstated) | 3 | 52/54 (96.3%) | - | 16/18 | **8.5** | 82,115 | 42 s | 38 min |
 | Laguna S 2.1 (free, configuration unrecorded) | 1 | **12/12 (100%)** | - | 12/12 | 19.4 | 241,814 | 162 s | 32 min |
+| Qwen 4 Max (free, default, thinking unstated) | 3 | 52/54 (96.3%) | - | 17/18 | 9.4 | 91,152 | 70 s | 63 min |
 | Beam (configuration unrecorded) | 3 | 34/36 (94.4%) | - | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
 | Beam (default, thinking unstated) | 3 | 50/54 (92.6%) | - | 16/18 | 11.9 | 111,761 | 24 s | 22 min |
 | Gemma 4 (cloud, configuration unrecorded) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
@@ -197,8 +198,9 @@ bundles and is not a series at all.
 | GLM-5.3 Flash (configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
 | MiniMax M3.1 Flash (configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
 | Ornith 1.5 122B (free, configuration unrecorded) | 3 | 1.0000 ± 0.0000 | - | - | - | - | - | - | - |
-| Ornith 1.5 122B (free, default, thinking unstated) | 3 | 0.9846 ± 0.0351 | 183 tok/s | 35 s | **8.6** | **99%** | - | - | 18 tasks, `9fe550deb1c0` |
+| Ornith 1.5 122B (free, default, thinking unstated) | 3 | 0.9846 ± 0.0351 | 183 tok/s | 35 s | **8.6** | 99% | - | - | 18 tasks, `9fe550deb1c0` |
 | Laguna S 2.1 (free, configuration unrecorded) | 1 | 1.0000 | - | - | - | - | - | - | - |
+| Qwen 4 Max (free, default, thinking unstated) | 3 | 0.9877 ± 0.0266 | 228 tok/s | 61 s | 9.5 | **100%** | - | - | 18 tasks, `9fe550deb1c0` |
 | Beam (configuration unrecorded) | 3 | 0.9444 ± 0.1195 | - | - | - | - | - | - | - |
 | Beam (default, thinking unstated) | 3 | 0.9802 ± 0.0425 | 1007 tok/s | 24 s | 11.7 | 95% | - | - | 18 tasks, `9fe550deb1c0` |
 | Gemma 4 (cloud, configuration unrecorded) | 3 | 0.9821 ± 0.0171 | - | - | - | - | - | - | - |
@@ -284,22 +286,22 @@ from the data. Re-run it after a benchmark:
 python3 tools/make_charts.py
 ```
 
-### Eight rows are perfect, and they are the rows that sat all twelve tasks
+### Nine rows are perfect, and they are the rows that sat all twelve tasks
 
 <!-- The heading above is a claim too, and the prose check reads headings. It is verified below
      in the forms the checker understands: "N models passed all R of R runs" and "M of the N rows
-     are perfect". The two eighteen-task rows are read on their twelve, so they count in the
+     are perfect". The eighteen-task rows are read on their twelve, so they count in the
      twelve-task sentence and not in the everything-they-sat sentence. The heading's "the twelve
      tasks they sat" is the subset claim, and it is the one checked, not a whole-table claim. -->
 
 Four models passed all **36 of 36** runs with zero variance on every individual task and
 zero timeouts, and Laguna S 2.1 passed all 12 runs of its single-repeat screening pass.
-Three of the eighteen-task rows (Beam, Ornith 1.5 122B and Inkling 2 Small, thinking left at the
-model default or unstated) also pass every one of the twelve original tasks; they miss only on the
-six harder tasks added on 2026-11-01. Of the 23 rows, 8 rows are perfect on the twelve core tasks
-they sat. Read on their whole suite, 5 of the 23 rows are perfect (the four rows that
+Four of the eighteen-task rows (Beam, Ornith 1.5 122B, Inkling 2 Small and Qwen 4 Max, thinking
+left at the model default or unstated) also pass every one of the twelve original tasks; they miss
+only on the six harder tasks added on 2026-11-01. Of the 24 rows, 9 rows are perfect on the twelve
+core tasks they sat. Read on their whole suite, 5 of the 24 rows are perfect (the four rows that
 sat 36 runs and Laguna's 12); the other eighteen-task series miss at least one of the six newer tasks.
-Since five of the 23 rows are perfect on everything they sat, pass rate tells you almost
+Since five of the 24 rows are perfect on everything they sat, pass rate tells you almost
 nothing and the useful question becomes what each one costs to be perfect. The two free
 rows at the top of this list cost nothing and the most tokens, so "cost" below reads on
 both axes:
@@ -370,6 +372,24 @@ What that buys: if a free tier is acceptable, Ornith ties the paid models on rel
 and costs nothing but latency. It is not a default for interactive work at 115 seconds a
 task, and a free pool can be withdrawn or rate-limited without notice, which the score
 cannot warn you about.
+
+### Qwen 4 Max: free, 52 of 54, and one repeatable over-correction
+
+52 of 54 runs and 17 of 18 tasks at 3 repeats, 0.9877 mean, 9.4 turns, 91,152 tokens and 70 seconds a
+task. It is perfect on the twelve original tasks and is the strongest eighteen-task row that is not
+perfect. (Every other bare "Qwen" in this document means Qwen3.6 35B, the local model.)
+
+It loses exactly one task, `14-schema-repair-2turn`, and it does not lose it on the artifact: the
+recovered `corrected_call.json` passed every content check in all three repeats, with the right tool,
+the right path and the right pattern. What it does on two of the three repeats is emit **two**
+correction calls in the recovery turn instead of one, so the trace checks for a single correction fail
+while the file is right. That is a specific behaviour to watch in an agent that has just had a tool
+call rejected: recovering correctly, then retrying the recovery.
+
+This was measured in three separate passes merged into one series, because the free route revoked
+access mid-run once already today (see `docs/free-routes.md`). Each attempt carries the run it came
+from in `source_run`, and the merged manifest lists all three segments with their own argv, so the
+segmentation is visible rather than implied.
 
 ### Beam is 94.4%, not 100%
 

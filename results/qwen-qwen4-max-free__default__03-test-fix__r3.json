@@ -1,0 +1,101 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "test file untouched",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "slugify.py exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "pytest suite passes",
+      "detail": "......                                                                   [100%]\n6 passed in 0.04s\n",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [
+      "terminal"
+    ],
+    "model_seconds": 66.58,
+    "schema_version": 1,
+    "stream_seconds": 74.47,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 14141,
+      "tokens_per_second": 212.39
+    },
+    "tokens": {
+      "cache_read": 115690,
+      "in": 128609,
+      "out": 1222,
+      "prefill": 12919
+    },
+    "tool_calls": 8,
+    "tool_calls_invalid": 1,
+    "tool_seconds": 7.89,
+    "tool_validity_pct": 87.5,
+    "turns": 15,
+    "turns_on_failure": null,
+    "turns_to_success": 15,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 80.5
+  },
+  "exit_code": 0,
+  "finished": "2026-11-19T14:52:30.070412+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "1d2a8b0f1d239828cfb92125bd1b8b0407e91ee870126b2e942cb4ecde02d553",
+  "manifest_sha256": "14de6b794ebb3653c5e737bcc9d9c7f428528376a76d4037b8521c94a1674d79",
+  "model": "qwen/qwen4-max:free",
+  "passed": 3,
+  "repeat": 3,
+  "run_id": "agent-nousfree-qwen4max-18task-3x-merged-20261119",
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "agent-nousfree-qwen4max-18task-1x-c-20261119",
+  "started": "2026-11-19T14:51:06.082034+00:00",
+  "task": "03-test-fix",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 128609,
+  "tokens_out": 1222,
+  "tool_calls": 8,
+  "total_checks": 3,
+  "turns": 15,
+  "wall_seconds": 80.5
+}

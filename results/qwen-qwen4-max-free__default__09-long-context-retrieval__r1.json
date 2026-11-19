@@ -1,0 +1,109 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "log intact (3 codes)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "codes.json exists",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "all three codes found",
+      "detail": "got ['RIDGE-3391', 'RIDGE-7714', 'RIDGE-8826'] want ['RIDGE-3391', 'RIDGE-7714', 'RIDGE-8826']",
+      "pass": true
+    },
+    {
+      "check": "count consistent",
+      "detail": "count=3 vs 3",
+      "pass": true
+    },
+    {
+      "check": "no invented codes",
+      "detail": "[]",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 49.11,
+    "schema_version": 1,
+    "stream_seconds": 50.57,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 10791,
+      "tokens_per_second": 219.73
+    },
+    "tokens": {
+      "cache_read": 69605,
+      "in": 79755,
+      "out": 641,
+      "prefill": 10150
+    },
+    "tool_calls": 3,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 1.46,
+    "tool_validity_pct": 100.0,
+    "turns": 8,
+    "turns_on_failure": null,
+    "turns_to_success": 8,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 54.4
+  },
+  "exit_code": 0,
+  "finished": "2026-11-19T14:17:15.695494+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "1d2a8b0f1d239828cfb92125bd1b8b0407e91ee870126b2e942cb4ecde02d553",
+  "manifest_sha256": "14de6b794ebb3653c5e737bcc9d9c7f428528376a76d4037b8521c94a1674d79",
+  "model": "qwen/qwen4-max:free",
+  "passed": 5,
+  "repeat": 1,
+  "run_id": "agent-nousfree-qwen4max-18task-3x-merged-20261119",
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "agent-nousfree-qwen4max-18task-1x-a-20261119",
+  "started": "2026-11-19T14:16:21.225494+00:00",
+  "task": "09-long-context-retrieval",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 79755,
+  "tokens_out": 641,
+  "tool_calls": 3,
+  "total_checks": 5,
+  "turns": 8,
+  "wall_seconds": 54.4
+}
