@@ -2,7 +2,7 @@ import json, sys
 from pathlib import Path
 w = Path(sys.argv[1]); checks=[]
 p = w/"format_check.txt"
-checks.append({"check":"format_check.txt exists","pass":p.exists(),"detail":"missing"})
+checks.append({"check":"format_check.txt exists","pass":(_ok := (p.exists())),"detail":("" if _ok else ("missing"))})
 if p.exists():
     raw = p.read_text()
     lines = raw.split("\n")
@@ -34,5 +34,5 @@ if p.exists():
                        "pass": lens[2]==max(lens) and lens.count(max(lens))==1,
                        "detail": str(lens)})
     else:
-        checks.append({"check":"line 3 is longest (strictly)","pass":False,"detail":"line count wrong"})
+        checks.append({"check":"line 3 is longest (strictly)","pass":(_ok := (False)),"detail":("" if _ok else ("line count wrong"))})
 print(json.dumps({"checks":checks}))

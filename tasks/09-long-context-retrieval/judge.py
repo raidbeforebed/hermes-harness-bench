@@ -6,8 +6,8 @@ log = w/"service.log"
 truth = sorted(set(re.findall(r"RIDGE-\d{4}", log.read_text()))) if log.exists() else []
 log_ok = len(truth)==3
 p0 = w/"codes.json"
-checks.append({"check":"log intact (3 codes)","pass": log_ok and p0.exists(),"detail":("log damaged" if not log_ok else "no codes.json written")})
-checks.append({"check":"codes.json exists","pass": p.exists(),"detail":"missing"})
+checks.append({"check":"log intact (3 codes)","pass": (_ok := (log_ok and p0.exists())),"detail":("" if _ok else ("log damaged" if not log_ok else "no codes.json written"))})
+checks.append({"check":"codes.json exists","pass": (_ok := (p.exists())),"detail":("" if _ok else ("missing"))})
 if p.exists():
     try: d=json.loads(p.read_text())
     except Exception as e:

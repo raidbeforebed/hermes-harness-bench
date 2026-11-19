@@ -1,0 +1,10 @@
+2026-01-03T09:00:00Z INFO  service=api status=200 ms=120
+2026-01-03T09:00:05Z WARN  service=api status=429 ms=15
+2026-01-03T09:00:09Z ERROR service=db  status=500 ms=2400
+2026-01-03T09:01:00Z INFO  service=api status=200 ms=210
+2026-01-03T09:01:04Z INFO  service=web status=200 ms=95
+2026-01-03T09:02:00Z ERROR service=db  status=500 ms=3100
+2026-01-03T09:02:11Z INFO  service=web status=200 ms=88
+2026-01-03T09:03:00Z WARN  service=api status=429 ms=12
+2026-01-03T09:03:30Z INFO  service=api status=200 ms=140
+2026-01-03T09:04:00Z ERROR service=db  status=503 ms=5200

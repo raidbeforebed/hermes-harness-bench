@@ -482,7 +482,20 @@ def main() -> int:
     else:
         print(f"  skip no runs/ tree at {runs_root} (published-only checkout)")
 
-    # 10. RUNNER: the published runner must be the one that measured the rows
+    # 10. TASKS: every file the freeze names must be in the tree and un-ignored. The runner
+    #     check below cannot see a file that was never committed, so presence is its own
+    #     assertion: tasks 13-18 and two fixture logs were absent and `*.log` hid them.
+    print("\nTASKS  every frozen task file must be present and un-ignored in this tree")
+    presence = load_tool_test("test_task_presence")
+    presence_problems, n_files, n_tasks = presence.check(ROOT)
+    for p in presence_problems:
+        print(f"  FAIL {p}")
+    failures += len(presence_problems)
+    if not presence_problems:
+        print(f"  ok   {n_files} frozen file(s) over {n_tasks} task(s) present, un-ignored "
+              f"and matching their recorded digests")
+
+    # 11. RUNNER: the published runner must be the one that measured the rows
     print("\nRUNNER  the published bin/hbench.py must be the runner that measured results/")
     sync_test = load_tool_test("test_runner_sync")
     problems = sync_test.check(ROOT)

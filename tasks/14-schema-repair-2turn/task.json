@@ -1,0 +1,6 @@
+{
+  "max_turns": 15,
+  "run_budget": 200,
+  "timeout": 320,
+  "trace_preamble": "turn1_rejected.json"
+}

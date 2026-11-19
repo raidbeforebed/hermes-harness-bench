@@ -1,0 +1,8 @@
+{
+  "max_turns": 25,
+  "run_budget": 300,
+  "timeout": 420,
+  "quality_gates": [
+    {"gate": "no_markdown_fences"}
+  ]
+}

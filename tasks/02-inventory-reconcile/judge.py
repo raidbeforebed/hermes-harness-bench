@@ -5,7 +5,7 @@ p = w/"reconcile.json"
 checks.append({"check":"reconcile.json exists","pass":p.exists(),"detail":"missing" if not p.exists() else "ok"})
 d=None
 if p.exists():
-    try: d=json.loads(p.read_text()); checks.append({"check":"valid JSON","pass":True,"detail":"ok"})
+    try: d=json.loads(p.read_text()); checks.append({"check":"valid JSON","pass":(_ok := (True)),"detail":("" if _ok else ("ok"))})
     except Exception as e: checks.append({"check":"valid JSON","pass":False,"detail":str(e)})
 if isinstance(d,dict):
     checks.append({"check":"only_in_a == ['A-300']","pass":d.get("only_in_a")==["A-300"],"detail":str(d.get("only_in_a"))})

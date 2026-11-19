@@ -1,5 +1,9 @@
 {
   "max_turns": 40,
   "run_budget": 420,
-  "timeout": 480
+  "timeout": 480,
+  "quality_gates": [
+    {"gate": "lines_changed_bound", "file": "slugify.py", "max_lines": 25},
+    {"gate": "no_new_dependencies", "file": "slugify.py"}
+  ]
 }

@@ -1,5 +1,9 @@
 {
   "max_turns": 30,
   "run_budget": 300,
-  "timeout": 360
+  "timeout": 360,
+  "quality_gates": [
+    {"gate": "json_schema_strict", "output": "report.json", "allowed_keys": ["total_orders", "by_customer", "shipped_revenue"]},
+    {"gate": "no_markdown_fences"}
+  ]
 }

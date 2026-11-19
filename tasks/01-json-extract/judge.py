@@ -8,7 +8,7 @@ data = None
 if p.exists():
     try:
         data = json.loads(p.read_text())
-        checks.append({"check": "valid JSON", "pass": True, "detail": "ok"})
+        checks.append({"check": "valid JSON", "pass": (_ok := (True)), "detail": ("" if _ok else ("ok"))})
     except Exception as e:
         checks.append({"check": "valid JSON", "pass": False, "detail": str(e)})
 if isinstance(data, dict):

@@ -1,0 +1,7 @@
+{
+  "name": "gamma",
+  "limits": {
+    "cpu": 1,
+    "mem": 512
+  }
+}

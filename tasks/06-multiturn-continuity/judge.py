@@ -7,15 +7,15 @@ def load(n):
     try: return json.loads(p.read_text())
     except Exception: return None
 s1=load("stage1.json"); s2=load("stage2.json"); f=load("final.json")
-checks.append({"check":"stage1.json exists+valid","pass":s1 is not None,"detail":"missing/invalid"})
-checks.append({"check":"stage2.json exists+valid","pass":s2 is not None,"detail":"missing/invalid"})
-checks.append({"check":"final.json exists+valid","pass":f is not None,"detail":"missing/invalid"})
+checks.append({"check":"stage1.json exists+valid","pass":(_ok := (s1 is not None)),"detail":("" if _ok else ("missing/invalid"))})
+checks.append({"check":"stage2.json exists+valid","pass":(_ok := (s2 is not None)),"detail":("" if _ok else ("missing/invalid"))})
+checks.append({"check":"final.json exists+valid","pass":(_ok := (f is not None)),"detail":("" if _ok else ("missing/invalid"))})
 if isinstance(s1,dict):
     ev=s1.get("events") or []
     checks.append({"check":"stage1 has 10 events","pass":len(ev)==10,"detail":f"got {len(ev)}"})
     checks.append({"check":"stage1 field coverage",
-                   "pass": all(all(k in e for k in ("ts","level","service","status","ms")) for e in ev) and len(ev)==10,
-                   "detail":"missing fields" if len(ev)==10 else "count wrong"})
+                   "pass": (_ok := (all(all(k in e for k in ("ts","level","service","status","ms")) for e in ev) and len(ev)==10)),
+                   "detail":("" if _ok else ("missing fields" if len(ev)==10 else "count wrong"))})
 if isinstance(s2,dict):
     bs=s2.get("by_service") or {}
     exp={"api":{"count":5,"avg_ms":round((120+15+210+12+140)/5,2)},

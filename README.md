@@ -18,7 +18,11 @@ This harness addresses all three.
 
 ## What it measures
 
-Twelve tasks, each graded by asserting over the resulting file tree.
+Eighteen tasks, each graded by asserting over the resulting file tree. The first twelve are the
+original suite; thirteen through eighteen add constraint stacking, a two-turn schema repair, a
+five-step dependency chain, stateful undo, parallel tool coordination and an agentic needle in a
+haystack. Every published row carries a task-bundle hash, and a row measured on this eighteen-task
+instrument is not comparable with an older twelve-task one.
 
 | Task | Failure class | What a model must do |
 |---|---|---|
@@ -34,6 +38,12 @@ Twelve tasks, each graded by asserting over the resulting file tree.
 | `10-multifile-refactor` | Code change | Fix a rounding bug across files without touching the tests |
 | `11-correction-handling` | Instruction persistence | Honour a mid-prompt reversal of an earlier instruction |
 | `12-long-chain` | Long horizon | 14 dependent steps over 12 files with shuffled column order |
+| `13-constraint-stack` | Instruction following | Add logging that satisfies every constraint at once, including the ones forbidding a module |
+| `14-schema-repair-2turn` | Tool / recovery | Repair a rejected tool call to match its schema exactly |
+| `15-dependency-chain-5` | Long horizon | Change a return type at the bottom of a five-module import chain and propagate it upward |
+| `16-stateful-undo` | State / continuation | Perform a five-step edit sequence including a revert, and leave the final file state |
+| `17-parallel-tool-coordination` | Tool / recovery | Edit three independent config files in one pass without disturbing each other |
+| `18-needle-haystack-agentic` | Long context | Find the one error code in a large log through tool calls and write it out |
 
 Four of these are adapted from the roadmap in Bent-Solutions/hermes-bench section 15 (instruction following, tool-call error recovery, long-context retrieval, multi-file code change). Two are additions aimed at the long-horizon failure the 22.6-turn figure implies.
 
@@ -88,11 +98,18 @@ The runner is standard library only; no third-party packages are needed for it.
 ## Use
 
 ```bash
+# confirm the tree carries the frozen instrument byte for byte before anything else:
+# 105 files over 18 tasks at digest 486c8c94, or this fails and names the missing file
+.venv/bin/python bin/hbench.py freeze --check
+
 # list the tasks
 .venv/bin/python bin/hbench.py list
 
 # verify the graders before trusting any result
 .venv/bin/python tests/test_graders.py
+
+# verify every frozen task file is present and un-ignored in this tree
+.venv/bin/python tests/test_task_presence.py
 
 # verify that every published result reached every chart and the README table
 python3 tests/test_publish.py
@@ -127,7 +144,7 @@ python bin/hbench.py run --model <alias> --provider qwen-local --tasks all
 ```
 ## Results as published
 
-Every model below was run on the same twelve tasks with the same graders. Raw
+Every model below was run on the same eighteen frozen tasks with the same graders. Raw
 per-task records are in `results/`, one file per task per repeat. This table is
 generated from `results/` by `tools/publish.py`, so it cannot drift from the data.
 
@@ -230,7 +247,7 @@ Two columns, because they answer different questions:
   and 12 for a screening row. It is not `pass@1` in the usual sense, which would be a
   single first-attempt probability; this repository does not report that, because one
   attempt per task is exactly what proved unreliable here.
-- **Tasks all-pass** counts how many of the twelve tasks succeeded on every attempt. That
+- **Tasks all-pass** counts how many of the eighteen tasks succeeded on every attempt. That
   is the stability figure. A model can show a high runs-passed number while still
   having a task it fails two-thirds of the time; the Beam row is that case.
 - **Faults** counts rows that ended non-zero, or on a different model than the one asked

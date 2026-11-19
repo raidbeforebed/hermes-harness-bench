@@ -1,5 +1,9 @@
 {
   "max_turns": 20,
   "run_budget": 240,
-  "timeout": 300
+  "timeout": 300,
+  "quality_gates": [
+    {"gate": "no_trailing_blank_line", "output": "format_check.txt"},
+    {"gate": "no_markdown_fences"}
+  ]
 }

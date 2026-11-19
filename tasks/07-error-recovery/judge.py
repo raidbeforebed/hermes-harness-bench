@@ -1,9 +1,7 @@
 import json, subprocess, sys, os
 from pathlib import Path
 w = Path(sys.argv[1]); checks=[]
-# Prefer the interpreter running this grader; fall back to sys.executable.
-# pytest must be importable by PY (see README: pip install pytest in your venv).
-PY = sys.executable
+PY = "/root/venvs/hbench/bin/python" if os.path.exists("/root/venvs/hbench/bin/python") else sys.executable
 
 # The pipeline must run green from a clean invocation. This is the primary gate:
 # nothing else can earn credit unless the build actually passes.

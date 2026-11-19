@@ -1,5 +1,10 @@
 {
   "max_turns": 30,
   "run_budget": 300,
-  "timeout": 360
+  "timeout": 360,
+  "quality_gates": [
+    {"gate": "no_old_names", "old_names": ["config.ini", "notes.txt"]},
+    {"gate": "no_unrelated_files", "allowed_files": ["config.bak", "notes.bak", "MANIFEST.txt", "README.md"]},
+    {"gate": "no_trailing_blank_line", "output": "MANIFEST.txt"}
+  ]
 }

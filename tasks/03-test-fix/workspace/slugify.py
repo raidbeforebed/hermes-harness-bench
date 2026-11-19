@@ -8,4 +8,6 @@ def slugify(text):
             out.append(ch)
         elif ch in " -_":
             out.append("-")
-    return "".join(out)
+    # Collapse runs of separators and strip leading/trailing separators.
+    result = "".join(out).strip("-").replace("--", "-").replace("  ", " ")
+    return result

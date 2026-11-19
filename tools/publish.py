@@ -380,8 +380,7 @@ def main() -> int:
         print("\nno run ids given: publishing the runner sync only")
         if a.dry_run:
             return 0
-        run(["git", "add", "-A", "bin", "tasks/FROZEN.sha256", "tasks/FROZEN.json",
-             "tools", "tests"])
+        run(["git", "add", "-A", "bin", "tasks", "tools", "tests"])
         if run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
             print("Nothing to publish: the runner and the frozen instrument are committed.")
             return 0
@@ -453,6 +452,11 @@ def main() -> int:
     # bin/ is included on purpose and was the missing piece until 2026-11-19: every published
     # row was measured with bin/hbench.py, and the copy in this tree was 1,524 lines against
     # 2,841 live, so the README sent a reader to a runner that could not score the suite.
+    # tasks/ is included for the same reason, and was the second half of the same defect: the
+    # published tasks/ were older than the freeze the runner carries (19 files), tasks 13-18
+    # were never committed, and `.gitignore`'s `*.log` hid two fixtures, so a clean clone
+    # refused to start. tests/test_task_presence.py now fails on any of that, and this path set
+    # is what keeps a publish from landing a runner without the instrument it measures.
     # tools/ is included for the same reason: a pipeline change must land with the run it
     # publishes, or the published repo cannot reproduce what produced the numbers.
     # tests/ belongs here for the same reason tools/ does: tests/test_publish.py is the file
@@ -462,7 +466,7 @@ def main() -> int:
     # defect. Both were left out of this path set once, and a commit that changed the claim and
     # its checker shipped only the claim.
     run(["git", "add", "-A", "results", "assets", "README.md", "tools", "tests",
-         "bin", "tasks/BUNDLES.md", "tasks/FROZEN.sha256", "tasks/FROZEN.json"])
+         "bin", "tasks"])
     staged = run(["git", "diff", "--cached", "--quiet"])
     if staged.returncode == 0:
         print("\nNothing to publish: results, charts and table are already committed.")

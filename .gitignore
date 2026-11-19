@@ -3,7 +3,13 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .venv/
+# Logs are run output and do not belong in the repository. Task fixtures are the exception:
+# tasks 06, 09 and 18 ship a .log file the task itself reads, and a blanket `*.log` silently
+# un-published two of them, which left task 06 unable to start from a clean clone. The
+# negation below re-includes the fixture logs; runs/ is already ignored wholesale, so a run's
+# own logs stay out.
 *.log
+!tasks/*/workspace/*.log
 .env
 .github-token
 golden-home/

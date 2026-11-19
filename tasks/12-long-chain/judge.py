@@ -35,7 +35,7 @@ def norm_key(k):
     return k
 
 p=w/"summary.json"
-checks.append({"check":"summary.json exists","pass":p.exists(),"detail":"missing"})
+checks.append({"check":"summary.json exists","pass":(_ok := (p.exists())),"detail":("" if _ok else ("missing"))})
 if p.exists():
     try: d=json.loads(p.read_text())
     except Exception as e:

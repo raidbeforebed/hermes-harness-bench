@@ -1,0 +1,13 @@
+{
+  "tool": "search_files",
+  "description": "Search a single file for a literal substring and return the matching line numbers.",
+  "args_schema": {
+    "type": "object",
+    "required": ["pattern", "path"],
+    "additionalProperties": false,
+    "properties": {
+      "pattern": {"type": "string", "description": "literal substring to search for"},
+      "path": {"type": "string", "description": "absolute path of the file to search"}
+    }
+  }
+}
