@@ -1,84 +1,87 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="991" height="982" viewBox="0 0 991 982" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="991" height="1016" viewBox="0 0 991 1016" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
 <rect width="100%" height="100%" fill="#0d1117"/>
 <text x="28" y="36" fill="#e6edf3" font-size="17" font-weight="600">Turns per task</text>
 <text x="28" y="58" fill="#7d8590" font-size="12">Mean tool-calling turns. The Hermes harness averages 22.6 turns on Harness-Bench, so fewer turns per task is less context pressure.</text>
-<line x1="568.5" y1="80" x2="568.5" y2="932" stroke="#21262d" stroke-width="1"/>
-<line x1="686.0" y1="80" x2="686.0" y2="932" stroke="#21262d" stroke-width="1"/>
-<line x1="803.5" y1="80" x2="803.5" y2="932" stroke="#21262d" stroke-width="1"/>
-<line x1="921.0" y1="80" x2="921.0" y2="932" stroke="#21262d" stroke-width="1"/>
+<line x1="568.5" y1="80" x2="568.5" y2="966" stroke="#21262d" stroke-width="1"/>
+<line x1="686.0" y1="80" x2="686.0" y2="966" stroke="#21262d" stroke-width="1"/>
+<line x1="803.5" y1="80" x2="803.5" y2="966" stroke="#21262d" stroke-width="1"/>
+<line x1="921.0" y1="80" x2="921.0" y2="966" stroke="#21262d" stroke-width="1"/>
 <text x="437" y="103" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 122B (free, default, thinking unstated)</text>
 <rect x="451" y="90" width="141.3" height="20" rx="4" fill="#7dcfff" opacity="0.85"/>
 <text x="602.3" y="104" fill="#e6edf3" font-size="12.5" font-weight="600">8.5</text>
 <text x="437" y="137" fill="#c9d1d9" font-size="13" text-anchor="end">Qwen 4 Max (free, default, thinking unstated)</text>
 <rect x="451" y="124" width="156.7" height="20" rx="4" fill="#9d7cd8" opacity="0.85"/>
 <text x="617.7" y="138" fill="#e6edf3" font-size="12.5" font-weight="600">9.4</text>
-<text x="437" y="171" fill="#c9d1d9" font-size="13" text-anchor="end">Inkling 2 Small (cloud, default, thinking unstated)</text>
-<rect x="451" y="158" width="164.7" height="20" rx="4" fill="#ff5f87" opacity="0.85"/>
-<text x="625.7" y="172" fill="#e6edf3" font-size="12.5" font-weight="600">9.9</text>
-<text x="437" y="205" fill="#c9d1d9" font-size="13" text-anchor="end">GLM-5.3 Flash (configuration unrecorded)</text>
-<rect x="451" y="192" width="176.5" height="20" rx="4" fill="#7aa2f7" opacity="0.85"/>
-<text x="637.5" y="206" fill="#e6edf3" font-size="12.5" font-weight="600">10.6</text>
-<text x="437" y="239" fill="#c9d1d9" font-size="13" text-anchor="end">LongCat 2.5 (free, default, thinking unstated)</text>
-<rect x="451" y="226" width="190.8" height="20" rx="4" fill="#ffa066" opacity="0.85"/>
-<text x="651.8" y="240" fill="#e6edf3" font-size="12.5" font-weight="600">11.5</text>
-<text x="437" y="273" fill="#c9d1d9" font-size="13" text-anchor="end">DeepSeek V4.1 Flash (configuration unrecorded)</text>
-<rect x="451" y="260" width="196.8" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
-<text x="657.8" y="274" fill="#e6edf3" font-size="12.5" font-weight="600">11.9</text>
-<text x="437" y="307" fill="#c9d1d9" font-size="13" text-anchor="end">Beam (default, thinking unstated)</text>
-<rect x="451" y="294" width="196.9" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
-<text x="657.9" y="308" fill="#e6edf3" font-size="12.5" font-weight="600">11.9</text>
-<text x="437" y="341" fill="#c9d1d9" font-size="13" text-anchor="end">Groot 19B (local, configuration unrecorded)</text>
-<rect x="451" y="328" width="197.7" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
-<text x="658.7" y="342" fill="#e6edf3" font-size="12.5" font-weight="600">11.9</text>
-<text x="437" y="375" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 122B (free, configuration unrecorded)</text>
-<rect x="451" y="362" width="200.0" height="20" rx="4" fill="#7dcfff" opacity="0.85"/>
-<text x="661.0" y="376" fill="#e6edf3" font-size="12.5" font-weight="600">12.1</text>
-<text x="437" y="409" fill="#c9d1d9" font-size="13" text-anchor="end">Qwen3.6 35B (local, configuration unrecorded)</text>
-<rect x="451" y="396" width="202.7" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
-<text x="663.7" y="410" fill="#e6edf3" font-size="12.5" font-weight="600">12.2</text>
-<text x="437" y="443" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 9B (llama.cpp, default, thinking unstated)</text>
-<rect x="451" y="430" width="204.0" height="20" rx="4" fill="#c0caf5" opacity="0.85"/>
-<text x="665.0" y="444" fill="#e6edf3" font-size="12.5" font-weight="600">12.3</text>
-<text x="437" y="477" fill="#c9d1d9" font-size="13" text-anchor="end">Logics-SWE Qwen3.6 35B (local, default, thinking unstated)</text>
-<rect x="451" y="464" width="205.2" height="20" rx="4" fill="#73daca" opacity="0.85"/>
-<text x="666.2" y="478" fill="#e6edf3" font-size="12.5" font-weight="600">12.4</text>
-<text x="437" y="511" fill="#c9d1d9" font-size="13" text-anchor="end">Gemma 4 (cloud, configuration unrecorded)</text>
-<rect x="451" y="498" width="206.0" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
-<text x="667.0" y="512" fill="#e6edf3" font-size="12.5" font-weight="600">12.4</text>
-<text x="437" y="545" fill="#c9d1d9" font-size="13" text-anchor="end">Qwen3.6 35B (local, sentinel-qwen-local, thinking unstated)</text>
-<rect x="451" y="532" width="216.3" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
-<text x="677.3" y="546" fill="#e6edf3" font-size="12.5" font-weight="600">13.0</text>
-<text x="437" y="579" fill="#c9d1d9" font-size="13" text-anchor="end">Gemma 4 26B A4B (local, not thinking)</text>
-<rect x="451" y="566" width="216.9" height="20" rx="4" fill="#b4f9f8" opacity="0.85"/>
-<text x="677.9" y="580" fill="#e6edf3" font-size="12.5" font-weight="600">13.1</text>
-<text x="437" y="613" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated)</text>
-<rect x="451" y="600" width="217.2" height="20" rx="4" fill="#c0caf5" opacity="0.85"/>
-<text x="678.2" y="614" fill="#e6edf3" font-size="12.5" font-weight="600">13.1</text>
-<text x="437" y="647" fill="#c9d1d9" font-size="13" text-anchor="end">Beam (configuration unrecorded)</text>
-<rect x="451" y="634" width="223.5" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
-<text x="684.5" y="648" fill="#e6edf3" font-size="12.5" font-weight="600">13.5</text>
-<text x="437" y="681" fill="#c9d1d9" font-size="13" text-anchor="end">Bonsai 2 9B (ternary Q2_0, configuration unrecorded)</text>
-<rect x="451" y="668" width="235.0" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
-<text x="696.0" y="682" fill="#e6edf3" font-size="12.5" font-weight="600">14.2</text>
-<text x="437" y="715" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp, q8kv, thinking unstated)</text>
-<rect x="451" y="702" width="249.7" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
-<text x="710.7" y="716" fill="#e6edf3" font-size="12.5" font-weight="600">15.1</text>
-<text x="437" y="749" fill="#c9d1d9" font-size="13" text-anchor="end">MiniMax M3.1 Flash (configuration unrecorded)</text>
-<rect x="451" y="736" width="273.7" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
-<text x="734.7" y="750" fill="#e6edf3" font-size="12.5" font-weight="600">16.5</text>
-<text x="437" y="783" fill="#c9d1d9" font-size="13" text-anchor="end">GLM-4.7-Flash 30B (local, default, thinking unstated)</text>
-<rect x="451" y="770" width="295.2" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
-<text x="756.2" y="784" fill="#e6edf3" font-size="12.5" font-weight="600">17.8</text>
-<text x="437" y="817" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free, configuration unrecorded)</text>
-<rect x="451" y="804" width="322.1" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
-<text x="783.1" y="818" fill="#e6edf3" font-size="12.5" font-weight="600">19.4</text>
-<text x="437" y="851" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 9B (llama.cpp, configuration unrecorded)</text>
-<rect x="451" y="838" width="340.7" height="20" rx="4" fill="#c0caf5" opacity="0.85"/>
-<text x="801.7" y="852" fill="#e6edf3" font-size="12.5" font-weight="600">20.5</text>
-<text x="437" y="885" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp, configuration unrecorded)</text>
-<rect x="451" y="872" width="381.5" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
-<text x="842.5" y="886" fill="#e6edf3" font-size="12.5" font-weight="600">23.0</text>
-<text x="437" y="919" fill="#c9d1d9" font-size="13" text-anchor="end">Nemotron 3.5 Lightning 30B (local, configuration unrecorded)</text>
-<rect x="451" y="906" width="470.0" height="20" rx="4" fill="#ff9e64" opacity="0.85"/>
-<text x="931.0" y="920" fill="#e6edf3" font-size="12.5" font-weight="600">28.3</text>
+<text x="437" y="171" fill="#c9d1d9" font-size="13" text-anchor="end">Hunyuan 4 Flash (free, default, thinking unstated)</text>
+<rect x="451" y="158" width="164.0" height="20" rx="4" fill="#5fb3a1" opacity="0.85"/>
+<text x="625.0" y="172" fill="#e6edf3" font-size="12.5" font-weight="600">9.9</text>
+<text x="437" y="205" fill="#c9d1d9" font-size="13" text-anchor="end">Inkling 2 Small (cloud, default, thinking unstated)</text>
+<rect x="451" y="192" width="164.7" height="20" rx="4" fill="#ff5f87" opacity="0.85"/>
+<text x="625.7" y="206" fill="#e6edf3" font-size="12.5" font-weight="600">9.9</text>
+<text x="437" y="239" fill="#c9d1d9" font-size="13" text-anchor="end">GLM-5.3 Flash (configuration unrecorded)</text>
+<rect x="451" y="226" width="176.5" height="20" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="637.5" y="240" fill="#e6edf3" font-size="12.5" font-weight="600">10.6</text>
+<text x="437" y="273" fill="#c9d1d9" font-size="13" text-anchor="end">LongCat 2.5 (free, default, thinking unstated)</text>
+<rect x="451" y="260" width="190.8" height="20" rx="4" fill="#ffa066" opacity="0.85"/>
+<text x="651.8" y="274" fill="#e6edf3" font-size="12.5" font-weight="600">11.5</text>
+<text x="437" y="307" fill="#c9d1d9" font-size="13" text-anchor="end">DeepSeek V4.1 Flash (configuration unrecorded)</text>
+<rect x="451" y="294" width="196.8" height="20" rx="4" fill="#4fd1a5" opacity="0.85"/>
+<text x="657.8" y="308" fill="#e6edf3" font-size="12.5" font-weight="600">11.9</text>
+<text x="437" y="341" fill="#c9d1d9" font-size="13" text-anchor="end">Beam (default, thinking unstated)</text>
+<rect x="451" y="328" width="196.9" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
+<text x="657.9" y="342" fill="#e6edf3" font-size="12.5" font-weight="600">11.9</text>
+<text x="437" y="375" fill="#c9d1d9" font-size="13" text-anchor="end">Groot 19B (local, configuration unrecorded)</text>
+<rect x="451" y="362" width="197.7" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="658.7" y="376" fill="#e6edf3" font-size="12.5" font-weight="600">11.9</text>
+<text x="437" y="409" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 122B (free, configuration unrecorded)</text>
+<rect x="451" y="396" width="200.0" height="20" rx="4" fill="#7dcfff" opacity="0.85"/>
+<text x="661.0" y="410" fill="#e6edf3" font-size="12.5" font-weight="600">12.1</text>
+<text x="437" y="443" fill="#c9d1d9" font-size="13" text-anchor="end">Qwen3.6 35B (local, configuration unrecorded)</text>
+<rect x="451" y="430" width="202.7" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
+<text x="663.7" y="444" fill="#e6edf3" font-size="12.5" font-weight="600">12.2</text>
+<text x="437" y="477" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 9B (llama.cpp, default, thinking unstated)</text>
+<rect x="451" y="464" width="204.0" height="20" rx="4" fill="#c0caf5" opacity="0.85"/>
+<text x="665.0" y="478" fill="#e6edf3" font-size="12.5" font-weight="600">12.3</text>
+<text x="437" y="511" fill="#c9d1d9" font-size="13" text-anchor="end">Logics-SWE Qwen3.6 35B (local, default, thinking unstated)</text>
+<rect x="451" y="498" width="205.2" height="20" rx="4" fill="#73daca" opacity="0.85"/>
+<text x="666.2" y="512" fill="#e6edf3" font-size="12.5" font-weight="600">12.4</text>
+<text x="437" y="545" fill="#c9d1d9" font-size="13" text-anchor="end">Gemma 4 (cloud, configuration unrecorded)</text>
+<rect x="451" y="532" width="206.0" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="667.0" y="546" fill="#e6edf3" font-size="12.5" font-weight="600">12.4</text>
+<text x="437" y="579" fill="#c9d1d9" font-size="13" text-anchor="end">Qwen3.6 35B (local, sentinel-qwen-local, thinking unstated)</text>
+<rect x="451" y="566" width="216.3" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
+<text x="677.3" y="580" fill="#e6edf3" font-size="12.5" font-weight="600">13.0</text>
+<text x="437" y="613" fill="#c9d1d9" font-size="13" text-anchor="end">Gemma 4 26B A4B (local, not thinking)</text>
+<rect x="451" y="600" width="216.9" height="20" rx="4" fill="#b4f9f8" opacity="0.85"/>
+<text x="677.9" y="614" fill="#e6edf3" font-size="12.5" font-weight="600">13.1</text>
+<text x="437" y="647" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 9B (llama.cpp, q8kv, thinking unstated)</text>
+<rect x="451" y="634" width="217.2" height="20" rx="4" fill="#c0caf5" opacity="0.85"/>
+<text x="678.2" y="648" fill="#e6edf3" font-size="12.5" font-weight="600">13.1</text>
+<text x="437" y="681" fill="#c9d1d9" font-size="13" text-anchor="end">Beam (configuration unrecorded)</text>
+<rect x="451" y="668" width="223.5" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
+<text x="684.5" y="682" fill="#e6edf3" font-size="12.5" font-weight="600">13.5</text>
+<text x="437" y="715" fill="#c9d1d9" font-size="13" text-anchor="end">Bonsai 2 9B (ternary Q2_0, configuration unrecorded)</text>
+<rect x="451" y="702" width="235.0" height="20" rx="4" fill="#e0af68" opacity="0.85"/>
+<text x="696.0" y="716" fill="#e6edf3" font-size="12.5" font-weight="600">14.2</text>
+<text x="437" y="749" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp, q8kv, thinking unstated)</text>
+<rect x="451" y="736" width="249.7" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="710.7" y="750" fill="#e6edf3" font-size="12.5" font-weight="600">15.1</text>
+<text x="437" y="783" fill="#c9d1d9" font-size="13" text-anchor="end">MiniMax M3.1 Flash (configuration unrecorded)</text>
+<rect x="451" y="770" width="273.7" height="20" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="734.7" y="784" fill="#e6edf3" font-size="12.5" font-weight="600">16.5</text>
+<text x="437" y="817" fill="#c9d1d9" font-size="13" text-anchor="end">GLM-4.7-Flash 30B (local, default, thinking unstated)</text>
+<rect x="451" y="804" width="295.2" height="20" rx="4" fill="#f7768e" opacity="0.85"/>
+<text x="756.2" y="818" fill="#e6edf3" font-size="12.5" font-weight="600">17.8</text>
+<text x="437" y="851" fill="#c9d1d9" font-size="13" text-anchor="end">Laguna S 2.1 (free, configuration unrecorded)</text>
+<rect x="451" y="838" width="322.1" height="20" rx="4" fill="#2ac3de" opacity="0.85"/>
+<text x="783.1" y="852" fill="#e6edf3" font-size="12.5" font-weight="600">19.4</text>
+<text x="437" y="885" fill="#c9d1d9" font-size="13" text-anchor="end">Ornith 1.5 9B (llama.cpp, configuration unrecorded)</text>
+<rect x="451" y="872" width="340.7" height="20" rx="4" fill="#c0caf5" opacity="0.85"/>
+<text x="801.7" y="886" fill="#e6edf3" font-size="12.5" font-weight="600">20.5</text>
+<text x="437" y="919" fill="#c9d1d9" font-size="13" text-anchor="end">LFM3 1.7B (llama.cpp, configuration unrecorded)</text>
+<rect x="451" y="906" width="381.5" height="20" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="842.5" y="920" fill="#e6edf3" font-size="12.5" font-weight="600">23.0</text>
+<text x="437" y="953" fill="#c9d1d9" font-size="13" text-anchor="end">Nemotron 3.5 Lightning 30B (local, configuration unrecorded)</text>
+<rect x="451" y="940" width="470.0" height="20" rx="4" fill="#ff9e64" opacity="0.85"/>
+<text x="931.0" y="954" fill="#e6edf3" font-size="12.5" font-weight="600">28.3</text>
 </svg>

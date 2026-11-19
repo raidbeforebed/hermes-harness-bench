@@ -1,0 +1,101 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "test file untouched",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "slugify.py exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "pytest suite passes",
+      "detail": "......                                                                   [100%]\n6 passed in 0.02s\n",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [
+      "terminal"
+    ],
+    "model_seconds": 54.23,
+    "schema_version": 1,
+    "stream_seconds": 61.04,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 22238,
+      "tokens_per_second": 410.07
+    },
+    "tokens": {
+      "cache_read": 93568,
+      "in": 114951,
+      "out": 855,
+      "prefill": 21383
+    },
+    "tool_calls": 6,
+    "tool_calls_invalid": 1,
+    "tool_seconds": 6.81,
+    "tool_validity_pct": 83.3,
+    "turns": 13,
+    "turns_on_failure": null,
+    "turns_to_success": 13,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 65.0
+  },
+  "exit_code": 0,
+  "finished": "2026-11-19T16:26:11.897020+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "99d5e2c583533482b58a6df920208dc0b8918f56eb5a02fea872309fa3e29721",
+  "manifest_sha256": "eec1e4df75ed94510648a5132df2171b713f59f086be150d1cb0fab618d26770",
+  "model": "tencent/hy4-flash:free",
+  "passed": 3,
+  "repeat": 1,
+  "run_id": "agent-nousfree-hy4flash-18task-3x-merged-20261119",
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "agent-nousfree-hy4flash-18task-1x-a-20261119",
+  "started": "2026-11-19T16:25:06.295613+00:00",
+  "task": "03-test-fix",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 114951,
+  "tokens_out": 855,
+  "tool_calls": 6,
+  "total_checks": 3,
+  "turns": 13,
+  "wall_seconds": 65.0
+}

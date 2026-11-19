@@ -1,0 +1,119 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "stage1.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "final.json exists+valid",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage1 has 10 events",
+      "detail": "got 10",
+      "pass": true
+    },
+    {
+      "check": "stage1 field coverage",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "stage2 by_service correct",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "final problem_services correct",
+      "detail": "ok",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 43.43,
+    "schema_version": 1,
+    "stream_seconds": 44.83,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 6027,
+      "tokens_per_second": 138.78
+    },
+    "tokens": {
+      "cache_read": 73216,
+      "in": 78178,
+      "out": 1065,
+      "prefill": 4962
+    },
+    "tool_calls": 3,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 1.4,
+    "tool_validity_pct": 100.0,
+    "turns": 8,
+    "turns_on_failure": null,
+    "turns_to_success": 8,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 50.1
+  },
+  "exit_code": 0,
+  "finished": "2026-11-19T16:47:04.231543+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "99d5e2c583533482b58a6df920208dc0b8918f56eb5a02fea872309fa3e29721",
+  "manifest_sha256": "eec1e4df75ed94510648a5132df2171b713f59f086be150d1cb0fab618d26770",
+  "model": "tencent/hy4-flash:free",
+  "passed": 7,
+  "repeat": 2,
+  "run_id": "agent-nousfree-hy4flash-18task-3x-merged-20261119",
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "agent-nousfree-hy4flash-18task-1x-b-20261119",
+  "started": "2026-11-19T16:46:14.043688+00:00",
+  "task": "06-multiturn-continuity",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 78178,
+  "tokens_out": 1065,
+  "tool_calls": 3,
+  "total_checks": 7,
+  "turns": 8,
+  "wall_seconds": 50.1
+}
