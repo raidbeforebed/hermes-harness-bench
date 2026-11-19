@@ -1,0 +1,114 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "config.ini -> config.bak (content preserved)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "config.ini removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "notes.txt -> notes.bak (content preserved)",
+      "detail": "",
+      "pass": true
+    },
+    {
+      "check": "notes.txt removed",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "README.md untouched",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "MANIFEST.txt exact",
+      "detail": "renamed: config.ini -> config.bak\nrenamed: notes.txt -> notes.bak\nunchanged: README.md\ntotal_before: 3\ntotal_after: 3",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 77.18,
+    "schema_version": 1,
+    "stream_seconds": 79.31,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 12394,
+      "tokens_per_second": 160.59
+    },
+    "tokens": {
+      "cache_read": 61312,
+      "in": 73312,
+      "out": 394,
+      "prefill": 12000
+    },
+    "tool_calls": 4,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 2.13,
+    "tool_validity_pct": 100.0,
+    "turns": 9,
+    "turns_on_failure": null,
+    "turns_to_success": 9,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 82.8
+  },
+  "exit_code": 0,
+  "finished": "2026-11-19T16:02:10.282432+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "ac6a123def9d3d67f1613c0cf49e37d56d7d67f74c7b31a8302c3f3e764b16ea",
+  "manifest_sha256": "c7eb7f130d0288bf85b2a3e4e7d6106bfed463e999338fe1f43a78a7b8ddc8ca",
+  "model": "meituan/longcat-2.5:free",
+  "passed": 6,
+  "repeat": 3,
+  "run_id": "agent-nousfree-longcat25-18task-3x-merged-20261119",
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "agent-nousfree-longcat25-18task-1x-c-20261119",
+  "started": "2026-11-19T16:00:47.362478+00:00",
+  "task": "04-rename-safe",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 73312,
+  "tokens_out": 394,
+  "tool_calls": 4,
+  "total_checks": 6,
+  "turns": 9,
+  "wall_seconds": 82.8
+}

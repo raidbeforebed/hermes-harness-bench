@@ -1,0 +1,99 @@
+{
+  "artifact_score": 1.0,
+  "checks": [
+    {
+      "check": "test file untouched",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "slugify.py exists",
+      "detail": "ok",
+      "pass": true
+    },
+    {
+      "check": "pytest suite passes",
+      "detail": "......                                                                   [100%]\n6 passed in 0.02s\n",
+      "pass": true
+    }
+  ],
+  "config": {
+    "chat_template_kwargs": "(none: the client sends no --chat-template-kwargs; the provider owns the template)",
+    "ctx": "unrecorded",
+    "kv_cache_k": "unrecorded",
+    "kv_cache_v": "unrecorded",
+    "thinking": "unknown",
+    "variant": "default"
+  },
+  "decision": {
+    "context": {
+      "headroom_pct": null,
+      "n_ctx": null,
+      "peak_prompt_tokens": null,
+      "source": "unmeasured: no server /slots samples for this attempt"
+    },
+    "invalid_tool_names": [],
+    "model_seconds": 72.91,
+    "schema_version": 1,
+    "stream_seconds": 81.75,
+    "throughput": {
+      "basis": "attempt-derived: stream span minus tool execution time",
+      "compute_tokens": 10340,
+      "tokens_per_second": 141.82
+    },
+    "tokens": {
+      "cache_read": 108032,
+      "in": 117278,
+      "out": 1094,
+      "prefill": 9246
+    },
+    "tool_calls": 7,
+    "tool_calls_invalid": 0,
+    "tool_seconds": 8.84,
+    "tool_validity_pct": 100.0,
+    "turns": 14,
+    "turns_on_failure": null,
+    "turns_to_success": 14,
+    "units": {
+      "context_headroom": "%",
+      "throughput": "tok/s",
+      "tool_validity": "%",
+      "turns": "turns",
+      "vram": "MiB",
+      "wall": "s"
+    },
+    "vram": {
+      "baseline_card_mib": null,
+      "co_tenants": [],
+      "contaminated": false,
+      "gpu_exclusive_required": true,
+      "peak_card_mib": null,
+      "peak_server_mib": null,
+      "source": "unmeasured: no SENTINEL samples for this attempt"
+    },
+    "wall_seconds": 85.6
+  },
+  "exit_code": 0,
+  "finished": "2026-11-19T15:16:01.754497+00:00",
+  "harness_failed": false,
+  "instrument_fingerprint": "ac6a123def9d3d67f1613c0cf49e37d56d7d67f74c7b31a8302c3f3e764b16ea",
+  "manifest_sha256": "c7eb7f130d0288bf85b2a3e4e7d6106bfed463e999338fe1f43a78a7b8ddc8ca",
+  "model": "meituan/longcat-2.5:free",
+  "passed": 3,
+  "repeat": 1,
+  "run_id": "agent-nousfree-longcat25-18task-3x-merged-20261119",
+  "score": 1.0,
+  "score_source": "artifact",
+  "source_repeat": 1,
+  "source_run": "agent-nousfree-longcat25-18task-1x-a-20261119",
+  "started": "2026-11-19T15:14:35.487552+00:00",
+  "task": "03-test-fix",
+  "task_bundle_sha256": "9fe550deb1c0eeacd194ee82eaaaf8aa6b5af35e83e6d42978caa5cb5ff93685",
+  "task_bundle_tasks": 18,
+  "tokens_in": 117278,
+  "tokens_out": 1094,
+  "tool_calls": 7,
+  "total_checks": 3,
+  "turns": 14,
+  "wall_seconds": 85.6
+}

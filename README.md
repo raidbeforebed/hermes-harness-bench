@@ -141,6 +141,7 @@ generated from `results/` by `tools/publish.py`, so it cannot drift from the dat
 | Ornith 1.5 122B (free, default, thinking unstated) | 3 | 52/54 (96.3%) | - | 16/18 | **8.5** | 82,115 | 42 s | 38 min |
 | Laguna S 2.1 (free, configuration unrecorded) | 1 | **12/12 (100%)** | - | 12/12 | 19.4 | 241,814 | 162 s | 32 min |
 | Qwen 4 Max (free, default, thinking unstated) | 3 | 52/54 (96.3%) | - | 17/18 | 9.4 | 91,152 | 70 s | 63 min |
+| LongCat 2.5 (free, default, thinking unstated) | 3 | 53/54 (98.1%) | - | 17/18 | 11.5 | 97,302 | 76 s | 69 min |
 | Beam (configuration unrecorded) | 3 | 34/36 (94.4%) | - | 11/12 | 13.5 | 19,895 | 64 s | 39 min |
 | Beam (default, thinking unstated) | 3 | 50/54 (92.6%) | - | 16/18 | 11.9 | 111,761 | 24 s | 22 min |
 | Gemma 4 (cloud, configuration unrecorded) | 3 | 32/36 (88.9%) | - | 10/12 | 12.4 | 137,578 | **18 s** | 11 min |
@@ -201,6 +202,7 @@ bundles and is not a series at all.
 | Ornith 1.5 122B (free, default, thinking unstated) | 3 | 0.9846 ± 0.0351 | 183 tok/s | 35 s | **8.6** | 99% | - | - | 18 tasks, `9fe550deb1c0` |
 | Laguna S 2.1 (free, configuration unrecorded) | 1 | 1.0000 | - | - | - | - | - | - | - |
 | Qwen 4 Max (free, default, thinking unstated) | 3 | 0.9877 ± 0.0266 | 228 tok/s | 61 s | 9.5 | **100%** | - | - | 18 tasks, `9fe550deb1c0` |
+| LongCat 2.5 (free, default, thinking unstated) | 3 | 0.9974 ± 0.0114 | 143 tok/s | 64 s | 11.6 | 99% | - | - | 18 tasks, `9fe550deb1c0` |
 | Beam (configuration unrecorded) | 3 | 0.9444 ± 0.1195 | - | - | - | - | - | - | - |
 | Beam (default, thinking unstated) | 3 | 0.9802 ± 0.0425 | 1007 tok/s | 24 s | 11.7 | 95% | - | - | 18 tasks, `9fe550deb1c0` |
 | Gemma 4 (cloud, configuration unrecorded) | 3 | 0.9821 ± 0.0171 | - | - | - | - | - | - | - |
@@ -298,10 +300,10 @@ Four models passed all **36 of 36** runs with zero variance on every individual 
 zero timeouts, and Laguna S 2.1 passed all 12 runs of its single-repeat screening pass.
 Four of the eighteen-task rows (Beam, Ornith 1.5 122B, Inkling 2 Small and Qwen 4 Max, thinking
 left at the model default or unstated) also pass every one of the twelve original tasks; they miss
-only on the six harder tasks added on 2026-11-01. Of the 24 rows, 9 rows are perfect on the twelve
-core tasks they sat. Read on their whole suite, 5 of the 24 rows are perfect (the four rows that
+only on the six harder tasks added on 2026-11-01. Of the 25 rows, 9 rows are perfect on the twelve
+core tasks they sat. Read on their whole suite, 5 of the 25 rows are perfect (the four rows that
 sat 36 runs and Laguna's 12); the other eighteen-task series miss at least one of the six newer tasks.
-Since five of the 24 rows are perfect on everything they sat, pass rate tells you almost
+Since five of the 25 rows are perfect on everything they sat, pass rate tells you almost
 nothing and the useful question becomes what each one costs to be perfect. The two free
 rows at the top of this list cost nothing and the most tokens, so "cost" below reads on
 both axes:
@@ -391,6 +393,21 @@ access mid-run once already today (see `docs/free-routes.md`). Each attempt carr
 from in `source_run`, and the merged manifest lists all three segments with their own argv, so the
 segmentation is visible rather than implied.
 
+### LongCat 2.5: free, 53 of 54, and one miscount of zero-revenue rows
+
+53 of 54 runs and 17 of 18 tasks at 3 repeats, 0.9974 mean, 11.5 turns, 97,302 tokens and 76 seconds a
+task. The single miss is `01-json-extract` on one repeat, and the totals it got right are the ones that
+make the error interesting: `total_orders` is 7, `shipped_revenue` is exactly 149.97, every customer is
+present, and `report.json` is valid with the required keys. What it got wrong is the per-customer
+breakdown: Beta LLC one order instead of two, and both Gamma Inc and Delta Co zero orders where the
+data has one apiece. Both of those are zero-revenue customers, so the pattern is that it kept the
+customers with money against them and dropped the zero-dollar rows — but Beta LLC is not zero-revenue
+and is still one order short, so the honest reading is that the per-customer count is unreliable in a
+way the totals hide. The headline arithmetic survived; the shape of the distribution did not.
+
+Measured in three merged passes like Qwen 4 Max, for the same reason: the free routes revoke access
+without notice, and a segmented series keeps the two thirds that reached the model when the third is
+refused.
 ### Beam is 94.4%, not 100%
 
 Eleven tasks passed three times out of three. The single failure is
