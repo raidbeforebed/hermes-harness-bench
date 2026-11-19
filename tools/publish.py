@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import glob
+import importlib.util
 import json
 import re
 import statistics
@@ -352,11 +353,49 @@ def main() -> int:
     ap.add_argument("run_ids", nargs="*", help="run directories under runs/ to publish")
     ap.add_argument("--latest", action="store_true", help="newest run per model")
     ap.add_argument("--dry-run", action="store_true", help="skip commit and push")
+    ap.add_argument("--sync-runner", action="store_true",
+                    help="copy the live runner, its modules and the frozen instrument into "
+                         "this tree before publishing. Does not need a run id.")
     ap.add_argument("--message", help="commit message")
     a = ap.parse_args()
 
+    # 0. the runner. Every published row was measured with bin/hbench.py, so the copy in this
+    #    tree has to be the one that measured it: it sat at 1,524 lines against 2,841 live and
+    #    the README told a reader to run the stale one. A publish that stages results and not
+    #    the runner ships numbers nobody can reproduce, which is why this runs first and
+    #    why bin/ is in the path set below.
+    sync_spec = importlib.util.spec_from_file_location(
+        "sync_runner", ROOT / "tools" / "sync_runner.py")
+    assert sync_spec is not None and sync_spec.loader is not None
+    sync_mod = importlib.util.module_from_spec(sync_spec)
+    sync_spec.loader.exec_module(sync_mod)
+    runner_changed = sync_mod.sync(ROOT, dry_run=a.dry_run)
+    if runner_changed:
+        print(f"runner: {len(runner_changed)} file(s) "
+              f"{'would be synced' if a.dry_run else 'synced'} from {sync_mod.LIVE_ROOT}")
+
     if not a.run_ids and not a.latest:
-        ap.error("give at least one run_id, or --latest")
+        if not a.sync_runner and not runner_changed:
+            ap.error("give at least one run_id, or --latest, or --sync-runner")
+        print("\nno run ids given: publishing the runner sync only")
+        if a.dry_run:
+            return 0
+        run(["git", "add", "-A", "bin", "tasks/FROZEN.sha256", "tasks/FROZEN.json",
+             "tools", "tests"])
+        if run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
+            print("Nothing to publish: the runner and the frozen instrument are committed.")
+            return 0
+        msg = a.message or (
+            "Sync the published runner to the one that measured the results\n\n"
+            "This tree shipped a 1,524-line bin/hbench.py while the live runner was 2,841,\n"
+            "so following the README produced a harness that could not score the published\n"
+            "suite. tools/publish.py now stages bin/ and the frozen instrument in every\n"
+            "publish act, and tests/test_publish.py fails when the two drift again.")
+        cm = run(["git", "commit", "-m", msg])
+        print(cm.stdout.strip() or cm.stderr.strip())
+        if cm.returncode != 0:
+            return 2
+        return _push_and_verify()
 
     # 1. export -- a fault aborts the publish rather than entering the table as a zero
     export_cmd = [sys.executable, "tools/export_results.py"]
@@ -411,7 +450,10 @@ def main() -> int:
         return 0
 
     # 4. commit only if there is something to commit
-    # tools/ is included on purpose: a pipeline change must land with the run it
+    # bin/ is included on purpose and was the missing piece until 2026-11-19: every published
+    # row was measured with bin/hbench.py, and the copy in this tree was 1,524 lines against
+    # 2,841 live, so the README sent a reader to a runner that could not score the suite.
+    # tools/ is included for the same reason: a pipeline change must land with the run it
     # publishes, or the published repo cannot reproduce what produced the numbers.
     # tests/ belongs here for the same reason tools/ does: tests/test_publish.py is the file
     # that checks the README's own claims against the data, so a run whose table needed a prose
@@ -420,7 +462,7 @@ def main() -> int:
     # defect. Both were left out of this path set once, and a commit that changed the claim and
     # its checker shipped only the claim.
     run(["git", "add", "-A", "results", "assets", "README.md", "tools", "tests",
-         "tasks/BUNDLES.md"])
+         "bin", "tasks/BUNDLES.md", "tasks/FROZEN.sha256", "tasks/FROZEN.json"])
     staged = run(["git", "diff", "--cached", "--quiet"])
     if staged.returncode == 0:
         print("\nNothing to publish: results, charts and table are already committed.")
@@ -432,8 +474,11 @@ def main() -> int:
     print(cm.stdout.strip() or cm.stderr.strip())
     if cm.returncode != 0:
         return 2
+    return _push_and_verify()
 
-    # 5. push, then prove the remote moved
+
+def _push_and_verify() -> int:
+    """Push, then prove the remote moved. A push that reported success is not a push that landed."""
     before = run(["git", "rev-parse", "HEAD"]).stdout.strip()
     ps = run(["git", "push", "origin", "HEAD"])
     print((ps.stdout + ps.stderr).strip())

@@ -64,6 +64,15 @@ registry = load_tool("model_registry")
 result_key = load_tool("result_key")
 
 
+def load_tool_test(name: str):
+    """Import a sibling test file by path (the runner-integrity check lives in its own file)."""
+    spec = importlib.util.spec_from_file_location(name, Path(__file__).resolve().parent / f"{name}.py")
+    assert spec is not None and spec.loader is not None, name
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
 # The original twelve tasks, by directory prefix. A row measured on the eighteen-task suite
 # is read on these twelve when prose talks about "perfect", because a row that sat twelve
 # tasks and a row that sat eighteen did not sit the same exam.
@@ -473,9 +482,22 @@ def main() -> int:
     else:
         print(f"  skip no runs/ tree at {runs_root} (published-only checkout)")
 
+    # 10. RUNNER: the published runner must be the one that measured the rows
+    print("\nRUNNER  the published bin/hbench.py must be the runner that measured results/")
+    sync_test = load_tool_test("test_runner_sync")
+    problems = sync_test.check(ROOT)
+    for p in problems:
+        print(f"  FAIL {p}")
+    failures += len(problems)
+    if not sync_test.LIVE_ROOT.is_dir():
+        print(f"  skip no live bench tree at {sync_test.LIVE_ROOT} (published-only checkout)")
+    elif not problems:
+        print(f"  ok   bin/hbench.py, {len(sync_test.COMPANIONS)} module(s) and the frozen "
+              f"instrument match the live tree")
+
     print(f"\n{'PUBLISH SURFACES CONSISTENT' if failures == 0 else str(failures) + ' PUBLISH PROBLEMS'}")
-    print("note: asserted both ways: every result reaches every surface, and a surface "
-          "that drops one is caught.")
+    print("note: asserted both ways: every result reaches every surface, a surface that drops "
+          "one is caught, and the runner a reader is told to run is the one that made the numbers.")
     return 0 if failures == 0 else 1
 
 

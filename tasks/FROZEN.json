@@ -1,0 +1,99 @@
+{
+  "algorithm": "sha256",
+  "files": 105,
+  "freeze_sha256": "486c8c94121ba5894ac47be716d9c7ed634d3492a86b2d414968693034b34434",
+  "generated": "2026-11-01T20:15:30+00:00",
+  "schema": 1,
+  "tasks": {
+    "01-json-extract": {
+      "budget_sha256": "9dfd7dc3a8ae72909280466e32235013b55b2a0d418e953de4a33ecaca378bdd",
+      "files": 4,
+      "tree_sha256": "413fda6f1d721b78c667078b3a7d67b6661bd5fadae6cd0362a27c898ad2e6ac"
+    },
+    "02-inventory-reconcile": {
+      "budget_sha256": "9dfd7dc3a8ae72909280466e32235013b55b2a0d418e953de4a33ecaca378bdd",
+      "files": 5,
+      "tree_sha256": "5942cf4540dca3456b00dd5f63eb0eb5b764ee677a22c87310a943429c6bb324"
+    },
+    "03-test-fix": {
+      "budget_sha256": "d9e9bba6af60182ac1270f6a6b8564d9238f14499708a09ae5ec7098e86e3caf",
+      "files": 5,
+      "tree_sha256": "eeffc0a8b9c3dc62a97d914066447ca1f99972b0b417961656520910d394be31"
+    },
+    "04-rename-safe": {
+      "budget_sha256": "9dfd7dc3a8ae72909280466e32235013b55b2a0d418e953de4a33ecaca378bdd",
+      "files": 6,
+      "tree_sha256": "7db9afca454815e0dbc5e1715cd7df48689e994bfda3655a0788abcfefb16e20"
+    },
+    "05-memory-nodestructive": {
+      "budget_sha256": "9dfd7dc3a8ae72909280466e32235013b55b2a0d418e953de4a33ecaca378bdd",
+      "files": 5,
+      "tree_sha256": "1e52a259db1fc89a63c2f036e192a6a4334b213504441a3e012977f6eb24e377"
+    },
+    "06-multiturn-continuity": {
+      "budget_sha256": "b9bf0b0ef62053b9d643b6eeabb4796195bb423d3fb1dec65f2eae807fbe0e44",
+      "files": 4,
+      "tree_sha256": "70d1b66af255dd253ab487e9de4e5a333a799674908d0b4a8fe235966447d224"
+    },
+    "07-error-recovery": {
+      "budget_sha256": "d9e9bba6af60182ac1270f6a6b8564d9238f14499708a09ae5ec7098e86e3caf",
+      "files": 6,
+      "tree_sha256": "802c8ecd396c741599ba500e1e2718d050cf43641b7a92000e1984978de485f8"
+    },
+    "08-constraint-format": {
+      "budget_sha256": "2e970522eeb8dcfe7d948b7147b5bdd03934832576cf9b005c5203b67fedcb1c",
+      "files": 3,
+      "tree_sha256": "c826655dc32e0dfd39feea5d48b1eadfdbd0ea458a32944de9535b5b2f1e4636"
+    },
+    "09-long-context-retrieval": {
+      "budget_sha256": "7b210e2e5ff68c28451d5b77c3981ddcdd87f83da4f7dfdfd734a258f91a8d25",
+      "files": 4,
+      "tree_sha256": "d2923ff48cd30a7b060630225f515752cfdc8e7fed807a9680308ca9ea928521"
+    },
+    "10-multifile-refactor": {
+      "budget_sha256": "1c405207765a48e3d853cbdee980279efcfcaef0161736e2f951a225dfe3b078",
+      "files": 10,
+      "tree_sha256": "13a6eccd49ae2aa6667a2320eee3f953908a0d62685aa5deb02a88d1dee58b9a"
+    },
+    "11-correction-handling": {
+      "budget_sha256": "d9e9bba6af60182ac1270f6a6b8564d9238f14499708a09ae5ec7098e86e3caf",
+      "files": 4,
+      "tree_sha256": "51d4afdae080593b5a8c197deb0a5e56b9d9484c429bebd39d694ba6a66b8282"
+    },
+    "12-long-chain": {
+      "budget_sha256": "2d247de2f2408a300c21839a61400e1a1dcd0a4816899bd93e5206c9b0643732",
+      "files": 15,
+      "tree_sha256": "b2cd41847c1cda7373a2f0ddd3060e3c2f6ba45051d9a9d425725904baa7fe31"
+    },
+    "13-constraint-stack": {
+      "budget_sha256": "ef7860420d4b3e12ed9011e2dcf33c6b4020e1006b661f59c682b17f0a8928de",
+      "files": 6,
+      "tree_sha256": "f6389451e6914d349390c99a2db3907d235096f1583e6d3528212959ce42e5e0"
+    },
+    "14-schema-repair-2turn": {
+      "budget_sha256": "b201951a1bb9e96220460115f8231d8d03095b78c0f8d3148566f942ad39af87",
+      "files": 5,
+      "tree_sha256": "eedf7a4f25ceef32f1a418726a65710346e9d076da69eed375f4fe6f869aa640"
+    },
+    "15-dependency-chain-5": {
+      "budget_sha256": "ecb8ba62d2053f2e6e59e0821924fe51d8cfe84d4666970c76ba6ede2e1d4a35",
+      "files": 9,
+      "tree_sha256": "782b3efd2fe1671b47446f437bd988de986ddcf9db4d88ee37965b09f2ba4f44"
+    },
+    "16-stateful-undo": {
+      "budget_sha256": "5a16a6bd819f6148c90a61d5bfce3b61c54d3d8c328a95ed0b83d62e59df58eb",
+      "files": 3,
+      "tree_sha256": "2ecc7739ca85581ac51b82e91199540bf692b4028e9a53edfcd30d8a6e5cccd3"
+    },
+    "17-parallel-tool-coordination": {
+      "budget_sha256": "ef7860420d4b3e12ed9011e2dcf33c6b4020e1006b661f59c682b17f0a8928de",
+      "files": 6,
+      "tree_sha256": "b65ff8d9b30393eded8185d3ac8ef1c048e958614a36eea656622332400de9d2"
+    },
+    "18-needle-haystack-agentic": {
+      "budget_sha256": "a7dd4d993c407de486b983b13d3003b0a37880e3ed29045841428f108c0811d4",
+      "files": 5,
+      "tree_sha256": "5d79ea7ec3da6356050b069a2e92d98b7c1c42396823bd86c9acdf4f0f1deecd"
+    }
+  }
+}
