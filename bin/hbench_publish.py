@@ -58,7 +58,11 @@ from typing import Any, Iterable
 
 SCHEMA_VERSION = 1
 
-ROOT = Path(os.environ.get("HBENCH_ROOT", "/root/hermes-bench"))
+# The tree this file is in, so a clone measures its own tasks and writes its own runs. A
+# hard-coded default silently measured this workstation's tree from a clone two directories
+# away and wrote the results outside the checkout, which made a clean-clone acceptance run
+# evidence about the wrong instrument. HBENCH_ROOT still overrides it deliberately.
+ROOT = Path(os.environ.get("HBENCH_ROOT") or Path(__file__).resolve().parent.parent)
 # Where the run being published is read from. Normally the tree under ROOT, but a series can be
 # measured under a different HBENCH_ROOT (the local-model lanes run from /mnt/fast/hbench-local
 # so their work trees sit on the NVMe). Publication is always into this gate's own tree, which

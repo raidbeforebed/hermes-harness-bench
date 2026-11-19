@@ -55,7 +55,11 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(os.environ.get("HBENCH_ROOT", "/root/hermes-bench"))
+# The tree this file is in, so a clone measures its own tasks and writes its own runs. A
+# hard-coded default silently measured this workstation's tree from a clone two directories
+# away and wrote the results outside the checkout, which made a clean-clone acceptance run
+# evidence about the wrong instrument. HBENCH_ROOT still overrides it deliberately.
+ROOT = Path(os.environ.get("HBENCH_ROOT") or Path(__file__).resolve().parent.parent)
 TASKS_DIR = ROOT / "tasks"
 RUNS_DIR = ROOT / "runs"
 # A grader assertion that passes on an untouched fixture is not evidence that the model did
